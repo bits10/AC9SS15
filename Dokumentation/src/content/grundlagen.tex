@@ -1,29 +1,23 @@
 \chapter{Grundlagen}
+%http://samurai1967.dyndns.org/avr-net-io.html
+%http://www.fhemwiki.de/wiki/AVR-NET-IO
+%http://www.mikrocontroller.net/articles/AVR_Net-IO_Bausatz_von_Pollin
+\section{AVR Net-IO-Board}
+\begin{figure}[h]
+\centering
+\includegraphics[width=10cm]{content/pictures/avr-net-io.jpg}
+\caption{AVR-NET-IO - Pollin GmbH}
+%http://www.pollin.de/shop/dt/MTQ5OTgxOTk-/Bausaetze_Module/Bausaetze/Bausatz_AVR_NET_IO.html
+\label{fig:B3}
+\end{figure}
 
-Bevor wir mit dem eigentlichen Projekt beginnen konnten, 
-mussten wir zuerst einmal Grundlagenforschung betreiben.
-Als Problem tat sich heraus, das einige Team Mitglieder
-noch sehr unerfahren in der Welt der Microcontroller war.
-
-Nachdem wir in der ersten Besprechung die eigentliche Platine bekommen hatten,
-konnte die erste Einarbeitung in den Controller beginnen.
-Die Anfangsschwierigkeit lag darin, mit den angaben klar zu kommen 
-und welche ein und Ausgänge wie benutzt werden konnten, mit der 
-standardmäßig beigelegten Software.
-
-Als erstes Problem trat auf, das wir nicht die richtigen für die
-Entwicklung benötigten Geräte besaßen.
-So hatten wir zwar einen \textbf{In-System-Programmer} (ISP) zum 
-Anschluss der Platine an den PC doch war bei diesem Entwicklungswerkzeug
-die falsche Pinbelegung vorhanden.
-
-Doch hier konnten einige Anleitungen im Internet Abhilfe schaffen
-
-Des weiteren muss neben dem Controller noch weiteres Zubehör angeschafft werden,
-damit das Projekt ausreichend getestet werden kann.
-
-Beim AVR-NET-IO sind die Digitalen ein und Ausgänge nur über den 25-Pin seriellen Eingang zu erreichen.
-Deswegen wurde ein Bausatz angefordert, den wir auch umgehend von Herrn Schellhammer erhalten haben.
-Mit diesem Bausatz können die digitalen Ausgänge direkt mit den Klemmen belegt werden.
-
+\subsection{Technische Daten}
+\begin{itemize}
+  \item Betriebsspanne 9V
+  \item Stromaufnahme ca. 190 mA
+  \item 8 Digitale Ausgänge, 4 Digitale Eingänge
+  \item 4 Analoge Eingänge
+  \item ATmega32 Mikrocontroller
+  \item integrierte ISP-Schnittstelle
+\end{itemize}
 
