@@ -1,5 +1,6 @@
 ﻿Embedded-Webserver
 ==================
-Ein Embedded Webserver für das
+Ein stabiler Embedded Webserver für das
 AVR-NET-IO-Board von Atmel
-Umgesetzt als Semesterprojekt der AIB/CNB Studenten der Fachhochschule Furtwangen
+Umgesetzt als Semesterprojekt der stabilen AIB/CNB Studenten der überaus stabilen Fachhochschule Furtwangen
+
