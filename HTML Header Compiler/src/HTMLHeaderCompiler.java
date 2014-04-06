@@ -5,15 +5,12 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sampullara.cli.Args;
 import com.sampullara.cli.Argument;
 
-
-public class hhc implements FilenameFilter {
+public class HTMLHeaderCompiler implements FilenameFilter {
 
 	@Argument(value="input", alias="in", required=true)
 	private String rootDirectory;
@@ -21,18 +18,12 @@ public class hhc implements FilenameFilter {
 	private String outputFilePath;
 	private String fileEnd = "%END";
 	private long totalWebpageSize = 0;
-	
-	public static void main(String[] args) {
-		try {
-			hhc h = new hhc();
-			Args.parse(h, args);
-			h.compile();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public void compile() throws IOException {
+		
+		System.out.println("HTML Header Compiler 0.1");
+		System.out.println("===========");
+
 		List<File> webpageFiles = this.listFilesInRoot();
 
 		File outputFile = new File(outputFilePath);
@@ -55,6 +46,7 @@ public class hhc implements FilenameFilter {
 		outputWriter.flush();
 		outputWriter.close();
 
+		System.out.println("===========");
 		System.out.println("Compiled \"" + this.rootDirectory + "\" to \"" + outputFile.getAbsolutePath() + "\".") ;
 		System.out.println("Total webpage size: " + this.totalWebpageSize + " Bytes / " + (this.totalWebpageSize / 1000) + " Kilobyte");
 
@@ -98,65 +90,67 @@ public class hhc implements FilenameFilter {
 		int readValue = 0;
 		BufferedInputStream input = new BufferedInputStream(new FileInputStream(f));
 
+		System.out.println("Processing \"" + this.getRelativePathFromRoot(f) + "\"...");
+		
 		//Einlesen
 		while( (readValue = input.read()) >= 0) {
 			buffer[index++] = (char) readValue;
-			
+
 			if(buffer[index-1] != readValue)
 				System.out.println(readValue + " -> " + buffer[index-1]);
 		}
 
 		for(int i=buffer.length-this.fileEnd.length(); i<buffer.length; i++)
 			buffer[i] = (char) this.fileEnd.charAt(i-buffer.length+this.fileEnd.length());
-		
+
 		//Optimieren
 		if(f.getName().endsWith(".html") || f.getName().endsWith(".htm") 
 				|| f.getName().endsWith(".js") || f.getName().endsWith(".css")) {
 			String s = new String(buffer);
 			buffer = null;
-			
+
 			s = s.replaceAll("\n", "");
 			s = s.replaceAll("\r", "");
 			s = s.replaceAll("\t", "");
 			s = s.replaceAll("\\s{2,}", " ");
-			
+
 			if(f.getName().endsWith(".html") || f.getName().endsWith(".htm")) {
 				s = s.replaceAll("<!--(.*?)-->", "");
-				
+
 			} else if(f.getName().endsWith(".js")) {
 				s = s.replaceAll("/\\*(.*?)\\*/", "");
 				s = s.replaceAll("//(.*?)$", "");
-				
+
 			} else if(f.getName().endsWith(".css")) {
 				s = s.replaceAll("/\\*(.*?)\\*/", "");
-				
+
 			}
-						
+
 			buffer = new char[s.length()];
 			s.getChars(0, s.length(), buffer, 0); 
 		}
-		
+
 		//Ausgeben
 		outputWriter.write("//" + this.createFieldNameForId(id) + ": " 
 				+ this.getRelativePathFromRoot(f)
 				+ " (" + buffer.length + " Bytes, " + f.length() + " Bytes in file)");
 		outputWriter.newLine();
 		outputWriter.write("const PROGMEM char " + this.createFieldNameForId(id) + "[] = {");
-		
+
 		for(int i=0; i<buffer.length; i++) {
 			if(i%16 == 0) {
 				outputWriter.newLine();
 				outputWriter.write(this.tab());
 			}
-			
+
 			outputWriter.write(this.getHexString(buffer[i]));
-			
+
 			if(i < buffer.length-1)
 				outputWriter.write(", ");
 		}
-		
+
 		this.totalWebpageSize += buffer.length;
-		
+
 		input.close();
 		outputWriter.write("}");
 		outputWriter.newLine();
