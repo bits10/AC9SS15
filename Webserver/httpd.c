@@ -1,4 +1,4 @@
-/*----------------------------------------------------------------------------
+Ôªø/*----------------------------------------------------------------------------
  Copyright:      Radig Ulrich  mailto: mail@ulrichradig.de
  Author:         Radig Ulrich
  Remarks:        
@@ -6,15 +6,15 @@
  Version:        24.10.2007
  Description:    Webserver Applikation
 
- Dieses Programm ist freie Software. Sie kˆnnen es unter den Bedingungen der 
- GNU General Public License, wie von der Free Software Foundation verˆffentlicht, 
- weitergeben und/oder modifizieren, entweder gem‰ﬂ Version 2 der Lizenz oder 
- (nach Ihrer Option) jeder sp‰teren Version. 
+ Dieses Programm ist freie Software. Sie k√∂nnen es unter den Bedingungen der 
+ GNU General Public License, wie von der Free Software Foundation ver√∂ffentlicht, 
+ weitergeben und/oder modifizieren, entweder gem√§√ü Version 2 der Lizenz oder 
+ (nach Ihrer Option) jeder sp√§teren Version. 
 
- Die Verˆffentlichung dieses Programms erfolgt in der Hoffnung, 
- daﬂ es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, 
+ Die Ver√∂ffentlichung dieses Programms erfolgt in der Hoffnung, 
+ da√ü es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, 
  sogar ohne die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT 
- F‹R EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License. 
+ F√úR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License. 
 
  Sie sollten eine Kopie der GNU General Public License zusammen mit diesem 
  Programm erhalten haben. 
@@ -56,7 +56,7 @@ unsigned char PORT_tmp = 0;
 char dstr[24]={"No Time...             "};
 
 //----------------------------------------------------------------------------
-//Variablenarry zum einf¸gen in Webseite %VA@00 bis %VA@09
+//Variablenarry zum einf√ºgen in Webseite %VA@00 bis %VA@09
 unsigned int var_array[MAX_VAR_ARRAY] = {10,50,30,0,0,0,0,0,0,0};
 //----------------------------------------------------------------------------
 
@@ -116,8 +116,8 @@ void httpd (unsigned char index)
         return;
     }
 
-	//Allererste Aufruf des Ports f¸r diese Anwendung
-	//HTTPD_Anwendungsstack lˆschen
+	//Allererste Aufruf des Ports f√ºr diese Anwendung
+	//HTTPD_Anwendungsstack l√∂schen
 	if(tcp_entry[index].app_status==1)
 	{
 		httpd_stack_clear(index);
@@ -131,8 +131,8 @@ void httpd (unsigned char index)
 		return;
 	}
 	
-	//Der Header wurde gesendet und mit ACK best‰tigt (tcp_entry[index].app_status+1)
-	//war das HTML Packet fertig, oder m¸ssen weitere Daten gesendet werden, oder Retransmission?
+	//Der Header wurde gesendet und mit ACK best√§tigt (tcp_entry[index].app_status+1)
+	//war das HTML Packet fertig, oder m√ºssen weitere Daten gesendet werden, oder Retransmission?
 	if (tcp_entry[index].app_status > 2 && tcp_entry[index].app_status < 0xFFFE && tcp_entry[index].status == ACK_FLAG)
 	{
 		httpd_data_send (index);
@@ -151,7 +151,7 @@ void httpd (unsigned char index)
 }
 
 //----------------------------------------------------------------------------
-//HTTPD_STACK lˆschen
+//HTTPD_STACK l√∂schen
 void httpd_stack_clear (unsigned char index)
 {
 	http_entry[index].http_header_type = TEXT_HTML;
@@ -182,7 +182,7 @@ void httpd_header_check (unsigned char index)
 		http_entry[index].post = 1;
 		}
 	
-	//finden der Authorization und das Ende im Header auch ¸ber mehrere Packete hinweg!!	
+	//finden der Authorization und das Ende im Header auch √ºber mehrere Packete hinweg!!	
 	if(*http_entry[index].hdr_end_pointer != 0)
 	{		
 		for(a=TCP_DATA_START_VAR;a<(TCP_DATA_END_VAR);a++)
@@ -219,7 +219,7 @@ void httpd_header_check (unsigned char index)
 	/*
 	 * Hier findet die Asuwertung der POST-Methoden statt
 	 * Bsp. Header Payload: OUT=B&OUT=C&SUB=Senden
-	 * Wenn OUT=B wird der Pin gesetzt (PortAPin1), ansonsten gelöscht
+	 * Wenn OUT=B wird der Pin gesetzt (PortAPin1), ansonsten gel√∂scht
 	 */
 	 
 	//Einzelne Postpacket (z.B. bei firefox)
@@ -258,7 +258,7 @@ void httpd_header_check (unsigned char index)
 				//Schaltanweisung wurde gefunden
 			}
 		
-			//Submit schlieﬂt die suche ab!
+			//Submit schlie√üt die suche ab!
 			if (eth_buffer[a] != *http_entry[index].post_ready_ptr++)
 			{
 				http_entry[index].post_ready_ptr = post_ready;
@@ -334,10 +334,10 @@ void httpd_header_check (unsigned char index)
 	}
 
 	//Wurde das Ende vom Header nicht erreicht
-	//kommen noch weitere St¸cke vom Header!
+	//kommen noch weitere St√ºcke vom Header!
 	if ((*http_entry[index].hdr_end_pointer != 0) || (http_entry[index].post == 1))
 	{
-		//Der Empfang wird Quitiert und es wird auf weiteres Headerst¸ck gewartet
+		//Der Empfang wird Quitiert und es wird auf weiteres Headerst√ºck gewartet
 		tcp_entry[index].status =  ACK_FLAG;
 		create_new_tcp_packet(0,index);
 		//Warten auf weitere Headerpackete
@@ -346,7 +346,7 @@ void httpd_header_check (unsigned char index)
 	}	
 	
 	//Wurde das Passwort in den ganzen Headerpacketen gefunden?
-	//Wenn nicht dann ausf¸hren und Passwort anfordern!
+	//Wenn nicht dann ausf√ºhren und Passwort anfordern!
 	if((!http_entry[index].http_auth) && tcp_entry[index].status&PSH_FLAG)
 	{	
 		//HTTP_AUTH_Header senden!
@@ -463,13 +463,13 @@ void httpd_data_send (unsigned char index)
 		b = pgm_read_byte(http_entry[index].new_page_pointer++);
 		eth_buffer[TCP_DATA_START + a] = b;
 		
-		//M¸ssen Variablen ins Packet eingesetzt werden? ===> %VA@00 bis %VA@09
+		//M√ºssen Variablen ins Packet eingesetzt werden? ===> %VA@00 bis %VA@09
 		if (b == '%')
 		{
 			if (strncasecmp_P("VA@",http_entry[index].new_page_pointer,3)==0)
 			{	
 				/*
-				 * Kryptische Berechnug der Balkenlängen auf basis der Werte der AD-Wandler -> müssen wir kapieren
+				 * Kryptische Berechnug der Balkenl√§ngen auf basis der Werte der AD-Wandler -> m√ºssen wir kapieren
 				 */
 				b = (pgm_read_byte(http_entry[index].new_page_pointer+3)-48)*10;
 				b +=(pgm_read_byte(http_entry[index].new_page_pointer+4)-48);	
@@ -484,7 +484,7 @@ void httpd_data_send (unsigned char index)
 			 * Hier wird die Zeit eingesetzet, wird nur von status.htm genutzt
 			 */
             #if USE_NTP
-            //Zeit in Webseite einf¸gen
+            //Zeit in Webseite einf√ºgen
             if (strncasecmp_P("TIME",http_entry[index].new_page_pointer,4)==0)
             {
                 if (ntp_state == NTP_STATE_REQ_ERR)
@@ -505,7 +505,7 @@ void httpd_data_send (unsigned char index)
             #endif
             
             /*
-             * Hier werden die Checboxes für das Formular gesetzet (durch einfügen von "checked")
+             * Hier werden die Checboxes f√ºr das Formular gesetzet (durch einf√ºgen von "checked")
              */
 			//Einsetzen des Port Status %PORTxy durch "checked" wenn Portx.Piny = 1
 			//x: A..G  y: 0..7 
@@ -582,7 +582,7 @@ void httpd_data_send (unsigned char index)
 				http_entry[index].new_page_pointer = http_entry[index].new_page_pointer+5;
 			}
 			//wurde das Ende des Packetes erreicht?
-			//Verbindung TCP Port kann beim n‰chsten ACK geschlossen werden
+			//Verbindung TCP Port kann beim n√§chsten ACK geschlossen werden
 			//Schleife wird abgebrochen keine Daten mehr!!
 			if (strncasecmp_P("END",http_entry[index].new_page_pointer,3)==0)
 			{	
