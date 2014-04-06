@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------------------
+Ôªø/*------------------------------------------------------------------------------
  Copyright:      Radig Ulrich  mailto: mail@ulrichradig.de
  Author:         Radig Ulrich
  Remarks:        
@@ -6,15 +6,15 @@
  Version:        24.10.2007
  Description:    Commando Interpreter
 
- Dieses Programm ist freie Software. Sie kˆnnen es unter den Bedingungen der 
- GNU General Public License, wie von der Free Software Foundation verˆffentlicht, 
- weitergeben und/oder modifizieren, entweder gem‰ﬂ Version 2 der Lizenz oder 
- (nach Ihrer Option) jeder sp‰teren Version. 
+ Dieses Programm ist freie Software. Sie k√∂nnen es unter den Bedingungen der 
+ GNU General Public License, wie von der Free Software Foundation ver√∂ffentlicht, 
+ weitergeben und/oder modifizieren, entweder gem√§√ü Version 2 der Lizenz oder 
+ (nach Ihrer Option) jeder sp√§teren Version. 
 
- Die Verˆffentlichung dieses Programms erfolgt in der Hoffnung, 
- daﬂ es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, 
+ Die Ver√∂ffentlichung dieses Programms erfolgt in der Hoffnung, 
+ da√ü es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, 
  sogar ohne die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT 
- F‹R EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License. 
+ F√úR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License. 
 
  Sie sollten eine Kopie der GNU General Public License zusammen mit diesem 
  Programm erhalten haben. 
@@ -118,13 +118,13 @@ unsigned char extract_cmd (char *string_pointer)
 		variable[a] = strtol(string_pointer_tmp,NULL,0);
 	}
 
-    //Kommando ausf¸hren
+    //Kommando ausf√ºhren
 	COMMAND_TABELLE[cmd_index].fp();
 	return(1); 
 }
 
 //------------------------------------------------------------------------------
-//Reset ausf¸hren
+//Reset ausf√ºhren
 void command_reset (void)
 {
 	RESET();
@@ -247,7 +247,7 @@ void command_tcp (void)
 }
 
 //------------------------------------------------------------------------------
-//‰ndern einer Variable
+//√§ndern einer Variable
 void command_setvar (void)
 {
 	var_array[variable[0]] = variable[1];
@@ -296,7 +296,7 @@ void command_wol (void)
 			eeprom_busy_wait ();
 			eeprom_write_byte((unsigned char *)(WOL_MAC_EEPROM_STORE + count),variable[count]);
 		}
-		//zus‰tzlich schreiben der Broadcast-Adresse, falls vorhandenden
+		//zus√§tzlich schreiben der Broadcast-Adresse, falls vorhandenden
 		for (unsigned char count = 0; count<4 && (*((unsigned int*)&variable[6]) != 0x00000000);count++)
 		{
 			eeprom_busy_wait ();

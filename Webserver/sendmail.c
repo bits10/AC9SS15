@@ -1,4 +1,4 @@
-/*----------------------------------------------------------------------------
+ï»¿/*----------------------------------------------------------------------------
  Copyright:      Radig Ulrich  mailto: mail@ulrichradig.de
  Author:         Radig Ulrich
  Remarks:        
@@ -6,15 +6,15 @@
  Version:        20.04.2008
  Description:    Send MAIL Client
  
- Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
- GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
- weitergeben und/oder modifizieren, entweder gemäß Version 2 der Lizenz oder 
- (nach Ihrer Option) jeder späteren Version. 
+ Dieses Programm ist freie Software. Sie kÃ¶nnen es unter den Bedingungen der 
+ GNU General Public License, wie von der Free Software Foundation verÃ¶ffentlicht, 
+ weitergeben und/oder modifizieren, entweder gemÃ¤ÃŸ Version 2 der Lizenz oder 
+ (nach Ihrer Option) jeder spÃ¤teren Version. 
 
- Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, 
- daß es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, 
+ Die VerÃ¶ffentlichung dieses Programms erfolgt in der Hoffnung, 
+ daÃŸ es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, 
  sogar ohne die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT 
- FÜR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License. 
+ FÃœR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License. 
 
  Sie sollten eine Kopie der GNU General Public License zusammen mit diesem 
  Programm erhalten haben. 
@@ -242,7 +242,7 @@ unsigned char mail_send (void)
 {
 	if(mail_get == 0) //Falls nicht derzeit bereits eine Mail gesendet wird
 	{
-		//öffnet eine Verbindung zu einem EMAIL-Server
+		//Ã¶ffnet eine Verbindung zu einem EMAIL-Server
 		MAIL_DEBUG("Send E-Mail (Sie haben Post ;-)\n\r");
 		
 		unsigned int my_mail_cp_new = my_mail_cp + time;

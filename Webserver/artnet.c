@@ -1,20 +1,20 @@
-/*----------------------------------------------------------------------------
+ï»¿/*----------------------------------------------------------------------------
  Copyright:      Stefan Krupop  mailto: mail@stefankrupop.de
  Author:         Stefan Krupop
  Remarks:        
  known Problems: none
  Version:        17.01.2009
- Description:    Implementation des ArtNet-Protokolls für DMX-Übertragung über Ethernet
+ Description:    Implementation des ArtNet-Protokolls fÃ¼r DMX-Ãœbertragung Ã¼ber Ethernet
 
- Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
- GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
- weitergeben und/oder modifizieren, entweder gemäß Version 2 der Lizenz oder 
- (nach Ihrer Option) jeder späteren Version. 
+ Dieses Programm ist freie Software. Sie kÃ¶nnen es unter den Bedingungen der 
+ GNU General Public License, wie von der Free Software Foundation verÃ¶ffentlicht, 
+ weitergeben und/oder modifizieren, entweder gemÃ¤ÃŸ Version 2 der Lizenz oder 
+ (nach Ihrer Option) jeder spÃ¤teren Version. 
 
- Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, 
- daß es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, 
+ Die VerÃ¶ffentlichung dieses Programms erfolgt in der Hoffnung, 
+ daÃŸ es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, 
  sogar ohne die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT 
- FÜR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License. 
+ FÃœR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License. 
 
  Sie sollten eine Kopie der GNU General Public License zusammen mit diesem 
  Programm erhalten haben. 

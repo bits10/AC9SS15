@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------------------
+ï»¿/*------------------------------------------------------------------------------
  Copyright:      Radig Ulrich  mailto: mail@ulrichradig.de
  Author:         Radig Ulrich
  Remarks:        
@@ -7,7 +7,7 @@
  Description:    Programm zur Ansteuerung eines Standart LCD
 				 (HD44870),(SED1278F) und kompatible
 
-Addons :  USE_LCD_4Bit wird zur Ansteuerung für Paraell Ansteuerung benutzt (Ralf Figge)
+Addons :  USE_LCD_4Bit wird zur Ansteuerung fÃ¼r Paraell Ansteuerung benutzt (Ralf Figge)
 
 ------------------------------------------------------------------------------*/
 
@@ -45,9 +45,9 @@ Addons :  USE_LCD_4Bit wird zur Ansteuerung für Paraell Ansteuerung benutzt (Ral
 	#define LCD_Port_Write			PORTC
 	#define LCD_Port_Read			PINC
 
-	#define LCD_RS					4 		//Pin für RS
-	#define LCD_RW					5		//Pin für Read/Write
-	#define LCD_E					6 		//Pin für Enable
+	#define LCD_RS					4 		//Pin fÃ¼r RS
+	#define LCD_RW					5		//Pin fÃ¼r Read/Write
+	#define LCD_E					6 		//Pin fÃ¼r Enable
 
 	#define LCD_DataOutput			0x0f
 	#define LCD_DataInput			0x00

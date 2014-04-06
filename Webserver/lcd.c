@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------------------
+ï»¿/*------------------------------------------------------------------------------
  Copyright:      Radig Ulrich  mailto: mail@ulrichradig.de
  Author:         Radig Ulrich
  Remarks:        
@@ -6,7 +6,7 @@
  Version:        22.11.2007
  Description:    Programm zur Ansteuerung eines Standart LCD
 				 (HD44870),(SED1278F) und kompatible
-Addons :  USE_LCD_4Bit wird zur Ansteuerung für Paraelle Ansteuerung benutzt (Ralf Figge)
+Addons :  USE_LCD_4Bit wird zur Ansteuerung fÃ¼r Paraelle Ansteuerung benutzt (Ralf Figge)
 ------------------------------------------------------------------------------*/
 
 #include "config.h"
@@ -192,7 +192,7 @@ void lcd_print_P (unsigned char zeile,unsigned char spalte,const char *Buffer,..
 	char by;
 	char *ptr;
 	
-	//Berechnet Adresse für die Zeile und schreibt sie ins DD-Ram
+	//Berechnet Adresse fÃ¼r die Zeile und schreibt sie ins DD-Ram
 	zeile = LINE_ADDRESS[zeile];
 	zeile += spalte;
 	lcd_write(zeile,0);
