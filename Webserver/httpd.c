@@ -216,6 +216,12 @@ void httpd_header_check (unsigned char index)
 		}
 	}
 	
+	/*
+	 * Hier findet die Asuwertung der POST-Methoden statt
+	 * Bsp. Header Payload: OUT=B&OUT=C&SUB=Senden
+	 * Wenn OUT=B wird der Pin gesetzt (PortAPin1), ansonsten gelöscht
+	 */
+	 
 	//Einzelne Postpacket (z.B. bei firefox)
 	if(http_entry[index].http_auth && http_entry[index].post == 1)
 	{
@@ -462,6 +468,9 @@ void httpd_data_send (unsigned char index)
 		{
 			if (strncasecmp_P("VA@",http_entry[index].new_page_pointer,3)==0)
 			{	
+				/*
+				 * Kryptische Berechnug der Balkenlängen auf basis der Werte der AD-Wandler -> müssen wir kapieren
+				 */
 				b = (pgm_read_byte(http_entry[index].new_page_pointer+3)-48)*10;
 				b +=(pgm_read_byte(http_entry[index].new_page_pointer+4)-48);	
 				itoa (var_array[b],var_conversion_buffer,10);
@@ -471,6 +480,9 @@ void httpd_data_send (unsigned char index)
 				http_entry[index].new_page_pointer=http_entry[index].new_page_pointer+5;
 			}
 			
+			/*
+			 * Hier wird die Zeit eingesetzet, wird nur von status.htm genutzt
+			 */
             #if USE_NTP
             //Zeit in Webseite einf¸gen
             if (strncasecmp_P("TIME",http_entry[index].new_page_pointer,4)==0)
@@ -492,6 +504,9 @@ void httpd_data_send (unsigned char index)
             }
             #endif
             
+            /*
+             * Hier werden die Checboxes für das Formular gesetzet (durch einfügen von "checked")
+             */
 			//Einsetzen des Port Status %PORTxy durch "checked" wenn Portx.Piny = 1
 			//x: A..G  y: 0..7 
 			if (strncasecmp_P("PORT",http_entry[index].new_page_pointer,4)==0)
@@ -528,6 +543,9 @@ void httpd_data_send (unsigned char index)
 				http_entry[index].new_page_pointer = http_entry[index].new_page_pointer+6;
 			}
 			
+			/*
+			 * Hier werden die led_on.gif oder led_off.gif eingesetzet
+			 */
 			//Einsetzen des Pin Status %PI@xy bis %PI@xy durch "ledon" oder "ledoff"
 			//x = 0 : PINA / x = 1 : PINB / x = 2 : PINC / x = 3 : PIND
 			if (strncasecmp_P("PIN",http_entry[index].new_page_pointer,3)==0)

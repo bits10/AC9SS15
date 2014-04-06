@@ -101,7 +101,7 @@ void stack_init (void)
     //DNS-Server IP aus EEPROM auslesen
     (*((unsigned long*)&dns_server_ip[0])) = get_eeprom_value(DNS_IP_EEPROM_STORE,DNS_IP);
     #endif
-   
+  
 	//MAC Adresse setzen
 	mymac[0] = MYMAC1;
     mymac[1] = MYMAC2;

@@ -48,7 +48,7 @@
 	#define IP(a,b,c,d) ((unsigned long)(d)<<24)+((unsigned long)(c)<<16)+((unsigned long)(b)<<8)+a
 
 	//IP des Webservers und des Routers
-	#define MYIP		IP(192,168,2,5)
+	#define MYIP		IP(192,168,2,6)
     #define ROUTER_IP	IP(192,168,2,1)
 
 	//Netzwerkmaske
@@ -96,13 +96,17 @@
 	#define BAUDRATE 9600
 	
 	//LCD Routinen mit einbinden
-	#define USE_SER_LCD		0 
+	#define USE_SER_LCD		0
 	//LCD im 4Bit Mode oder seriell
 	#define USE_LCD_4Bit	0
 
 	//AD-Wandler benutzen?
 	#define USE_ADC			0
 
+	//Kamera mit einbinden
+	//Kamera arbeitet nur mit einem 14,7456Mhz Quarz!
+	#define USE_CAM			0
+	#define USE_SERVO		0
 	//In cam.c können weitere Parameter eingestellt werde
 	//z.B. Licht, Kompression usw.
 	//Auflösungen

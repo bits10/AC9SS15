@@ -1,3 +1,7 @@
+
+Debug/
+Release/
+
 *.acn
 *.acr
 *.alg
