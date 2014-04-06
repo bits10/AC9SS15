@@ -33,9 +33,9 @@
 //Dazustellende Webseite
 
 const PROGMEM char Page1[] = {
-	"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\r\n"
+	"<!DOCTYPE html>\r\n"
 	"<html><head>\r\n"
-	"<meta http-equiv=\"content-type\" content=\"text/html; charset=ISO-8859-1\">\r\n"
+	"<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">\r\n"
 	"<title>AVR mini Webserver : Home</title>\r\n"
 	
 	"<link rel=\"stylesheet\" type=\"text/css\"  href=\"styles.css\">"
