@@ -9,24 +9,30 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sampullara.cli.Args;
+import com.sampullara.cli.Argument;
 
-public class Main implements FilenameFilter {
 
+public class hhc implements FilenameFilter {
 
-	private String rootDirectory = "/Users/chrwuer/Desktop/Radig Webseite";
-	private String outputFilePath = "/Users/chrwuer/Desktop/webpage.h";
+	@Argument(value="input", alias="in", required=true)
+	private String rootDirectory;
+	@Argument(value="output", alias="out", required=true)
+	private String outputFilePath;
 	private String fileEnd = "%END";
 	private long totalWebpageSize = 0;
 	
 	public static void main(String[] args) {
 		try {
-			new Main();
+			hhc h = new hhc();
+			Args.parse(h, args);
+			h.compile();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public Main() throws IOException {
+	public void compile() throws IOException {
 		List<File> webpageFiles = this.listFilesInRoot();
 
 		File outputFile = new File(outputFilePath);
@@ -49,7 +55,9 @@ public class Main implements FilenameFilter {
 		outputWriter.flush();
 		outputWriter.close();
 
-		System.out.println("Done.");
+		System.out.println("Compiled \"" + this.rootDirectory + "\" to \"" + outputFile.getAbsolutePath() + "\".") ;
+		System.out.println("Total webpage size: " + this.totalWebpageSize + " Bytes / " + (this.totalWebpageSize / 1000) + " Kilobyte");
+
 	}
 
 	private List<File> listFilesInRoot() {
