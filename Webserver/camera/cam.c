@@ -1,4 +1,4 @@
-/*----------------------------------------------------------------------------
+ï»¿/*----------------------------------------------------------------------------
  Copyright:      Radig Ulrich  mailto: mail@ulrichradig.de
  Author:         Radig Ulrich
  Remarks:        
@@ -26,7 +26,7 @@ volatile unsigned char cam_cmd_buffer[CMD_BUFFER_SIZE];
 volatile unsigned char cam_dat_buffer[DAT_BUFFER_SIZE];
 
 //----------------------------------------------------------------------------
-//Routine für die Serielle Ausgabe eines Zeichens (Schnittstelle)
+//Routine fÃ¼r die Serielle Ausgabe eines Zeichens (Schnittstelle)
 void cam_uart_write_char(char c)
 {
 	//Warten solange bis Zeichen gesendet wurde
@@ -97,17 +97,17 @@ unsigned long cam_picture_store (char mode)
 	cam_command_send (0x18,0x01,0x00,0x00,0x00);
 	cam_command_send (0x17,0x00,0x00,0x00,0x00);
 	cam_command_send (0x21,0x03,0x00,0x00,0x00);
-	//Auflösung 160x120
+	//AuflÃ¶sung 160x120
 	if (mode == 0)
 	{
 		cam_command_send (0x01,0x01,0x07,0x09,0x03);
 	}
-	//Auflösung 320x240
+	//AuflÃ¶sung 320x240
 	if (mode == 1)
 	{
 		cam_command_send (0x01,0x01,0x07,0x09,0x05);
 	}
-	//Auflösung 640x480
+	//AuflÃ¶sung 640x480
 	if (mode == 2)
 	{
 		cam_command_send (0x01,0x01,0x07,0x09,0x07);

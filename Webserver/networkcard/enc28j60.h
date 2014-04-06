@@ -1,4 +1,4 @@
-#ifndef _ENC28J60_H_
+﻿#ifndef _ENC28J60_H_
 #define _ENC28J60_H_
 
 #include <stdio.h>
@@ -46,7 +46,7 @@
 	#define ENC_DDR                 DDRB
 	#define ENC_PORT                PORTB
 	#define ENC_PIN                 PINB
-	#define ENC_CS                  4		//4 f�r Pollin NET I/O Board
+	#define ENC_CS                  4		//4 für Pollin NET I/O Board
 	#define ENC_INT                 2
 
 	#define enc_select()            ENC_PORT &= ~(1<<ENC_CS)

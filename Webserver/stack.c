@@ -1,4 +1,4 @@
-/*----------------------------------------------------------------------------
+ï»¿/*----------------------------------------------------------------------------
  Copyright:      Radig Ulrich  mailto: mail@ulrichradig.de
  Author:         Radig Ulrich
  Remarks:        
@@ -6,15 +6,15 @@
  Version:        24.10.2007
  Description:    Ethernet Stack
 
- Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
- GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
- weitergeben und/oder modifizieren, entweder gemäß Version 2 der Lizenz oder 
- (nach Ihrer Option) jeder späteren Version. 
+ Dieses Programm ist freie Software. Sie kÃ¶nnen es unter den Bedingungen der 
+ GNU General Public License, wie von der Free Software Foundation verÃ¶ffentlicht, 
+ weitergeben und/oder modifizieren, entweder gemÃ¤ÃŸ Version 2 der Lizenz oder 
+ (nach Ihrer Option) jeder spÃ¤teren Version. 
 
- Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, 
- daß es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, 
+ Die VerÃ¶ffentlichung dieses Programms erfolgt in der Hoffnung, 
+ daÃŸ es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, 
  sogar ohne die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT 
- FÜR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License. 
+ FÃœR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License. 
 
  Sie sollten eine Kopie der GNU General Public License zusammen mit diesem 
  Programm erhalten haben. 
@@ -83,7 +83,7 @@ unsigned long htons32(unsigned long val)
 }
 
 //----------------------------------------------------------------------------
-//Trägt Anwendung in Anwendungsliste ein
+//TrÃ¤gt Anwendung in Anwendungsliste ein
 void stack_init (void)
 {
 	//Timer starten
@@ -196,7 +196,7 @@ void arp_timer_call (void)
 }
 
 //----------------------------------------------------------------------------
-//Trägt TCP PORT/Anwendung in Anwendungsliste ein
+//TrÃ¤gt TCP PORT/Anwendung in Anwendungsliste ein
 void add_tcp_app (unsigned int port, void(*fp1)(unsigned char))
 {
 	unsigned char port_index = 0;
@@ -217,7 +217,7 @@ void add_tcp_app (unsigned int port, void(*fp1)(unsigned char))
 }
 
 //----------------------------------------------------------------------------
-//Änderung der TCP PORT/Anwendung in Anwendungsliste
+//Ã„nderung der TCP PORT/Anwendung in Anwendungsliste
 void change_port_tcp_app (unsigned int port_old, unsigned int port_new)
 {
 	unsigned char port_index = 0;
@@ -228,16 +228,16 @@ void change_port_tcp_app (unsigned int port_old, unsigned int port_new)
 	}
 	if (port_index >= MAX_APP_ENTRY)
 	{
-		DEBUG("(Portänderung) Port wurde nicht gefunden\r\n");
+		DEBUG("(PortÃ¤nderung) Port wurde nicht gefunden\r\n");
 		return;
 	}
-	DEBUG("TCP Anwendung Port ändern: Eintrag %i\r\n",port_index);
+	DEBUG("TCP Anwendung Port Ã¤ndern: Eintrag %i\r\n",port_index);
 	TCP_PORT_TABLE[port_index].port = port_new;
 	return;
 }
 
 //----------------------------------------------------------------------------
-//Trägt UDP PORT/Anwendung in Anwendungsliste ein
+//TrÃ¤gt UDP PORT/Anwendung in Anwendungsliste ein
 void add_udp_app (unsigned int port, void(*fp1)(unsigned char))
 {
 	unsigned char port_index = 0;
@@ -258,7 +258,7 @@ void add_udp_app (unsigned int port, void(*fp1)(unsigned char))
 }
 
 //----------------------------------------------------------------------------
-//Löscht UDP Anwendung aus der Anwendungsliste
+//LÃ¶scht UDP Anwendung aus der Anwendungsliste
 void kill_udp_app (unsigned int port)
 {
     unsigned char i;
@@ -545,9 +545,9 @@ void arp_reply (void)
 
     if( arp->ARP_HWType  == HTONS(0x0001)  &&             // Hardware Typ:   Ethernet
         arp->ARP_PRType  == HTONS(0x0800)  &&             // Protokoll Typ:  IP
-        arp->ARP_HWLen   == 0x06           &&             // Länge der Hardwareadresse: 6
-        arp->ARP_PRLen   == 0x04           &&             // Länge der Protokolladresse: 4 
-        arp->ARP_TIPAddr == *((unsigned long*)&myip[0])) // Für uns?
+        arp->ARP_HWLen   == 0x06           &&             // LÃ¤nge der Hardwareadresse: 6
+        arp->ARP_PRLen   == 0x04           &&             // LÃ¤nge der Protokolladresse: 4 
+        arp->ARP_TIPAddr == *((unsigned long*)&myip[0])) // FÃ¼r uns?
     {
         if (arp->ARP_Op == HTONS(0x0001) )                  // Request?
         {
@@ -681,7 +681,7 @@ void icmp_send (unsigned long dest_ip, unsigned char icmp_type,
     ip->IP_Proto      = PROT_ICMP;
     make_ip_header (eth_buffer,dest_ip);
 
-    //Berechnung der ICMP Header länge
+    //Berechnung der ICMP Header lÃ¤nge
     result16 = htons(ip->IP_Pktlen);
     result16 = result16 - ((ip->IP_Vers_Len & 0x0F) << 2);
 
@@ -717,7 +717,7 @@ unsigned int checksum (unsigned char *pointer,unsigned int result16,unsigned lon
 		result16_1 = ((DataH << 8)+DataL);
 		//Addiert packet mit vorherigen
 		result32 = result32 + result16_1;
-		//decrimiert Länge von TCP Headerschleife um 2
+		//decrimiert LÃ¤nge von TCP Headerschleife um 2
 		result16 -=2;
 	}
 
@@ -765,7 +765,7 @@ void make_ip_header (unsigned char *buffer,unsigned long dest_ip)
     ip->IP_Srcaddr     = *((unsigned long *)&myip[0]);
     ip->IP_Hdr_Cksum   = 0;
   
-    //Berechnung der IP Header länge  
+    //Berechnung der IP Header lÃ¤nge  
     result16 = (ip->IP_Vers_Len & 0x0F) << 2;
 
     //jetzt wird die Checksumme berechnet
@@ -777,7 +777,7 @@ void make_ip_header (unsigned char *buffer,unsigned long dest_ip)
 }
 
 //----------------------------------------------------------------------------
-//Diese Routine verwaltet TCP-Einträge
+//Diese Routine verwaltet TCP-EintrÃ¤ge
 void tcp_entry_add (unsigned char *buffer)
 {
     unsigned long result32;
@@ -859,13 +859,13 @@ void udp_socket_process(void)
     
 	udp = (struct UDP_Header *)&eth_buffer[UDP_OFFSET];
 
-	//UDP DestPort mit Portanwendungsliste durchführen
+	//UDP DestPort mit Portanwendungsliste durchfÃ¼hren
 	while (UDP_PORT_TABLE[port_index].port && UDP_PORT_TABLE[port_index].port!=(htons(udp->udp_DestPort)))
 	{ 
 		port_index++;
 	}
 	
-	// Wenn index zu gross, dann beenden keine vorhandene Anwendung für den Port
+	// Wenn index zu gross, dann beenden keine vorhandene Anwendung fÃ¼r den Port
 	if (!UDP_PORT_TABLE[port_index].port)
 	{ 
 		//Keine vorhandene Anwendung eingetragen! (ENDE)
@@ -873,7 +873,7 @@ void udp_socket_process(void)
 		return;
 	}
 
-	//zugehörige Anwendung ausführen
+	//zugehÃ¶rige Anwendung ausfÃ¼hren
 	UDP_PORT_TABLE[port_index].fp(0); 
 	return;
 }
@@ -900,7 +900,7 @@ void create_new_udp_packet( unsigned int  data_length,
     data_length     += UDP_HDR_LEN;                //UDP Packetlength
     udp->udp_Hdrlen = htons(data_length);
 
-    data_length     += IP_VERS_LEN;                //IP Headerlänge + UDP Headerlänge
+    data_length     += IP_VERS_LEN;                //IP HeaderlÃ¤nge + UDP HeaderlÃ¤nge
     ip->IP_Pktlen = htons(data_length);
     data_length += ETH_HDR_LEN;
     ip->IP_Proto = PROT_UDP;
@@ -908,7 +908,7 @@ void create_new_udp_packet( unsigned int  data_length,
 
     udp->udp_Chksum = 0;
   
-    //Berechnet Headerlänge und Addiert Pseudoheaderlänge 2XIP = 8
+    //Berechnet HeaderlÃ¤nge und Addiert PseudoheaderlÃ¤nge 2XIP = 8
     result16 = htons(ip->IP_Pktlen) + 8;
     result16 = result16 - ((ip->IP_Vers_Len & 0x0F) << 2);
     result32 = result16 + 0x09;
@@ -935,14 +935,14 @@ void tcp_socket_process(void)
 	struct IP_Header *ip;
 	ip = (struct IP_Header *)&eth_buffer[IP_OFFSET];
 
-	//TCP DestPort mit Portanwendungsliste durchführen
+	//TCP DestPort mit Portanwendungsliste durchfÃ¼hren
 	while (TCP_PORT_TABLE[port_index].port && TCP_PORT_TABLE[port_index].port!=(htons(tcp->TCP_DestPort)))
 	{ 
 		port_index++;
 	}
 	
-	// Wenn index zu gross, dann beenden keine vorhandene Anwendung für Port
-	//Geht von einem Client was aus? Will eine Clientanwendung einen Port öffnen?
+	// Wenn index zu gross, dann beenden keine vorhandene Anwendung fÃ¼r Port
+	//Geht von einem Client was aus? Will eine Clientanwendung einen Port Ã¶ffnen?
 	if (!TCP_PORT_TABLE[port_index].port)
 	{ 
 		//Keine vorhandene Anwendung eingetragen! (ENDE)
@@ -950,10 +950,10 @@ void tcp_socket_process(void)
 		return;
 	}	
 	
-	//Server öffnet Port
+	//Server Ã¶ffnet Port
 	if((tcp->TCP_HdrFlags & SYN_FLAG) && (tcp->TCP_HdrFlags & ACK_FLAG))
 	{	
-		//Nimmt Eintrag auf da es eine Client - Anwendung für den Port gibt
+		//Nimmt Eintrag auf da es eine Client - Anwendung fÃ¼r den Port gibt
 		tcp_entry_add (eth_buffer);
 		//War der Eintrag erfolgreich?
 		index = tcp_entry_search (ip->IP_Srcaddr,tcp->TCP_SrcPort);
@@ -964,20 +964,20 @@ void tcp_socket_process(void)
 		}
 	
 		tcp_entry[index].time = MAX_TCP_PORT_OPEN_TIME;
-		DEBUG("TCP Port wurde vom Server geöffnet STACK:%i\r\n",index);
+		DEBUG("TCP Port wurde vom Server geÃ¶ffnet STACK:%i\r\n",index);
 		result32 = htons32(tcp_entry[index].seq_counter) + 1;
 		tcp_entry[index].seq_counter = htons32(result32);
 		tcp_entry[index].status =  ACK_FLAG;
 		create_new_tcp_packet(0,index);
-		//Server Port wurde geöffnet App. kann nun daten senden!
+		//Server Port wurde geÃ¶ffnet App. kann nun daten senden!
 		tcp_entry[index].app_status = 1;
 		return;
 	}
 	
-	//Verbindungsaufbau nicht für Anwendung bestimmt
+	//Verbindungsaufbau nicht fÃ¼r Anwendung bestimmt
 	if(tcp->TCP_HdrFlags == SYN_FLAG)
 	{
-		//Nimmt Eintrag auf da es eine Server - Anwendung für den Port gibt
+		//Nimmt Eintrag auf da es eine Server - Anwendung fÃ¼r den Port gibt
 		tcp_entry_add (eth_buffer);
 		//War der Eintrag erfolgreich?
 		index = tcp_entry_search (ip->IP_Srcaddr,tcp->TCP_SrcPort);
@@ -1003,7 +1003,7 @@ void tcp_socket_process(void)
 		
 		if(tcp->TCP_HdrFlags & FIN_FLAG || tcp->TCP_HdrFlags & RST_FLAG)
 		{
-			tcp_entry_add (eth_buffer);//Temporärer Indexplatz	
+			tcp_entry_add (eth_buffer);//TemporÃ¤rer Indexplatz	
 			result32 = htons32(tcp_entry[index].seq_counter) + 1;
 			tcp_entry[index].seq_counter = htons32(result32);
 			
@@ -1013,7 +1013,7 @@ void tcp_socket_process(void)
 				create_new_tcp_packet(0,index);
 			}
 			tcp_index_del(index);
-			DEBUG("TCP-Stack Eintrag gelöscht! STACK:%i\r\n",index);
+			DEBUG("TCP-Stack Eintrag gelÃ¶scht! STACK:%i\r\n",index);
 			return;
 		}
 		return;
@@ -1038,22 +1038,22 @@ void tcp_socket_process(void)
 			create_new_tcp_packet(0,index);
 		}
 		tcp_index_del(index);
-		DEBUG("TCP-Stack Eintrag gelöscht! STACK:%i\r\n",index);
+		DEBUG("TCP-Stack Eintrag gelÃ¶scht! STACK:%i\r\n",index);
 		return;
 	}
 	
-	//Daten für Anwendung PSH-Flag gesetzt?
+	//Daten fÃ¼r Anwendung PSH-Flag gesetzt?
 	if((tcp_entry[index].status & PSH_FLAG) && 
 		(tcp_entry[index].status & ACK_FLAG))
 	{
-		//zugehörige Anwendung ausführen
+		//zugehÃ¶rige Anwendung ausfÃ¼hren
 		if(tcp_entry[index].app_status < 0xFFFE) tcp_entry[index].app_status++;	
 		tcp_entry[index].status =  ACK_FLAG | PSH_FLAG;
 		TCP_PORT_TABLE[port_index].fp(index); 
 		return;
 	}
 	
-	//Empfangene Packet wurde bestätigt keine Daten für Anwendung
+	//Empfangene Packet wurde bestÃ¤tigt keine Daten fÃ¼r Anwendung
 	//z.B. nach Verbindungsaufbau (SYN-PACKET)
 	if((tcp_entry[index].status & ACK_FLAG) && (tcp_entry[index].first_ack == 0))
 	{
@@ -1062,16 +1062,16 @@ void tcp_socket_process(void)
 		return;
 	}
 	
-	//Empfangsbestätigung für ein von der Anwendung gesendetes Packet (ENDE)
+	//EmpfangsbestÃ¤tigung fÃ¼r ein von der Anwendung gesendetes Packet (ENDE)
 	if((tcp_entry[index].status & ACK_FLAG) && (tcp_entry[index].first_ack == 1))
 	{
-		//ACK für Verbindungs abbau
+		//ACK fÃ¼r Verbindungs abbau
 		if(tcp_entry[index].app_status == 0xFFFF)
 		{
 			return;
 		}
 
-		//zugehörige Anwendung ausführen
+		//zugehÃ¶rige Anwendung ausfÃ¼hren
 		tcp_entry[index].status =  ACK_FLAG;
 		if(tcp_entry[index].app_status < 0xFFFE) tcp_entry[index].app_status++;
 		TCP_PORT_TABLE[port_index].fp(index);
@@ -1122,7 +1122,7 @@ void create_new_tcp_packet(unsigned int data_length,unsigned char index)
     tcp->TCP_Acknum = htons32(result32);
     tcp->TCP_Seqnum = tcp_entry[index].ack_counter;
 
-    bufferlen = IP_VERS_LEN + TCP_HDR_LEN + data_length;    //IP Headerlänge + TCP Headerlänge
+    bufferlen = IP_VERS_LEN + TCP_HDR_LEN + data_length;    //IP HeaderlÃ¤nge + TCP HeaderlÃ¤nge
     ip->IP_Pktlen = htons(bufferlen);                      //Hier wird erstmal der IP Header neu erstellt
     bufferlen += ETH_HDR_LEN;
     ip->IP_Proto = PROT_TCP;
@@ -1130,7 +1130,7 @@ void create_new_tcp_packet(unsigned int data_length,unsigned char index)
 
     tcp->TCP_Chksum = 0;
 
-    //Berechnet Headerlänge und Addiert Pseudoheaderlänge 2XIP = 8
+    //Berechnet HeaderlÃ¤nge und Addiert PseudoheaderlÃ¤nge 2XIP = 8
     result16 = htons(ip->IP_Pktlen) + 8;
     result16 = result16 - ((ip->IP_Vers_Len & 0x0F) << 2);
     result32 = result16 - 2;
@@ -1141,13 +1141,13 @@ void create_new_tcp_packet(unsigned int data_length,unsigned char index)
 
     //Send the TCP packet
     ETH_PACKET_SEND(bufferlen,eth_buffer);
-    //Für Retransmission
+    //FÃ¼r Retransmission
     tcp_entry[index].status = 0;
     return;
 }
 
 //----------------------------------------------------------------------------
-//Diese Routine schließt einen offenen TCP-Port
+//Diese Routine schlieÃŸt einen offenen TCP-Port
 void tcp_Port_close (unsigned char index)
 {
 	DEBUG("Port wird im TCP Stack geschlossen STACK:%i\r\n",index);
@@ -1171,13 +1171,13 @@ void find_and_start (unsigned char index)
     }
     if (port_index >= MAX_APP_ENTRY) return;
   
-    //zugehörige Anwendung ausführen (Senden wiederholen)
+    //zugehÃ¶rige Anwendung ausfÃ¼hren (Senden wiederholen)
     TCP_PORT_TABLE[port_index].fp(index);
     return;
 }
 
 //----------------------------------------------------------------------------
-//Diese Routine öffnet einen TCP-Port
+//Diese Routine Ã¶ffnet einen TCP-Port
 void tcp_port_open (unsigned long dest_ip,unsigned int port_dst,unsigned int port_src)
 {
 	unsigned char index;
@@ -1214,7 +1214,7 @@ void tcp_port_open (unsigned long dest_ip,unsigned int port_dst,unsigned int por
 }
 
 //----------------------------------------------------------------------------
-//Diese Routine löscht einen Eintrag
+//Diese Routine lÃ¶scht einen Eintrag
 void tcp_index_del (unsigned char index)
 {
 	if (index<MAX_TCP_ENTRY + 1)

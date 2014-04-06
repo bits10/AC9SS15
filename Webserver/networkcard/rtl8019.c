@@ -1,4 +1,4 @@
-/*----------------------------------------------------------------------------
+ï»¿/*----------------------------------------------------------------------------
  Copyright:      Radig Ulrich  mailto: mail@ulrichradig.de
  Author:         Radig Ulrich
  Remarks:        
@@ -19,7 +19,7 @@ unsigned char mymac[6];
 // Schreibt ein Byte in ein angegebenes Register der Netzwerkkarte
 void WriteRTL (unsigned char rtl_addr,unsigned char rtl_data)
 {
-	//Der Datenport wird auf output gesetzt vom µC zum NIC schreiben
+	//Der Datenport wird auf output gesetzt vom ÂµC zum NIC schreiben
 	DATA_CTRL_RLT = OUTPUT;
 	//write Adress to Port
 	ADDR_PORT_RLT = rtl_addr;
@@ -28,7 +28,7 @@ void WriteRTL (unsigned char rtl_addr,unsigned char rtl_data)
 	//set write Pin to Low
 	RTL_WR_OFF();
 	//wait a short time
-        nop(); //gib mal ein bißchen GAS Ulrich ;)
+        nop(); //gib mal ein biÃŸchen GAS Ulrich ;)
         nop();
 
 	//set write Pin to High
@@ -42,7 +42,7 @@ void WriteRTL (unsigned char rtl_addr,unsigned char rtl_data)
 unsigned char ReadRTL (unsigned char rtl_addr)
 {
 	unsigned char rtl_data;
-	//Der Datenport wir auf input gesetzt vom NIC zum µC lesen
+	//Der Datenport wir auf input gesetzt vom NIC zum ÂµC lesen
 	DATA_CTRL_RLT = INPUT;
 	//write Adress to Port
 	ADDR_PORT_RLT = rtl_addr;
@@ -82,7 +82,7 @@ void Init_Realtek_Network_Card (void)
 #ifndef ISA_CTRL
 	ADDR_PORT_RLT = OUTPUT;
 #else
-	// für ISP-CTRL  
+	// fÃ¼r ISP-CTRL  
 	ADDR_PORT_RLT = ADDR_OUTPUT;                  // nur die 5 Adressleitungen
 	CTRL_LINES_DIR |=  (1<<READ_PIN);
     CTRL_LINES_DIR |= (1<<RESET_PIN);
@@ -160,7 +160,7 @@ void Write_Ethernet_Frame (unsigned int bufferlen,unsigned char *buffer)
  unsigned int a;
 
 	bufferlen = bufferlen;
-	//Buffer auf eine min. länge von 60Bytes überprüfen
+	//Buffer auf eine min. lÃ¤nge von 60Bytes Ã¼berprÃ¼fen
 	if (bufferlen < 0x40)
 	{
 		bufferlen = 0x40;
@@ -175,7 +175,7 @@ void Write_Ethernet_Frame (unsigned int bufferlen,unsigned char *buffer)
 	WriteRTL (RBCR1,(bufferlen & 0xff00) >>8);
 	WriteRTL (CR,(1<<STA| 1<<RD1));
 
-	//Der Datenport wir auf output gesetzt vom µC zum NIC schreiben
+	//Der Datenport wir auf output gesetzt vom ÂµC zum NIC schreiben
 	DATA_CTRL_RLT = OUTPUT;
 	//write Adress to Port
 	ADDR_PORT_RLT = RDMAPORT;
@@ -215,7 +215,7 @@ unsigned int Read_Ethernet_Frame (unsigned int bufferlen_max, unsigned char *buf
 	tmp1 = ReadRTL(RDMAPORT);
 	bufferlen = (ReadRTL(RDMAPORT)<<8)+tmp1;
 
-	//Der Datenport wir auf input gesetzt vom NIC zum µC lesen
+	//Der Datenport wir auf input gesetzt vom NIC zum ÂµC lesen
 	DATA_CTRL_RLT = INPUT;
 	//write Adress to Port
 	ADDR_PORT_RLT = RDMAPORT;
@@ -225,11 +225,11 @@ unsigned int Read_Ethernet_Frame (unsigned int bufferlen_max, unsigned char *buf
         
     if(bufferlen>( bufferlen_max-1)) //Mehr Daten vorhanden als in den Buffer passen
 	{
-		tmp1=( bufferlen_max-1);    //Daten nur bis MTU_SIZE-1 in den Buffer übernehmen
+		tmp1=( bufferlen_max-1);    //Daten nur bis MTU_SIZE-1 in den Buffer Ã¼bernehmen
 		tmp2=bufferlen-tmp1; //den Rest abholen, aber ignorieren !
     } 
 
-    //Daten in den Buffer übernehmen solange sie reinpassen
+    //Daten in den Buffer Ã¼bernehmen solange sie reinpassen
     for(a=0; a<tmp1; a++)
 	{
 		//set read Pin to Low
@@ -245,7 +245,7 @@ unsigned int Read_Ethernet_Frame (unsigned int bufferlen_max, unsigned char *buf
 	}
 
 	//Daten abholen die NICHT mehr in den Buffer passen
-	//Anmerkung holgi: Kommt das überhaupt einmal vor ?
+	//Anmerkung holgi: Kommt das Ã¼berhaupt einmal vor ?
 	for(a=0; a<tmp2; a++)
 	{
 		//set read Pin to Low

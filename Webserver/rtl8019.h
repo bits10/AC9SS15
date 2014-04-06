@@ -1,4 +1,4 @@
-/*----------------------------------------------------------------------------
+Ôªø/*----------------------------------------------------------------------------
  Copyright:      Radig Ulrich  mailto: mail@ulrichradig.de
  Author:         Radig Ulrich
  Remarks:        
@@ -14,7 +14,7 @@
 
 	unsigned char mymac[6];
 	
-	//Anschluﬂ des Webservers nach meiner Bauanleitung, oder die von
+	//Anschlu√ü des Webservers nach meiner Bauanleitung, oder die von
 	//Holger Buss (www.mikrocontroller.com) Mega32-Board
 	
 	//#define RTL8019_DEBUG usart_write
@@ -65,7 +65,7 @@
 	#define nop()  __asm__ __volatile__ ("nop" ::)
 	
 	//----------------------------------------------------------------------------
-	// Standard Belegung f¸r meine Webserver
+	// Standard Belegung f√ºr meine Webserver
 	#ifndef ISA_CTRL 
 		#define RTL_WR_OFF() 	ADDR_PORT_RLT&=~(1<<WRITE_PIN);
 		#define RTL_WR_ON() 	ADDR_PORT_RLT|=(1<<WRITE_PIN);
@@ -75,7 +75,7 @@
 		
 		//Ethernet Card Ports
 		#define DATA_CTRL_RLT  			DDRA
-		#define DATA_ADDR_RLT			DDRC	//F¸r ATMega128/32 wird bei ATMega102 nicht benˆ.
+		#define DATA_ADDR_RLT			DDRC	//F√ºr ATMega128/32 wird bei ATMega102 nicht ben√∂.
 		#define ADDR_PORT_RLT  			PORTC
 		#define DATA_PORT_RLT_WRITE  	PORTA
 		#define DATA_PORT_RLT_READ 		PINA	//Read
@@ -85,16 +85,16 @@
 	#else
 	
 	//----------------------------------------------------------------------------
-	// Belegung f¸r Holger Buss Mega32 WebBoard
+	// Belegung f√ºr Holger Buss Mega32 WebBoard
 		#define RTL_WR_OFF() 	CTRL_LINES&=~(1<<WRITE_PIN);
 		#define RTL_WR_ON() 	CTRL_LINES|=(1<<WRITE_PIN);
 		#define RTL_RD_OFF() 	CTRL_LINES&=~(1<<READ_PIN);
 		#define RTL_RD_ON()  	CTRL_LINES|=(1<<READ_PIN);
 		#define RTL_RESET_OFF() CTRL_LINES&=~(1<<RESET_PIN);
 		
-		//Ethernet Card Ports f¸r ISP-CTRL
+		//Ethernet Card Ports f√ºr ISP-CTRL
 		#define DATA_CTRL_RLT  			DDRC
-		#define DATA_ADDR_RLT			DDRA	//F¸r ATMega128/32 wird bei ATMega102 nicht benˆ.
+		#define DATA_ADDR_RLT			DDRA	//F√ºr ATMega128/32 wird bei ATMega102 nicht ben√∂.
 		#define ADDR_PORT_RLT  			PORTA
 		#define DATA_PORT_RLT_WRITE  	PORTC
 		#define DATA_PORT_RLT_READ 		PINC	//Read
