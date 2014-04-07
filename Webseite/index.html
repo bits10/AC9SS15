@@ -1,3 +1,30 @@
+<!DOCTYPE html>
 <html>
-	<body><h1>Hallo Welt!</h1></body>
+<head>
+<meta charset="UTF-8">
+<title>Webseite</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+<script src="script.js" type="text/javascript"></script>
+</head>
+<body onload="setMain('status')">
+	<div id="main">
+		<div id="header">
+		  	<a id="status_bt" class="buttonlink" href="javascript:setMain('status')">STATUS</a>
+			<a id="favorite_bt" class="buttonlink" href="javascript:setMain('favorite')">FAVORITEN</a>
+			<a id="settings_bt" class="buttonlink" href="javascript:setMain('settings')">EINSTELLUNGEN</a>
+		</div>
+		<div id="status" >
+	  		<h1>Status</h1>
+		</div>
+		<div id="favorite">
+			<h1>Favoriten</h1>
+		</div>
+		<div id="settings">
+	  		<h1>Einstellungen</h1>
+		</div>
+	
+	</div>
+	
+
+</body>
 </html>
