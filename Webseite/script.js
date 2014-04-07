@@ -22,8 +22,4 @@ function setMain(div) {
 
 	getEl(div).style.display="block";
 	getEl(div+'_bt').style.borderColor=getEl('header').style.borderColor;
-	
-	alert("Color:" + getEl('header').style.backgroundColor);
-
-
 }
