@@ -1,0 +1,38 @@
+@CHARSET "UTF-8";
+
+* {
+	padding:0;
+	margin:0;
+}
+#main {
+	position: fixed;
+	background:#cccccc;
+	width:100%;
+}
+
+#status, #settings, #favorite {
+	position: absolute;
+	display:none;
+}
+
+#header{
+	top:0px;
+	background: #2B2B2B;
+	border-bottom: solid 4px #33b5e5;
+	padding-bottom:2px;
+	padding-top:10px;
+	text-align: center;
+	font-size:1.3em;
+	left:0px;
+}
+
+.buttonlink{
+	text-align:center;
+	border-bottom:solid 4px #33b5e5;
+	font-family:"Arial Black", Gadget, sans-serif;
+	color:#FFFFFF;
+	margin-left:10px;
+	margin-right:10px;
+	font-weight: bold;
+	text-decoration: none;
+}
