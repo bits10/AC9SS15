@@ -63,10 +63,12 @@ unsigned int var_array[MAX_VAR_ARRAY] = {10,50,30,0,0,0,0,0,0,0};
 //TEXT_PLAIN
 const PROGMEM char http_header0[]={	"HTTP/1.0 200 Document follows\r\n"
 								"Server: AVR_Small_Webserver\r\n"
+								"Access-Control-Allow-Origin: *"
 								"Content-Type: text/plain\r\n\r\n"};
 //TEXT_HTML
 const PROGMEM char http_header1[]={	"HTTP/1.0 200 Document follows\r\n"
 								"Server: AVR_Small_Webserver\r\n"
+								"Access-Control-Allow-Origin: *"
 								"Content-Type: text/html\r\n\r\n"};
 //TEXT_HTML_AUTH
 const PROGMEM char http_header2[]={	"HTTP/1.0 401 Unauthorized\r\n"
@@ -76,32 +78,38 @@ const PROGMEM char http_header2[]={	"HTTP/1.0 401 Unauthorized\r\n"
 //IMAGE_JPEG
 const PROGMEM char http_header3[]={	"HTTP/1.0 200 Document follows\r\n"
 								"Server: AVR_Small_Webserver\r\n"
+								"Access-Control-Allow-Origin: *"
 								"Content-Type: image/jpeg\r\n\r\n"};
 //IMAGE_GIF                  
 const PROGMEM char http_header4[]={   "HTTP/1.0 200 Document follows\r\n"
 								"Server: AVR_Small_Webserver\r\n"
+								"Access-Control-Allow-Origin: *"
 								"Cache-Control: max-age=6000000\r\n"
 								"Content-Type: image/gif\r\n\r\n"};
 //TEXT_CSS                  
 const PROGMEM char http_header5[]={   "HTTP/1.0 200 Document follows\r\n"
 								"Server: AVR_Small_Webserver\r\n"
+								"Access-Control-Allow-Origin: *"
 								"Cache-Control: max-age=6000000\r\n"
 								"Content-Type: text/css\r\n\r\n"};
 								
 //IMAGE_PNG
 const PROGMEM char http_header6[]={ "HTTP/1.0 200 Document follows\r\n"
 									"Server: AVR_Small_Webserver\r\n"
+									"Access-Control-Allow-Origin: *"
 									"Cache-Control: max-age=6000000\r\n"
 									"Content-Type: image/png\r\n\r\n"};
 								
 //IMAGE_SVG
 const PROGMEM char http_header7[]={   "HTTP/1.0 200 Document follows\r\n"
 										"Server: AVR_Small_Webserver\r\n"
+										"Access-Control-Allow-Origin: *"
 										"Cache-Control: max-age=6000000\r\n"
 										"Content-Type: image/svg+xml\r\n\r\n"};
 //TEXT_JS
 const PROGMEM char http_header8[]={ "HTTP/1.0 200 Document follows\r\n"
 									"Server: AVR_Small_Webserver\r\n"
+									"Access-Control-Allow-Origin: *"
 									"Cache-Control: max-age=6000000\r\n"
 									"Content-Type: text/javascript\r\n\r\n"};
 
