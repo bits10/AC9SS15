@@ -12,18 +12,22 @@
 	height:100%;
 }
 
-#status,#settings,#favorite{
+.mainDiv{
 	display:none;
 	height:100%;
 	text-align:center;
+	padding:10px;
+}
+
+#status{
 	background:url(img/ic_status.svg) no-repeat center 50px;
 }
 
-#settings {
+#settings{
 	background:url(img/ic_settings.svg) no-repeat center 50px;
 }
 
-#favorite {
+#favorite{
 	background:url(img/ic_favorite.svg) no-repeat center 50px;
 }
 
@@ -35,7 +39,7 @@
 }
 
 .buttonlink{
-	border-bottom:solid 3px #33b5e5;
+	border-bottom:solid 3px;
 	font-family:Calibri,Candara,Segoe,"Segoe UI",Optima,Arial,sans-serif;
 	color:#FFFFFF;
 	padding:0 20px 7px 20px;
@@ -43,4 +47,9 @@
 	font-weight: bold;
 	font-size:1.1em;
 	text-decoration: none;
+}
+
+h1 {
+	font-family:Calibri,Candara,Segoe,"Segoe UI",Optima,Arial,sans-serif;
+	margin: 10px 0 10px 0;
 }

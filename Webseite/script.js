@@ -10,16 +10,37 @@ function getEl(id) {
  * Sets the main component of the frame.
  * @param {Object} the id of the div to set as main component (status, favorite or settings).
  */
-function setMain(div) {
-	getEl('favorite').style.display="none";
-	getEl('favorite_bt').style.borderColor="#2B2B2B";
-
-	getEl('status').style.display="none";
-	getEl('status_bt').style.borderColor="#2B2B2B";
-
-	getEl('settings').style.display="none";
-	getEl('settings_bt').style.borderColor="#2B2B2B";
-
+function setMain(div){
+	var v=document.getElementsByClassName('mainDiv');
+	var bg=window.getComputedStyle(getEl('header')).backgroundColor;
+	var fg=window.getComputedStyle(getEl('header')).borderColor;
+	
+	for(var i=0;i<v.length;i++){
+    	getEl(v[i].id).style.display="none";
+    	getEl(v[i].id+"_bt").style.borderColor=bg;
+	}
+	
 	getEl(div).style.display="block";
-	getEl(div+'_bt').style.borderColor=getEl('header').style.borderColor;
+	getEl(div+'_bt').style.borderColor=fg;
+}
+
+/**
+ * Loads the contents of the given URL and returns the laoded content. This funtion is incompatible with IE 6 and older.
+ * @param {Object} the URL of the requested resource.
+ * @return The loaded content.
+ */
+function loadURL(url){
+	if (window.XMLHttpRequest){
+		// code for IE7+, Firefox, Chrome, Opera, Safari
+  		xmlhttp=new XMLHttpRequest();
+  	
+  	}/* else{
+  		// code for IE6, IE5
+  		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  	}*/
+	
+	xmlhttp.open("GET",url,false);
+	xmlhttp.send();
+	
+	return xmlhttp.responseText;
 }
