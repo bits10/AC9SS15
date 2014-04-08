@@ -69,3 +69,10 @@ Release/
 *.vrb
 *.xdy
 *.tdo
+
+
+#################
+## Misc Files
+#################
+
+.DS_Store

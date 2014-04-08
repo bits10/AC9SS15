@@ -39,6 +39,9 @@
 	#define TEXT_CSS	 	3
 	#define IMAGE_JPEG 		4
 	#define IMAGE_GIF 		5
+	#define IMAGE_PNG 		6
+	#define IMAGE_SVG 		7
+	#define TEXT_JS 		8
 		
 	extern unsigned int var_array[MAX_VAR_ARRAY];
 	

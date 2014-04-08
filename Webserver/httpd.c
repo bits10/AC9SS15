@@ -87,7 +87,23 @@ const PROGMEM char http_header5[]={   "HTTP/1.0 200 Document follows\r\n"
 								"Server: AVR_Small_Webserver\r\n"
 								"Cache-Control: max-age=6000000\r\n"
 								"Content-Type: text/css\r\n\r\n"};
-
+								
+//IMAGE_PNG
+const PROGMEM char http_header6[]={ "HTTP/1.0 200 Document follows\r\n"
+									"Server: AVR_Small_Webserver\r\n"
+									"Cache-Control: max-age=6000000\r\n"
+									"Content-Type: image/png\r\n\r\n"};
+								
+//IMAGE_SVG
+const PROGMEM char http_header7[]={   "HTTP/1.0 200 Document follows\r\n"
+										"Server: AVR_Small_Webserver\r\n"
+										"Cache-Control: max-age=6000000\r\n"
+										"Content-Type: image/svg+xml\r\n\r\n"};
+//TEXT_JS
+const PROGMEM char http_header8[]={ "HTTP/1.0 200 Document follows\r\n"
+									"Server: AVR_Small_Webserver\r\n"
+									"Cache-Control: max-age=6000000\r\n"
+									"Content-Type: text/javascript\r\n\r\n"};
 
 //----------------------------------------------------------------------------
 //Kein Zugriff Seite bei keinem Passwort
@@ -321,6 +337,22 @@ void httpd_header_check (unsigned char index)
 					{
 						http_entry[index].http_header_type = TEXT_CSS;	
 					}
+					else if (strcasestr(WEBPAGE_TABLE[page_index].filename,".png")!=0)
+					{
+						http_entry[index].http_header_type = IMAGE_PNG;
+					}
+					else if (strcasestr(WEBPAGE_TABLE[page_index].filename,".svg")!=0)
+					{
+						http_entry[index].http_header_type = IMAGE_SVG;
+					}
+					else if (strcasestr(WEBPAGE_TABLE[page_index].filename,".svg")!=0)
+					{
+						http_entry[index].http_header_type = IMAGE_SVG;
+					}
+					else if (strcasestr(WEBPAGE_TABLE[page_index].filename,".js")!=0)
+					{
+						http_entry[index].http_header_type = TEXT_JS;
+					}					
 					else
 					{
 						http_entry[index].http_header_type = TEXT_PLAIN;
@@ -364,7 +396,7 @@ void httpd_header_check (unsigned char index)
 		//Besucher Counter
 		var_array[MAX_VAR_ARRAY-1]++;
 		
-		http_entry[index].new_page_pointer = Page1;
+		http_entry[index].new_page_pointer = item_0;
 		http_entry[index].http_header_type = TEXT_HTML;
 	}	
 	
@@ -396,6 +428,21 @@ void httpd_header_check (unsigned char index)
 			memcpy_P((char*)&eth_buffer[TCP_DATA_START_VAR],http_header5,(sizeof(http_header5)-1));
 			tcp_entry[index].status =  ACK_FLAG | PSH_FLAG;
 			create_new_tcp_packet((sizeof(http_header5)-1),index);
+		break;
+		case IMAGE_PNG:
+			memcpy_P((char*)&eth_buffer[TCP_DATA_START_VAR],http_header6,(sizeof(http_header6)-1));
+			tcp_entry[index].status =  ACK_FLAG | PSH_FLAG;
+			create_new_tcp_packet((sizeof(http_header6)-1),index);
+		break;
+		case IMAGE_SVG:
+			memcpy_P((char*)&eth_buffer[TCP_DATA_START_VAR],http_header7,(sizeof(http_header7)-1));
+			tcp_entry[index].status =  ACK_FLAG | PSH_FLAG;
+			create_new_tcp_packet((sizeof(http_header7)-1),index);
+		break;
+		case TEXT_JS:
+			memcpy_P((char*)&eth_buffer[TCP_DATA_START_VAR],http_header8,(sizeof(http_header8)-1));
+			tcp_entry[index].status =  ACK_FLAG | PSH_FLAG;
+			create_new_tcp_packet((sizeof(http_header8)-1),index);
 		break;
 	}
 	return;
