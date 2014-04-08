@@ -105,7 +105,8 @@ public class HTMLHeaderCompiler implements FilenameFilter {
 
 		//Optimieren
 		if(f.getName().endsWith(".html") || f.getName().endsWith(".htm") 
-				|| f.getName().endsWith(".js") || f.getName().endsWith(".css")) {
+				|| f.getName().endsWith(".js") || f.getName().endsWith(".css")
+				|| f.getName().endsWith(".svg")) {
 			String s = new String(buffer);
 			buffer = null;
 
@@ -114,7 +115,7 @@ public class HTMLHeaderCompiler implements FilenameFilter {
 			s = s.replaceAll("\t", "");
 			s = s.replaceAll("\\s{2,}", " ");
 
-			if(f.getName().endsWith(".html") || f.getName().endsWith(".htm")) {
+			if(f.getName().endsWith(".html") || f.getName().endsWith(".htm") || f.getName().endsWith(".svg")) {
 				s = s.replaceAll("<!--(.*?)-->", "");
 
 			} else if(f.getName().endsWith(".js")) {
@@ -152,7 +153,7 @@ public class HTMLHeaderCompiler implements FilenameFilter {
 		this.totalWebpageSize += buffer.length;
 
 		input.close();
-		outputWriter.write("}");
+		outputWriter.write("};");
 		outputWriter.newLine();
 
 	}
@@ -176,7 +177,7 @@ public class HTMLHeaderCompiler implements FilenameFilter {
 
 		for(int i=0; i<files.size(); i++) {
 			outputWriter.write(this.tab() + "{\"/" + this.getRelativePathFromRoot(files.get(i))
-					+ "\", " + this.createFieldNameForId(i) + "}");
+					+ "\", " + this.createFieldNameForId(i) + "},");
 			outputWriter.newLine();
 		}
 
