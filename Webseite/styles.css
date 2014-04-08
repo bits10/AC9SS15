@@ -15,6 +15,16 @@
 #status,#settings,#favorite{
 	display:none;
 	height:100%;
+	text-align:center;
+	background:url(img/ic_status.svg) no-repeat center 50px;
+}
+
+#settings {
+	background:url(img/ic_settings.svg) no-repeat center 50px;
+}
+
+#favorite {
+	background:url(img/ic_favorite.svg) no-repeat center 50px;
 }
 
 #header{
@@ -33,10 +43,4 @@
 	font-weight: bold;
 	font-size:1.1em;
 	text-decoration: none;
-}
-
-h1 {
-	margin: 20px;
-	font-family:Calibri,Candara,Segoe,"Segoe UI",Optima,Arial,sans-serif;
-	text-align:center;
 }
