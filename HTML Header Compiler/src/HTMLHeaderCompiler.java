@@ -177,11 +177,15 @@ public class HTMLHeaderCompiler implements FilenameFilter {
 
 		for(int i=0; i<files.size(); i++) {
 			outputWriter.write(this.tab() + "{\"/" + this.getRelativePathFromRoot(files.get(i))
-					+ "\", " + this.createFieldNameForId(i) + "},");
+					+ "\", " + this.createFieldNameForId(i) + "}");
+			
+			if(i<files.size()-1)
+				outputWriter.write(",");
+			
 			outputWriter.newLine();
 		}
 
-		outputWriter.write("}");
+		outputWriter.write("};");
 		outputWriter.newLine();
 
 
@@ -201,8 +205,8 @@ public class HTMLHeaderCompiler implements FilenameFilter {
 	}
 
 	private String getRelativePathFromRoot(File f) throws IOException {
-		if(f.getAbsolutePath().startsWith(this.rootDirectory)) {
-			return f.getAbsolutePath().substring(this.rootDirectory.length() + 1);
+		if(f.getAbsolutePath().startsWith(new File(this.rootDirectory).getAbsolutePath())) {
+			return f.getAbsolutePath().substring(this.rootDirectory.length() + 1).replaceAll(File.separator, "/");
 
 		} else {
 			throw new IOException(f.getAbsolutePath() + " is not a child of root!");
