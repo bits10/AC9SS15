@@ -8,7 +8,7 @@
 <script src="rest.js" type="text/javascript"></script>
 <script src="ui.js" type="text/javascript"></script>
 </head>
-<body onload="setMain('status')">
+<body onload="setMain('status');initRest();">
 	
 	<!--The main div. Only the header and one of the other children should be visible a time-->
 	<div id="main">
@@ -40,10 +40,11 @@
 		<!--The div containing the rest interface tests tab-->
 		<div class="mainDiv" id="test">
 			<h1>REST/xmlHttpRequest Versuch</h1>
-			<input type="text" id="testUrl" placeholder="REST URL"/>
-			<input type="button" id="startTest" value="URL laden" onclick="getEl('testOutput').innerHTML=loadURL(getEl('testUrl').value)"/>
-			<br>
-			<textarea id="testOutput" style="width:99%;" rows="30"> </textarea>
+			<p id="Aktuelle Polling Frequenz"> </p>
+			<p id="freq"> </p>
+			<input type="number"  id="newFreq"/>
+			<input type="button" value="Frequenz setzen" onclick="pollingFreq=getEl('newFreq').value"/>
+			<input type="button" value="Pausieren/fortsetzen" onclick="togglePause()"/>
 		</div>
 		<!--End #test-->
 	</div>
