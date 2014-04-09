@@ -47,9 +47,18 @@
 	font-weight: bold;
 	font-size:1.1em;
 	text-decoration: none;
+	outline:none;
 }
 
 h1 {
 	font-family:Calibri,Candara,Segoe,"Segoe UI",Optima,Arial,sans-serif;
 	margin: 10px 0 10px 0;
 }
+
+.deutschland {
+width: 150px;
+height: 30px;
+background: #f00;
+border-top: 30px solid #000;
+border-bottom: 30px solid #fc0;
+} 

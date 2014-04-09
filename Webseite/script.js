@@ -13,7 +13,7 @@ function getEl(id) {
 function setMain(div){
 	var v=document.getElementsByClassName('mainDiv');
 	var bg=window.getComputedStyle(getEl('header')).backgroundColor;
-	var fg=window.getComputedStyle(getEl('header')).borderColor;
+	var fg=window.getComputedStyle(getEl('header')).borderBottomColor;
 	
 	for(var i=0;i<v.length;i++){
     	getEl(v[i].id).style.display="none";
@@ -30,15 +30,7 @@ function setMain(div){
  * @return The loaded content.
  */
 function loadURL(url){
-	if (window.XMLHttpRequest){
-		// code for IE7+, Firefox, Chrome, Opera, Safari
-  		xmlhttp=new XMLHttpRequest();
-  	
-  	}/* else{
-  		// code for IE6, IE5
-  		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  	}*/
-	
+  	xmlhttp=new XMLHttpRequest();
 	xmlhttp.open("GET",url,false);
 	xmlhttp.send();
 	
