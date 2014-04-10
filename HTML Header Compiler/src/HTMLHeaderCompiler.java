@@ -206,7 +206,7 @@ public class HTMLHeaderCompiler implements FilenameFilter {
 
 	private String getRelativePathFromRoot(File f) throws IOException {
 		if(f.getAbsolutePath().startsWith(new File(this.rootDirectory).getAbsolutePath())) {
-			return f.getAbsolutePath().substring(this.rootDirectory.length() + 1).replaceAll(File.separator, "/");
+			return f.getAbsolutePath().substring(this.rootDirectory.length() + 1).replaceAll("\\\\", "/");
 
 		} else {
 			throw new IOException(f.getAbsolutePath() + " is not a child of root!");

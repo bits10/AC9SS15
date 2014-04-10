@@ -20,6 +20,7 @@
 }
 
 #status{
+	background:url(board.svg) no-repeat center 50px;
 }
 
 #settings{
