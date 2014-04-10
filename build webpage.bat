@@ -1,2 +1,3 @@
-java -jar "HTML Header Compiler\latest release\hhc.jar" -in C:\Users\Christian\Documents\GitHub\Embedded-Webserver\Webseite -out C:\Users\Christian\Documents\GitHub\Embedded-Webserver\Webserver\webpage.h
+java -jar "HTML Header Compiler\latest release\hhc.jar" -in Webseite -out Webserver\webpage.h
+
 pause

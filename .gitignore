@@ -33,6 +33,7 @@ local.properties
 
 Debug/
 Release/
+Webserver/webpage.h
 
 #################
 ## LaTEx

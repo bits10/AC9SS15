@@ -21,6 +21,8 @@ public class HTMLHeaderCompiler implements FilenameFilter {
 
 	public void compile() throws IOException {
 		
+		rootDirectory = new File(rootDirectory).getAbsoluteFile().getCanonicalPath();
+		
 		System.out.println("HTML Header Compiler 0.1");
 		System.out.println("===========");
 
@@ -176,7 +178,7 @@ public class HTMLHeaderCompiler implements FilenameFilter {
 		outputWriter.newLine();
 
 		for(int i=0; i<files.size(); i++) {
-			outputWriter.write(this.tab() + "{\"/" + this.getRelativePathFromRoot(files.get(i))
+			outputWriter.write(this.tab() + "{\"" + this.getRelativePathFromRoot(files.get(i))
 					+ "\", " + this.createFieldNameForId(i) + "}");
 			
 			if(i<files.size()-1)
