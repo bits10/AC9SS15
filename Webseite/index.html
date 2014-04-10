@@ -7,8 +7,9 @@
 <script src="favorite.js" type="text/javascript"></script>
 <script src="rest.js" type="text/javascript"></script>
 <script src="ui.js" type="text/javascript"></script>
+<script src="o_view.js" type="text/javascript"></script>
 </head>
-<body onload="setMain('status');initRest();">
+<body onload="setMain('status');initRest();draw()">
 	
 	<!--The main div. Only the header and one of the other children should be visible a time-->
 	<div id="main">
@@ -23,7 +24,8 @@
 		<!--End #header-->
 		
 		<!--The div containing the status tab-->
-		<div class="mainDiv" id="status" >
+		<div class="mainDiv" id="status">
+			<canvas id="canvas"></canvas>
 		</div>
 		<!--End #status-->
 		
