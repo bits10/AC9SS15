@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <title>AVR Webcontrol</title>
 <link rel="stylesheet" href="styles.css" type="text/css">
+<link rel="stylesheet" href="board.css" type="text/css">
 <script src="favorite.js" type="text/javascript"></script>
 <script src="rest.js" type="text/javascript"></script>
 <script src="ui.js" type="text/javascript"></script>
-<script src="o_view.js" type="text/javascript"></script>
 </head>
-<body onload="setMain('status');initRest();draw()">
+<body onload="setMain('status');initRest();">
 	
 	<!--The main div. Only the header and one of the other children should be visible a time-->
 	<div id="main">
@@ -25,7 +25,7 @@
 		
 		<!--The div containing the status tab-->
 		<div class="mainDiv" id="status">
-			<canvas id="canvas"></canvas>
+			
 		</div>
 		<!--End #status-->
 		
@@ -42,11 +42,13 @@
 		<!--The div containing the rest interface tests tab-->
 		<div class="mainDiv" id="test">
 			<h1>REST/xmlHttpRequest Versuch</h1>
-			<p id="Aktuelle Polling Frequenz"> </p>
-			<p id="freq"> </p>
-			<input type="number"  id="newFreq"/>
-			<input type="button" value="Frequenz setzen" onclick="pollingFreq=getEl('newFreq').value"/>
+			<input value="1000" id='freq_in' type="range"  min="0" max="10000" onchange="pollingFreq=getEl('freq_soll').innerHTML=getEl('freq_in').value"/><br>
 			<input type="button" value="Pausieren/fortsetzen" onclick="togglePause()"/>
+			<p>Frequenz Soll (ms):</p>
+			<p id="freq_soll">1000</p>
+			<p>Frequenz Ist (ms):</p>
+			<p id="freq_ist"> </p>
+			<p id='rest'> </p>
 		</div>
 		<!--End #test-->
 	</div>

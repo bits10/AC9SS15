@@ -586,11 +586,11 @@ void httpd_data_send (unsigned char index)
 				
 				if(b)
 				{
-					strcpy_P(var_conversion_buffer, PSTR("checked"));
+					strcpy_P(var_conversion_buffer, PSTR("1"));
 				}
 				else
 				{
-					strcpy_P(var_conversion_buffer, PSTR("\0"));
+					strcpy_P(var_conversion_buffer, PSTR("0"));
 				}
 				str_len = strnlen(var_conversion_buffer,CONVERSION_BUFFER_LEN);
 				memmove(&eth_buffer[TCP_DATA_START+a],var_conversion_buffer,str_len);
@@ -625,11 +625,11 @@ void httpd_data_send (unsigned char index)
 				
 				if(b)
 				{
-					strcpy_P(var_conversion_buffer, PSTR("ledon.gif"));
+					strcpy_P(var_conversion_buffer, PSTR("1"));
 				}
 				else
 				{
-					strcpy_P(var_conversion_buffer, PSTR("ledoff.gif"));
+					strcpy_P(var_conversion_buffer, PSTR("0"));
 				}
 				str_len = strnlen(var_conversion_buffer,CONVERSION_BUFFER_LEN);
 				memmove(&eth_buffer[TCP_DATA_START+a],var_conversion_buffer,str_len);

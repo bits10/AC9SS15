@@ -16,12 +16,18 @@ var isPaused=0;
  * Inits the REST interface. Should only be called once at the startup of the page!
  */
 function initRest(){
-	console.log(getInfo().ip);
-	setOnValuesChange(function(values, time){
-		document.getElementById('freq').innerHTML="Frequenz: " + time+"ms";
-	});
+	if(isInitialised)
+		return;
 	
+	setOnValuesChange(function(values, time){
+		document.getElementById('freq_ist').innerHTML=time;
+		var el=document.getElementById('rest');
+		el.innerHTML="";
+		for(var i=0;i<cachedValues.length;i++)
+			el.innerHTML+="<br>"+(isEditable(i)?"Eingang ":"Ausgang ")+i+": "+getValue(i);
+	});
 	refreshValues();
+	isInitialised=1;
 }
 
 /*
@@ -93,7 +99,7 @@ function isEditable(id){
 }
 
 /**
- * Returns the info array, including 'ip', 'mac' and 'version'.
+ * Returns the info array, including 'ip', 'def_ip', 'mac' and 'version'.
  * Usage: getInfo().ip
  */
 function getInfo(){
