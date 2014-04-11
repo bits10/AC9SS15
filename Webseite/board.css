@@ -1,0 +1,84 @@
+/* 
+CSS code for the board
+*/
+
+#cb_main{
+	position:relative;
+	width:1000px; 
+	height:500px; 
+	z-index:1; 
+	border: 1px solid #000000;
+}
+#cb_cpu{
+	top:300px;
+	left:300px;
+	width:500px; 
+	height:100px; 
+}
+#cb_con{
+	top:90px;
+	left:680px;
+	width:75px; 
+	height:140px; 
+}
+#cb_isp{
+	top:90px;
+	left:680px; 
+}
+#cb_ext{
+	top:20px;
+	left:780px;
+}
+#cb_isp, #cb_ext{
+	width:75px; 
+	height:140px; 
+}
+#cb_se1{
+	top:70px;
+	left:870px;
+	width:170px; 
+	height:350px; 
+}
+#cb_se2{
+	top:250px;
+	left:-40px;
+	width:170px; 
+	height:200px; 
+}
+#cb_con{
+	top:150px;
+	left:310px;
+	width:340px; 
+	height:60px; 
+}
+#cb_net{
+	top:120px;
+	left:0px;
+	width:175px; 
+	height:110px;
+}
+#cir1{
+	top: 10px;
+    left: 10px;
+}
+#cir2{
+	top: 10px;
+    left: 950px;
+}
+#cir3{
+	top: 450px;
+    left: 10px;
+}
+#cir4{
+	top: 450px;
+    left: 950px;
+}
+.cb_el{
+	position:absolute;
+}
+.circle{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+}

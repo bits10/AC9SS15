@@ -12,7 +12,7 @@
 <body onload="setMain('status');initRest();">
 	
 	<!--The main div. Only the header and one of the other children should be visible a time-->
-	<div id="main">
+	<div class="background" id="main">
 		
 		<!--The header including the navigation-->
 		<div id="header">
@@ -25,6 +25,22 @@
 		
 		<!--The div containing the status tab-->
 		<div class="mainDiv" id="status">
+			<div align="center" style="padding-top:30px;">
+				<div class="green" id="cb_main">
+					<div class="circle background" id="cir1"></div>
+					<div class="circle background" id="cir2"></div>
+					<div class="circle background" id="cir3"></div>
+					<div class="circle background" id="cir4"></div>
+					<div class="cb_el black" id="cb_cpu"></div>
+					<div class="cb_el silver" id="cb_net"></div>
+					<div class="cb_el black" id="cb_con"></div>
+					<div class="cb_el black" id="cb_isp"></div>
+					<div class="cb_el black" id="cb_ext"></div>
+					<div class="cb_el black" id="cb_se1"></div>
+					<div class="cb_el black" id="cb_se2"></div>
+					<div class="cb_el " id="cb_ana"></div>
+				</div>
+			</div>
 			
 		</div>
 		<!--End #status-->
