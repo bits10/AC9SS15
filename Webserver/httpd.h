@@ -58,7 +58,7 @@
 		unsigned char *auth_ptr 				;
 		unsigned char *hdr_end_pointer			;
 		unsigned char http_auth 		: 1		;
-		unsigned char http_header_type	: 3		;
+		unsigned char http_header_type	: 4		;
 		unsigned char first_switch		: 1		;
 		unsigned char post				: 1		;
 		unsigned char *post_ptr					;

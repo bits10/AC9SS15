@@ -34,7 +34,9 @@ function initRest(){
  * Internally used function to refresh the values in an given interval.
  */
 function refreshValues(){
-	cachedValues=JSON.parse(loadURL(urlValues));
+	var v=loadURL(urlValues);
+	console.log(v);
+	cachedValues=JSON.parse(v);
 	
 	realPollingFreq=Date.now()-lastPollingTime;
 	lastPollingTime=Date.now();
