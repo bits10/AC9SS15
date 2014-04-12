@@ -54,7 +54,7 @@ unsigned char post_in[5] = {'O','U','T','='};
 unsigned char post_ready[5] = {'S','U','B','='};
 unsigned char PORT_tmp = 0;
 char dstr[24]={"No Time...             "};
-
+char buffer[128];
 //----------------------------------------------------------------------------
 //Variablenarry zum einfügen in Webseite %VA@00 bis %VA@09
 unsigned int var_array[MAX_VAR_ARRAY] = {10,50,30,0,0,0,0,0,0,0};
@@ -337,7 +337,7 @@ void httpd_header_check (unsigned char index)
 					{
 						http_entry[index].http_header_type = IMAGE_GIF;
 					}	
-					else if (strcasestr(WEBPAGE_TABLE[page_index].filename,".htm")!=0)
+					else if (strcasestr(WEBPAGE_TABLE[page_index].filename,".html")!=0)
 					{
 						http_entry[index].http_header_type = TEXT_HTML;	
 					}
@@ -586,11 +586,13 @@ void httpd_data_send (unsigned char index)
 				
 				if(b)
 				{
-					strcpy_P(var_conversion_buffer, PSTR("1"));
+					sprintf(buffer, "%d, %d, %d", PINA, PINC, PIND);
+					strcpy(var_conversion_buffer, buffer);
 				}
 				else
 				{
-					strcpy_P(var_conversion_buffer, PSTR("0"));
+					sprintf(buffer, "%d, %d, %d", PINA, PINC, PIND);
+					strcpy(var_conversion_buffer, buffer);
 				}
 				str_len = strnlen(var_conversion_buffer,CONVERSION_BUFFER_LEN);
 				memmove(&eth_buffer[TCP_DATA_START+a],var_conversion_buffer,str_len);
@@ -625,11 +627,13 @@ void httpd_data_send (unsigned char index)
 				
 				if(b)
 				{
-					strcpy_P(var_conversion_buffer, PSTR("1"));
+					sprintf(buffer, "%d", 1);
+					strcpy(var_conversion_buffer, buffer);
 				}
 				else
 				{
-					strcpy_P(var_conversion_buffer, PSTR("0"));
+					sprintf(buffer, "%d", 0);
+					strcpy(var_conversion_buffer, buffer);
 				}
 				str_len = strnlen(var_conversion_buffer,CONVERSION_BUFFER_LEN);
 				memmove(&eth_buffer[TCP_DATA_START+a],var_conversion_buffer,str_len);
