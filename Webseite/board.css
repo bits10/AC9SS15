@@ -22,6 +22,12 @@ CSS code for the board
 	left:705px;
 	padding-left:7px;
 }
+#cb_aref{
+	width:25px; 
+	height:55px; 
+	top:490px;
+	left:755px;
+}
 #cb_se1{
 	top:70px;
 	left:780px;
@@ -95,9 +101,10 @@ CSS code for the board
 }
 .circle{
 	position: absolute;
-    width: 40px;
-    height: 40px;
+    width: 39px;
+    height: 39px;
     border-radius: 100px;
+    border: 1px solid #000000;
 }
 .circle.lo{
 	top: 10px;
