@@ -4,75 +4,85 @@ CSS code for the board
 
 #cb_main{
 	position:relative;
-	width:1000px; 
-	height:500px; 
-	z-index:1; 
+	width:900px; 
+	height:600px;  
 	border: 1px solid #000000;
 }
 #cb_cpu{
-	top:300px;
-	left:300px;
+	top:400px;
+	left:250px;
 	width:500px; 
 	height:100px;
-	z-index:3;
 }
-#cb_isp{
-	top:90px;
-	left:680px; 
-}
-#cb_ext{
-	top:20px;
-	left:780px;
-}
-#cb_isp, #cb_ext{
-	width:75px; 
-	height:140px; 
+
+#cb_jmp{
+	width:55px; 
+	height:25px; 
+	top:200px;
+	left:705px;
+	padding-left:7px;
 }
 #cb_se1{
 	top:70px;
-	left:870px;
-	width:170px; 
+	left:780px;
+	width:160px; 
 	height:350px; 
 }
 #cb_se2{
-	top:250px;
+	top:300px;
 	left:-40px;
 	width:170px; 
-	height:200px; 
+	height:250px; 
 }
 #cb_con{
-	top:150px;
-	left:310px;
-	width:350px; 
+	top:210px;
+	left:250px;
+	width:340px; 
 	height:60px; 
 }
 #cb_net{
-	top:120px;
+	top:170px;
 	left:0px;
 	width:175px; 
 	height:110px;
+	border: 1px solid #000000;
 }
 #cb_ana{
-	top:440px;
-	left:300px;
+	top:540px;
+	left:250px;
 	width:500px;
 	height:50px;
 }
-#cir1{
-	top: 10px;
-    left: 10px;
+#cb_ac{
+	top:60px;
+	left:10px;
+	width:50px;
+	height:100px;
 }
-#cir2{
-	top: 10px;
-    left: 950px;
+.cb_pin{
+	width:70px; 
+	height:140px;
 }
-#cir3{
-	top: 450px;
-    left: 10px;
+.cb_pin_inner{
+	top:10px;
+	left:10px;
+	width:50px;
+	height:120px;
+	position:absolute;
+	background:#202020;
 }
-#cir4{
-	top: 450px;
-    left: 950px;
+.cb_pin_inner_dist{
+	top:10px;
+	left:0px;
+	height:10px;
+}
+.cb_pin.ext{
+	top:40px;
+	left:700px;
+}
+.cb_pin.isp{
+	top:150px;
+	left:610px;
 }
 .cb_el{
 	position:absolute;
@@ -84,19 +94,39 @@ CSS code for the board
 	float: left;
 }
 .circle{
-    position: absolute;
+	position: absolute;
     width: 40px;
     height: 40px;
     border-radius: 100px;
 }
-.screw {
+.circle.lo{
+	top: 10px;
+    left: 10px;
+}
+.circle.ro{
+	top: 10px;
+    left: 850px;
+}
+.circle.lu{
+	top: 550px;
+    left: 10px;
+}
+.circle.ru{
+	top: 550px;
+    left: 850px;
+}
+.circle.screw {
 	background:#D3D3D3;
-    width:40px;
-    height:40px;
-    border-radius: 100px;
     margin:4px;
 }
-
+.pin{
+	float:left;
+	background:#FFCC00;
+    width: 5px;
+    height: 5px;
+    border-radius: 100px;
+    margin: 10px;
+}
 .feet {
 	float:left;
 	top: -15px;
@@ -109,3 +139,4 @@ CSS code for the board
 	height:80px;
 	width: 14px;
 }
+
