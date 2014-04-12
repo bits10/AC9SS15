@@ -13,13 +13,8 @@ CSS code for the board
 	top:300px;
 	left:300px;
 	width:500px; 
-	height:100px; 
-} 
-#cb_con{
-	top:90px;
-	left:680px;
-	width:75px; 
-	height:140px; 
+	height:100px;
+	z-index:3;
 }
 #cb_isp{
 	top:90px;
@@ -48,7 +43,7 @@ CSS code for the board
 #cb_con{
 	top:150px;
 	left:310px;
-	width:340px; 
+	width:350px; 
 	height:60px; 
 }
 #cb_net{
@@ -56,6 +51,12 @@ CSS code for the board
 	left:0px;
 	width:175px; 
 	height:110px;
+}
+#cb_ana{
+	top:440px;
+	left:300px;
+	width:500px;
+	height:50px;
 }
 #cir1{
 	top: 10px;
@@ -76,9 +77,35 @@ CSS code for the board
 .cb_el{
 	position:absolute;
 }
+.a_box{
+	width:48px;
+	height:48px;
+	border: 1px solid #000000;
+	float: left;
+}
 .circle{
     position: absolute;
     width: 40px;
     height: 40px;
     border-radius: 100px;
+}
+.screw {
+	background:#D3D3D3;
+    width:40px;
+    height:40px;
+    border-radius: 100px;
+    margin:4px;
+}
+
+.feet {
+	float:left;
+	top: -15px;
+	width: 15px;
+	height:120px;
+	margin:-10px 5px 5px;
+	background:#D3D3D3;
+}
+.feet.short{
+	height:80px;
+	width: 14px;
 }
