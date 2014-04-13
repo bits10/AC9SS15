@@ -112,22 +112,32 @@ public class HTMLHeaderCompiler implements FilenameFilter {
 			String s = new String(buffer);
 			buffer = null;
 
-			s = s.replaceAll("\n", "");
-			s = s.replaceAll("\r", "");
-			s = s.replaceAll("\t", "");
-			s = s.replaceAll("\\s{2,}", " ");
 
 			if(f.getName().endsWith(".html") || f.getName().endsWith(".htm") || f.getName().endsWith(".svg")) {
 				s = s.replaceAll("<!--(.*?)-->", "");
+				s = s.replaceAll("> <", "><");
 
 			} else if(f.getName().endsWith(".js")) {
 				s = s.replaceAll("/\\*(.*?)\\*/", "");
 				s = s.replaceAll("//(.*?)$", "");
+				s = s.replaceAll("; ", ";");
+				s = s.replaceAll(" ;", ";");
+				s = s.replaceAll(": ", ":");
+				s = s.replaceAll(" :", ":");
+				s = s.replaceAll(" \\{", "\\{");
+				s = s.replaceAll("\\{ ", "\\{");
+				s = s.replaceAll(" =", "=");
+				s = s.replaceAll("= ", "=");
+				s = s.replaceAll("=\" ", "\"");
 
 			} else if(f.getName().endsWith(".css")) {
 				s = s.replaceAll("/\\*(.*?)\\*/", "");
-
 			}
+			
+			s = s.replaceAll("\n", "");
+			s = s.replaceAll("\r", "");
+			s = s.replaceAll("\t", "");
+			s = s.replaceAll("\\s{2,}", " ");
 
 			buffer = new char[s.length()];
 			s.getChars(0, s.length(), buffer, 0); 

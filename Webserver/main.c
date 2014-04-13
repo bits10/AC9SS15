@@ -40,8 +40,6 @@
 #include "lcd.h"
 #include "udp_lcd.h"
 #include "analog.h"
-#include "camera/cam.h"
-#include "camera/servo.h"
 #include "sendmail.h"
 #include "artnet.h"
 #include "dhcpc.h"

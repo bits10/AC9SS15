@@ -125,18 +125,6 @@
     <Compile Include="base64.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="camera\cam.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="camera\cam.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="camera\servo.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="camera\servo.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="cmd.c">
       <SubType>compile</SubType>
     </Compile>
@@ -245,7 +233,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="networkcard" />
-    <Folder Include="camera" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
