@@ -22,10 +22,10 @@ function initRest(){
 	
 	setOnValuesChange(function(values, time){
 		document.getElementById('freq_ist').innerHTML=time;
-		var el=document.getElementById('rest');
+		var el=getEl('rest');
 		el.innerHTML="";
-		for(var i=0;i<cachedValues.length;i++)
-			el.innerHTML+="<br>"+(getName(i)+": "+getValue(i));
+		for(var i=0;i<getPinCount();i++)
+			el.innerHTML+="<br>"+(getId(i)+": "+values[i]);
 	});
 	
 	setOnNetworkError(function(state, response){
@@ -33,8 +33,9 @@ function initRest(){
 		console.log(response);
 	});
 	
-	getInfo();
-	isEditable(0);
+	cachedInfo=JSON.parse(loadURL(urlInfo));
+	cachedPinInfo=JSON.parse(loadURL(urlPinInfo));
+	cachedValues=JSON.parse(loadURL(urlValues));
 	refreshValues();
 	isInitialised=1;
 }
@@ -117,7 +118,7 @@ function setOnNetworkError(func){
  * @param {Object} the value of the pin or analog input.
  */
 function getValue(id){
-	return cachedValues[id];
+	return cachedValues[getIndex(id)];
 }
 
 /**
@@ -127,7 +128,7 @@ function getValue(id){
  * @param {Object} the new value. Should be 1 or 0.
  */
 function setValue(id,value){
-	return loadURL(urlModify+id+'='+value);
+	return loadURLAsync(urlModify+id+'='+value, function(){});
 }
 
 /**
@@ -135,32 +136,55 @@ function setValue(id,value){
  * @param {Object} The id of the pin.
  */
 function isEditable(id){
-	if(!cachedPinInfo)
-		cachedPinInfo=JSON.parse(loadURL(urlPinInfo));
-		
-	return cachedPinInfo[id].editable;
+	return cachedPinInfo[getIndex(id)].e;
+}
+
+/**
+ * Returns if the pin with the given id is a digital one.
+ * @param {Object} The id of the pin.
+ */
+function isDigital(id){
+	return cachedPinInfo[getIndex(id)].t=='d';
+}
+
+/**
+ * Returns the name of the pin with the given id.
+ * @param {Object} The name of the pin.
+ */
+function getName(id){
+	return cachedPinInfo[getIndex(id)].n;
 }
 
 /**
  * Returns the info array, including 'ip', 'def_ip', 'mac' and 'version'.
  * Usage: getInfo().ip
  */
-function getInfo(){
-	if(!cachedInfo)
-		cachedInfo=JSON.parse(loadURL(urlInfo));
-		
+function getInfo(){		
 	return cachedInfo;
+}
+
+/**
+ * Returns the pin info array, including 'e' (editable, 0 or 1), 'id' (the pin's id),'n' (the pin's name) and 't' (the pin's type, d or a).
+ * Usage: getPinInfo()[0].id
+ */
+function getPinInfo(){		
+	return cachedPinInfo;
+}
+
+/**
+ * Returns the count of the available pins.
+ * @return the count of the available pins.
+ */
+function getPinCount(){
+	return this.cachedPinInfo.length;
 }
 
 /**
  * Returns the default name of the pin with the given id.
  * @param {Object} The name of the pin.
  */
-function getName(id){
-	if(!cachedPinInfo)
-		cachedPinInfo=JSON.parse(loadURL(urlPinInfo));
-		
-	return cachedPinInfo[id].name;
+function getId(index){
+	return cachedPinInfo[getIndex(id)].id;
 }
 
 /**
@@ -170,6 +194,26 @@ function getName(id){
 function setIP(ip){
 	loadUrl(urlModifyIP+ip);
 	window.location=ip+"/index.html";
+}
+
+/**
+ * Returns the id of the pin stored at the given index.
+ */
+function getId(index){
+	return cachedPinInfo[index].id;
+}
+
+/*
+ * Returns the index in all data structures of the pin with the given id.
+ * @param {Object} the id of the requested pin
+ * @return The index of the pin with the given id or -1 if no entry was found
+ */
+function getIndex(id){
+	for(var i=0;i<cachedPinInfo.length;i++)
+		if(cachedPinInfo[i].id==id)
+			return i;
+			
+	return -1;
 }
 
 /**

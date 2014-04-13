@@ -9,7 +9,7 @@
 <script src="rest.js" type="text/javascript"></script>
 <script src="ui.js" type="text/javascript"></script>
 </head>
-<body onload="setMain('status');initRest();initFavorites();">
+<body onload="initUi();setMain('status');initRest();initFavorites();">
 	
 	<!--The main div. Only the header and one of the other children should be visible a time-->
 	<div class="background" id="main">
@@ -103,50 +103,45 @@
 					<div class="cb_el black" id="cb_se1"></div>
 					<div class="cb_el black" id="cb_se2"></div>
 					<div class="cb_el " id="cb_ana">
-						<div class="a_box blue"><div class="circle screw"></div></div>
-						<div class="a_box blue"><div class="circle screw"></div></div>
-						<div class="a_box blue selected"><div class="circle screw"></div></div>
-						<div class="a_box blue"><div class="circle screw"></div></div>
-						<div class="a_box blue"><div class="circle screw"></div></div>
-						<div class="a_box blue"><div class="circle screw"></div></div>
-						<div class="a_box blue"><div class="circle screw"></div></div>
-						<div class="a_box blue"><div class="circle screw"></div></div>
-						<div class="a_box blue"><div class="circle screw"></div></div>
-						<div class="a_box blue"><div class="circle screw"></div></div>
+						<div class="a_box blue"><div class="circle screw"><div class="s_head"></div></div></div>
+						<div class="a_box blue"><div class="circle screw"><div class="s_head"></div></div></div>
+						<div class="a_box blue selected"><div class="circle screw"><div class="s_head"></div></div></div>
+						<div class="a_box blue"><div class="circle screw"><div class="s_head"></div></div></div>
+						<div class="a_box blue"><div class="circle screw"><div class="s_head"></div></div></div>
+						<div class="a_box blue"><div class="circle screw"><div class="s_head"></div></div></div>
+						<div class="a_box blue"><div class="circle screw"><div class="s_head"></div></div></div>
+						<div class="a_box blue"><div class="circle screw"><div class="s_head"></div></div></div>
+						<div class="a_box blue"><div class="circle screw"><div class="s_head"></div></div></div>
+						<div class="a_box blue"><div class="circle screw"><div class="s_head"></div></div></div>
 					</div>
 					<div class="cb_el " id="cb_ac">
-						<div class="a_box blue"><div class="circle screw"></div></div>
-						<div class="a_box blue"><div class="circle screw"></div></div>
+						<div class="a_box blue"><div class="circle screw"><div class="s_head"></div></div></div>
+						<div class="a_box blue"><div class="circle screw"><div class="s_head"></div></div></div>
 					</div>
+				<div class="circle led_on" onclick="toggleLED(this);"></div>
 				</div>
 			</div>
 			<!--End of the board drawing-->
 
 			<!--The sidebar-->
 			<div class="sidebar">
-				<!--
-				<h1>Kein Pin ausgew&auml;hlt</h1>
-				<p>
-					Klicken Sie auf einen Pin in der &Uuml;bersicht um
-					 weitere Informationen anzuzeigen.
-				</p>
-				-->
-				<h1>Port C Pin 0</h1>
+				<h1 id="detail_title">--</h1>
 				<p>AKTUELLER WERT</p>
-				<p class="detail" style="margin-bottom:30px"><input type="checkbox" checked></p>
-				
+				<p class="detail"><input type="checkbox"id="cb_val" onclick="if(!isEditable(displayDetailId))return false;onDetailValueChanged()"></p>
 				<p>TYP</p>
-				<p class="detail">Digital</p>
+				<p class="detail" id="p_type">--</p>
 				<p>MANIPULIERBAR</p>
-				<p class="detail">Nein</p>
+				<p class="detail" id="p_mani">--</p>
+				<p>POSITION AN CPU</p>
+				<p class="detail" id="p_pid">--</p>
 				<p>FAVORIT</p>
-				<p class="detail"><input type="checkbox" checked></p>
+				<p class="detail"><input type="checkbox" id="cb_fav" onclick="toggleFavorite(displayDetailId)"></p>
 				<p>BESCHREIBUNG</p>
-				<p class="detail">Schalter 1</p>
+				<p class="detail" id="p_desc">--</p>
 				<p>SCRIPT-FUNKTION</p>
-				<p class="detail">function(value){<br>&nbsp;&nbsp;&nbsp;&nbsp;return value*2;<br>}</p>
+				<p class="detail" id="p_func">--</p>
 			</div>
-			<!--End of the board drawing-->
+			<!--End of the sidebar-->
 
 			<!--clear floating-->
 			<div style="clear:both"> </div>
@@ -167,13 +162,15 @@
 		<!--The div containing the rest interface tests tab-->
 		<div class="mainDiv" id="test">
 			<h1>REST/xmlHttpRequest Versuch</h1>
-			<input value="1000" id='freq_in' type="range"  min="0" max="10000" oninput="pollingFreq=getEl('freq_soll').innerHTML=getEl('freq_in').value"/><br>
+			<input value="1000" id='freq_in' type="range"  min="0" max="10000" oninput="pollingFreq=getEl('freq_soll').innerHTML=getEl('freq_in').value"/>
 			<input type="button" value="Pausieren/fortsetzen" onclick="togglePause()"/>
 			<p>Frequenz Soll (ms):</p>
 			<p id="freq_soll">1000</p>
 			<p>Frequenz Ist (ms):</p>
 			<p id="freq_ist"> </p>
 			<p id='rest'> </p>
+			<h1>Sidebar Steuerung</h1>
+			<input type="text" cols="2" id="id_to_show"/><input type="button" value="Anwenden" onclick="displayDetails(getEl('id_to_show').value)" />
 		</div>
 		<!--End #test-->
 	</div>

@@ -74,11 +74,17 @@ p.detail{
 	padding: 0  20px 20px 20px;
 	margin-top:0 0 0 20px;
 	float:right;
-	width:300px;
+	width:250px;
 	background:#D3D3D3;
 	box-shadow:
-		inset 7px 0px 10px -7px #888888,
-		inset 0px 7px 10px -7px #888888;
+		inset 7px 0px 10px -7px #888,
+		inset 0px 7px 10px -7px #888;
+	-webkit-box-shadow:
+		inset 7px 0px 10px -7px #888,
+		inset 0px 7px 10px -7px #888;
+	-moz-box-shadow:
+		inset 7px 0px 10px -7px #888,
+		inset 0px 7px 10px -7px #888;
 	height:100%;
 	margin:-10px -10px -10px 10px;
 }
