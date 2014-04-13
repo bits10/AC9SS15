@@ -1,1 +1,18 @@
-["%PINC0","%PINC1","%PINC2","%PINC3","%PINC4","%PINC5","%PINC6","%PINC7","%PORTA1","%PORTA2","%PORTA3","%PORTA4"]
+[
+	"%PINC0",
+	"%PINC1",
+	"%PINC2",
+	"%PINC3",
+	"%PINC4",
+	"%PINC5",
+	"%PINC6",
+	"%PINC7",
+	"%PIND0",
+	"%PIND1",
+	"%PIND2",
+	"%PIND3",
+	"%PIND4",
+	"%PIND5",
+	"%PIND6",
+	"%PIND7"
+]

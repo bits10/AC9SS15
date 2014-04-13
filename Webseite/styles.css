@@ -18,18 +18,6 @@
 	padding:10px;
 }
 
-#status{
-	background:url(board.svg) no-repeat center 50px;
-}
-
-#settings{
-	background:url(ic_settings.svg) no-repeat center 50px;
-}
-
-#favorite{
-	background:url(ic_favorite.svg) no-repeat center 50px;
-}
-
 #header{
 	background:#2B2B2B;
 	border-bottom:solid 3px #33b5e5;

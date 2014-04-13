@@ -1,12 +1,13 @@
 var urlValues="rest/values";
-var urlEditable="rest/editable";
+var urlPinInfo="rest/pininfo";
 var urlModify="rest/modify?";
 var urlInfo="rest/info";
-var urlModifyIP="rest/setip?ip=";
+var urlModifyIP="rest/setip?";
 var onValuesChanged;
+var onNetworkError;
 var cachedInfo;
 var cachedValues;
-var cachedEditable;
+var cachedPinInfo;
 var pollingFreq=1000;
 var realPollingFreq=0;
 var lastPollingTime=Date.now();
@@ -24,8 +25,16 @@ function initRest(){
 		var el=document.getElementById('rest');
 		el.innerHTML="";
 		for(var i=0;i<cachedValues.length;i++)
-			el.innerHTML+="<br>"+(isEditable(i)?"Eingang ":"Ausgang ")+i+": "+getValue(i);
+			el.innerHTML+="<br>"+(getName(i)+": "+getValue(i));
 	});
+	
+	setOnNetworkError(function(state, response){
+		alert("A Network error occured. Please Reload the site.\nState: " + state);
+		console.log(response);
+	});
+	
+	getInfo();
+	isEditable(0);
 	refreshValues();
 	isInitialised=1;
 }
@@ -34,17 +43,24 @@ function initRest(){
  * Internally used function to refresh the values in an given interval.
  */
 function refreshValues(){
-	var v=loadURL(urlValues);
-	console.log(v);
-	cachedValues=JSON.parse(v);
+	loadURLAsync(urlValues, function(state, response) {
+		console.log(response);
+		cachedValues=JSON.parse(response);
 	
-	realPollingFreq=Date.now()-lastPollingTime;
-	lastPollingTime=Date.now();
+		realPollingFreq=Date.now()-lastPollingTime;
+		lastPollingTime=Date.now();
 	
-	onValuesChanged(cachedValues, realPollingFreq);	
+		if(state==200) {
+			onValuesChanged(cachedValues, realPollingFreq);	
 	
-	if(!isPaused)
-		window.setTimeout("refreshValues()",pollingFreq);
+			if(!isPaused)
+				window.setTimeout("refreshValues()",pollingFreq);
+				
+		} else {
+			onNetworkError(state, response);
+		}
+		
+	});
 }
 
 /**
@@ -62,6 +78,22 @@ function loadURL(url){
 }
 
 /**
+ * Loads the contents of the given URL and returns the laoded content. 
+ * This funtion is incompatible with IE 6 and older.
+ * @param {Object} the URL of the requested resource.
+ * @return The loaded content.
+ */
+function loadURLAsync(url, func){
+  	x=new XMLHttpRequest();
+  	x.onreadystatechange=function() {
+  		if(x.readyState==4)
+  			func(x.status,x.responseText);
+  	};
+	x.open("GET",url,true);
+	x.send();
+}
+
+/**
  * Sets the function invoked when a new value set was recieved by the server. 
  * The function should have two parameters. The first is the value array recieved 
  * and the second is the current polling rate in milliseconds.
@@ -69,6 +101,16 @@ function loadURL(url){
  */
 function setOnValuesChange(func){
 	onValuesChanged=func;
+}
+
+/**
+ * Sets the function invoked when a nnetwork error occured. 
+ * The function should have two parameters. The first is the HTTP state returned by the XMLHttpRequest,
+ * the second is the loaded text.
+ * @param {Object} The function to be invoked when a network error occured.
+ */
+function setOnNetworkError(func){
+	onNetworkError=func;
 }
 
 /**
@@ -94,10 +136,10 @@ function setValue(id,value){
  * @param {Object} The id of the pin.
  */
 function isEditable(id){
-	if(!cachedEditable)
-		cachedEditable=JSON.parse(loadURL(urlEditable));
+	if(!cachedPinInfo)
+		cachedPinInfo=JSON.parse(loadURL(urlPinInfo));
 		
-	return cachedEditable[id];
+	return cachedPinInfo[id].editable;
 }
 
 /**
@@ -109,6 +151,17 @@ function getInfo(){
 		cachedInfo=JSON.parse(loadURL(urlInfo));
 		
 	return cachedInfo;
+}
+
+/**
+ * Returns the default name of the pin with the given id.
+ * @param {Object} The name of the pin.
+ */
+function getName(id){
+	if(!cachedPinInfo)
+		cachedPinInfo=JSON.parse(loadURL(urlPinInfo));
+		
+	return cachedPinInfo[id].name;
 }
 
 /**
@@ -124,6 +177,7 @@ function setIP(ip){
  * Toggles the isPaused field and starts the refreshing process again if 
  * the pause mode was disabled. Returns true if the pause mode was entered and
  * false if the pause mode was disabled.
+ * @return Returns true if it is now paused and false otherwise
  */
 function togglePause() {
 	isPaused=!isPaused;
