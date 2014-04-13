@@ -25,6 +25,8 @@
 		
 		<!--The div containing the status tab-->
 		<div class="mainDiv" id="status">
+			
+			<!--The board drawing-->
 			<div align="center" id="board">
 				<div class="green" id="cb_main">
 					<div class="circle lo background"></div>
@@ -77,7 +79,7 @@
 							<div class="cb_pin_inner_dist"></div>
 							<div class="pin"></div>
 							<div class="pin"></div>
-							<div class="pin"></div>
+							<div class="pin selected"></div>
 							<div class="pin"></div>
 							<div class="pin"></div>
 							<div class="pin"></div>
@@ -103,7 +105,7 @@
 					<div class="cb_el " id="cb_ana">
 						<div class="a_box blue"><div class="circle screw"></div></div>
 						<div class="a_box blue"><div class="circle screw"></div></div>
-						<div class="a_box blue"><div class="circle screw"></div></div>
+						<div class="a_box blue selected"><div class="circle screw"></div></div>
 						<div class="a_box blue"><div class="circle screw"></div></div>
 						<div class="a_box blue"><div class="circle screw"></div></div>
 						<div class="a_box blue"><div class="circle screw"></div></div>
@@ -118,7 +120,37 @@
 					</div>
 				</div>
 			</div>
-			
+			<!--End of the board drawing-->
+
+			<!--The sidebar-->
+			<div class="sidebar">
+				<!--
+				<h1>Kein Pin ausgew&auml;hlt</h1>
+				<p>
+					Klicken Sie auf einen Pin in der &Uuml;bersicht um
+					 weitere Informationen anzuzeigen.
+				</p>
+				-->
+				<h1>Port C Pin 0</h1>
+				<p>AKTUELLER WERT</p>
+				<p class="detail" style="margin-bottom:30px"><input type="checkbox" checked></p>
+				
+				<p>TYP</p>
+				<p class="detail">Digital</p>
+				<p>MANIPULIERBAR</p>
+				<p class="detail">Nein</p>
+				<p>FAVORIT</p>
+				<p class="detail"><input type="checkbox" checked></p>
+				<p>BESCHREIBUNG</p>
+				<p class="detail">Schalter 1</p>
+				<p>SCRIPT-FUNKTION</p>
+				<p class="detail">function(value){<br>&nbsp;&nbsp;&nbsp;&nbsp;return value*2;<br>}</p>
+			</div>
+			<!--End of the board drawing-->
+
+			<!--clear floating-->
+			<div style="clear:both"> </div>
+
 		</div>
 		<!--End #status-->
 		

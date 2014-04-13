@@ -3,6 +3,7 @@
 *{
 	padding:0;
 	margin:0;
+	font-family:Calibri,Candara,Segoe,"Segoe UI",Optima,Arial,sans-serif;
 }
 
 #main{
@@ -31,7 +32,6 @@
 
 .buttonlink{
 	border-bottom:solid 3px;
-	font-family:Calibri,Candara,Segoe,"Segoe UI",Optima,Arial,sans-serif;
 	color:#FFFFFF;
 	padding:0 20px 7px 20px;
 	margin:0 10px 0 10px;
@@ -41,7 +41,6 @@
 	outline:none;
 }
 h1 {
-	font-family:Calibri,Candara,Segoe,"Segoe UI",Optima,Arial,sans-serif;
 	margin: 10px 0 10px 0;
 }
 
@@ -59,4 +58,27 @@ h1 {
 }
 .blue{
 	background:#4169E1;
+}
+
+p{
+	margin-top:10px;
+}
+p.detail{
+	color:#777;
+	margin-left:10px;
+	margin-top:0px;
+}
+.sidebar{
+	overflow-y:scroll;
+	text-align:left;
+	padding: 0  20px 20px 20px;
+	margin-top:0 0 0 20px;
+	float:right;
+	width:300px;
+	background:#D3D3D3;
+	box-shadow:
+		inset 7px 0px 10px -7px #888888,
+		inset 0px 7px 10px -7px #888888;
+	height:100%;
+	margin:-10px -10px -10px 10px;
 }

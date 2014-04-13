@@ -7,6 +7,7 @@ CSS code for the board
 	-ms-transform: scale(0.5);
 	-o-transform: scale(0.5);
 	transform: scale(0.5);
+	float:left;
 }
 #cb_main{
 	position:relative;
@@ -151,5 +152,14 @@ CSS code for the board
 .feet.short{
 	height:80px;
 	width: 14px;
+}
+
+/*
+ * Short test of the visual effect displaying a selected component.
+ */
+.selected{
+    box-shadow: 0 0 13px 7px #33B5E5;
+    z-index:1000000;
+    position:relative;
 }
 
