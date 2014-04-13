@@ -44,7 +44,6 @@ function initRest(){
  */
 function refreshValues(){
 	loadURLAsync(urlValues, function(state, response) {
-		console.log(response);
 		cachedValues=JSON.parse(response);
 	
 		realPollingFreq=Date.now()-lastPollingTime;
@@ -170,7 +169,7 @@ function getName(id){
  */
 function setIP(ip){
 	loadUrl(urlModifyIP+ip);
-	window.location = ip+"/index.html";
+	window.location=ip+"/index.html";
 }
 
 /**
