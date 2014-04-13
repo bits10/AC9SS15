@@ -1,21 +1,20 @@
-/*----------------------------------------------------------------------------
+﻿/*----------------------------------------------------------------------------
  Copyright:      Radig Ulrich  mailto: mail@ulrichradig.de
  Author:         Radig Ulrich
  Remarks:        
  known Problems: none
  Version:        24.10.2007
  Description:    Webserver Applikation
- Modified:       G. Menke, 05.08.2010
  
- Dieses Programm ist freie Software. Sie kˆnnen es unter den Bedingungen der 
- GNU General Public License, wie von der Free Software Foundation verˆffentlicht, 
- weitergeben und/oder modifizieren, entweder gem‰ﬂ Version 2 der Lizenz oder 
- (nach Ihrer Option) jeder sp‰teren Version. 
+ Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
+ GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
+ weitergeben und/oder modifizieren, entweder gemäß Version 2 der Lizenz oder 
+ (nach Ihrer Option) jeder späteren Version. 
 
- Die Verˆffentlichung dieses Programms erfolgt in der Hoffnung, 
- daﬂ es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, 
+ Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, 
+ daß es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, 
  sogar ohne die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT 
- F‹R EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License. 
+ FÜR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License. 
 
  Sie sollten eine Kopie der GNU General Public License zusammen mit diesem 
  Programm erhalten haben. 
@@ -38,12 +37,14 @@
 	#define TEXT_HTML 		1
 	#define TEXT_HTML_AUTH 	2
 	#define TEXT_CSS	 	3
-	#define IMAGE_SVG 		4
-	#define TEXT_JS 		5
+	#define IMAGE_JPEG 		4
+	#define IMAGE_GIF 		5
+	#define IMAGE_PNG 		6
+	#define IMAGE_SVG 		7
+	#define TEXT_JS 		8
 		
 	extern unsigned int var_array[MAX_VAR_ARRAY];
-	//float var_array[MAX_VAR_ARRAY];
-
+	
 	typedef struct
 	{
 		const char *filename;		//Dateiname der Seite
@@ -57,11 +58,14 @@
 		unsigned char *auth_ptr 				;
 		unsigned char *hdr_end_pointer			;
 		unsigned char http_auth 		: 1		;
-		unsigned char http_header_type	: 3		;
+		unsigned char http_header_type	: 4		;
 		unsigned char first_switch		: 1		;
 		unsigned char post				: 1		;
 		unsigned char *post_ptr					;
 		unsigned char *post_ready_ptr			;
+		#if USE_CAM
+		unsigned char cam				: 2		;
+		#endif //USE_CAM
 	};
 	
 	//Prototypen
