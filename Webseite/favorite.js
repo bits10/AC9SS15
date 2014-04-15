@@ -39,13 +39,15 @@ function getFavoritelist(){
  * return true or false, if id is in favoritelist or not
  */
 function isFavorite(id){
+	console.log(favoritelist.hasOwnProperty(id));
 	return favoritelist.hasOwnProperty(id);
 }
 /*
  * Removes Favorites from the list
  */
 function removeFavorite(id){
-		favoritelist[id]=null;
+	var index = favoritelist.indexOf(id);
+	favoritelist.splice(index, 1);
 	//schneidet aus Array raus
 	console.log(id + " aus Array gelöscht");
 }
@@ -68,7 +70,7 @@ function setDescription(id, des){
 	 * Reads Description out of the Favoritelist
 	 */
 function getDescription(id){
-	return favoritelist[id].des;
+	return "--";//favoritelist[id].des;
 	}
 	/*
 	 * Writes Function in the FavoriteList
@@ -81,5 +83,9 @@ function getDescription(id){
 	 * Reads Function out of the Favoritelist
 	 */
 function getFunction(id){
-	return new Function(favoritelist[id].func);
+	return "--";//new Function(favoritelist[id].func);
 	}
+function toggleFavorite(id){
+	isFavorite(id)?removeFavorite(id):addFavorite(id);
+	}
+

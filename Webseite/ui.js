@@ -53,18 +53,17 @@ function setMain(div){
 }
 
 function displayDetails(id){
-	var index=getIndex(id);
 	displayDetailId=id;
 		
 	refershSidebarValue();
 	getEl('cb_val').onClick="";
-	getEl('cb_fav').checked=isFavorite(index);
+	getEl('cb_fav').checked=isFavorite(id);
 	getEl("detail_title").innerHTML=getName(id);
 	getEl('p_pid').innerHTML=isDigital(id)?"Port "+id.charAt(0)+" Pin "+id.charAt(1):getName(id);
 	getEl('p_mani').innerHTML=isEditable(id)?"Ja":"Nein";
 	getEl('p_type').innerHTML=isDigital(id)?"Digital":"Analog";
-	getEl('p_desc').innerHTML=getDescription(index);
-	getEl('p_func').innerHTML=getFunction(index);
+	getEl('p_desc').innerHTML=getDescription(id);
+	getEl('p_func').innerHTML=getFunction(id);
 }
 
 function refershSidebarValue(){
