@@ -1,20 +1,21 @@
-﻿/*----------------------------------------------------------------------------
+/*----------------------------------------------------------------------------
  Copyright:      Radig Ulrich  mailto: mail@ulrichradig.de
  Author:         Radig Ulrich
  Remarks:        
  known Problems: none
  Version:        24.10.2007
  Description:    Webserver Applikation
+ Modified:       G. Menke, 05.08.2010
 
- Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
- GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
- weitergeben und/oder modifizieren, entweder gemäß Version 2 der Lizenz oder 
- (nach Ihrer Option) jeder späteren Version. 
+ Dieses Programm ist freie Software. Sie kˆnnen es unter den Bedingungen der 
+ GNU General Public License, wie von der Free Software Foundation verˆffentlicht, 
+ weitergeben und/oder modifizieren, entweder gem‰ﬂ Version 2 der Lizenz oder 
+ (nach Ihrer Option) jeder sp‰teren Version. 
 
- Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, 
- daß es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, 
+ Die Verˆffentlichung dieses Programms erfolgt in der Hoffnung, 
+ daﬂ es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, 
  sogar ohne die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT 
- FÜR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License. 
+ F‹R EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License. 
 
  Sie sollten eine Kopie der GNU General Public License zusammen mit diesem 
  Programm erhalten haben. 
@@ -36,13 +37,8 @@
 #include "usart.h"
 
 
-#if USE_CAM
-#include "camera/cam.h"
-#endif //USE_CAM
-
 #include "httpd.h"
 #include "webpage.h"
-#include "lcd.h"
 #include "ntp.h"
 
 struct http_table http_entry[MAX_TCP_ENTRY];
@@ -54,64 +50,39 @@ unsigned char post_in[5] = {'O','U','T','='};
 unsigned char post_ready[5] = {'S','U','B','='};
 unsigned char PORT_tmp = 0;
 char dstr[24]={"No Time...             "};
-char buffer[128];
+
 //----------------------------------------------------------------------------
-//Variablenarry zum einfügen in Webseite %VA@00 bis %VA@09
-unsigned int var_array[MAX_VAR_ARRAY] = {10,50,30,0,0,0,0,0,0,0};
+//Variablenarry zum einf¸gen in Webseite %VA@00 bis %VA@09
+unsigned int var_array[MAX_VAR_ARRAY] = {10,50,30,2,0,0,0,0,0,0};
 //----------------------------------------------------------------------------
 
 //TEXT_PLAIN
 const PROGMEM char http_header0[]={	"HTTP/1.0 200 Document follows\r\n"
 								"Server: AVR_Small_Webserver\r\n"
-								"Access-Control-Allow-Origin: *"
 								"Content-Type: text/plain\r\n\r\n"};
 //TEXT_HTML
 const PROGMEM char http_header1[]={	"HTTP/1.0 200 Document follows\r\n"
 								"Server: AVR_Small_Webserver\r\n"
-								"Access-Control-Allow-Origin: *"
 								"Content-Type: text/html\r\n\r\n"};
 //TEXT_HTML_AUTH
 const PROGMEM char http_header2[]={	"HTTP/1.0 401 Unauthorized\r\n"
 								"Server: AVR_Small_Webserver\r\n"
 								"WWW-Authenticate: Basic realm=\"NeedPassword\""
 								"\r\nContent-Type: text/html\r\n\r\n"};
-//IMAGE_JPEG
+//IMAGE_SVG
 const PROGMEM char http_header3[]={	"HTTP/1.0 200 Document follows\r\n"
 								"Server: AVR_Small_Webserver\r\n"
-								"Access-Control-Allow-Origin: *"
-								"Content-Type: image/jpeg\r\n\r\n"};
-//IMAGE_GIF                  
-const PROGMEM char http_header4[]={   "HTTP/1.0 200 Document follows\r\n"
+								"Content-Type: image/svg+xml\r\n\r\n"};
+//TEXT_JS						
+const PROGMEM char http_header4[]={	"HTTP/1.0 200 Document follows\r\n"
 								"Server: AVR_Small_Webserver\r\n"
-								"Access-Control-Allow-Origin: *"
-								"Cache-Control: max-age=6000000\r\n"
-								"Content-Type: image/gif\r\n\r\n"};
-//TEXT_CSS                  
-const PROGMEM char http_header5[]={   "HTTP/1.0 200 Document follows\r\n"
+								"Content-Type: text/javascript\r\n\r\n"};
+//TEXT_CSS						
+const PROGMEM char http_header5[]={	"HTTP/1.0 200 Document follows\r\n"
 								"Server: AVR_Small_Webserver\r\n"
-								"Access-Control-Allow-Origin: *"
-								"Cache-Control: max-age=6000000\r\n"
 								"Content-Type: text/css\r\n\r\n"};
-								
-//IMAGE_PNG
-const PROGMEM char http_header6[]={ "HTTP/1.0 200 Document follows\r\n"
-									"Server: AVR_Small_Webserver\r\n"
-									"Access-Control-Allow-Origin: *"
-									"Cache-Control: max-age=6000000\r\n"
-									"Content-Type: image/png\r\n\r\n"};
-								
-//IMAGE_SVG
-const PROGMEM char http_header7[]={   "HTTP/1.0 200 Document follows\r\n"
-										"Server: AVR_Small_Webserver\r\n"
-										"Access-Control-Allow-Origin: *"
-										"Cache-Control: max-age=6000000\r\n"
-										"Content-Type: image/svg+xml\r\n\r\n"};
-//TEXT_JS
-const PROGMEM char http_header8[]={ "HTTP/1.0 200 Document follows\r\n"
-									"Server: AVR_Small_Webserver\r\n"
-									"Access-Control-Allow-Origin: *"
-									"Cache-Control: max-age=6000000\r\n"
-									"Content-Type: text/javascript\r\n\r\n"};
+
+
 
 //----------------------------------------------------------------------------
 //Kein Zugriff Seite bei keinem Passwort
@@ -140,8 +111,8 @@ void httpd (unsigned char index)
         return;
     }
 
-	//Allererste Aufruf des Ports für diese Anwendung
-	//HTTPD_Anwendungsstack löschen
+	//Allererste Aufruf des Ports f¸r diese Anwendung
+	//HTTPD_Anwendungsstack lˆschen
 	if(tcp_entry[index].app_status==1)
 	{
 		httpd_stack_clear(index);
@@ -155,9 +126,9 @@ void httpd (unsigned char index)
 		return;
 	}
 	
-	//Der Header wurde gesendet und mit ACK bestätigt (tcp_entry[index].app_status+1)
-	//war das HTML Packet fertig, oder müssen weitere Daten gesendet werden, oder Retransmission?
-	if (tcp_entry[index].app_status > 2 && tcp_entry[index].app_status < 0xFFFE && tcp_entry[index].status == ACK_FLAG)
+	//Der Header wurde gesendet und mit ACK best‰tigt (tcp_entry[index].app_status+1)
+	//war das HTML Packet fertig, oder m¸ssen weitere Daten gesendet werden, oder Retransmission?
+	if (tcp_entry[index].app_status > 2 && tcp_entry[index].app_status < 0xFFFE)
 	{
 		httpd_data_send (index);
 		return;
@@ -175,7 +146,7 @@ void httpd (unsigned char index)
 }
 
 //----------------------------------------------------------------------------
-//HTTPD_STACK löschen
+//HTTPD_STACK lˆschen
 void httpd_stack_clear (unsigned char index)
 {
 	http_entry[index].http_header_type = TEXT_HTML;
@@ -188,9 +159,6 @@ void httpd_stack_clear (unsigned char index)
 	http_entry[index].post_ptr = post_in;
 	http_entry[index].post_ready_ptr = post_ready;
 	http_entry[index].hdr_end_pointer = rx_header_end;
-	#if USE_CAM
-	http_entry[index].cam = 0;
-	#endif //USE_CAM				
 	HTTP_DEBUG("\r\n**** NEUE HTTP ANFORDERUNG ****\r\n\r\n");	
 	return;
 }
@@ -206,7 +174,7 @@ void httpd_header_check (unsigned char index)
 		http_entry[index].post = 1;
 		}
 	
-	//finden der Authorization und das Ende im Header auch über mehrere Packete hinweg!!	
+	//finden der Authorization und das Ende im Header auch ¸ber mehrere Packete hinweg!!	
 	if(*http_entry[index].hdr_end_pointer != 0)
 	{		
 		for(a=TCP_DATA_START_VAR;a<(TCP_DATA_END_VAR);a++)
@@ -240,12 +208,6 @@ void httpd_header_check (unsigned char index)
 		}
 	}
 	
-	/*
-	 * Hier findet die Asuwertung der POST-Methoden statt
-	 * Bsp. Header Payload: OUT=B&OUT=C&SUB=Senden
-	 * Wenn OUT=B wird der Pin gesetzt (PortAPin1), ansonsten gelöscht
-	 */
-	 
 	//Einzelne Postpacket (z.B. bei firefox)
 	if(http_entry[index].http_auth && http_entry[index].post == 1)
 	{
@@ -272,6 +234,26 @@ void httpd_header_check (unsigned char index)
 					  PORT_tmp = PORT_tmp + 4;
 				      break;
 
+				    case ('D'):
+					  PORT_tmp = PORT_tmp + 8;
+				      break;
+
+				    case ('E'):
+					  PORT_tmp = PORT_tmp + 16;
+				      break;
+
+				    case ('F'):
+					  PORT_tmp = PORT_tmp + 32;
+				      break;
+
+				    case ('G'):
+					  PORT_tmp = PORT_tmp + 64;
+				      break;
+
+				    case ('H'):
+					  PORT_tmp = PORT_tmp + 128;
+				      break;
+
                     #if USE_WOL
                     case 'W':
                         wol_enable = 1;
@@ -282,7 +264,7 @@ void httpd_header_check (unsigned char index)
 				//Schaltanweisung wurde gefunden
 			}
 		
-			//Submit schließt die suche ab!
+			//Submit schlieﬂt die suche ab!
 			if (eth_buffer[a] != *http_entry[index].post_ready_ptr++)
 			{
 				http_entry[index].post_ready_ptr = post_ready;
@@ -290,7 +272,7 @@ void httpd_header_check (unsigned char index)
 			if(*http_entry[index].post_ready_ptr == 0) 
 			{
 				http_entry[index].post = 0;
-				PORTA = PORT_tmp;
+				PORTC = PORT_tmp;
                 PORT_tmp = 0;
 				break;
 				//Submit gefunden
@@ -323,21 +305,15 @@ void httpd_header_check (unsigned char index)
 					HTTP_DEBUG("%s",(char*)WEBPAGE_TABLE[page_index].filename);
 					HTTP_DEBUG("<----------------\r\n\r\n");	
 					
-					if (strcasestr(WEBPAGE_TABLE[page_index].filename,".jpg")!=0)
+					if (strcasestr(WEBPAGE_TABLE[page_index].filename,".svg")!=0)
 					{
-						#if USE_CAM
-						if (strcasestr(WEBPAGE_TABLE[page_index].filename,"camera")!=0)
-						{	
-							http_entry[index].cam = 1;
-						}
-						#endif //USE_CAM
-						http_entry[index].http_header_type = IMAGE_JPEG;
+						http_entry[index].http_header_type = IMAGE_SVG;
 					}
 					else if (strcasestr(WEBPAGE_TABLE[page_index].filename,".gif")!=0)
 					{
-						http_entry[index].http_header_type = IMAGE_GIF;
+						http_entry[index].http_header_type = TEXT_JS;
 					}	
-					else if (strcasestr(WEBPAGE_TABLE[page_index].filename,".html")!=0)
+					else if (strcasestr(WEBPAGE_TABLE[page_index].filename,".htm")!=0)
 					{
 						http_entry[index].http_header_type = TEXT_HTML;	
 					}
@@ -345,22 +321,6 @@ void httpd_header_check (unsigned char index)
 					{
 						http_entry[index].http_header_type = TEXT_CSS;	
 					}
-					else if (strcasestr(WEBPAGE_TABLE[page_index].filename,".png")!=0)
-					{
-						http_entry[index].http_header_type = IMAGE_PNG;
-					}
-					else if (strcasestr(WEBPAGE_TABLE[page_index].filename,".svg")!=0)
-					{
-						http_entry[index].http_header_type = IMAGE_SVG;
-					}
-					else if (strcasestr(WEBPAGE_TABLE[page_index].filename,".svg")!=0)
-					{
-						http_entry[index].http_header_type = IMAGE_SVG;
-					}
-					else if (strcasestr(WEBPAGE_TABLE[page_index].filename,".js")!=0)
-					{
-						http_entry[index].http_header_type = TEXT_JS;
-					}					
 					else
 					{
 						http_entry[index].http_header_type = TEXT_PLAIN;
@@ -374,10 +334,10 @@ void httpd_header_check (unsigned char index)
 	}
 
 	//Wurde das Ende vom Header nicht erreicht
-	//kommen noch weitere Stücke vom Header!
+	//kommen noch weitere St¸cke vom Header!
 	if ((*http_entry[index].hdr_end_pointer != 0) || (http_entry[index].post == 1))
 	{
-		//Der Empfang wird Quitiert und es wird auf weiteres Headerstück gewartet
+		//Der Empfang wird Quitiert und es wird auf weiteres Headerst¸ck gewartet
 		tcp_entry[index].status =  ACK_FLAG;
 		create_new_tcp_packet(0,index);
 		//Warten auf weitere Headerpackete
@@ -386,7 +346,7 @@ void httpd_header_check (unsigned char index)
 	}	
 	
 	//Wurde das Passwort in den ganzen Headerpacketen gefunden?
-	//Wenn nicht dann ausführen und Passwort anfordern!
+	//Wenn nicht dann ausf¸hren und Passwort anfordern!
 	if((!http_entry[index].http_auth) && tcp_entry[index].status&PSH_FLAG)
 	{	
 		//HTTP_AUTH_Header senden!
@@ -404,7 +364,7 @@ void httpd_header_check (unsigned char index)
 		//Besucher Counter
 		var_array[MAX_VAR_ARRAY-1]++;
 		
-		http_entry[index].new_page_pointer = item_0;
+		http_entry[index].new_page_pointer = WEBPAGE_TABLE[0].page_pointer;
 		http_entry[index].http_header_type = TEXT_HTML;
 	}	
 	
@@ -422,12 +382,12 @@ void httpd_header_check (unsigned char index)
 			tcp_entry[index].status =  ACK_FLAG | PSH_FLAG;
 			create_new_tcp_packet((sizeof(http_header1)-1),index);
 		break;
-		case IMAGE_JPEG:
+		case IMAGE_SVG:
 			memcpy_P((char*)&eth_buffer[TCP_DATA_START_VAR],http_header3,(sizeof(http_header3)-1));
 			tcp_entry[index].status =  ACK_FLAG | PSH_FLAG;
 			create_new_tcp_packet((sizeof(http_header3)-1),index);
 		break;
-		case IMAGE_GIF:
+		case TEXT_JS:
 			memcpy_P((char*)&eth_buffer[TCP_DATA_START_VAR],http_header4,(sizeof(http_header4)-1));
 			tcp_entry[index].status =  ACK_FLAG | PSH_FLAG;
 			create_new_tcp_packet((sizeof(http_header4)-1),index);
@@ -436,21 +396,6 @@ void httpd_header_check (unsigned char index)
 			memcpy_P((char*)&eth_buffer[TCP_DATA_START_VAR],http_header5,(sizeof(http_header5)-1));
 			tcp_entry[index].status =  ACK_FLAG | PSH_FLAG;
 			create_new_tcp_packet((sizeof(http_header5)-1),index);
-		break;
-		case IMAGE_PNG:
-			memcpy_P((char*)&eth_buffer[TCP_DATA_START_VAR],http_header6,(sizeof(http_header6)-1));
-			tcp_entry[index].status =  ACK_FLAG | PSH_FLAG;
-			create_new_tcp_packet((sizeof(http_header6)-1),index);
-		break;
-		case IMAGE_SVG:
-			memcpy_P((char*)&eth_buffer[TCP_DATA_START_VAR],http_header7,(sizeof(http_header7)-1));
-			tcp_entry[index].status =  ACK_FLAG | PSH_FLAG;
-			create_new_tcp_packet((sizeof(http_header7)-1),index);
-		break;
-		case TEXT_JS:
-			memcpy_P((char*)&eth_buffer[TCP_DATA_START_VAR],http_header8,(sizeof(http_header8)-1));
-			tcp_entry[index].status =  ACK_FLAG | PSH_FLAG;
-			create_new_tcp_packet((sizeof(http_header8)-1),index);
 		break;
 	}
 	return;
@@ -469,42 +414,7 @@ void httpd_data_send (unsigned char index)
 	if(!http_entry[index].http_auth)
 	{
 		http_entry[index].new_page_pointer = Page0;
-		#if USE_CAM
-		http_entry[index].cam = 0;
-		#endif //USE_CAM
 	}
-	
-	#if USE_CAM //*****************************************************************
-	unsigned long byte_counter = 0;
-	
-	if(http_entry[index].cam > 0)
-	{
-        //Neues Bild wird in den Speicher der Kamera geladen!
-		if(http_entry[index].cam == 1){
-			max_bytes = cam_picture_store(CAM_RESOLUTION);
-			http_entry[index].cam = 2;
-		}
-        
-		for (a = 0;a < (MTU_SIZE-(TCP_DATA_START)-10);a++)
-		{
-			byte_counter = ((tcp_entry[index].app_status - 3)*(MTU_SIZE-(TCP_DATA_START)-10)) + a;
-			
-			eth_buffer[TCP_DATA_START + a] = cam_data_get(byte_counter);
-			
-			if(byte_counter > max_bytes)
-			{
-				tcp_entry[index].app_status = 0xFFFD;
-				a++;
-				break;
-			}
-		}
-		//Erzeugte Packet kann nun gesendet werden!
-		tcp_entry[index].status =  ACK_FLAG | PSH_FLAG;
-		create_new_tcp_packet(a,index);
-		return;	
-	}
-	#endif //USE_CAM***************************************************************
-
 	//kein Packet empfangen Retransmission des alten Packetes
 	if (tcp_entry[index].status == 0) 
 	{
@@ -518,14 +428,11 @@ void httpd_data_send (unsigned char index)
 		b = pgm_read_byte(http_entry[index].new_page_pointer++);
 		eth_buffer[TCP_DATA_START + a] = b;
 		
-		//Müssen Variablen ins Packet eingesetzt werden? ===> %VA@00 bis %VA@09
+		//M¸ssen Variablen ins Packet eingesetzt werden? ===> %VA@00 bis %VA@09
 		if (b == '%')
 		{
 			if (strncasecmp_P("VA@",http_entry[index].new_page_pointer,3)==0)
 			{	
-				/*
-				 * Kryptische Berechnug der Balkenlängen auf basis der Werte der AD-Wandler -> müssen wir kapieren
-				 */
 				b = (pgm_read_byte(http_entry[index].new_page_pointer+3)-48)*10;
 				b +=(pgm_read_byte(http_entry[index].new_page_pointer+4)-48);	
 				itoa (var_array[b],var_conversion_buffer,10);
@@ -535,11 +442,8 @@ void httpd_data_send (unsigned char index)
 				http_entry[index].new_page_pointer=http_entry[index].new_page_pointer+5;
 			}
 			
-			/*
-			 * Hier wird die Zeit eingesetzet, wird nur von status.htm genutzt
-			 */
             #if USE_NTP
-            //Zeit in Webseite einfügen
+            //Zeit in Webseite einf¸gen
             if (strncasecmp_P("TIME",http_entry[index].new_page_pointer,4)==0)
             {
                 if (ntp_state == NTP_STATE_REQ_ERR)
@@ -559,9 +463,6 @@ void httpd_data_send (unsigned char index)
             }
             #endif
             
-            /*
-             * Hier werden die Checboxes für das Formular gesetzet (durch einfügen von "checked")
-             */
 			//Einsetzen des Port Status %PORTxy durch "checked" wenn Portx.Piny = 1
 			//x: A..G  y: 0..7 
 			if (strncasecmp_P("PORT",http_entry[index].new_page_pointer,4)==0)
@@ -586,13 +487,11 @@ void httpd_data_send (unsigned char index)
 				
 				if(b)
 				{
-					sprintf(buffer, "%d, %d, %d", PINA, PINC, PIND);
-					strcpy(var_conversion_buffer, buffer);
+					strcpy_P(var_conversion_buffer, PSTR("1"));
 				}
 				else
 				{
-					sprintf(buffer, "%d, %d, %d", PINA, PINC, PIND);
-					strcpy(var_conversion_buffer, buffer);
+					strcpy_P(var_conversion_buffer, PSTR("0"));
 				}
 				str_len = strnlen(var_conversion_buffer,CONVERSION_BUFFER_LEN);
 				memmove(&eth_buffer[TCP_DATA_START+a],var_conversion_buffer,str_len);
@@ -600,9 +499,6 @@ void httpd_data_send (unsigned char index)
 				http_entry[index].new_page_pointer = http_entry[index].new_page_pointer+6;
 			}
 			
-			/*
-			 * Hier werden die led_on.gif oder led_off.gif eingesetzet
-			 */
 			//Einsetzen des Pin Status %PI@xy bis %PI@xy durch "ledon" oder "ledoff"
 			//x = 0 : PINA / x = 1 : PINB / x = 2 : PINC / x = 3 : PIND
 			if (strncasecmp_P("PIN",http_entry[index].new_page_pointer,3)==0)
@@ -627,13 +523,11 @@ void httpd_data_send (unsigned char index)
 				
 				if(b)
 				{
-					sprintf(buffer, "%d", 1);
-					strcpy(var_conversion_buffer, buffer);
+					strcpy_P(var_conversion_buffer, PSTR("0"));
 				}
 				else
 				{
-					sprintf(buffer, "%d", 0);
-					strcpy(var_conversion_buffer, buffer);
+					strcpy_P(var_conversion_buffer, PSTR("1"));
 				}
 				str_len = strnlen(var_conversion_buffer,CONVERSION_BUFFER_LEN);
 				memmove(&eth_buffer[TCP_DATA_START+a],var_conversion_buffer,str_len);
@@ -641,7 +535,7 @@ void httpd_data_send (unsigned char index)
 				http_entry[index].new_page_pointer = http_entry[index].new_page_pointer+5;
 			}
 			//wurde das Ende des Packetes erreicht?
-			//Verbindung TCP Port kann beim nächsten ACK geschlossen werden
+			//Verbindung TCP Port kann beim n‰chsten ACK geschlossen werden
 			//Schleife wird abgebrochen keine Daten mehr!!
 			if (strncasecmp_P("END",http_entry[index].new_page_pointer,3)==0)
 			{	
