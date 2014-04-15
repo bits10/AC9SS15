@@ -1,8 +1,9 @@
 var urlValues="rest/values";
 var urlPinInfo="rest/pininfo";
-var urlModify="rest/setpin?";
+var urlModifyValue="rest/setpin?";
 var urlInfo="rest/info";
 var urlModifyIP="rest/setip?";
+var urlModifyDd="rest/setdd?";
 var onValuesChanged;
 var onNetworkError;
 var cachedInfo;
@@ -118,7 +119,7 @@ function setOnNetworkError(func){
  * @param {Object} the value of the pin or analog input.
  */
 function getValue(id){
-	return cachedValues[getIndex(id)];
+	return cachedValues[getIndex(id)].v;
 }
 
 /**
@@ -128,15 +129,7 @@ function getValue(id){
  * @param {Object} the new value. Should be 1 or 0.
  */
 function setValue(id,value){
-	return loadURLAsync(urlModify+id+'='+value, function(){});
-}
-
-/**
- * Returns if the pin with the given id is editable.
- * @param {Object} The id of the pin.
- */
-function isEditable(id){
-	return cachedPinInfo[getIndex(id)].e;
+	//return loadURLAsync(urlModify+id+'='+value, function(){});
 }
 
 /**
@@ -144,7 +137,7 @@ function isEditable(id){
  * @param {Object} The id of the pin.
  */
 function isDigital(id){
-	return cachedPinInfo[getIndex(id)].t=='d';
+	return cachedPinInfo[getIndex(id)].type=='d';
 }
 
 /**
@@ -152,7 +145,7 @@ function isDigital(id){
  * @param {Object} The name of the pin.
  */
 function getName(id){
-	return cachedPinInfo[getIndex(id)].n;
+	return cachedPinInfo[getIndex(id)].name;
 }
 
 /**
@@ -161,6 +154,47 @@ function getName(id){
  */
 function getInfo(){		
 	return cachedInfo;
+}
+
+/**
+ * Returns a array with all possible data directions for the pi with the given id.
+ * @param {Object} The name of the pin.
+ * @return An array with all possible data directions.
+ */
+function getDataDirectionOptions(id){
+	return cachedPinInfo[getIndex(id)].ddOptions;
+}
+
+/**
+ * Returns a description string for the given data direction.
+ * @param {Object} The data direction.
+ * @return A String describing the given data description.
+ */
+function getDataDirectionDescription(dd) {
+	switch(dd){
+		case 'di':return"digitaler Eingang";
+		case 'do':return"digialer Ausgang";
+		case 'ai':return"analoger Eingang";
+	}
+}
+
+/**
+ * Returns the data direction of the pin with the given id. 
+ * The data direction is either 'di' (digital input), 'do' (digital output) or 'ai' (analog input).
+ * @param {Object} The name of the pin.
+ * @return The data direction of the pin with the given id.
+ */
+function getDataDirection(id){
+	return  cachedValues[getIndex(id)].dd;
+}
+
+/**
+ * Sets the data direction of the given pin.
+ * @param {Object} The id of the pin.
+ * @param {Object} The new data direction.
+ */
+function setDataDirection(id, dd) {
+	
 }
 
 /**
@@ -203,9 +237,9 @@ function getId(index){
 	return cachedPinInfo[index].id;
 }
 
-/*
+/**
  * Returns the index in all data structures of the pin with the given id.
- * @param {Object} the id of the requested pin
+ * @param {Object} The name of the pin.
  * @return The index of the pin with the given id or -1 if no entry was found
  */
 function getIndex(id){

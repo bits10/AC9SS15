@@ -55,21 +55,37 @@ function setMain(div){
 function displayDetails(id){
 	displayDetailId=id;
 		
-	refershSidebarValue();
-	getEl('cb_val').onClick="";
 	getEl('cb_fav').checked=isFavorite(id);
 	getEl("detail_title").innerHTML=getName(id);
 	getEl('p_pid').innerHTML=isDigital(id)?"Port "+id.charAt(0)+" Pin "+id.charAt(1):getName(id);
-	getEl('p_mani').innerHTML=isEditable(id)?"Ja":"Nein";
+	var s=getEl('s_conf');
+	s.innerHTML="";
+	var opts=getDataDirectionOptions(id);
+	for (var i=0;i<opts.length;i++){
+    	var opt = document.createElement('option');
+    	opt.value = opts[i];
+    	opt.innerHTML = getDataDirectionDescription(opts[i]);
+    	s.appendChild(opt);
+	}
 	getEl('p_type').innerHTML=isDigital(id)?"Digital":"Analog";
 	getEl('p_desc').innerHTML=getDescription(id);
 	getEl('p_func').innerHTML=getFunction(id);
+	
+	refershSidebarValue();
 }
 
 function refershSidebarValue(){
-	getEl('cb_val').checked=getValue(displayDetailId)==1;
+	var el=getEl('p_val');
+	var dd=getDataDirection(displayDetailId);
+	switch(dd){
+		case 'di':el.innerHTML=getValue(displayDetailId);break;
+		case 'do':el.innerHTML=getValue(displayDetailId) + "<br><input type='button' value='Wert &auml;ndern' onclick='changeDetailValue()'/>";break;
+		case 'ai':el.innerHTML=getValue(displayDetailId)+" V";break;
+		default:el.innerHTML="undefined";
+	}
+	getEl('s_conf').value=dd;
 }
 
-function onDetailValueChanged(){		
-	setValue(displayDetailId, getEl('cb_val').checked);
+function changeDetailValue(){		
+	alert("Wert Šndern");
 }
