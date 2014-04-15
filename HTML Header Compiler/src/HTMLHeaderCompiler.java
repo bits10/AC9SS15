@@ -190,12 +190,14 @@ public class HTMLHeaderCompiler implements FilenameFilter {
 			outputWriter.write(this.tab() + "{\"" + this.getRelativePathFromRoot(files.get(i))
 					+ "\", " + this.createFieldNameForId(i) + "}");
 			
-			if(i<files.size()-1)
-				outputWriter.write(",");
+			outputWriter.write(",");
 			
 			outputWriter.newLine();
 		}
-
+		
+		outputWriter.write(this.tab() + "{NULL, NULL}");
+		outputWriter.newLine();
+		
 		outputWriter.write("};");
 		outputWriter.newLine();
 
