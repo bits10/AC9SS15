@@ -78,9 +78,8 @@ function refershSidebarValue(){
 	var el=getEl('p_val');
 	var dd=getDataDirection(displayDetailId);
 	switch(dd){
-		case 'di':el.innerHTML=getValue(displayDetailId);break;
-		case 'do':el.innerHTML=getValue(displayDetailId) + "<br><input type='button' value='Wert &auml;ndern' onclick='changeDetailValue()'/>";break;
-		case 'ai':el.innerHTML=getValue(displayDetailId)+" V";break;
+		case 'i':el.innerHTML=getValue(displayDetailId);break;
+		case 'o':el.innerHTML=getValue(displayDetailId) + "<br><input type='button' value='Wert &auml;ndern' onclick='changeDetailValue()'/>";break;
 		default:el.innerHTML="undefined";
 	}
 	getEl('s_conf').value=dd;

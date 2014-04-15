@@ -26,7 +26,7 @@ function initRest(){
 		var el=getEl('rest');
 		el.innerHTML="";
 		for(var i=0;i<getPinCount();i++)
-			el.innerHTML+="<br>"+(getId(i)+": "+values[i]);
+			el.innerHTML+="<br>"+getId(i)+": "+values[i].v+" ("+values[i].dd+")";
 	});
 	
 	setOnNetworkError(function(state, response){
@@ -172,15 +172,14 @@ function getDataDirectionOptions(id){
  */
 function getDataDirectionDescription(dd) {
 	switch(dd){
-		case 'di':return"digitaler Eingang";
-		case 'do':return"digialer Ausgang";
-		case 'ai':return"analoger Eingang";
+		case 'i':return"Eingang";
+		case 'o':return"Ausgang";
 	}
 }
 
 /**
  * Returns the data direction of the pin with the given id. 
- * The data direction is either 'di' (digital input), 'do' (digital output) or 'ai' (analog input).
+ * The data direction is either 'i' (input) or 'o' (output).
  * @param {Object} The name of the pin.
  * @return The data direction of the pin with the given id.
  */
