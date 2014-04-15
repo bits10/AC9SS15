@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AVR Webcontrol</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+<link rel="stylesheet" href="board.css" type="text/css">
+<script src="favorite.js" type="text/javascript"></script>
+<script src="rest.js" type="text/javascript"></script>
+<script src="ui.js" type="text/javascript"></script>
+</head>
+<body onload="initRest();">
+	
+	<!--The main div. Only the header and one of the other children should be visible a time-->
+	<div class="background" id="main">
+				
+		<!--The div containing the rest interface tests tab-->
+		<div class="mainDiv" id="test">
+			<h1>REST/xmlHttpRequest Versuch</h1>
+			<input value="1000" id='freq_in' type="range"  min="0" max="10000" onchange="pollingFreq=getEl('freq_soll').innerHTML=getEl('freq_in').value"/><br>
+			<input type="button" value="Pausieren/fortsetzen" onclick="togglePause()"/>
+			<p>Frequenz Soll (ms):</p>
+			<p id="freq_soll">1000</p>
+			<p>Frequenz Ist (ms):</p>
+			<p id="freq_ist"> </p>
+			<p id='rest'> </p>
+			
+			<div>
+			<form method="post" action="index.htm">
+				<input name="OUT" type="checkbox" value="A" %PORTA0>
+				Port A Pin 0<br>
+				<input name="OUT" type="checkbox" value="B" %PORTA1>
+				Port A Pin 1<br>
+				<input name="OUT" type="checkbox" value="C" %PORTA2>
+				Port A Pin 2<br>
+				<input name="SUB" value="Senden" type="submit">
+				</form>
+			</div>
+		</div>
+		<!--End #test-->
+	</div>
+	<!--End #main-->
+	
+</body>
+</html>
