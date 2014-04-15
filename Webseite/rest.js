@@ -1,6 +1,6 @@
 var urlValues="rest/values";
 var urlPinInfo="rest/pininfo";
-var urlModify="rest/modify?";
+var urlModify="rest/setpin?";
 var urlInfo="rest/info";
 var urlModifyIP="rest/setip?";
 var onValuesChanged;
