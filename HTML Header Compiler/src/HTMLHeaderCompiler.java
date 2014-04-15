@@ -118,8 +118,7 @@ public class HTMLHeaderCompiler implements FilenameFilter {
 				s = s.replaceAll("> <", "><");
 
 			} else if(f.getName().endsWith(".js")) {
-				s = s.replaceAll("/\\*(.*?)\\*/", "");
-				s = s.replaceAll("//(.*?)$", "");
+				s = s.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)", "");
 				s = s.replaceAll("; ", ";");
 				s = s.replaceAll(" ;", ";");
 				s = s.replaceAll(": ", ":");
