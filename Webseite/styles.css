@@ -72,7 +72,7 @@ p.detail{
 	overflow-y:scroll;
 	text-align:left;
 	padding: 0  20px 20px 20px;
-	margin-top:0 0 0 20px;
+	margin-left:20px;
 	float:right;
 	width:250px;
 	background:#D3D3D3;

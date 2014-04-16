@@ -37,17 +37,6 @@ CSS code for the board
 	width:500px; 
 	height:100px;
 }
-.s_head {
-    height: 8px;
-    margin-top: 16px;
-   /* -moz-box-shadow: inset 0px 1px 6px #222;
-    -webkit-box-shadow: inset 0px 1px 6px #222;
-    box-shadow: inset 0px 1px 6px #222;
-    border-radius: 2px;*/
-    transform:rotate(150deg);
-    -webkit-transform:rotate(150deg);
-	background:#888;
-}
 
 #cb_jmp{
 	width:55px; 
@@ -62,17 +51,48 @@ CSS code for the board
 	top:490px;
 	left:755px;
 }
+.cb_se {
+	width:162px;
+}
+.cb_se.bar{
+	width:25%;
+	height:100%;
+}
+.cb_se.mon{
+	left:-30%;
+	width:70%;
+	height:7.5%;
+}
+.cb_se.mon.up{
+	top:2.5%;
+}
+.cb_se.mon.do{
+	top:90%;
+}
+.cb_se.metal{
+	top:12.5%;
+	left:25%;
+	width:25%;
+	height:75%;
+}
+.cb_se.back{
+	top:12.5%;
+	left:-40%;
+	width:60%;
+	height:75%;
+}
+
 #cb_se1{
-	top:70px;
-	left:780px;
-	width:160px; 
-	height:350px; 
+	top:100px;
+	left:880px; 
+	height:400px; 
 }
 #cb_se2{
 	top:300px;
-	left:-40px;
-	width:170px; 
-	height:250px; 
+	left:-140px;
+	height:250px;
+	transform:rotate(180deg);
+	-webkit-transform:rotate(180deg);
 }
 #cb_con{
 	top:210px;
@@ -156,9 +176,15 @@ CSS code for the board
 	top: 550px;
     left: 850px;
 }
-.circle.screw {
-	background:#D3D3D3;
+.screw {
     margin:4px;
+}
+.screw.head {
+    height: 8px;
+    margin-top: 16px;
+    transform:rotate(150deg);
+    -webkit-transform:rotate(150deg);
+	background:#888;
 }
 .pin{
 	float:left;

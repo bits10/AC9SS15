@@ -76,8 +76,9 @@
 					<div class="cb_el black" id="cb_con"> </div>
 					<div class="cb_el cb_pin isp black">
 						<div class="cb_pin_inner">
-							<div class="cb_pin_inner_dist"> </div>
 							<div class="pin"> </div>
+							<div class="pin"> </div>
+							<div class="pin selected"> </div>
 							<div class="pin"> </div>
 							<div class="pin"> </div>
 							<div class="pin"> </div>
@@ -89,7 +90,8 @@
 					</div>
 					<div class="cb_el cb_pin ext black">
 						<div class="cb_pin_inner">
-							<div class="cb_pin_inner_dist"> </div>
+							<div class="pin"> </div>
+							<div class="pin"> </div>
 							<div class="pin"> </div>
 							<div class="pin"> </div>
 							<div class="pin"> </div>
@@ -100,23 +102,35 @@
 							<div class="pin"> </div>
 						</div>
 					</div>
-					<div class="cb_el black" id="cb_se1"> </div>
-					<div class="cb_el black" id="cb_se2"> </div>
+					<div class="cb_el cb_se" id="cb_se1"> 
+						<div class="cb_el cb_se mon up silver"></div>
+						<div class="cb_el cb_se mon do silver"></div>
+						<div class="cb_el cb_se bar black"></div>
+						<div class="cb_el cb_se back black"></div>
+						<div class="cb_el cb_se metal silver"></div>
+					</div>
+					<div class="cb_el cb_se" id="cb_se2"> 
+						<div class="cb_el cb_se mon up silver"></div>
+						<div class="cb_el cb_se mon do silver"></div>
+						<div class="cb_el cb_se bar black"></div>
+						<div class="cb_el cb_se back black"></div>
+						<div class="cb_el cb_se metal silver"></div>
+					</div>
 					<div class="cb_el " id="cb_ana">
-						<div class="a_box blue"> <div class="circle screw"> <div class="s_head"> </div> </div> </div>
-						<div class="a_box blue"> <div class="circle screw"> <div class="s_head"> </div> </div> </div>
-						<div class="a_box blue"> <div class="circle screw"> <div class="s_head"> </div> </div> </div>
-						<div class="a_box blue"> <div class="circle screw"> <div class="s_head"> </div> </div> </div>
-						<div class="a_box blue"> <div class="circle screw"> <div class="s_head"> </div> </div> </div>
-						<div class="a_box blue"> <div class="circle screw"> <div class="s_head"> </div> </div> </div>
-						<div class="a_box blue"> <div class="circle screw"> <div class="s_head"> </div> </div> </div>
-						<div class="a_box blue"> <div class="circle screw"> <div class="s_head"> </div> </div> </div>
-						<div class="a_box blue"> <div class="circle screw"> <div class="s_head"> </div> </div> </div>
-						<div class="a_box blue"> <div class="circle screw"> <div class="s_head"> </div> </div> </div>
+						<div class="a_box blue"> <div class="circle screw silver"><div class="screw head"></div></div></div>
+						<div class="a_box blue"> <div class="circle screw silver"><div class="screw head"></div></div></div>
+						<div class="a_box blue selected"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
+						<div class="a_box blue"> <div class="circle screw silver"><div class="screw head"></div></div></div>
+						<div class="a_box blue"> <div class="circle screw silver"><div class="screw head"></div></div></div>
+						<div class="a_box blue"> <div class="circle screw silver"><div class="screw head"></div></div></div>
+						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
+						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
+						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
+						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
 					</div>
 					<div class="cb_el " id="cb_ac">
-						<div class="a_box blue"> <div class="circle screw"> <div class="s_head"> </div> </div> </div>
-						<div class="a_box blue"> <div class="circle screw"> <div class="s_head"> </div> </div> </div>
+						<div class="a_box blue"><div class="circle screw silver"><div class="screw head"></div></div></div>
+						<div class="a_box blue"><div class="circle screw silver"><div class="screw head"></div></div></div>
 					</div>
 				<div class="circle led_on" onclick="toggleLED(this);"> </div>
 				</div>
@@ -127,11 +141,11 @@
 			<div class="sidebar">
 				<h1 id="detail_title">--</h1>
 				<p>AKTUELLER WERT</p>
-				<p class="detail" id="p_val">--</p>
+				<p class="detail"> <input type="checkbox"id="cb_val" onclick="if(!isEditable(displayDetailId))return false;onDetailValueChanged()"> </p>
 				<p>TYP</p>
 				<p class="detail" id="p_type">--</p>
-				<p>Konfiguration</p>
-				<p class="detail"><select id="s_conf"> </select></p>
+				<p>MANIPULIERBAR</p>
+				<p class="detail" id="p_mani">--</p>
 				<p>POSITION AN CPU</p>
 				<p class="detail" id="p_pid">--</p>
 				<p>FAVORIT</p>
