@@ -16,10 +16,10 @@ function initUi() {
 	
 	//Turn the screws
 	//This Block may be delelted wehen more disk space is required, but don't forget to also remove the CSS classed and divs!
-	var v=document.getElementsByClassName('s_head');
+	var v=document.getElementsByClassName('head');
 	for(var i=0;i<v.length;i++){
 		//Generate a constant "random" number to ensure the srews are positioned always identical
-		var r="rotate("+i*21*i+"deg)";
+		var r="rotate("+i*42*i+"deg)";
     	v[i].style.transform=r;
     	v[i].style.setProperty('-webkit-transform', r);
 	}
