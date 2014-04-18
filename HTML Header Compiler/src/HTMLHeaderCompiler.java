@@ -17,14 +17,10 @@ public class HTMLHeaderCompiler implements FilenameFilter {
 	private String rootDirectory;
 	@Argument(value="output", alias="out", required=true)
 	private String outputFilePath;
-	@Argument
-	private Boolean v = false;
-	@Argument
-	private Boolean verbose = false;
-	@Argument
-	private Boolean n = false;
-	@Argument
-	private Boolean newline = false;
+	@Argument(value="verbose", alias="v")
+	private boolean verbose = false;
+	@Argument(value="newline", alias="n")
+	private boolean newline = false;
 	
 	private String fileEnd = "%END";
 	private long totalWebpageSize = 0;
@@ -150,14 +146,14 @@ public class HTMLHeaderCompiler implements FilenameFilter {
 				s = s.replaceAll("/\\*(.*?)\\*/", "");
 			}
 			
-			if (!(n || newline)) { 
+			if (!(newline)) { 
 				s = s.replaceAll("\n", "");
 				s = s.replaceAll("\r", "");
 				s = s.replaceAll("\t", "");
 				s = s.replaceAll("\\s{2,}", " ");				
 			}
 
-			if (v || verbose) {
+			if (verbose) {
 				System.out.println("%\n%\n% File Content: \n%\n%");
 				System.out.println(s);
 				System.out.println("%\n%\n% File Content End \n%\n%");
