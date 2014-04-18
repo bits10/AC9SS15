@@ -22,6 +22,8 @@ function initUi() {
 		var r="rotate("+i*42*i+"deg)";
     	v[i].style.transform=r;
     	v[i].style.setProperty('-webkit-transform', r);
+    	v[i].style.setProperty('transform', r);
+    	v[i].style.setProperty('-moz-transform', r);
 	}
 }
 
