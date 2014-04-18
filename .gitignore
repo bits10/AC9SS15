@@ -33,6 +33,7 @@ local.properties
 
 Debug/
 Release/
+Webserver/webpage.h
 
 #################
 ## LaTEx
@@ -76,3 +77,4 @@ Release/
 #################
 
 .DS_Store
+
