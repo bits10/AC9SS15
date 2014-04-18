@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.sampullara.cli.Argument;
@@ -16,6 +17,15 @@ public class HTMLHeaderCompiler implements FilenameFilter {
 	private String rootDirectory;
 	@Argument(value="output", alias="out", required=true)
 	private String outputFilePath;
+	@Argument
+	private Boolean v = false;
+	@Argument
+	private Boolean verbose = false;
+	@Argument
+	private Boolean n = false;
+	@Argument
+	private Boolean newline = false;
+	
 	private String fileEnd = "%END";
 	private long totalWebpageSize = 0;
 
@@ -23,7 +33,7 @@ public class HTMLHeaderCompiler implements FilenameFilter {
 		
 		rootDirectory = new File(rootDirectory).getAbsoluteFile().getCanonicalPath();
 		
-		System.out.println("HTML Header Compiler 0.1");
+		System.out.println("HTML Header Compiler 0.42");
 		System.out.println("===========");
 
 		List<File> webpageFiles = this.listFilesInRoot();
@@ -34,11 +44,18 @@ public class HTMLHeaderCompiler implements FilenameFilter {
 
 		this.writeFileInit(outputWriter);
 		outputWriter.newLine();
+		
+		//sets index of index.html or index.htm to 0
+		for (int i=0; i<webpageFiles.size(); i++) { 
+			if (this.getRelativePathFromRoot(webpageFiles.get(i)).equals("index.html") || this.getRelativePathFromRoot(webpageFiles.get(i)).equals("index.htm")) {
+				Collections.swap(webpageFiles, 0, i);
+				break;
+			}
+		}
 
 		for(int i=0; i<webpageFiles.size(); i++) {
 			this.writeCharArrayDump(webpageFiles.get(i), i, outputWriter);
 			outputWriter.newLine();
-
 		}
 
 		this.writeFileIndex(webpageFiles, outputWriter);
@@ -133,10 +150,18 @@ public class HTMLHeaderCompiler implements FilenameFilter {
 				s = s.replaceAll("/\\*(.*?)\\*/", "");
 			}
 			
-			s = s.replaceAll("\n", "");
-			s = s.replaceAll("\r", "");
-			s = s.replaceAll("\t", "");
-			s = s.replaceAll("\\s{2,}", " ");
+			if (!(n || newline)) { 
+				s = s.replaceAll("\n", "");
+				s = s.replaceAll("\r", "");
+				s = s.replaceAll("\t", "");
+				s = s.replaceAll("\\s{2,}", " ");				
+			}
+
+			if (v || verbose) {
+				System.out.println("%\n%\n% File Content: \n%\n%");
+				System.out.println(s);
+				System.out.println("%\n%\n% File Content End \n%\n%");
+			}
 
 			buffer = new char[s.length()];
 			s.getChars(0, s.length(), buffer, 0); 
