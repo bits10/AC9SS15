@@ -1,0 +1,121 @@
+\chapter{Kommunikation zwischen Server und Webseite}
+
+\begin{itemize}
+	\item Aufbau als REST-Schnittstelle
+	\begin{itemize}
+		\item Simpel implementierbar
+		\item Technischer Standart
+		\item Fertige Mechaniken in JavaScript
+		\item Leicht erweiterbar um neue Funktionalitäten
+	\end{itemize}
+	\item Anforderungen an eine Lösung:
+	\begin{itemize}
+		\item Möglichst kompakt, wenig Bandbreite soll verbraucht werden
+		\item Messwerte müssen besonders effizient übertragen werden
+		\item Skalierbar - Egal ob ein oder 20 Ports verwendet werden
+		\item Neben Abfragen der Messwerte auch manipulieren der IP, des DDR und der 
+			  Ausgänge
+		\item JSON-Encodiert, direkt in JavaScript Objekt überführbar
+	\end{itemize}
+\end{itemize}
+
+%-----------------------------------------------------------------------------------------
+\section*{Polling oder Push}
+
+\begin{itemize}
+	\item Daten können entweder per Polling vom Client (Webseite abgefragt werden) oder
+		  vom Server bei einem Event (Änderung eines Eingangs) per Push geschickt werden	  
+	\item Pro/Contra Push
+	\begin{itemize}
+		\item Pro: Daten werden nur übertragen wenn es wirklich nötig ist, kein unnötiger 
+			  Datenverkehr
+		\item Pro: Leistung bleibt auch mit mehreren Clients eher konstant 
+			  (Genau Begründung ausarbeiten!)
+		\item Pro: Board wird entlastet, kein DOS, mehrere Clients können Webseite 
+		      trotzdem problemlos aufbauen 
+	\end{itemize}
+	\item Pro/Contra Polling
+	\begin{itemize}
+		\item Pro: Leichter zu implementieren - normale Dateiabfrage
+		\item Contra: Es werden viele unnötige Daten übertragen
+		\item Contra: Leistung nimmt mit steigender Anzahl von Clients ab
+		\item Pro: Im Prinzip nicht langsamer als Push: Limitierende Komponente ist die 
+			  Übertragungszeit! (Hier Bild von Chrome Netzwerkvehrkehr) 
+	\end{itemize}
+	
+	\item Push bessere Lösung
+	\item Umsetzung aber nicht möglich
+	\item Server kann keine Verbindung zu Client aufbauen
+	\begin{itemize}
+		\item Javascript kann keinen Serverport öffnen
+		\item Client hat keine öffentliche IP
+	\end{itemize}
+	\item Technische Lösung: HTML 5 Server Sent Events
+	\begin{itemize}
+		\item Technischer Standart, Eingeführt mit HTML 5
+		\item Client ruft virtuelle URL auf, ähnlich REST
+		\item So wird ein Stream geöffnet
+		\item Bei einem Event schreibt der Server die Informationen in den Stream
+		\item Client benutzt Javascript API um die jeweiligen Informationen zu lesen
+	\end{itemize}
+	\item Mit ATmega CPU und Radig Projrkt als Vorlage nicht lösbar
+	\begin{itemize}
+		\item Radig kann nur eine Verbindung handeln. Aufbau - Übertragung - Abbau für 
+			  jede Datei
+		\item HTTP 1.0
+		\item Aufruf einer HTML5 Server Sent Event URL würde dazu führen das der Server 
+			  blockiert ist
+		\item Gesamte Struktur auf nur eine Verbindung ausgelegt
+		\item Bei Umschreiben (sehr tiefer Eingriff!) stößt die CPU schnell an Grenzen
+		\item Multitasking nötig, Stack für jede Verbindung führt zu RAM Problemen
+		\item Sprengt vermutlich zeitlichen Rahmen
+	\end{itemize}
+	\item Daraus resutltiert die Verwendung von Polling
+	\item Da Polling nicht langsamer ist, gibt es keine Nachteile bei Frequenzen von ca. 
+		  200ms (auch bei zB. 3 Clients)
+\end{itemize}
+
+%-----------------------------------------------------------------------------------------
+\section*{Aufbau der REST-Schnittstelle}
+
+\begin{itemize}
+	\item 6 URLS
+	\item ..........Hier Zitat aus Präsentation, aber noch anpassen!
+\end{itemize}
+	
+%-----------------------------------------------------------------------------------------
+\section*{Implementierung der REST-Schnitstelle auf dem Server}
+
+\begin{itemize}
+	\item Benutzung der Struktur von Radig
+	\item Platzhalter \%PortXY werden beim senden des Dokuments ersetzt durch passende 
+		  Werte
+	\item in /rest liegen Dateien values (mit Platzhaltern), pininfo und info (jeweils als
+	      statisches Dokument)
+	\item Dateien können von ausßen normal aufgerufen werden und werden ggfs. mit realen 
+	      Informationen aufgefüllt
+	\item Vorteil: Test außerhalb der Platine möglich, da Werte als String gekennzeichnet 
+	      sind in JSON, Pins haben dann den Wert "\%PortXY" anstatt "0" oder "1"
+	\item TODO: Wie werden die set URLs implementiert?
+\end{itemize}
+
+%-----------------------------------------------------------------------------------------
+\section*{Implementierung der REST-Schnitstelle auf dem Client}
+
+\begin{itemize}
+	\item Aufruf der URLs im Hintergrund mit Ajax
+	\item info und pininfo werden zu Beginn einmalig aufgerufen (synchron um zu 
+	      gewährleisten das die Daten zur Verfügung stehen für andere Initialisierungen)
+	\item values wird mit setTimeout(...) zyklisch assynchron aufgerufen
+	\item synchrones aufrufen von values führt dazu, das sich die Webseite aufhängt, da
+	      der (Single-)JavaScript Thread mit dem laden der Daten beschäftigt ist und nicht
+	      für andere Aufgaben zur Verfügung steht. Bei einem assynchronen Aufruf werden 
+	      die Daten von einem anderen Thread im Hintergrund geladen
+	\item JSON-Text wird mit JSON.parse(...) in ein Objekt transformiert
+	\item Informationen werden über entsprechende getter zur Verfügung gestellt
+	\item Funktion onValueChanged wird jedes mal aufgerufen wenn neue Daten zur 
+	      Verfügung stehen
+	\item onError wird aufgerufen wenn ein Fehler in der Kommunikation aufgetreten ist
+	\item Über setter werden die entsprechenden URLs assynchron aufgerufen und so die 
+	      Daten an den Server übermittelt
+\end{itemize}
