@@ -25,6 +25,19 @@ function initUi() {
     	v[i].style.setProperty('transform', r);
     	v[i].style.setProperty('-moz-transform', r);
 	}
+	
+	//Init Settings for rest.js
+	setOnValuesChange(function(values, time){
+		getEl('setting_freq').innerHTML=time+"ms";
+	});
+	
+	//Display REST information
+	getEl('setting_ip').innerHTML=getInfo().ip;
+	getEl('setting_def_ip').innerHTML=getInfo().def_ip;
+	getEl('setting_mac').innerHTML=getInfo().mac;
+	getEl('setting_version').innerHTML=getInfo().version;
+
+	
 }
 
 /**

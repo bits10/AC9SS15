@@ -9,7 +9,7 @@
 <script src="rest.js" type="text/javascript"> </script>
 <script src="ui.js" type="text/javascript"> </script>
 </head>
-<body onload="initUi();setMain('status');initRest();initFavorites();">
+<body onload="initRest();initUi();setMain('status');initFavorites();">
 	
 	<!--The main div. Only the header and one of the other children should be visible a time-->
 	<div class="background" id="main">
@@ -19,7 +19,6 @@
 		  	<a id="status_bt" class="buttonlink" href="javascript:setMain('status')">STATUS</a>
 			<a id="favorite_bt" class="buttonlink" href="javascript:setMain('favorite')">FAVORITEN</a>
 			<a id="settings_bt" class="buttonlink" href="javascript:setMain('settings')">EINSTELLUNGEN</a>
-			<a id="test_bt" class="buttonlink" href="javascript:setMain('test')">( VERSUCHE )</a>
 		</div>
 		<!--End #header-->
 		
@@ -27,7 +26,7 @@
 		<div class="mainDiv" id="status">
 			
 			<!--The board drawing-->
-			<div align="center" id="board">
+			<div class="center" id="board">
 				<div class="green" id="cb_main">
 					<div class="circle lo background"> </div>
 					<div class="circle lu background"> </div>
@@ -141,7 +140,9 @@
 			<div class="sidebar">
 				<h1 id="detail_title">--</h1>
 				<p>AKTUELLER WERT</p>
-				<p class="detail"> <input type="checkbox"id="cb_val" onclick="if(!isEditable(displayDetailId))return false;onDetailValueChanged()"> </p>
+				<p class="detail" id="p_val"> </p>
+				<p>KONFIGURATION</p>
+				<p class="detail"><select id="s_conf"> </select></p>
 				<p>TYP</p>
 				<p class="detail" id="p_type">--</p>
 				<p>MANIPULIERBAR</p>
@@ -170,23 +171,17 @@
 		
 		<!--The div containing the settings tab-->
 		<div class="mainDiv" id="settings">
+			<table cellspacing="0" class="centered">
+				<tr class="even"><td class="title">IP-Adresse</td><td class="detail"><p id="setting_ip">--</p><input type="button" value="&Auml;ndern"/></td></tr>
+				<tr><td class="title">Reboot IP-Adresse</td><td class="detail"><p id="setting_def_ip">--</p></td></tr>
+				<tr><td class="title">Mac-Adresse</td><td class="detail"><p id="setting_mac">--</p></td></tr>
+				<tr><td class="title">Server-Version</td><td class="detail"><p id="setting_version">--</p></td></tr>
+				<tr><td class="title">Polling Frequenz</td><td class="detail"><p id="setting_freq">--</p><input type="button" value="&Auml;ndern" /></td></tr>
+				<tr><td class="title">Einstellungen zur&uuml;cksetzen</td><td class="detail"><input type="button" value="Zur&uuml;cksetzen" /></td></tr>
+				<tr><td class="title">&Uuml;ber</td><td class="detail"><input type="button" value="Credits anzeigen" /></td></tr>
+			</table>
 		</div>
 		<!--End #settings-->
-		
-		<!--The div containing the rest interface tests tab-->
-		<div class="mainDiv" id="test">
-			<h1>REST/xmlHttpRequest Versuch</h1>
-			<input value="1000" id='freq_in' type="range"  min="0" max="10000" oninput="pollingFreq=getEl('freq_soll').innerHTML=getEl('freq_in').value"/>
-			<input type="button" value="Pausieren/fortsetzen" onclick="togglePause()"/>
-			<p>Frequenz Soll (ms):</p>
-			<p id="freq_soll">1000</p>
-			<p>Frequenz Ist (ms):</p>
-			<p id="freq_ist"> </p>
-			<p id='rest'> </p>
-			<h1>Sidebar Steuerung</h1>
-			<input type="text" cols="2" id="id_to_show"/> <input type="button" value="Anwenden" onclick="displayDetails(getEl('id_to_show').value)" />
-		</div>
-		<!--End #test-->
 	</div>
 	<!--End #main-->
 	
