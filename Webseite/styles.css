@@ -59,7 +59,7 @@
 h1 {
 	color:#2B2B2B;
 	margin: 10px 0 10px 0;
-	text-shadow: 1px 1px 0px #fff;
+	text-shadow: 0 1px 0px #fff;
 }
 .background{
 	background:#fcfcfc;
@@ -101,7 +101,7 @@ p.detail{
 table {
 	color:#666;
 	font-size:12px;
-	text-shadow: 1px 0 0px #fff;
+	text-shadow: 0 1px 0px #fff;
 	width:100%;
 }
 table th {
@@ -122,7 +122,7 @@ table td:first-child {
 	border-left:0;
 }
 .overlay{
-	text-shadow: 1px 0 0px #fff;
+	text-shadow: 0 1px 0px #fff;
 	position:absolute;
 	display:none;
 	top:0;
@@ -170,7 +170,7 @@ table td:first-child {
 	text-decoration:none;
 	background:#eee;
 	box-shadow: 0 0 2px #888;
-	text-shadow: 1px 0 0px #fff;
+	text-shadow: 0 1px 0px #fff;
 	min-width:40px;	
 }
 .button:hover{
