@@ -215,10 +215,10 @@
 					<th> </th>
 				</thead>
 				<tbody id="favoritesTbody">
-					<tr><td>Digital 1</td><td>Schalter 1</td><td>Port C Pin 0</td><td>Eingang</td><td>Digital</td><td>1</td><td>Gedr&uuml;ckt</td><td><input type="button" value="Anpassen" /></td></tr>
-					<tr><td>Digital 2</td><td>Schalter 2</td><td>Port C Pin 2</td><td>Eingang</td><td>Digital</td><td>1</td><td>Gedr&uuml;ckt</td><td><input type="button" value="Anpassen" /></td></tr>
-					<tr><td>Digital 3</td><td>Schalter 3</td><td>Port C Pin 3</td><td>Eingang</td><td>Digital</td><td>1</td><td>Gedr&uuml;ckt</td><td><input type="button" value="Anpassen" /></td></tr>
-					<tr><td>Digital 4</td><td>LED 1</td><td>Port C Pin 4</td><td>Ausgang</td><td>Digital</td><td>1</td><td>Leuchtet</td><td><input type="button" value="Anpassen" /></td></tr>
+					<tr><td>Digital 1</td><td>Schalter 1</td><td>Port C Pin 0</td><td>Eingang</td><td>Digital</td><td>1</td><td>Gedr&uuml;ckt</td><td><div class="button ok" onclick="showOverlay('configureFav');">Anpassen</div></td></tr>
+					<tr><td>Digital 2</td><td>Schalter 2</td><td>Port C Pin 2</td><td>Eingang</td><td>Digital</td><td>1</td><td>Gedr&uuml;ckt</td><td><div class="button ok" onclick="showOverlay('configureFav');">Anpassen</div></td></tr>
+					<tr><td>Digital 3</td><td>Schalter 3</td><td>Port C Pin 3</td><td>Eingang</td><td>Digital</td><td>1</td><td>Gedr&uuml;ckt</td><td><div class="button ok" onclick="showOverlay('configureFav');">Anpassen</div></td></tr>
+					<tr><td>Digital 4</td><td>LED 1</td><td>Port C Pin 4</td><td>Ausgang</td><td>Digital</td><td>1</td><td>Leuchtet</td><td><div class="button ok" onclick="showOverlay('configureFav');">Anpassen</div></td></tr>
 				</tbody>
 			</table>
 
@@ -229,18 +229,107 @@
 		<div class="mainDiv" id="settings">
 			<table cellspacing="0">
 				<tbody >
-					<tr><td class="title">IP-Adresse</td><td class="detail"><p id="setting_ip">--</p><input type="button" value="&Auml;ndern"/></td></tr>
-					<tr><td class="title">Reboot IP-Adresse</td><td class="detail"><p id="setting_def_ip">--</p></td></tr>
-					<tr><td class="title">Mac-Adresse</td><td class="detail"><p id="setting_mac">--</p></td></tr>
-					<tr><td class="title">Server-Version</td><td class="detail"><p id="setting_version">--</p></td></tr>
-					<tr><td class="title">Polling Frequenz</td><td class="detail"><p id="setting_freq">--</p><input type="button" value="&Auml;ndern" /></td></tr>
-					<tr><td class="title">&Uuml;ber</td><td class="detail"><input type="button" value="Credits anzeigen" /></td></tr>
+					<tr>
+						<td class="title">IP-Adresse</td>
+						<td>
+							<p id="setting_ip">--</p>
+							<div class="button" style="display:block;" onclick="showOverlay('changeIp')">&Auml;ndern</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="title">Reboot IP-Adresse</td>
+						<td>
+							<p id="setting_def_ip">--</p>
+						</td>
+					</tr>
+					<tr>
+						<td class="title">Mac-Adresse</td>
+						<td>
+							<p id="setting_mac">--</p>
+						</td>
+					</tr>
+					<tr>
+						<td class="title">Server-Version</td>
+						<td>
+							<p id="setting_version">--</p>
+						</td>
+					</tr>
+					<tr>
+						<td class="title">Polling Frequenz</td>
+						<td>
+							<p id="setting_freq">--</p>
+							<div class="button" onclick="showOverlay('changeFreq')">&Auml;ndern</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="title">&Uuml;ber</td>
+						<td>
+							<div class="button" onclick="showOverlay('showCredits')">Credits anzeigen</div>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>
 		<!--End #settings-->
 	</div>
 	<!--End #main-->
+	
+	<!--Overlay to change Polling frequency-->
+	<div class="overlay" id="changeFreq">
+		<div class="overlayMain">
+			<h1>Polling Frequenz &auml;ndern</h1>
+		
+			<div class="bottom">
+				<div class="button cancel" onclick="hideOverlay();">Abbrechen</div>
+				<div class="button ok" onclick="hideOverlay();">OK</div>
+			</div>
+		</div>
+	</div>
+	<!--End #changeFreq-->
+	
+	<!--Overlay to display Credits-->
+	<div class="overlay" id="showCredits">
+		<div class="overlayMain">
+			<h1>Credits</h1>
+			<p>&copy;2014 Ann-Sophie Dietrich, Marcel Schlipf, Jan-Hendrik Preu&szlig; & Christian W&uuml;rthner</p>
+			<p>&nbsp;</p>
+			<p>Ein Projekt im Rahmen einer Semesterarbeit im Studiengang &bdquo;Allgemeine 
+				Informatik&ldquo; der <a href="http://hs-furtwangen.de/">Hochschule Furtwangen Univesity</a>.</p>
+			<p>&nbsp;</p>
+			<p>Diese Software ist unter der 
+				<a href="https://www.gnu.org/copyleft/gpl.html">GNU Public License Version 3</a> lizensiert.</p>
+			<div class="bottom">
+				<div class="button ok" onclick="hideOverlay();">Schlie&szlig;en</div>
+			</div>
+		</div>
+	</div>
+	<!--End #showCredits-->
+	
+	<!--Overlay to display Credits-->
+	<div class="overlay" id="changeIp">
+		<div class="overlayMain">
+			<h1>Server-IP Adresse &auml;ndern</h1>
+		
+			<div class="bottom">
+				<div class="button cancel" onclick="hideOverlay();">Abbrechen</div>
+				<div class="button ok" onclick="hideOverlay();">OK</div>
+			</div>
+		</div>
+	</div>
+	<!--End #changeIp-->
+	
+	<!--Overlay to display Credits-->
+	<div class="overlay" id="configureFav">
+		<div class="overlayMain">
+			<h1>Favorit anpassen</h1>
+		
+			<div class="bottom">
+				<div class="button cancel" onclick="hideOverlay();">Abbrechen</div>
+				<div class="button ok" onclick="hideOverlay();">OK</div>
+			</div>
+		</div>
+	</div>
+	<!--End #configureFav-->
 	
 </body>
 </html>

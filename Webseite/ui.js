@@ -100,8 +100,14 @@ function refershSidebarValue(){
 	getEl('s_conf').value=dd;
 }
 
-function changeDetailValue(){		
-	alert("Wert Šndern");
+function showOverlay(id) {
+	getEl(id).style.display='block';
+}
+
+function hideOverlay() {
+	var v=document.getElementsByClassName('overlay');
+	for(var i=0;i<v.length;i++)
+		v[i].style.display='none';
 }
 
 function onFavoritesChanged() {

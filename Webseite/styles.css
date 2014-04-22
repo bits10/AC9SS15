@@ -31,12 +31,12 @@
 	font-weight:bold;
 	width:50%;
 }
-#settings tr input {
-	margin-top:3px;
-}
-#settings tr td p {
+#settings tr p {
 	margin:0;
 	padding:0;
+}
+#settings tr .button {
+	margin-top:3px;
 }
 #favorite tr:hover{
 	background:rgba(51,182,229,0.15);
@@ -57,7 +57,9 @@
 	outline:none;
 }
 h1 {
+	color:#2B2B2B;
 	margin: 10px 0 10px 0;
+	text-shadow: 1px 1px 0px #fff;
 }
 .background{
 	background:#fcfcfc;
@@ -93,28 +95,19 @@ p.detail{
 	box-shadow:
 		inset 7px 0px 10px -7px #888,
 		inset 0px 7px 10px -7px #888;
-	-webkit-box-shadow:
-		inset 7px 0px 10px -7px #888,
-		inset 0px 7px 10px -7px #888;
-	-moz-box-shadow:
-		inset 7px 0px 10px -7px #888,
-		inset 0px 7px 10px -7px #888;
 	height:100%;
 	margin-left:20px;
 }
 table {
 	color:#666;
 	font-size:12px;
-	text-shadow: 1px 1px 0px #fff;
+	text-shadow: 1px 0 0px #fff;
 	width:100%;
 }
 table th {
 	padding:21px 25px 22px 25px;
 	border-bottom:1px solid #d0d0d0;
-
 	background: #e0e0e0;
-	background: -webkit-gradient(linear, left top, left bottom, from(#e0e0e0), to(#e4e4e4));
-	background: -moz-linear-gradient(top,  #e0e0e0,  #e4e4e4);
 	box-shadow: 4px 0 3px #888;
 }
 table tr td {
@@ -128,5 +121,74 @@ table tr:nth-child(2n){
 table td:first-child {
 	border-left:0;
 }
+.overlay{
+	text-shadow: 1px 0 0px #fff;
+	position:absolute;
+	display:none;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background:rgba(0,0,0,0.7);
+	z-index: 1000000000;
+}
+.overlayMain{
+	margin: auto;
+	position:relative;
+  	top: 25px; 
+  	left: 0; 
+  	bottom: 10px; 
+  	right: 0;
+	background:#e0e0e0;
+	border-radius: 8px;
+	width:500px;
+	overflow:auto;
+	padding:20px;
+	box-shadow:0 0 10px #000;
+	text-align:center;
+	overflow-y:srcoll;
+	padding-bottom:63px;
+}
+.overlay .bottom{
+	border-top:1px solid #888;
+	position:absolute;
+	bottom:0;
+	left:0;
+	right:0;
+	padding:10px;
+}
+.overlay h1:first-child{
+	margin-top:0;
+}
 
+.button {
+	float: left; 
+    clear: left; 
+	padding:5px;
+	color:#2B2B2B;
+	border-radius: 3px;
+	text-decoration:none;
+	background:#eee;
+	box-shadow: 0 0 2px #888;
+	text-shadow: 1px 0 0px #fff;
+	min-width:40px;	
+}
+.button:hover{
+	box-shadow: 0 0 5px #33B5E5;
+}
+.button:active{
+	box-shadow:inset 0 0 3px #888, 0 0 5px #33B5E5;
+}
+.bottom .ok {
+	float:right;
+	clear:none;
+}
 
+.bottom .cancel {
+	float:left;
+	clear none;
+}
+
+.overlay .overlayContent {
+	display:none;
+}
