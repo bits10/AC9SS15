@@ -37,7 +37,7 @@ function initUi() {
 	getEl('setting_mac').innerHTML=getInfo().mac;
 	getEl('setting_version').innerHTML=getInfo().version;
 
-	
+	setOnFavoritesChanged(onFavoritesChanged);
 }
 
 /**
@@ -102,4 +102,9 @@ function refershSidebarValue(){
 
 function changeDetailValue(){		
 	alert("Wert Šndern");
+}
+
+function onFavoritesChanged() {
+	var tb = getEl('favoritesTbody');
+	//tb.innerHTML = "";
 }

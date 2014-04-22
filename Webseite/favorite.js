@@ -1,5 +1,5 @@
 var favoritelist=new Array();
-
+var onFavoritesChanged = function(){};
 function initFavorites(){
 	// addFavorite(1);
 	// addFavorite(10);
@@ -16,6 +16,7 @@ function initFavorites(){
 	// }
 	// console.log(getFavoritelist());
 	// console.log(isFavorite(10));
+	onFavoritesChanged();
 // 
 }
 
@@ -27,6 +28,7 @@ function addFavorite(id){
 		favoritelist[id]={id:id,des:"",func:null};
 		setFunction(id, function(x){return x;}+"");
 		console.log( favoritelist[id].func +' favorit hinzugefügt');
+		onFavoritesChanged();
 	}
 }
 /*
@@ -50,6 +52,7 @@ function removeFavorite(id){
 	favoritelist.splice(index, 1);
 	//schneidet aus Array raus
 	console.log(id + " aus Array gelöscht");
+	onFavoritesChanged();
 }
 function saveCookie(){
 	var a=new Date();
@@ -65,6 +68,7 @@ function saveCookie(){
 function setDescription(id, des){
 		favoritelist[id].des=des;
 	console.log("Beschreibung geändert");
+	onFavoritesChanged();
 	}
 	/*
 	 * Reads Description out of the Favoritelist
@@ -78,6 +82,7 @@ function getDescription(id){
 	function setFunction(id, func){
 		favoritelist[id].func=func;
 	console.log("Beschreibung geändert");
+	onFavoritesChanged();
 	}
 	/*
 	 * Reads Function out of the Favoritelist
@@ -89,3 +94,6 @@ function toggleFavorite(id){
 	isFavorite(id)?removeFavorite(id):addFavorite(id);
 	}
 
+function setOnFavoritesChanged(func) {
+	onFavoritesChanged=func;
+}
