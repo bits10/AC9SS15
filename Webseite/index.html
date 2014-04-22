@@ -102,26 +102,26 @@
 						</div>
 					</div>
 					<div class="cb_el cb_se" id="cb_se1"> 
-						<div class="cb_el cb_se mon up silver"></div>
-						<div class="cb_el cb_se mon do silver"></div>
-						<div class="cb_el cb_se bar black"></div>
-						<div class="cb_el cb_se back black"></div>
-						<div class="cb_el cb_se metal silver"></div>
+						<div class="cb_el cb_se mon up silver"> </div>
+						<div class="cb_el cb_se mon do silver"> </div>
+						<div class="cb_el cb_se bar black"> </div>
+						<div class="cb_el cb_se back black"> </div>
+						<div class="cb_el cb_se metal silver"> </div>
 					</div>
 					<div class="cb_el cb_se" id="cb_se2"> 
-						<div class="cb_el cb_se mon up silver"></div>
-						<div class="cb_el cb_se mon do silver"></div>
-						<div class="cb_el cb_se bar black"></div>
-						<div class="cb_el cb_se back black"></div>
-						<div class="cb_el cb_se metal silver"></div>
+						<div class="cb_el cb_se mon up silver"> </div>
+						<div class="cb_el cb_se mon do silver"> </div>
+						<div class="cb_el cb_se bar black"> </div>
+						<div class="cb_el cb_se back black"> </div>
+						<div class="cb_el cb_se metal silver"> </div>
 					</div>
 					<div class="cb_el " id="cb_ana">
-						<div class="a_box blue"> <div class="circle screw silver"><div class="screw head"></div></div></div>
-						<div class="a_box blue"> <div class="circle screw silver"><div class="screw head"></div></div></div>
+						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
+						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
 						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
-						<div class="a_box blue"> <div class="circle screw silver"><div class="screw head"></div></div></div>
-						<div class="a_box blue"> <div class="circle screw silver"><div class="screw head"></div></div></div>
-						<div class="a_box blue"> <div class="circle screw silver"><div class="screw head"></div></div></div>
+						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
+						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
+						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
 						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
 						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
 						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
@@ -136,36 +136,36 @@
 				<div id="pins">
 					<form action="index.html" method="post">
 						<div class="pinCheck">
-							<input type="checkbox" name="OUT" value="B0" id="B0" />
-							<label for="B0"> </label>
+							<input type="checkbox" name="OUT" value="C0" id="C0" />
+							<label for="C0"> </label>
 						</div>
 						<div class="pinCheck">
-							<input type="checkbox" name="OUT" value="B1" id="B1" />
-							<label for="B1"> </label>
+							<input type="checkbox" name="OUT" value="C1" id="C1" />
+							<label for="C1"> </label>
 						</div>
 						<div class="pinCheck">
-							<input type="checkbox" name="OUT" value="B2" id="B2" />
-							<label for="B2"> </label>
+							<input type="checkbox" name="OUT" value="C2" id="C2" />
+							<label for="C2"> </label>
 						</div>
 						<div class="pinCheck">
-							<input type="checkbox" name="OUT" value="B3" id="B3" />
-							<label for="B3"> </label>
+							<input type="checkbox" name="OUT" value="C3" id="C3" />
+							<label for="C3"> </label>
 						</div>
 						<div class="pinCheck">
-							<input type="checkbox" name="OUT" value="B4" id="B4" />
-							<label for="B4"> </label>
+							<input type="checkbox" name="OUT" value="C4" id="C4" />
+							<label for="C4"> </label>
 						</div>
 						<div class="pinCheck">
-							<input type="checkbox" name="OUT" value="B5" id="B5" />
-							<label for="B5"> </label>
+							<input type="checkbox" name="OUT" value="C5" id="C5" />
+							<label for="C5"> </label>
 						</div>
 						<div class="pinCheck">
-							<input type="checkbox" name="OUT" value="B6"  id="B6" />
-							<label for="B6"> </label>
+							<input type="checkbox" name="OUT" value="C6"  id="C6" />
+							<label for="C6"> </label>
 						</div>
 						<div class="pinCheck">
-							<input type="checkbox" name="OUT" value="B7" id="B7" />
-							<label for="B7"> </label>
+							<input type="checkbox" name="OUT" value="C7" id="C7" />
+							<label for="C7"> </label>
 						</div>
 						<input type="submit" value="Anwenden" />
 					</form>
@@ -203,19 +203,37 @@
 		
 		<!--The div containing the favorite tab-->
 		<div class="mainDiv" id="favorite">
+			<table cellspacing="0">
+				<thead>
+					<th>Pin</th>
+					<th>Beschreibung</th>
+					<th>Position an CPU</th>
+					<th>Konfiguration</th>
+					<th>Typ</th>
+					<th>Wert</th>
+					<th>Wert (angepasst)</th>
+					<th> </th>
+				</thead>
+				<tbody>
+					<tr><td>Digital 1</td><td>Schalter 1</td><td>Port C Pin 0</td><td>Eingang</td><td>Digital</td><td>1</td><td>Gedr&uuml;ckt</td><td><input type="button" value="Anpassen" /></td></tr>
+					<tr><td>Digital 2</td><td>Schalter 2</td><td>Port C Pin 2</td><td>Eingang</td><td>Digital</td><td>1</td><td>Gedr&uuml;ckt</td><td><input type="button" value="Anpassen" /></td></tr>
+					<tr><td>Digital 3</td><td>Schalter 3</td><td>Port C Pin 3</td><td>Eingang</td><td>Digital</td><td>1</td><td>Gedr&uuml;ckt</td><td><input type="button" value="Anpassen" /></td></tr>
+					<tr><td>Digital 4</td><td>LED 1</td><td>Port C Pin 4</td><td>Ausgang</td><td>Digital</td><td>1</td><td>Leuchtet</td><td><input type="button" value="Anpassen" /></td></tr>
+				</tbody>
+			</table>
+
 		</div>
 		<!--End #favorite-->
 		
 		<!--The div containing the settings tab-->
 		<div class="mainDiv" id="settings">
-			<table cellspacing="0" class="centered">
+			<table cellspacing="0">
 				<tbody>
 					<tr><td class="title">IP-Adresse</td><td class="detail"><p id="setting_ip">--</p><input type="button" value="&Auml;ndern"/></td></tr>
 					<tr><td class="title">Reboot IP-Adresse</td><td class="detail"><p id="setting_def_ip">--</p></td></tr>
 					<tr><td class="title">Mac-Adresse</td><td class="detail"><p id="setting_mac">--</p></td></tr>
 					<tr><td class="title">Server-Version</td><td class="detail"><p id="setting_version">--</p></td></tr>
 					<tr><td class="title">Polling Frequenz</td><td class="detail"><p id="setting_freq">--</p><input type="button" value="&Auml;ndern" /></td></tr>
-					<tr><td class="title">Einstellungen zur&uuml;cksetzen</td><td class="detail"><input type="button" value="Zur&uuml;cksetzen" /></td></tr>
 					<tr><td class="title">&Uuml;ber</td><td class="detail"><input type="button" value="Credits anzeigen" /></td></tr>
 				</tbody>
 			</table>
