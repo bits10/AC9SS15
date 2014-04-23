@@ -179,7 +179,12 @@
 				<p>AKTUELLER WERT</p>
 				<p class="detail" id="p_val">--</p>
 				<p>KONFIGURATION</p>
-				<p class="detail"><select id="s_conf"> </select></p>
+				<p class="detail">
+					<div class="select">
+						<select id="s_conf"> </select>
+						<label for="s_conf"> </label>
+					</div>
+				</p>
 				<p>TYP</p>
 				<p class="detail" id="p_type">--</p>
 				<p>MANIPULIERBAR</p>
@@ -187,7 +192,11 @@
 				<p>POSITION AN CPU</p>
 				<p class="detail" id="p_pid">--</p>
 				<p>FAVORIT</p>
-				<p class="detail"> <input type="checkbox" id="cb_fav" onclick="toggleFavorite(displayDetailId)"> </p>
+				<p class="detail">
+					<div class="checkbox">
+						<input type="checkbox" id="cb_fav" onclick="toggleFavorite(displayDetailId)" value="None" />
+						<label for="cb_fav"> </label>
+					</div>
 				<p>BESCHREIBUNG</p>
 				<p class="detail" id="p_desc">--</p>
 				<p>SCRIPT-FUNKTION</p>
