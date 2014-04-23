@@ -224,11 +224,11 @@
 					<th> </th>
 				</thead>
 				<tbody id="favoritesTbody">
-					<tr><td>Digital 1</td><td>Schalter 1</td><td>Port C Pin 0</td><td>Eingang</td><td>Digital</td><td>1</td><td>Gedr&uuml;ckt</td><td><div class="button ok" onclick="showOverlay('configureFav');">Anpassen</div></td></tr>
-					<tr><td>Digital 2</td><td>Schalter 2</td><td>Port C Pin 2</td><td>Eingang</td><td>Digital</td><td>1</td><td>Gedr&uuml;ckt</td><td><div class="button ok" onclick="showOverlay('configureFav');">Anpassen</div></td></tr>
-					<tr><td>Digital 3</td><td>Schalter 3</td><td>Port C Pin 3</td><td>Eingang</td><td>Digital</td><td>1</td><td>Gedr&uuml;ckt</td><td><div class="button ok" onclick="showOverlay('configureFav');">Anpassen</div></td></tr>
-					<tr><td>Digital 4</td><td>LED 1</td><td>Port C Pin 4</td><td>Ausgang</td><td>Digital</td><td>1</td><td>Leuchtet</td><td><div class="button ok" onclick="showOverlay('configureFav');">Anpassen</div></td></tr>
-					<tr><td>Analog 1</td><td>Temperatursensor</td><td>AD Wandler 1</td><td>Eingang</td><td>Analog</td><td>2,4V</td><td>18 &ordm;C</td><td><div class="button ok" onclick="showOverlay('configureFav');">Anpassen</div></td></tr>
+					<tr><td>Digital 1</td><td>Schalter 1</td><td>Port C Pin 0</td><td>Eingang</td><td>Digital</td><td>1</td><td>Gedr&uuml;ckt</td><td><input type="button" value="Anpassen" onclick="showOverlay('configureFav')"/></td></tr>
+					<tr><td>Digital 2</td><td>Schalter 2</td><td>Port C Pin 2</td><td>Eingang</td><td>Digital</td><td>1</td><td>Gedr&uuml;ckt</td><td><input type="button" value="Anpassen" onclick="showOverlay('configureFav')"/></td></tr>
+					<tr><td>Digital 3</td><td>Schalter 3</td><td>Port C Pin 3</td><td>Eingang</td><td>Digital</td><td>1</td><td>Gedr&uuml;ckt</td><td><input type="button" value="Anpassen" onclick="showOverlay('configureFav')"/></td></tr>
+					<tr><td>Digital 4</td><td>LED 1</td><td>Port C Pin 4</td><td>Ausgang</td><td>Digital</td><td>1</td><td>Leuchtet</td><td><input type="button" value="Anpassen" onclick="showOverlay('configureFav')"/></td></tr>
+					<tr><td>Analog 1</td><td>Temperatursensor</td><td>AD Wandler 1</td><td>Eingang</td><td>Analog</td><td>2,4V</td><td>18 &ordm;C</td><td><input type="button" value="Anpassen" onclick="showOverlay('configureFav')"/></td></tr>
 				</tbody>
 			</table>
 
@@ -243,7 +243,7 @@
 						<td class="title">IP-Adresse</td>
 						<td>
 							<p id="setting_ip">--</p>
-							<div class="button" style="display:block;" onclick="showOverlay('changeIp')">&Auml;ndern</div>
+							<input type="button" value="&Auml;ndern" onclick="showOverlay('changeIp')"/>
 						</td>
 					</tr>
 					<tr>
@@ -268,13 +268,13 @@
 						<td class="title">Polling Frequenz</td>
 						<td>
 							<p id="setting_freq">--</p>
-							<div class="button" onclick="showOverlay('changeFreq')">&Auml;ndern</div>
+							<input type="button" value="&Auml;ndern" onclick="showOverlay('changeFreq')"/>
 						</td>
 					</tr>
 					<tr>
 						<td class="title">&Uuml;ber</td>
 						<td>
-							<div class="button" onclick="showOverlay('showCredits')">Credits anzeigen</div>
+							<input type="button" value="Credits zeigen" onclick="showOverlay('showCredits')"/>
 						</td>
 					</tr>
 				</tbody>
@@ -291,8 +291,8 @@
 			<input type="text" id="changeFreqInput" maxlength="5" onkeydown="return event.keyCode==8||event.keyCode>37&&event.keyCode<=40||event.keyCode>=48&&event.keyCode<=57" />
 			<p class="inline">ms</p>
 			<div class="bottom">
-				<div class="button cancel" onclick="hideOverlay();">Abbrechen</div>
-				<div class="button ok" onclick="hideOverlay();if(!setPollingFreq(getEl('changeFreqInput').value))showErrorOverlay('Die eingegebene Frequenz war nicht korrekt. Der Wert mus zwischen 0 und 60000 liegen. Bitte versuchen Sie es erneut.');">OK</div>
+				<input class="cancel" type="button" value="Abbrechen" onclick="hideOverlay();"/>
+				<input class="ok" type="button" value="OK" onclick="hideOverlay();if(!setPollingFreq(getEl('changeFreqInput').value))showErrorOverlay('Die eingegebene Frequenz war nicht korrekt. Der Wert mus zwischen 0 und 60000 liegen. Bitte versuchen Sie es erneut.');"/>
 			</div>
 		</div>
 	</div>
@@ -312,7 +312,7 @@
 			<p>&nbsp;</p>
 			<p>Weitere Informationen und Sources sind auf <a href="https://github.com/doofmars/Embedded-Webserver">GitHub</a> zu finden.</p>
 			<div class="bottom">
-				<div class="button ok" onclick="hideOverlay();">Schlie&szlig;en</div>
+				<input class="ok" type="button" value="Schlie&szlig;en" onclick="hideOverlay();"/>
 			</div>
 		</div>
 	</div>
@@ -324,8 +324,8 @@
 			<h1>Server-IP Adresse &auml;ndern</h1>
 			<input type="text" id="changeIpInput"/>
 			<div class="bottom">
-				<div class="button cancel" onclick="hideOverlay();">Abbrechen</div>
-				<div class="button ok" onclick="hideOverlay();showOverlay('showWait');if(!setIP(getEl('changeIpInput').value))showErrorOverlay('Die eingegebene IP war nicht korrekt. Bitte versuchen Sie es erneut.');">OK</div>
+				<input class="cancel" type="button" value="Abbrechen" onclick="hideOverlay();"/>
+				<input class="ok" type="button" value="OK" onclick="hideOverlay();showOverlay('showWait');if(!setIP(getEl('changeIpInput').value))showErrorOverlay('Die eingegebene IP war nicht korrekt. Bitte versuchen Sie es erneut.');"/>
 			</div>
 		</div>
 	</div>
@@ -336,8 +336,8 @@
 		<div class="overlayMain">
 			<h1>Favorit anpassen</h1>
 			<div class="bottom">
-				<div class="button cancel" onclick="hideOverlay();">Abbrechen</div>
-				<div class="button ok" onclick="hideOverlay();">OK</div>
+				<input class="cancel" type="button" value="Abbrechen" onclick="hideOverlay();"/>
+				<input class="ok" type="button" value="Schlie&szlig;en" onclick="hideOverlay();"/>
 			</div>
 		</div>
 	</div>
@@ -349,8 +349,8 @@
 			<h1>Fehler</h1>
 			<p id="errorText"> </p>
 			<div class="bottom">
-				<div class="button cancel" onclick="window.location.reload()">Seite neuladen</div>
-				<div class="button ok" onclick="hideOverlay();">OK</div>
+				<input class="cancel" type="button" value="Seite neuladen" onclick="window.location.reload()"/>
+				<input class="ok" type="button" value="Schlie&szlig;en" onclick="hideOverlay();"/>
 			</div>
 		</div>
 	</div>
