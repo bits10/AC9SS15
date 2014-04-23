@@ -131,7 +131,7 @@
 						<div class="a_box blue"><div class="circle screw silver"><div class="screw head"> </div></div></div>
 						<div class="a_box blue"><div class="circle screw silver"><div class="screw head"> </div></div></div>
 					</div>
-				<div class="circle led_on" onclick="toggleLED(this);"> </div>
+				<div class="circle led_on"> </div>
 				</div>
 				<div id="pins">
 					<form action="index.html" method="post">
@@ -219,6 +219,7 @@
 					<tr><td>Digital 2</td><td>Schalter 2</td><td>Port C Pin 2</td><td>Eingang</td><td>Digital</td><td>1</td><td>Gedr&uuml;ckt</td><td><div class="button ok" onclick="showOverlay('configureFav');">Anpassen</div></td></tr>
 					<tr><td>Digital 3</td><td>Schalter 3</td><td>Port C Pin 3</td><td>Eingang</td><td>Digital</td><td>1</td><td>Gedr&uuml;ckt</td><td><div class="button ok" onclick="showOverlay('configureFav');">Anpassen</div></td></tr>
 					<tr><td>Digital 4</td><td>LED 1</td><td>Port C Pin 4</td><td>Ausgang</td><td>Digital</td><td>1</td><td>Leuchtet</td><td><div class="button ok" onclick="showOverlay('configureFav');">Anpassen</div></td></tr>
+					<tr><td>Analog 1</td><td>Temperatursensor</td><td>AD Wandler 1</td><td>Eingang</td><td>Analog</td><td>2,4V</td><td>18 &ordm;C</td><td><div class="button ok" onclick="showOverlay('configureFav');">Anpassen</div></td></tr>
 				</tbody>
 			</table>
 
@@ -278,11 +279,11 @@
 	<div class="overlay" id="changeFreq">
 		<div class="overlayMain">
 			<h1>Polling Frequenz &auml;ndern</h1>
-			<input type="range" id="changeFreqRange" /><br>
-			<input type="text" id="changeFreqText" />
+			<input type="text" id="changeFreqInput" maxlength="5" onkeydown="return event.keyCode==8||event.keyCode>37&&event.keyCode<=40||event.keyCode>=48&&event.keyCode<=57" />
+			<p class="inline">ms</p>
 			<div class="bottom">
 				<div class="button cancel" onclick="hideOverlay();">Abbrechen</div>
-				<div class="button ok" onclick="hideOverlay();">OK</div>
+				<div class="button ok" onclick="hideOverlay();if(!setPollingFreq(getEl('changeFreqInput').value))showErrorOverlay('Die eingegebene Frequenz war nicht korrekt. Der Wert mus zwischen 0 und 60000 liegen. Bitte versuchen Sie es erneut.');">OK</div>
 			</div>
 		</div>
 	</div>
@@ -315,7 +316,7 @@
 			<input type="text" id="changeIpInput"/>
 			<div class="bottom">
 				<div class="button cancel" onclick="hideOverlay();">Abbrechen</div>
-				<div class="button ok" onclick="hideOverlay();">OK</div>
+				<div class="button ok" onclick="hideOverlay();showOverlay('showWait');if(!setIP(getEl('changeIpInput').value))showErrorOverlay('Die eingegebene IP war nicht korrekt. Bitte versuchen Sie es erneut.');">OK</div>
 			</div>
 		</div>
 	</div>
@@ -325,7 +326,6 @@
 	<div class="overlay" id="configureFav">
 		<div class="overlayMain">
 			<h1>Favorit anpassen</h1>
-		
 			<div class="bottom">
 				<div class="button cancel" onclick="hideOverlay();">Abbrechen</div>
 				<div class="button ok" onclick="hideOverlay();">OK</div>
@@ -333,6 +333,28 @@
 		</div>
 	</div>
 	<!--End #configureFav-->
+	
+	<!--Overlay to an error message-->
+	<div class="overlay" id="showError">
+		<div class="overlayMain">
+			<h1>Fehler</h1>
+			<p id="errorText"> </p>
+			<div class="bottom">
+				<div class="button cancel" onclick="window.location.reload()">Seite neuladen</div>
+				<div class="button ok" onclick="hideOverlay();">OK</div>
+			</div>
+		</div>
+	</div>
+	<!--End #showError-->
+	
+		<!--Overlay to an error message-->
+	<div class="overlay" id="showWait">
+		<div class="overlayMain">
+			<h1>Warte auf Verbindung...</h1>
+			<p>Es wird darauf gewartet das der Server sich mit der neuen IP-Adresse meldet.</p>
+		</div>
+	</div>
+	<!--End #showError-->
 	
 </body>
 </html>

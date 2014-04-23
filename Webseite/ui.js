@@ -36,17 +36,10 @@ function initUi() {
 	getEl('setting_def_ip').innerHTML=getInfo().def_ip;
 	getEl('setting_mac').innerHTML=getInfo().mac;
 	getEl('setting_version').innerHTML=getInfo().version;
+	getEl('changeIpInput').value=getInfo().ip;
+	getEl('changeFreqInput').value=getPollingFreq();
 
 	setOnFavoritesChanged(onFavoritesChanged);
-}
-
-/**
- * Turns the LED off or on, depending on the current state. 
- * This Block may be delelted wehen more disk space is required, but don't forget to also remove the CSS classed and divs!
- * #Easteregg
- */
-function toggleLED(el){
-	el.className=='circle led_on'?el.className='circle led_off':el.className='circle led_on';
 }
 
 /**
@@ -101,6 +94,7 @@ function refershSidebarValue(){
 }
 
 function showOverlay(id) {
+	hideOverlay();
 	getEl(id).style.display='block';
 }
 
@@ -113,4 +107,9 @@ function hideOverlay() {
 function onFavoritesChanged() {
 	var tb = getEl('favoritesTbody');
 	//tb.innerHTML = "";
+}
+
+function showErrorOverlay(message) {
+	getEl('errorText').innerHTML=message;
+	showOverlay('showError');
 }
