@@ -17,14 +17,6 @@ CSS code for the board
 	top:3px;
 	left:570px;
 }
-.led_off{
-	box-shadow: 0 0 0 0 #000;
-	-webkit-box-shadow: 0 0 0 0 #000;
-	-moz-box-shadow: 0 0 0 0 #000;
-	background:#a30000;
-	top:3px;
-	left:570px;
-}
 #cb_main{
 	position:relative;
 	width:900px; 

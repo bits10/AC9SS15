@@ -21,18 +21,9 @@ function initRest(){
 	if(isInitialised)
 		return;
 	
-	setOnValuesChange(function(values, time){
-		document.getElementById('freq_ist').innerHTML=time;
-		var el=getEl('rest');
-		el.innerHTML="";
-		for(var i=0;i<getPinCount();i++)
-			el.innerHTML+="<br>"+getId(i)+": "+values[i].v+" ("+values[i].dd+")";
-	});
+	setOnValuesChange(function(values, time){});
 	
-	setOnNetworkError(function(state, response){
-		alert("A Network error occured. Please Reload the site.\nState: " + state);
-		console.log(response);
-	});
+	setOnNetworkError(function(state, response){});
 	
 	cachedInfo=JSON.parse(loadURL(urlInfo));
 	cachedPinInfo=JSON.parse(loadURL(urlPinInfo));
@@ -223,10 +214,45 @@ function getId(index){
 /**
  * Sets the ip of the board and causes the side to reload.
  * @param {Object} the new ip of the board
+ * @return false if the operation was not successfull
  */
 function setIP(ip){
-	loadUrl(urlModifyIP+ip);
-	window.location=ip+"/index.html";
+	var format = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;  
+ 	if(!ip.match(format)){  
+ 		return false;  
+ 	}  
+  	
+  	try{
+  		loadURL(urlModifyIP+ip);
+  		window.location.href="http://"+ip+"/index.html";
+  	}catch(e){
+  		console.log(e);
+  		return false;
+  	}
+	
+	return true;
+}
+
+/**
+ * Sets the ip of the board and causes the side to reload.
+ * @param {Object} the new ip of the board
+ * @return true if the operation was successfull, false otherwise
+ */
+function setPollingFreq(freq){
+	if(!isNaN(parseFloat(freq)) && isFinite(freq)) {
+		pollingFreq=freq;
+		return true;
+	}
+	
+	return false;
+}
+
+/**
+ * Returns the polling freq.
+ * @return polling freq
+ */
+function getPollingFreq(){
+	return pollingFreq;
 }
 
 /**

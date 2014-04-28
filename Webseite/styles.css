@@ -86,7 +86,7 @@ p{
 p.detail{
 	color:#777;
 	margin-left:10px;
-	margin-top:0px;
+	margin-top:3px;
 }
 .sidebar{
 	overflow-y:scroll;
@@ -123,6 +123,9 @@ table tr:nth-child(2n){
 }
 table td:first-child {
 	border-left:0;
+}
+table input:nth-child(2){
+	margin-top:5px;
 }
 .overlay{
 	text-shadow: 0 1px 0px #fff;
@@ -164,57 +167,6 @@ table td:first-child {
 	margin-top:0;
 }
 
-.button {
-	float: left; 
-    clear: left; 
-	padding:5px;
-	color:#2B2B2B;
-	border-radius: 3px;
-	text-decoration:none;
-	background:#eee;
-	box-shadow: 0 0 2px #888;
-	text-shadow: 0 1px 0px #fff;
-	min-width:40px;	
-	cursor:pointer;
-}
-.button:hover{
-	box-shadow: 0 0 5px #33B5E5;
-}
-.button:active{
-	box-shadow:inset 0 0 3px #888, 0 0 5px #33B5E5;
-}
-input[type="text"] {
-	box-shadow:inset 0 0 3px #888;
-	background:#eee;
-	border-width:0;
-	padding:5px;
-}
-input[type="text"]:focus {
-	outline:none;
-	box-shadow:inset 0 0 3px #888, 0 0 5px #33B5E5;
-}
-input[type='range'] {
-    -webkit-appearance: none !important;
-    background:#eee;
-    border-radius: 5px;
-    height:4px;
-    box-shadow: inset 0 0 3px #888;
-}
-input[type='range']:focus{	
-	outline:none;
-	box-shadow:inset 0 0 3px #888, 0 0 3px #33B5E5;
-}
-input[type='range']::-webkit-slider-thumb {
-    -webkit-appearance: none !important;
-    background:#888;
-    height:12px;
-    width:12px;
-    border-radius:10px;
-    box-shadow: 0 0 3px #888;
-}
-input[type='range']::-webkit-slider-thumb:hover {
-	box-shadow:inset 0 0 3px #888, 0 0 3px #33B5E5;
-}
 .bottom .ok {
 	float:right;
 	clear:none;
@@ -222,9 +174,29 @@ input[type='range']::-webkit-slider-thumb:hover {
 
 .bottom .cancel {
 	float:left;
-	clear none;
+	clear:none;
 }
 
 .overlay .overlayContent {
 	display:none;
 }
+.inline{
+	display:inline-block;
+}
+#changeFreqInput, #changeIpInput {
+	text-align:right;
+}
+#showError .overlayMain{
+	background: #a90329;
+	background: -moz-linear-gradient(top, #a90329 0%, #8f0222 44%, #6d0019 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a90329), 
+		color-stop(44%,#8f0222), color-stop(100%,#6d0019));
+	text-shadow: 0 1px 0px #a00;
+	color:#e0e0e0;
+}
+
+#showError h1 {
+	text-shadow: 0 1px 0px #a00;
+	color:#eee;	
+}
+
