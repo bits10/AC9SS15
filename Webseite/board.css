@@ -37,20 +37,6 @@ CSS code for the board
 	width:500px; 
 	height:100px;
 }
-
-#cb_jmp{
-	width:55px; 
-	height:25px; 
-	top:200px;
-	left:705px;
-	padding-left:7px;
-}
-#cb_aref{
-	width:25px; 
-	height:55px; 
-	top:490px;
-	left:755px;
-}
 .cb_se {
 	width:162px;
 }
