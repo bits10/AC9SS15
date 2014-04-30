@@ -6,8 +6,7 @@ CSS code for the board
 	-moz-transform: scale(0.5);
 	-ms-transform: scale(0.5);
 	-o-transform: scale(0.5);
-	transform: scale(0.5);
-	float:left;
+	transform: scale(0.5);	
 }
 .led_on{
 	box-shadow: 0 0 20px 10px #c00;
