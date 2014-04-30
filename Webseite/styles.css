@@ -21,12 +21,8 @@ a, input{
 .mainDiv{
 	display:none;
 	height:100%;
-	overflow:auto;
 }
 #header{
-	position:fixed;
-	z-index:9999999999;
-	width:100%;
 	background:#2B2B2B;
 	border-bottom:solid 3px #33b5e5;
 	padding:10px 0 10px 0;
@@ -203,3 +199,4 @@ table input:nth-child(2){
 	text-shadow: 0 1px 0px #a00;
 	color:#eee;	
 }
+
