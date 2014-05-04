@@ -428,7 +428,7 @@ void httpd_data_send (unsigned char index)
 		b = pgm_read_byte(http_entry[index].new_page_pointer++);
 		eth_buffer[TCP_DATA_START + a] = b;
 		
-		//Müssen Variablen ins Packet eingesetzt werden? ===> %VA@00 bis %VA@09
+		//Müssen Variablen ins Packet eingesetzt werden? ===> %VA@00 bis %VA@07
 		if (b == '%')
 		{
 			if (strncasecmp_P("VA@",http_entry[index].new_page_pointer,3)==0)

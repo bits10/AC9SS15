@@ -37,7 +37,7 @@
 	// PA2=DIGIN3       IN
 	// PA1=DIGIN2       IN
 	// PA0=DIGIN1       IN
-	#define OUTA 		0x07
+	#define OUTA 		0x0F
 
 	//Achtung!!!! an PORTB ist der ENC
 	//nur ändern wenn man weiß was man macht!
