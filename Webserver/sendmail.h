@@ -5,6 +5,7 @@
  known Problems: none
  Version:        20.04.2008
  Description:    Send MAIL Client
+ Modified:       G. Menke, 05.08.2010
 
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
  GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
@@ -34,8 +35,8 @@
     #define MAIL_PORT 25
     
     //Mit oder ohne Debug-Ausgabe
-    //#define MAIL_DEBUG usart_write	//mit Debugausgabe
-    #define MAIL_DEBUG(...) 			//ohne Debugausgabe
+    #define MAIL_DEBUG usart_write	//mit Debugausgabe
+    //#define MAIL_DEBUG(...) 			//ohne Debugausgabe
 
     //IP des MAIL-Servers 
     #define MAIL_SERVER	IP(212,227,15,183) //hier z.B. smtp.1und1.de

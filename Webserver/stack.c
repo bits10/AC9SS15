@@ -5,6 +5,7 @@
  known Problems: none
  Version:        24.10.2007
  Description:    Ethernet Stack
+ Modified:       G. Menke, 05.08.2010
 
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
  GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
@@ -31,8 +32,7 @@
 #include "usart.h"
 #include "httpd.h"
 #include "telnetd.h"
-#include "networkcard/enc28j60.h"
-#include "networkcard/rtl8019.h"
+#include "enc28j60.h"
 #include "config.h"
 #include "timer.h"
 #include "dnsc.h"
@@ -57,7 +57,6 @@ UDP_PORT_ITEM UDP_PORT_TABLE[MAX_APP_ENTRY] = // Port-Tabelle
 unsigned char myip[4];
 unsigned char netmask[4];
 unsigned char router_ip[4];
-unsigned char broadcast_ip[4];
 unsigned int IP_id_counter = 0;
 unsigned char eth_buffer[MTU_SIZE+1];
 
@@ -93,9 +92,6 @@ void stack_init (void)
     (*((unsigned long*)&myip[0])) = get_eeprom_value(IP_EEPROM_STORE,MYIP);
 	(*((unsigned long*)&netmask[0])) = get_eeprom_value(NETMASK_EEPROM_STORE,NETMASK);
 	(*((unsigned long*)&router_ip[0])) = get_eeprom_value(ROUTER_IP_EEPROM_STORE,ROUTER_IP);
-	
-	//Broadcast-Adresse berechnen
-	(*((unsigned long*)&broadcast_ip[0])) = (((*((unsigned long*)&myip[0])) & (*((unsigned long*)&netmask[0]))) | (~(*((unsigned long*)&netmask[0]))));
 	
     #if USE_DNS
     //DNS-Server IP aus EEPROM auslesen
@@ -294,25 +290,8 @@ void eth_get_data (void)
 	}	
 	if(eth.data_present)
 	{
-	#if USE_ENC28J60
 		while(ETH_INT_ACTIVE)
 		{	
-	#endif
-
-	#if USE_RTL8019
-		if ( (ReadRTL(RTL_ISR)&(1<<OVW)) != 0)
-			{
-			DEBUG ("Overrun!\n");
-			}
-
-		if ( (ReadRTL(RTL_ISR) & (1<<PRX)) != 0)
-		{
-			unsigned char ByteH = 0;
-			unsigned char ByteL = 1;
-		
-			while (ByteL != ByteH) //(!= bedeutet ungleich)
-			{	
-	#endif	
 				unsigned int packet_length;
 				  
 				packet_length = ETH_PACKET_RECEIVE(MTU_SIZE,eth_buffer);
@@ -322,20 +301,7 @@ void eth_get_data (void)
 					check_packet();
 				}
 			
-	#if USE_RTL8019
-				//auslesen des Empfangsbuffer BNRY = CURR
-				ByteL = ReadRTL(BNRY); //auslesen NIC Register bnry
-				WriteRTL ( CR ,(1<<STA|1<<RD2|1<<PS0));
-			
-				ByteH = ReadRTL(CURR); //auslesen NIC Register curr
-				WriteRTL ( CR ,(1<<STA|1<<RD2));
-			}
-	#endif
 		}
-	#if USE_RTL8019
-		Networkcard_INT_RES();
-		Networkcard_Start();
-	#endif
 		eth.data_present = 0;
 		ETH_INT_ENABLE;
 	}
@@ -394,7 +360,7 @@ void check_packet (void)
                 }
             }
             else
-            if (ip->IP_Destaddr == (unsigned long)0xffffffff || ip->IP_Destaddr == *((unsigned long*)&broadcast_ip[0]) ) // if broadcast
+            if (ip->IP_Destaddr == (unsigned long)0xffffffff ) // if broadcast
             {
                 if( ip->IP_Proto == PROT_UDP ) udp_socket_process();
             }
@@ -416,33 +382,23 @@ void arp_entry_add (void)
     ip       = (struct IP_Header       *)&eth_buffer[IP_OFFSET];
         
     //Eintrag schon vorhanden?
-    for (unsigned char b = 0; b<MAX_ARP_ENTRY; b++)
+    for (unsigned char a = 0; a<MAX_ARP_ENTRY; a++)
     {
         if( ethernet->EnetPacketType == HTONS(0x0806) ) //If ARP
         {
-            if(arp_entry[b].arp_t_ip == arp->ARP_SIPAddr)
+            if(arp_entry[a].arp_t_ip == arp->ARP_SIPAddr)
             {
                 //Eintrag gefunden Time refresh
-				for(unsigned char a = 0; a < 6; a++)
-				{
-					arp_entry[b].arp_t_mac[a] = ethernet->EnetPacketSrc[a];
-				}
-				arp_entry[b].arp_t_ip   = arp->ARP_SIPAddr;
-                arp_entry[b].arp_t_time = ARP_MAX_ENTRY_TIME;
+                arp_entry[a].arp_t_time = ARP_MAX_ENTRY_TIME;
                 return;
             }
         } 
         if( ethernet->EnetPacketType == HTONS(0x0800) ) //If IP
         {
-            if(arp_entry[b].arp_t_ip == ip->IP_Srcaddr)
+            if(arp_entry[a].arp_t_ip == ip->IP_Srcaddr)
             {
                 //Eintrag gefunden Time refresh
-				for(unsigned char a = 0; a < 6; a++)
-				{
-					arp_entry[b].arp_t_mac[a] = ethernet->EnetPacketSrc[a];
-				}
-				arp_entry[b].arp_t_ip   = ip->IP_Srcaddr;
-                arp_entry[b].arp_t_time = ARP_MAX_ENTRY_TIME;
+                arp_entry[a].arp_t_time = ARP_MAX_ENTRY_TIME;
                 return;
             }
         }
@@ -1047,7 +1003,7 @@ void tcp_socket_process(void)
 		(tcp_entry[index].status & ACK_FLAG))
 	{
 		//zugehörige Anwendung ausführen
-		if(tcp_entry[index].app_status < 0xFFFE) tcp_entry[index].app_status++;	
+		tcp_entry[index].app_status++;	
 		tcp_entry[index].status =  ACK_FLAG | PSH_FLAG;
 		TCP_PORT_TABLE[port_index].fp(index); 
 		return;
@@ -1073,7 +1029,7 @@ void tcp_socket_process(void)
 
 		//zugehörige Anwendung ausführen
 		tcp_entry[index].status =  ACK_FLAG;
-		if(tcp_entry[index].app_status < 0xFFFE) tcp_entry[index].app_status++;
+		tcp_entry[index].app_status++;
 		TCP_PORT_TABLE[port_index].fp(index);
 		return;
 	}

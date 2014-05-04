@@ -5,6 +5,7 @@
  known Problems: none
  Version:        24.10.2007
  Description:    RS232 Routinen
+ Modified:       G. Menke, 05.08.2010
 
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
  GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
@@ -26,7 +27,7 @@
 
 	#define USART_ECHO	1
 	
-    #define BUFFER_SIZE	100
+    #define BUFFER_SIZE	50
 
 	volatile unsigned int buffercounter;
 	char usart_rx_buffer[BUFFER_SIZE];
@@ -57,19 +58,6 @@
 	#endif
 	
 	#if defined (__AVR_ATmega644__) || defined (__AVR_ATmega644P__)
-		#define USR UCSR0A
-		#define UCR UCSR0B
-		#define UBRR UBRR0L
-		#define EICR EICRB
-		#define TXEN TXEN0
-		#define RXEN RXEN0
-		#define RXCIE RXCIE0
-		#define UDR UDR0
-		#define UDRE UDRE0
-		#define USART_RX USART0_RX_vect   
-	#endif
-	
-	#if defined (__AVR_ATmega1284__) || defined (__AVR_ATmega1284P__)
 		#define USR UCSR0A
 		#define UCR UCSR0B
 		#define UBRR UBRR0L

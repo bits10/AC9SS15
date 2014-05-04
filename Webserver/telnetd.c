@@ -5,6 +5,7 @@
  known Problems: none
  Version:        24.10.2007
  Description:    Webserver Applikation
+ Modified:       G. Menke, 05.08.2010
 
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
  GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
@@ -66,15 +67,6 @@ void telnetd (unsigned char index)
 	if ((tcp_entry[index].app_status > 1) && (tcp_entry[index].status&PSH_FLAG))
 	{
 		tcp_entry[index].app_status = 2;	
-		
-		//Ack erhalten vom gesendeten Packet
-		if ((tcp_entry[index].app_status > 1)&&(tcp_entry[index].status&ACK_FLAG)&&(telnetd_status.ack_wait))
-		{
-			tcp_entry[index].time = TCP_TIME_OFF;
-			rx_buffer_pointer_out = retransmission_pointer;
-			telnetd_status.ack_wait = 0;
-		}
-		
 		for (int a = TCP_DATA_START_VAR;a<(TCP_DATA_END_VAR);a++)
 		{
             #if CMD_TELNET
@@ -97,12 +89,10 @@ void telnetd (unsigned char index)
                     usart_rx_buffer[buffercounter++] = receive_char;    
                 }
             #else
-                #if !USE_CAM  
-                    //Warten solange bis Zeichen gesendet wurde
-                    while(!(USR & (1<<UDRE)));
-                    //Ausgabe des Zeichens
-                    UDR = eth_buffer[a];
-                #endif
+                //Warten solange bis Zeichen gesendet wurde
+                while(!(USR & (1<<UDRE)));
+                //Ausgabe des Zeichens
+                UDR = eth_buffer[a];
             #endif
 		}	
 		tcp_entry[index].status =  ACK_FLAG;

@@ -5,6 +5,7 @@
  known Problems: none
  Version:        29.04.2008
  Description:    DHCP Client
+ Modified:       G. Menke, 05.08.2010
 
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
  GNU General Public License, wie von der Free Software Foundation veröffentlicht, 

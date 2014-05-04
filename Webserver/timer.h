@@ -5,6 +5,7 @@
  known Problems: none
  Version:        24.10.2007
  Description:    Timer Routinen
+ Modified:       G. Menke, 05.08.2010
 
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
  GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
@@ -28,10 +29,6 @@
 		#define TIMSK TIMSK1
 	#endif 
 
-	#if defined (__AVR_ATmega1284__) || defined (__AVR_ATmega1284P__)
-		#define TIMSK TIMSK1
-	#endif 
-	
 	volatile unsigned long time;
     volatile unsigned int  stack_watchdog;
     volatile unsigned char gp_timer;

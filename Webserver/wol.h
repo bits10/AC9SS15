@@ -5,7 +5,8 @@
  known Problems: none
  Version:        23.01.2008
  Description:    WOL
-
+ Modified:       G. Menke, 05.08.2010
+ 
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
  GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
  weitergeben und/oder modifizieren, entweder gemäß Version 2 der Lizenz oder 

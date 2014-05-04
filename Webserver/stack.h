@@ -5,6 +5,7 @@
  known Problems: none
  Version:        24.10.2007
  Description:    Ethernet Stack
+ Modified:       G. Menke, 05.08.2010
 
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
  GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
@@ -61,8 +62,6 @@ UDP_PORT_ITEM UDP_PORT_TABLE[MAX_APP_ENTRY];
 extern unsigned char myip[4];
 extern unsigned char netmask[4];
 extern unsigned char router_ip[4];
-extern unsigned char broadcast_ip[4];
-
 
 extern unsigned int IP_id_counter;
 
@@ -86,14 +85,6 @@ extern unsigned int IP_id_counter;
 	#define MAX_ARP_ENTRY 5
 	#define MTU_SIZE 1200
 #endif
-
-#if defined (__AVR_ATmega1284__) || defined (__AVR_ATmega1284P__)
-	#define MAX_TCP_ENTRY 10	
-	#define MAX_UDP_ENTRY 10
-	#define MAX_ARP_ENTRY 10
-	#define MTU_SIZE 1600
-#endif
-
 
 #define ARP_REPLY_LEN		60
 #define ICMP_REPLY_LEN		98

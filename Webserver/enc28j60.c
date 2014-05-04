@@ -33,8 +33,6 @@
 
 #include "enc28j60.h"
 
-#if USE_ENC28J60
-
 //-----------------------------------------------------------------------------
 
 unsigned char mymac[6];
@@ -45,7 +43,7 @@ unsigned char enc_revid = 0;
 static volatile unsigned char enc_cur_bank = 0;
 static volatile unsigned int  enc_next_packet_ptr = 0;
 
-static unsigned char enc_configdata[] PROGMEM = {
+static unsigned const char enc_configdata[] PROGMEM = {
 
 	// enc registers
 
@@ -582,24 +580,23 @@ void enc_init(void)
 	mymac[4] = MYMAC5;
 	mymac[5] = MYMAC6;
 
-
-		// setup enc registers according to the enc_configdata struct
-		while(1) {
-			r = pgm_read_byte( &enc_configdata[i++] );
-			d = pgm_read_byte( &enc_configdata[i++] );
-			if( r == 0xFF && d == 0xFF ) break;
-			enc_write_reg( r, d );
-		}
-		// now the phy registers
-		while(1) {
-			r = pgm_read_byte( &enc_configdata[i++] );
-			d = pgm_read_byte( &enc_configdata[i++] );
-			if( r == 0xFF && d == 0xFF ) break;
-			u = (((unsigned int)d) << 8);
-			d = pgm_read_byte( &enc_configdata[i++] );
-			u |= d;
-			enc_write_phyreg( r, u );
-		}
+	// setup enc registers according to the enc_configdata struct
+	while(1) {
+		r = pgm_read_byte( &enc_configdata[i++] );
+		d = pgm_read_byte( &enc_configdata[i++] );
+		if( r == 0xFF && d == 0xFF ) break;
+		enc_write_reg( r, d );
+	}
+	// now the phy registers
+	while(1) {
+		r = pgm_read_byte( &enc_configdata[i++] );
+		d = pgm_read_byte( &enc_configdata[i++] );
+		if( r == 0xFF && d == 0xFF ) break;
+		u = (((unsigned int)d) << 8);
+		d = pgm_read_byte( &enc_configdata[i++] );
+		u |= d;
+		enc_write_phyreg( r, u );
+	}
 
 	// setup receive next packet pointer
 	enc_next_packet_ptr = ENC_RX_BUFFER_START;
@@ -619,5 +616,4 @@ void enc_init(void)
 
 //-----------------------------------------------------------------------------
 
-#endif
 

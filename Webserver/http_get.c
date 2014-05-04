@@ -5,6 +5,7 @@
  known Problems: none
  Version:        12.11.2007
  Description:    HTTP-Client (empfang einer Webseite)
+ Modified:       G. Menke, 05.08.2010
 
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
  GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
@@ -29,7 +30,7 @@
 #include "usart.h"
 #include "timer.h"
 	
-const PROGMEM char WEATHER_GET_STRING[] = {"GET /globalweather.asmx/GetWeather?CityName=Paderborn&CountryName=Germany HTTP/1.1\r\n"
+PROGMEM const char WEATHER_GET_STRING[] = {"GET /globalweather.asmx/GetWeather?CityName=Paderborn&CountryName=Germany HTTP/1.1\r\n"
                                      //"GET / HTTP/1.1\r\n"
                                      "Host: www.webservicex.net\r\n"
                                      //"Host: www.ulrichradig.de\r\n"

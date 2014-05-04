@@ -5,6 +5,7 @@
  known Problems: none
  Version:        24.10.2007
  Description:    RS232 Routinen
+ Modified:       G. Menke, 05.08.2010
 
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
  GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
@@ -45,19 +46,17 @@ char *rx_buffer_pointer_out	= &usart_rx_buffer[0];
 //Init serielle Schnittstelle
 void usart_init(unsigned long baudrate) 
 { 
-#if !USE_CAM
-	//Serielle Schnittstelle 1
-  	//Enable TXEN im Register UCR TX-Data Enable
-	UCR =(1 << TXEN | 1 << RXEN | 1<< RXCIE);
-	// 0 = Parity Mode Disabled
-	// 1 = Parity Mode Enabled, Even Parity
-	// 2 = Parity Mode Enabled, Odd Parity
-	//UCSRC = 0x06 + ((parity+1)<<4);
-	//UCSRC |= (1<<USBS);
-	//Teiler wird gesetzt 
-	UBRR=(F_CPU / (baudrate * 16L) - 1);
-	usart_status.usart_disable = 0;
-#endif //USE_CAM
+  //Serielle Schnittstelle 1
+  //Enable TXEN im Register UCR TX-Data Enable
+  UCR =(1 << TXEN | 1 << RXEN | 1<< RXCIE);
+  // 0 = Parity Mode Disabled
+  // 1 = Parity Mode Enabled, Even Parity
+  // 2 = Parity Mode Enabled, Odd Parity
+  //UCSRC = 0x06 + ((parity+1)<<4);
+  //UCSRC |= (1<<USBS);
+  //Teiler wird gesetzt 
+  UBRR=(F_CPU / (baudrate * 16L) - 1);
+  usart_status.usart_disable = 0;
 }
 
 //----------------------------------------------------------------------------
@@ -86,16 +85,15 @@ void usart_write_char(char c)
     }
     return;
 #else
-    #if !USE_CAM
-        if(!usart_status.usart_disable)
-        {
-            //Warten solange bis Zeichen gesendet wurde
-            while(!(USR & (1<<UDRE)));
-            //Ausgabe des Zeichens
-            UDR = c;
-        }
-        return;
-    #endif //USE_CAM
+    
+    if(!usart_status.usart_disable)
+    {
+        //Warten solange bis Zeichen gesendet wurde
+        while(!(USR & (1<<UDRE)));
+        //Ausgabe des Zeichens
+        UDR = c;
+    }
+    return;
 #endif
 }
 
@@ -199,8 +197,6 @@ void usart_write_str(char *str)
 
 //----------------------------------------------------------------------------
 //Empfang eines Zeichens
-#if !USE_CAM
-#if !USE_ARTNET
 ISR (USART_RX)
 {
 	if(!usart_status.usart_disable)
@@ -254,7 +250,5 @@ ISR (USART_RX)
 	}
 	return;
 }
-#endif //USE_ARTNET
-#endif //USE_CAM
 
 

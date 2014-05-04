@@ -5,6 +5,7 @@
  known Problems: none
  Version:        24.10.2007
  Description:    Webserver uvm.
+ Modified:       G. Menke, 05.08.2010
 
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
  GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
@@ -23,11 +24,9 @@
 ----------------------------------------------------------------------------*/
 
 #include <avr/io.h>
-#include <avr/eeprom.h>
 #include "config.h"
 #include "usart.h"
-#include "networkcard/enc28j60.h"
-#include "networkcard/rtl8019.h"
+#include "enc28j60.h"
 #include "stack.h"
 #include "timer.h"
 #include "wol.h"
@@ -37,11 +36,10 @@
 #include "ntp.h"
 #include "base64.h"
 #include "http_get.h"
-#include "lcd.h"
-#include "udp_lcd.h"
 #include "analog.h"
 #include "sendmail.h"
-#include "artnet.h"
+#include <avr/eeprom.h>
+
 #include "dhcpc.h"
 #include "dnsc.h"
 
@@ -56,9 +54,6 @@ int main(void)
 	DDRD = OUTD;
 	
     unsigned long a;
-	#if USE_SERVO
-		servo_init ();
-	#endif //USE_SERVO
 	
     usart_init(BAUDRATE); // setup the UART
 	
@@ -77,38 +72,12 @@ int main(void)
 	httpd_init();
 	telnetd_init();
 	
-	#if USE_ARTNET
-	artnet_init();
-	#endif   
-	
-	//Spielerrei mit einem LCD
-	#if USE_SER_LCD
-	udp_lcd_init();
-	lcd_init();
-	lcd_clear();
-	back_light = 1;
-	lcd_print(0,0,"System Ready");
-	#endif
 	//Ethernetcard Interrupt enable
 	ETH_INT_ENABLE;
 	
 	//Globale Interrupts einschalten
 	sei(); 
 	
-	#if USE_CAM
-		#if USE_SER_LCD
-		lcd_print(1,0,"CAMERA INIT");
-		#endif //USE_SER_LCD
-	for(a=0;a<2000000;a++){asm("nop");};
-	cam_init();
-	max_bytes = cam_picture_store(CAM_RESOLUTION);
-		#if USE_SER_LCD
-		back_light = 0;
-		lcd_print(1,0,"CAMERA READY");
-		#endif //USE_SER_LCD
-	#endif //USE_CAM
-
-	#if USE_ARTNET == 0
     #if USE_DHCP
     dhcp_init();
     if ( dhcp() == 0)
@@ -121,7 +90,6 @@ int main(void)
         read_ip_addresses(); //get from EEPROM
     }
     #endif //USE_DHCP
-	#endif //!USE_ARTNET
 	
     usart_write("\r\nIP   %1i.%1i.%1i.%1i\r\n", myip[0]     , myip[1]     , myip[2]     , myip[3]);
     usart_write("MASK %1i.%1i.%1i.%1i\r\n", netmask[0]  , netmask[1]  , netmask[2]  , netmask[3]);
@@ -178,10 +146,6 @@ int main(void)
 		ANALOG_ON;
 		#endif
 	    eth_get_data();
-		
-		#if USE_ARTNET
-		artnet_main();
-		#endif
 		
         //Terminalcommandos auswerten
 		if (usart_status.usart_ready){

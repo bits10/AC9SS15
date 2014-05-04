@@ -5,6 +5,7 @@
  known Problems: none
  Version:        12.11.2007
  Description:    HTTP-Client
+ Modified:       G. Menke, 05.08.2010
 
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
  GNU General Public License, wie von der Free Software Foundation veröffentlicht, 

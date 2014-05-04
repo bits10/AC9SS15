@@ -5,6 +5,7 @@
  known Problems: none
  Version:        12.11.2007
  Description:    NTP Client
+ Modified:       G. Menke, 05.08.2010
 
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
  GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
@@ -36,7 +37,7 @@ volatile unsigned int ntp_timer = NTP_REFRESH;
 
 //----------------------------------------------------------------------------
 //
-const PROGMEM char NTP_Request[] = {
+PROGMEM char NTP_Request[] = {
     0xd9,0x00,0x0a,0xfa,0x00,0x00,0x00,0x00,
     0x00,0x01,0x04,0x00,0x00,0x00,0x00,0x00,
     0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
@@ -45,7 +46,7 @@ const PROGMEM char NTP_Request[] = {
     0xc7,0xd6,0xac,0x72,0x08,0x00,0x00,0x00
 };
 
-const PROGMEM char wday_str[] = "So\0Mo\0Di\0Mi\0Do\0Fr\0Sa";
+PROGMEM char wday_str[] = "So\0Mo\0Di\0Mi\0Do\0Fr\0Sa";
 
 unsigned char ntp_server_ip[4];
 unsigned char ntp_state;

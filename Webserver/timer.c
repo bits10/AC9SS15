@@ -5,6 +5,7 @@
  known Problems: none
  Version:        24.10.2007
  Description:    Timer Routinen
+ Modified:       G. Menke, 05.08.2010
 
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
  GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
@@ -31,10 +32,6 @@
 #include "cmd.h"
 #include "dhcpc.h"
 #include "timer.h"
-
-#if USE_ARTNET
-	#include "artnet.h"
-#endif
 
 volatile unsigned long time;
 volatile unsigned long time_watchdog = 0;
@@ -94,17 +91,11 @@ return;
         RESET();
 	}
     eth.timer = 1;
-	
 	#if USE_NTP
 	ntp_timer--;
 	#endif //USE_NTP
-	
 	#if USE_DHCP
 	if ( dhcp_lease > 0 ) dhcp_lease--;
     if ( gp_timer   > 0 ) gp_timer--;
     #endif //USE_DHCP
-	
-	#if USE_ARTNET
-	artnet_tick();
-	#endif //USE_ARTNET
 }

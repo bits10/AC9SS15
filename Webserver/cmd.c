@@ -5,6 +5,7 @@
  known Problems: none
  Version:        24.10.2007
  Description:    Commando Interpreter
+ Modified:       G. Menke, 05.08.2010
 
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
  GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
@@ -22,8 +23,7 @@
  Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA. 
 ------------------------------------------------------------------------------*/
 #include "config.h"
-#include "networkcard/enc28j60.h"
-#include "networkcard/rtl8019.h"
+#include "enc28j60.h"
 #include "cmd.h"
 #include <avr/io.h>
 #include <string.h>
@@ -137,9 +137,6 @@ void command_ip (void)
 	write_eeprom_ip(IP_EEPROM_STORE);
 	(*((unsigned long*)&myip[0])) = get_eeprom_value(IP_EEPROM_STORE,MYIP);
 	usart_write("My IP: %1i.%1i.%1i.%1i\r\n",myip[0],myip[1],myip[2],myip[3]);
-	//Broadcast-Adresse berechnen
-	(*((unsigned long*)&broadcast_ip[0])) = (((*((unsigned long*)&myip[0])) & (*((unsigned long*)&netmask[0]))) | (~(*((unsigned long*)&netmask[0]))));
-
 }
 
 //------------------------------------------------------------------------------
@@ -175,8 +172,6 @@ void command_net (void)
 	write_eeprom_ip(NETMASK_EEPROM_STORE);
 	(*((unsigned long*)&netmask[0])) = get_eeprom_value(NETMASK_EEPROM_STORE,NETMASK);
 	usart_write("NETMASK: %1i.%1i.%1i.%1i\r\n",netmask[0],netmask[1],netmask[2],netmask[3]);
-	//Broadcast-Adresse berechnen
-    (*((unsigned long*)&broadcast_ip[0])) = (((*((unsigned long*)&myip[0])) & (*((unsigned long*)&netmask[0]))) | (~(*((unsigned long*)&netmask[0]))));
 }
 
 //------------------------------------------------------------------------------
@@ -199,13 +194,7 @@ void command_mac (void)
 //print enc28j60 chip version
 void command_ver (void)
 {
-#if USE_ENC28J60
 	usart_write("ENC28J60-Version: %1x\r\n", enc28j60_revision);
-#endif
-
-#if USE_RTL8019
-	usart_write("RTL8019 Ethernetcard\r\n");
-#endif
 }
 
 //------------------------------------------------------------------------------
@@ -347,45 +336,42 @@ void command_help (void)
 //save all ip-datas
 void save_ip_addresses(void)
 {
-	for (unsigned char count = 0; count<4; count++)
-	{
-		eeprom_busy_wait ();
-		eeprom_write_byte((unsigned char *)(IP_EEPROM_STORE + count),myip[count]);
-	}
-	for (unsigned char count = 0; count<4; count++)
-	{
-		eeprom_busy_wait ();
-		eeprom_write_byte((unsigned char *)(NETMASK_EEPROM_STORE + count),netmask[count]);
-	}
-	for (unsigned char count = 0; count<4; count++)
-	{
-		eeprom_busy_wait ();
-		eeprom_write_byte((unsigned char *)(ROUTER_IP_EEPROM_STORE + count),router_ip[count]);
-	}
-	#if USE_DNS
-	for (unsigned char count = 0; count<4; count++)
-	{
-		eeprom_busy_wait ();
-		eeprom_write_byte((unsigned char *)(DNS_IP_EEPROM_STORE + count),dns_server_ip[count]);
-	}
-	#endif //USE_DNS
+  for (unsigned char count = 0; count<4; count++)
+  {
+    eeprom_busy_wait ();
+    eeprom_write_byte((unsigned char *)(IP_EEPROM_STORE + count),myip[count]);
+  }
+  for (unsigned char count = 0; count<4; count++)
+  {
+    eeprom_busy_wait ();
+    eeprom_write_byte((unsigned char *)(NETMASK_EEPROM_STORE + count),netmask[count]);
+  }
+  for (unsigned char count = 0; count<4; count++)
+  {
+    eeprom_busy_wait ();
+    eeprom_write_byte((unsigned char *)(ROUTER_IP_EEPROM_STORE + count),router_ip[count]);
+  }
+  #if USE_DNS
+  for (unsigned char count = 0; count<4; count++)
+  {
+    eeprom_busy_wait ();
+    eeprom_write_byte((unsigned char *)(DNS_IP_EEPROM_STORE + count),dns_server_ip[count]);
+  }
+  #endif //USE_DNS
 }
 
 //------------------------------------------------------------------------------
 //Read all IP-Datas
 void read_ip_addresses (void)
 {
-	(*((unsigned long*)&myip[0]))      = get_eeprom_value(IP_EEPROM_STORE,MYIP);
-	(*((unsigned long*)&netmask[0]))   = get_eeprom_value(NETMASK_EEPROM_STORE,NETMASK);
-	(*((unsigned long*)&router_ip[0])) = get_eeprom_value(ROUTER_IP_EEPROM_STORE,ROUTER_IP);
-	//Broadcast-Adresse berechnen
-	(*((unsigned long*)&broadcast_ip[0])) = (((*((unsigned long*)&myip[0])) & (*((unsigned long*)&netmask[0]))) | (~(*((unsigned long*)&netmask[0]))));
-   
+  (*((unsigned long*)&myip[0]))      = get_eeprom_value(IP_EEPROM_STORE,MYIP);
+  (*((unsigned long*)&netmask[0]))   = get_eeprom_value(NETMASK_EEPROM_STORE,NETMASK);
+  (*((unsigned long*)&router_ip[0])) = get_eeprom_value(ROUTER_IP_EEPROM_STORE,ROUTER_IP);
+	
 	#if USE_DNS
 	//DNS-Server IP aus EEPROM auslesen
 	(*((unsigned long*)&dns_server_ip[0])) = get_eeprom_value(DNS_IP_EEPROM_STORE,DNS_IP);
 	#endif
-
 }
 
 

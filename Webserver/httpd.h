@@ -1,4 +1,4 @@
-/*----------------------------------------------------------------------------
+﻿/*----------------------------------------------------------------------------
  Copyright:      Radig Ulrich  mailto: mail@ulrichradig.de
  Author:         Radig Ulrich
  Remarks:        
@@ -7,15 +7,15 @@
  Description:    Webserver Applikation
  Modified:       G. Menke, 05.08.2010
  
- Dieses Programm ist freie Software. Sie kˆnnen es unter den Bedingungen der 
- GNU General Public License, wie von der Free Software Foundation verˆffentlicht, 
- weitergeben und/oder modifizieren, entweder gem‰ﬂ Version 2 der Lizenz oder 
- (nach Ihrer Option) jeder sp‰teren Version. 
+ Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
+ GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
+ weitergeben und/oder modifizieren, entweder gemäß Version 2 der Lizenz oder 
+ (nach Ihrer Option) jeder späteren Version. 
 
- Die Verˆffentlichung dieses Programms erfolgt in der Hoffnung, 
- daﬂ es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, 
+ Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, 
+ daß es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, 
  sogar ohne die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT 
- F‹R EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License. 
+ FÜR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License. 
 
  Sie sollten eine Kopie der GNU General Public License zusammen mit diesem 
  Programm erhalten haben. 

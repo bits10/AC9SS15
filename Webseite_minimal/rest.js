@@ -25,7 +25,7 @@ function initRest(){
 		var el=getEl('rest');
 		el.innerHTML="";
 		for(var i=0;i<getPinCount();i++)
-			el.innerHTML+="<br>"+(getId(i)+": "+values[i]);
+			el.innerHTML+="<br>"+("[" + getId(i)+"] " + getName(i) +": "+values[i]);
 	});
 	
 	setOnNetworkError(function(state, response){
@@ -153,6 +153,13 @@ function isDigital(id){
  */
 function getName(id){
 	return cachedPinInfo[getIndex(id)].n;
+}
+
+/**
+ * Returns the name of the pin stored at the given index.
+ */
+function getName(index){
+	return cachedPinInfo[index].n;
 }
 
 /**

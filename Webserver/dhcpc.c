@@ -5,6 +5,7 @@
  known Problems: none
  Version:        29.11.2008
  Description:    DHCP Client
+ Modified:       G. Menke, 05.08.2010
 
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
  GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
@@ -34,33 +35,33 @@
 
 struct dhcp_msg
 {
-	unsigned char op;              //1
-	unsigned char htype;           //2
-	unsigned char hlen;            //3
-	unsigned char hops;            //4
-	unsigned char xid[4];          //8
-	unsigned int  secs;            //12
-	unsigned int  flags;           //14
-	unsigned char ciaddr[4];       //16
-	unsigned char yiaddr[4];       //20
-	unsigned char siaddr[4];       //24
-	unsigned char giaddr[4];       //28
-	unsigned char chaddr[16];      //44
-	unsigned char sname[64];       //108
-	unsigned char file[128];       //Up to here 236 Bytes
-	unsigned char options[312];    // receive up to 312 bytes
+  unsigned char op;              //1
+  unsigned char htype;           //2
+  unsigned char hlen;            //3
+  unsigned char hops;            //4
+  unsigned char xid[4];          //8
+  unsigned int  secs;            //12
+  unsigned int  flags;           //14
+  unsigned char ciaddr[4];       //16
+  unsigned char yiaddr[4];       //20
+  unsigned char siaddr[4];       //24
+  unsigned char giaddr[4];       //28
+  unsigned char chaddr[16];      //44
+  unsigned char sname[64];       //108
+  unsigned char file[128];       //Up to here 236 Bytes
+  unsigned char options[312];    // receive up to 312 bytes
 };
 
 struct dhcp_cache
 {
-	unsigned char type;
-	unsigned char ovld;
-	unsigned char router_ip[4];
-	unsigned char dns1_ip  [4];
-	unsigned char dns2_ip  [4];
-	unsigned char netmask  [4];
-	unsigned char lease    [4];
-	unsigned char serv_id  [4];
+  unsigned char type;
+  unsigned char ovld;
+  unsigned char router_ip[4];
+  unsigned char dns1_ip  [4];
+  unsigned char dns2_ip  [4];
+  unsigned char netmask  [4];
+  unsigned char lease    [4];
+  unsigned char serv_id  [4];
 };
 
 //DHCP Message types for Option 53
@@ -90,10 +91,10 @@ volatile unsigned long dhcp_lease;
 //Init of DHCP client port
 void dhcp_init (void)
 {
-	//Port in Anwendungstabelle eintragen für eingehende DHCP Daten!
-	add_udp_app (DHCP_CLIENT_PORT, (void(*)(unsigned char))dhcp_get);
-	dhcp_state = DHCP_STATE_IDLE;
-	return;
+  //Port in Anwendungstabelle eintragen für eingehende DHCP Daten!
+  add_udp_app (DHCP_CLIENT_PORT, (void(*)(unsigned char))dhcp_get);
+  dhcp_state = DHCP_STATE_IDLE;
+  return;
 }
 //----------------------------------------------------------------------------
 // Configure this client by DHCP
@@ -152,8 +153,6 @@ unsigned char dhcp (void)
 
 		(*((unsigned long*)&netmask[0]))       = (*((unsigned long*)&cache.netmask[0]));
         (*((unsigned long*)&router_ip[0]))     = (*((unsigned long*)&cache.router_ip[0]));
-		//Broadcast-Adresse berechnen
-        (*((unsigned long*)&broadcast_ip[0])) = (((*((unsigned long*)&myip[0])) & (*((unsigned long*)&netmask[0]))) | (~(*((unsigned long*)&netmask[0]))));
 				#if USE_DNS
 				(*((unsigned long*)&dns_server_ip[0])) = (*((unsigned long*)&cache.dns1_ip[0]));
 				#endif
@@ -461,8 +460,6 @@ void dhcp_get (void)
     case DHCPOFFER:
       // this will be our IP address
       (*((unsigned long*)&myip[0])) = (*((unsigned long*)&msg->yiaddr[0]));
-	  //Broadcast-Adresse berechnen
-      (*((unsigned long*)&broadcast_ip[0])) = (((*((unsigned long*)&myip[0])) & (*((unsigned long*)&netmask[0]))) | (~(*((unsigned long*)&netmask[0]))));
       DHCP_DEBUG("** DHCP OFFER RECVD! **\r\n");
       dhcp_state = DHCP_STATE_OFFER_RCVD;
     break;

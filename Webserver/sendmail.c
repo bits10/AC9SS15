@@ -5,6 +5,7 @@
  known Problems: none
  Version:        20.04.2008
  Description:    Send MAIL Client
+ Modified:       G. Menke, 05.08.2010
  
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen der 
  GNU General Public License, wie von der Free Software Foundation veröffentlicht, 
@@ -21,7 +22,7 @@
  Falls nicht, schreiben Sie an die Free Software Foundation, 
  Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA. 
 ------------------------------------------------------------------------------*/
-#include "config.h"
+#include <config.h>
 #include <avr/io.h>
 #include <string.h>
 #include "usart.h"
@@ -45,7 +46,7 @@ PROGMEM char SMTP_RSET[] = "RSET\r\n";
 PROGMEM char SMTP_MAIL[] = "MAIL FROM:<"__SMTP_MAIL_FROM__">\r\n";
 PROGMEM char SMTP_RCPT[] = "RCPT TO:<"__SMTP_MAIL_TO__">\r\n"; // hier user eintragen, an den die mail gehen soll
 PROGMEM char SMTP_DATA[] = "DATA\r\n";
-PROGMEM char SMTP_TEXT[] = "From: \"ETH_M32_EX\" <"__SMTP_MAIL_FROM__">\r\nSubject: Test_EMail!\r\n\r\nHallo\r\nGruss Uli.";
+PROGMEM char SMTP_TEXT[] = "From: \"Webserver\" <"__SMTP_MAIL_FROM__">\r\nSubject: Test_EMail!\r\n\r\nHallo.";
 PROGMEM char SMTP_END[]  = "\r\n.\r\n";
 PROGMEM char SMTP_QUIT[] = "QUIT\r\n";
 
