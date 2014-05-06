@@ -12,7 +12,11 @@ function initFavorites(){
 	
 	// if(document.cookie){
 		// console.log("Cookie: " + document.cookie);
-		// favoritelist=JSON.parse(document.cookie);		
+		// var cook=JSON.parse(document.cookie);
+		 //favoritelist =encodeURI(cook);
+		/*
+		 * favoritelist=cook.replace('#',';');
+		 */		
 	// }
 	// console.log(getFavoritelist());
 	// console.log(isFavorite(10));
@@ -58,7 +62,7 @@ function saveCookie(){
 	var a=new Date();
 	a=new Date(a.getTime() +1000*60*60*24*365*10);
 	//cookie ist ein Jahr gültig?
-	document.cookie=JSON.stringify(favoritelist)+";expires="+a.toGMTString();
+	document.cookie= changeFunctionToCookie+";expires="+a.toGMTString();
 	//jeder neue Wert wird hinten angehängt
 	console.log(document.cookie+'cookie gespeichert');
 	} 
@@ -90,6 +94,18 @@ function getDescription(id){
 function getFunction(id){
 	return "--";//new Function(favoritelist[id].func);
 	}
+ 	/*
+ 	 * Changes the ; in Function to # , because of cut offs while saving
+ 	 * (cookie)
+ 	 */
+function changeFunctionToCookie(){
+	var cook=JSON.stringify(favoritelist);
+	//var newString=cook.replace(';','#');
+	var newString=decodeURI(cook);
+	return newString;
+	
+}
+
 function toggleFavorite(id){
 	isFavorite(id)?removeFavorite(id):addFavorite(id);
 	}
