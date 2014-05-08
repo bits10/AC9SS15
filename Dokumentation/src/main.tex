@@ -1,34 +1,34 @@
-\documentclass[
+\documentclass[ 
 	12pt,
 	a4paper,
 	bibtotoc,
 	cleardoubleempty, 
 	idxtotoc,
-	ngerman,
+	ngerman, 
 	openright
-	final,
+	final, 
 	listof=nochaptergap,
 	]{scrbook}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[]{graphicx} 
-
+  
 \include{preamble}
-
+ 
 \begin{document}
 
 \setcounter{secnumdepth}{3}
-
+ 
 % Titelblatt
-\include{content/title}
+\include{content/framework/title}
 \cleardoubleemptypage
 
 \frontmatter
 
 
+
 % Abstract
-\include{content/abstract}
+\include{content/framework/abstract}
 \cleardoubleemptypage
 
 % Inhaltsverzeichnis
@@ -52,13 +52,14 @@
 \cleardoubleemptypage
 
 % Abkürzungsverzeichnis
-\include{content/abbreviations}
+\include{content/framework/abbreviations}
 
 \mainmatter
 
 \include{content/einleitung}
 \include{content/grundlagen}
 \include{content/Architektur}
+\include{content/Anleitungen}
 \include{content/Webserver}
 \include{content/Website}
 \include{content/Kommunikation}
