@@ -9,23 +9,26 @@
   	user-select: none;
   	cursor:default;
 }
+html, body {
+	height: 100%;
+}
+
 a, input{
 	cursor:pointer;
 }
-
-#main{
+#status{
 	position:fixed;
 	width:100%;
 	height:100%;
 }
 .mainDiv{
+	overflow:auto;
 	display:none;
+	position:relative;
+	width:100%;
 	height:100%;
-	position: relative;
-	overflow: hidden;
 }
 #header{
-	background:#2B2B2B;
 	border-bottom:solid 3px #33b5e5;
 	padding:10px 0 10px 0;
 	text-align:center;
@@ -66,6 +69,8 @@ h1 {
 	margin: 10px 0 10px 0;
 	text-shadow: 0 1px 0px #fff;
 }
+
+/*Farben */
 .background{
 	background:#fcfcfc;
 }
@@ -81,6 +86,9 @@ h1 {
 .blue{
 	background:#4169E1;
 }
+.header_color{
+	background:#2B2B2B;
+}
 
 p{
 	margin-top:10px;
@@ -90,14 +98,14 @@ p.detail{
 	margin-left:10px;
 	margin-top:3px;
 }
-.sidebar{
+#sidebar{
 	overflow-y:scroll;
 	text-align:left;
 	padding: 0 40px 40px 20px;
-	width:250px;
+	width:18%;
 	background:#eee;
 	box-shadow: inset 0 1px 3px #888;
-	position:absolute;
+	float:right;
 	top:0;
 	right:-20px;
 	bottom:27px;

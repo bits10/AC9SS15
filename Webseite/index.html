@@ -13,10 +13,10 @@
 <body onload="initRest();initFavorites();initUi();setMain('status');">
 	
 	<!--The main div. Only the header and one of the other children should be visible a time-->
-	<div class="background" id="main">
+	<div class="background">
 		
 		<!--The header including the navigation-->
-		<div id="header">
+		<div class="header_color" id="header">
 		  	<a id="status_bt" class="buttonlink" href="javascript:setMain('status')">STATUS</a>
 			<a id="favorite_bt" class="buttonlink" href="javascript:setMain('favorite')">FAVORITEN</a>
 			<a id="settings_bt" class="buttonlink" href="javascript:setMain('settings')">EINSTELLUNGEN</a>
@@ -25,7 +25,6 @@
 		
 		<!--The div containing the status tab-->
 		<div class="mainDiv" id="status">
-			
 			<!--The board drawing-->
 			<div id="board">
 				<div class="green" id="cb_main">
@@ -34,48 +33,49 @@
 					<div class="circle ro background"> </div>
 					<div class="circle ru background"> </div>
 					<div class="cb_el black" id="cb_cpu">
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
+						<div class="feet silver"> </div>
+						<div class="feet silver"> </div>
+						<div class="feet silver"> </div>
+						<div class="feet silver"> </div>
+						<div class="feet silver"> </div>
+						<div class="feet silver"> </div>
+						<div class="feet silver"> </div>
+						<div class="feet silver"> </div>
+						<div class="feet silver"> </div>
+						<div class="feet silver"> </div>
+						<div class="feet silver"> </div>
+						<div class="feet silver"> </div>
+						<div class="feet silver"> </div>
+						<div class="feet silver"> </div>
+						<div class="feet silver"> </div>
+						<div class="feet silver"> </div>
+						<div class="feet silver"> </div>
+						<div class="feet silver"> </div>
+						<div class="feet silver"> </div>
+						<div class="feet silver"> </div>
 					</div>
 					<div class="cb_el black" id="cb_cpu"> </div>
 					<div class="cb_el silver" id="cb_net"> </div>
 					<div class="cb_el black" id="cb_con">
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
+						<div class="feet short silver"> </div>
+						<div class="feet short silver"> </div>
+						<div class="feet short silver"> </div>
+						<div class="feet short silver"> </div>
+						<div class="feet short silver"> </div>
+						<div class="feet short silver"> </div>
+						<div class="feet short silver"> </div>
+						<div class="feet short silver"> </div>
+						<div class="feet short silver"> </div>
+						<div class="feet short silver"> </div>
+						<div class="feet short silver"> </div>
+						<div class="feet short silver"> </div>
+						<div class="feet short silver"> </div>
+						<div class="feet short silver"> </div>
 					</div>
 					<div class="cb_el black" id="cb_con"> </div>
 					<div class="cb_el cb_pin isp black">
 						<div class="cb_pin_inner">
+							<div class="cb_pin_inner_dist"></div>
 							<div class="pin"> </div>
 							<div class="pin"> </div>
 							<div class="pin"> </div>
@@ -90,6 +90,7 @@
 					</div>
 					<div class="cb_el cb_pin ext black">
 						<div class="cb_pin_inner">
+							<div class="cb_pin_inner_dist"></div>
 							<div class="pin"> </div>
 							<div class="pin"> </div>
 							<div class="pin"> </div>
@@ -117,20 +118,20 @@
 						<div class="cb_el cb_se metal silver"> </div>
 					</div>
 					<div class="cb_el " id="cb_ana">
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
+						<div class="a_box blue"> <div class="screw circle silver"> <div class="screw head"> </div></div></div>
+						<div class="a_box blue"> <div class="screw circle silver"> <div class="screw head"> </div></div></div>
+						<div class="a_box blue"> <div class="screw circle silver"> <div class="screw head"> </div> </div> </div>
+						<div class="a_box blue"> <div class="screw circle silver"> <div class="screw head"> </div></div></div>
+						<div class="a_box blue"> <div class="screw circle silver"> <div class="screw head"> </div></div></div>
+						<div class="a_box blue"> <div class="screw circle silver"> <div class="screw head"> </div></div></div>
+						<div class="a_box blue"> <div class="screw circle silver"> <div class="screw head"> </div> </div> </div>
+						<div class="a_box blue"> <div class="screw circle silver"> <div class="screw head"> </div> </div> </div>
+						<div class="a_box blue"> <div class="screw circle silver"> <div class="screw head"> </div> </div> </div>
+						<div class="a_box blue"> <div class="screw circle silver"> <div class="screw head"> </div> </div> </div>
 					</div>
 					<div class="cb_el " id="cb_ac">
-						<div class="a_box blue"><div class="circle screw silver"><div class="screw head"> </div></div></div>
-						<div class="a_box blue"><div class="circle screw silver"><div class="screw head"> </div></div></div>
+						<div class="a_box blue"><div class="screw circle silver"><div class="screw head"> </div></div></div>
+						<div class="a_box blue"><div class="screw circle silver"><div class="screw head"> </div></div></div>
 					</div>
 				<div class="circle led_on"> </div>
 				</div>
@@ -177,9 +178,9 @@
 				</div>
 			</div>
 			<!--End of the board drawing-->
-
+			
 			<!--The sidebar-->
-			<div class="sidebar">
+			<div id="sidebar">
 				<h1 id="detail_title">--</h1>
 				<p>AKTUELLER WERT</p>
 				<p class="detail" id="p_val">--</p>
