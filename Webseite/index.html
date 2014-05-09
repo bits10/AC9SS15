@@ -28,7 +28,7 @@
 
 			<!--The board drawing-->
 			<div id="board">
-				<form action="index.html" method="post">
+				<form action="index.html" method="post" id="form">
 					<div class="green" id="cb_main">
 						<div class="circle lo background"> </div>
 						<div class="circle lu background"> </div>
@@ -103,47 +103,53 @@
 								<div class="pin"> </div>
 							</div>
 							<div id="cb_ext_pins">
-								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="EXT0" id="EXT0" />
-									<label for="EXT0"> </label>
+								<div class="cb_pins_dist">
+									<div class="pinCheck">
+										<input type="checkbox" name="OUT" value="EXT0" id="EXT0" />
+										<label for="EXT0"> </label>
+									</div>
+									<div class="pinCheck">
+										<input type="checkbox" name="OUT" value="EXT1" id="EXT1" />
+										<label for="EXT1"> </label>
+									</div>
+									<div class="pinCheck">
+										<input type="checkbox" name="OUT" value="EXT2" id="EXT2" />
+										<label for="EXT2"> </label>
+									</div>
+									<div class="pinCheck">
+										<input type="checkbox" name="OUT" value="EXT3" id="EXT3" />
+										<label for="EXT3"> </label>
+									</div>
+									<div class="pinCheck pinCheckUnclickable pinCheckGround">
+										<input type="checkbox" name="OUT" value="EXT4" id="EXT4" />
+										<label for="EXT4"></label>
+									</div>
 								</div>
-								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="EXT1" id="EXT1" />
-									<label for="EXT1"> </label>
-								</div>
-								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="EXT2" id="EXT2" />
-									<label for="EXT2"> </label>
-								</div>
-								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="EXT3" id="EXT3" />
-									<label for="EXT3"> </label>
-								</div>
-								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="EXT4" id="EXT4" />
-									<label for="EXT4"> </label>
-								</div>
-								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="EXT5" id="EXT5" />
-									<label for="EXT5"> </label>
-								</div>
-								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="EXT6"  id="EXT6" />
-									<label for="EXT6"> </label>
-								</div>
-								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="EXT7" id="EXT7" />
-									<label for="EXT7"> </label>
-								</div>
-								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="EXT8" id="EXT8" />
-									<label for="EXT8"> </label>
-								</div>
-								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="EXT9" id="EXT9" />
-									<label for="EXT9"> </label>
+								<div class="cb_pins_dist b" id
+="cb_ext_pins_dist">
+									<div class="pinCheck">
+										<input type="checkbox" name="OUT" value="EXT5" id="EXT5" />
+										<label for="EXT5"> </label>
+									</div>
+									<div class="pinCheck">
+										<input type="checkbox" name="OUT" value="EXT6"  id="EXT6" />
+										<label for="EXT6"> </label>
+									</div>
+									<div class="pinCheck">
+										<input type="checkbox" name="OUT" value="EXT7" id="EXT7" />
+										<label for="EXT7"> </label>
+									</div>
+									<div class="pinCheck">
+										<input type="checkbox" name="OUT" value="EXT8" id="EXT8" />
+										<label for="EXT8"> </label>
+									</div>
+									<div class="pinCheck pinCheckUnclickable pinCheckPlus">
+										<input type="checkbox" name="OUT" value="EXT9" id="EXT9" />
+										<label for="EXT9"> </label>
+									</div>
 								</div>
 							</div>
+							<div id="cb_ext_pins_bar"><div id="cb_ext_pins_bar_h"></div></div>
 						</div>
 						<div class="cb_el cb_se" id="cb_se1"> 
 							<div class="cb_el cb_se mon up silver"> </div>
@@ -152,7 +158,7 @@
 							<div class="cb_el cb_se back black"> </div>
 							<div class="cb_el cb_se metal silver"> </div>
 							<div id="cb_se_pins">
-								<div style="position:absolute;width:30px;">
+								<div class="cb_pins_dist">
 									<div class="pinCheck">
 										<input type="checkbox" name="OUT" value="C0" id="C0" />
 										<label for="C0"> </label>
@@ -206,7 +212,7 @@
 										<label for="C12"> </label>
 									</div>
 								</div>
-								<div style="top:10px;left:22px;position:absolute;width:30px;">
+								<div class="cb_pins_dist b" id="cb_se_pins_dist">
 									<div class="pinCheck">
 										<input type="checkbox" name="OUT" value="C13" id="C13" />
 										<label for="C13"> </label>
@@ -268,14 +274,14 @@
 						<div class="cb_el " id="cb_ana">
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
-							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
-							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
-							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
-							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
-							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
+							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
+							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
+							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
+							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
+							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
 						</div>
 						<div class="cb_el " id="cb_ac">
 							<div class="a_box blue"><div class="circle screw silver"><div class="screw head"> </div></div></div>

@@ -180,16 +180,44 @@ CSS code for the board
 	height:40px;
 	width: 6px;
 }
+
+/*
+ * anklickbaren Pins für CB_SE und EXT
+ */
 #cb_se_pins{
 	position:relative;
-	top:-100px;
+	top:-50px;
 	left:70px;
 }
-#cb_ext_pins{
+#cb_se_pins_dist{
+	top:10px;
+}
+.cb_pins_dist{
 	position:absolute;
-	top:-160px;
-	left:-5px;
-	width:70px;
+	width:30px;
+}
+.cb_pins_dist.b{
+	left:22px;
+}
+#cb_ext_pins{
+	position:relative;
+	top:-150px;
+	left:-6px;
+}
+#cb_ext_pins_dist{
+	left:24px;
+}
+#cb_ext_pins_bar{
+	position:relative;
+	top:-34px;
+	height:32px;
+	padding:0px 16px 0px 16px;
+	border-top:2px solid #33b5e5;
+}
+#cb_ext_pins_bar_h{
+	background:#33b5e5;
+	width:100%;
+	height:100%;
 }
 .pinCheck input[type=checkbox] {
 	visibility: hidden;
@@ -198,7 +226,7 @@ CSS code for the board
 	width: 20px;
 	height: 20px;
 	background: #D3D3D3;
-	margin: 1px 5px 2px 2px;
+	margin: 1px 1px 2px 2px;
 	border-radius: 100px;
 	position: relative;
 	float:left;
@@ -249,6 +277,28 @@ CSS code for the board
 .pinCheck input[type=checkbox]:checked + label:after {
 	filter: alpha(opacity=100);
 	opacity: 1;
+}
+
+.pinCheckUnclickable label {
+	background:rgba(0,0,0,0);
+}
+.pinCheckUnclickable label:before {
+	color:#2B2B2B;
+}
+.pinCheckUnclickable input[type=checkbox]:checked + label:after {
+	opacity:0;
+}
+
+.pinCheckGround label:before {
+	content: '-';
+}
+
+.pinCheckPlus label:before {
+	content: '+';
+}
+
+.pinCheckAnaloglabel:before {
+	content: 'A';
 }
 
 
