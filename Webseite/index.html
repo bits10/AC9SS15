@@ -25,88 +25,89 @@
 		
 		<!--The div containing the status tab-->
 		<div class="mainDiv" id="status">
-		<div id="board_wrapper">
+
 			<!--The board drawing-->
 			<div id="board">
-				<div class="green" id="cb_main">
-					<div class="circle lo background"> </div>
-					<div class="circle lu background"> </div>
-					<div class="circle ro background"> </div>
-					<div class="circle ru background"> </div>
-					<div class="cb_el black" id="cb_cpu">
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-						<div class="feet"> </div>
-					</div>
-					<div class="cb_el black" id="cb_cpu"> </div>
-					<div class="cb_el silver" id="cb_net"> </div>
-					<div class="cb_el black" id="cb_con">
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-						<div class="feet short"> </div>
-					</div>
-					<div class="cb_el black" id="cb_con"> </div>
-					<div class="cb_el cb_pin isp black">
-						<div class="cb_pin_inner">
-							<div class="pin"> </div>
-							<div class="pin"> </div>
-							<div class="pin"> </div>
-							<div class="pin"> </div>
-							<div class="pin"> </div>
-							<div class="pin"> </div>
-							<div class="pin"> </div>
-							<div class="pin"> </div>
-							<div class="pin"> </div>
-							<div class="pin"> </div>
+				<form action="index.html" method="post">
+					<div class="green" id="cb_main">
+						<div class="circle lo background"> </div>
+						<div class="circle lu background"> </div>
+						<div class="circle ro background"> </div>
+						<div class="circle ru background"> </div>
+						<div class="cb_el black" id="cb_cpu">
+							<div class="feet"> </div>
+							<div class="feet"> </div>
+							<div class="feet"> </div>
+							<div class="feet"> </div>
+							<div class="feet"> </div>
+							<div class="feet"> </div>
+							<div class="feet"> </div>
+							<div class="feet"> </div>
+							<div class="feet"> </div>
+							<div class="feet"> </div>
+							<div class="feet"> </div>
+							<div class="feet"> </div>
+							<div class="feet"> </div>
+							<div class="feet"> </div>
+							<div class="feet"> </div>
+							<div class="feet"> </div>
+							<div class="feet"> </div>
+							<div class="feet"> </div>
+							<div class="feet"> </div>
+							<div class="feet"> </div>
 						</div>
-					</div>
-					<div class="cb_el cb_pin ext black">
-						<div class="cb_pin_inner">
-							<div class="pin"> </div>
-							<div class="pin"> </div>
-							<div class="pin"> </div>
-							<div class="pin"> </div>
-							<div class="pin"> </div>
-							<div class="pin"> </div>
-							<div class="pin"> </div>
-							<div class="pin"> </div>
-							<div class="pin"> </div>
-							<div class="pin"> </div>
+						<div class="cb_el black" id="cb_cpu"> </div>
+						<div class="cb_el silver" id="cb_net"> </div>
+						<div class="cb_el black" id="cb_con">
+							<div class="feet short"> </div>
+							<div class="feet short"> </div>
+							<div class="feet short"> </div>
+							<div class="feet short"> </div>
+							<div class="feet short"> </div>
+							<div class="feet short"> </div>
+							<div class="feet short"> </div>
+							<div class="feet short"> </div>
+							<div class="feet short"> </div>
+							<div class="feet short"> </div>
+							<div class="feet short"> </div>
+							<div class="feet short"> </div>
+							<div class="feet short"> </div>
+							<div class="feet short"> </div>
 						</div>
-						<div id="cb_ext_pins">
-							<div class="pinCheck">
+						<div class="cb_el black" id="cb_con"> </div>
+						<div class="cb_el cb_pin isp black">
+							<div class="cb_pin_inner">
+								<div class="pin"> </div>
+								<div class="pin"> </div>
+								<div class="pin"> </div>
+								<div class="pin"> </div>
+								<div class="pin"> </div>
+								<div class="pin"> </div>
+								<div class="pin"> </div>
+								<div class="pin"> </div>
+								<div class="pin"> </div>
+								<div class="pin"> </div>
+							</div>
+						</div>
+						<div class="cb_el cb_pin ext black">
+							<div class="cb_pin_inner">
+								<div class="pin"> </div>
+								<div class="pin"> </div>
+								<div class="pin"> </div>
+								<div class="pin"> </div>
+								<div class="pin"> </div>
+								<div class="pin"> </div>
+								<div class="pin"> </div>
+								<div class="pin"> </div>
+								<div class="pin"> </div>
+								<div class="pin"> </div>
+							</div>
+							<div id="cb_ext_pins">
+								<div class="pinCheck">
 									<input type="checkbox" name="OUT" value="EXT0" id="EXT0" />
 									<label for="EXT0"> </label>
 								</div>
-							<div class="pinCheck">
+								<div class="pinCheck">
 									<input type="checkbox" name="OUT" value="EXT1" id="EXT1" />
 									<label for="EXT1"> </label>
 								</div>
@@ -142,16 +143,15 @@
 									<input type="checkbox" name="OUT" value="EXT9" id="EXT9" />
 									<label for="EXT9"> </label>
 								</div>
+							</div>
 						</div>
-					</div>
-					<div class="cb_el cb_se" id="cb_se1"> 
-						<div class="cb_el cb_se mon up silver"> </div>
-						<div class="cb_el cb_se mon do silver"> </div>
-						<div class="cb_el cb_se bar black"> </div>
-						<div class="cb_el cb_se back black"> </div>
-						<div class="cb_el cb_se metal silver"> </div>
-						<div id="cb_se_pins">
-							<form action="index.html" method="post">
+						<div class="cb_el cb_se" id="cb_se1"> 
+							<div class="cb_el cb_se mon up silver"> </div>
+							<div class="cb_el cb_se mon do silver"> </div>
+							<div class="cb_el cb_se bar black"> </div>
+							<div class="cb_el cb_se back black"> </div>
+							<div class="cb_el cb_se metal silver"> </div>
+							<div id="cb_se_pins">
 								<div class="pinCheck">
 									<input type="checkbox" name="OUT" value="C0" id="C0" />
 									<label for="C0"> </label>
@@ -205,86 +205,84 @@
 									<label for="C12"> </label>
 								</div>
 								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="C1" id="C1" />
-									<label for="C1"> </label>
+									<input type="checkbox" name="OUT" value="C13" id="C13" />
+									<label for="C13"> </label>
 								</div>
 								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="C2" id="C2" />
-									<label for="C2"> </label>
+									<input type="checkbox" name="OUT" value="C14" id="C14" />
+									<label for="C14"> </label>
 								</div>
 								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="C3" id="C3" />
-									<label for="C3"> </label>
+									<input type="checkbox" name="OUT" value="C15" id="C15" />
+									<label for="C15"> </label>
 								</div>
 								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="C4" id="C4" />
-									<label for="C4"> </label>
+									<input type="checkbox" name="OUT" value="C16" id="C16" />
+									<label for="C16"> </label>
 								</div>
 								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="C5" id="C5" />
-									<label for="C5"> </label>
+									<input type="checkbox" name="OUT" value="C17" id="C17" />
+									<label for="C17"> </label>
 								</div>
 								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="C6"  id="C6" />
-									<label for="C6"> </label>
+									<input type="checkbox" name="OUT" value="C18"  id="C18" />
+									<label for="C18"> </label>
 								</div>
 								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="C7" id="C7" />
-									<label for="C7"> </label>
+									<input type="checkbox" name="OUT" value="C19" id="C19" />
+									<label for="C19"> </label>
 								</div>
 								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="C8" id="C8" />
-									<label for="C8"> </label>
+									<input type="checkbox" name="OUT" value="C20" id="C20" />
+									<label for="C20"> </label>
 								</div>
 								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="C9" id="C9" />
-									<label for="C9"> </label>
+									<input type="checkbox" name="OUT" value="C21" id="C21" />
+									<label for="C21"> </label>
 								</div>
 								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="C10" id="C10" />
-									<label for="C10"> </label>
+									<input type="checkbox" name="OUT" value="C22" id="C22" />
+									<label for="C22"> </label>
 								</div>
 								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="C11" id="C11" />
-									<label for="C11"> </label>
+									<input type="checkbox" name="OUT" value="C23" id="C23" />
+									<label for="C23"> </label>
 								</div>
 								<div class="pinCheck">
-									<input type="checkbox" name="OUT" value="C12" id="C12" />
-									<label for="C12"> </label>
+									<input type="checkbox" name="OUT" value="C24" id="C24" />
+									<label for="C24"> </label>
 								</div>
-								<input type="submit" value="Anwenden" />
-							</form>
+							</div>
 						</div>
+						<div class="cb_el cb_se" id="cb_se2"> 
+							<div class="cb_el cb_se mon up silver"> </div>
+							<div class="cb_el cb_se mon do silver"> </div>
+							<div class="cb_el cb_se bar black"> </div>
+							<div class="cb_el cb_se back black"> </div>
+							<div class="cb_el cb_se metal silver"> </div>
+						</div>
+						<div class="cb_el " id="cb_ana">
+							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
+							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
+							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
+							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
+							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
+							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
+							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
+							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
+							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
+							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
+						</div>
+						<div class="cb_el " id="cb_ac">
+							<div class="a_box blue"><div class="circle screw silver"><div class="screw head"> </div></div></div>
+							<div class="a_box blue"><div class="circle screw silver"><div class="screw head"> </div></div></div>
+						</div>
+					<div class="circle led_on"> </div>
 					</div>
-					<div class="cb_el cb_se" id="cb_se2"> 
-						<div class="cb_el cb_se mon up silver"> </div>
-						<div class="cb_el cb_se mon do silver"> </div>
-						<div class="cb_el cb_se bar black"> </div>
-						<div class="cb_el cb_se back black"> </div>
-						<div class="cb_el cb_se metal silver"> </div>
-					</div>
-					<div class="cb_el " id="cb_ana">
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div></div>
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
-						<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div> </div> </div>
-					</div>
-					<div class="cb_el " id="cb_ac">
-						<div class="a_box blue"><div class="circle screw silver"><div class="screw head"> </div></div></div>
-						<div class="a_box blue"><div class="circle screw silver"><div class="screw head"> </div></div></div>
-					</div>
-				<div class="circle led_on"> </div>
-				</div>
-				
+				</form>
 			</div>
 			<!--End of the board drawing-->
-			</div>
+			
 			<!--The sidebar-->
 			<div class="sidebar">
 				<h1 id="detail_title">--</h1>
