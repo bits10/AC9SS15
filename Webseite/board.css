@@ -22,8 +22,8 @@ CSS code for the board
 }
 #cb_cpu{
 	top:200px;
-	left:75px;
-	width:250px; 
+	left:125px;
+	width:260px; 
 	height:50px;
 }
 .cb_se {
@@ -63,7 +63,7 @@ CSS code for the board
 	height:200px; 
 }
 #cb_se2{
-	top:1500px;
+	top:150px;
 	left:-70px;
 	height:125px;
 	transform:rotate(180deg);
@@ -72,7 +72,7 @@ CSS code for the board
 #cb_con{
 	top:105px;
 	left:125px;
-	width:170px; 
+	width:168px; 
 	height:30px; 
 }
 #cb_net{
@@ -85,7 +85,7 @@ CSS code for the board
 #cb_ana{
 	top:270px;
 	left:125px;
-	width:250px;
+	width:260px;
 	position:relative;
 }
 #cb_ac{
@@ -151,7 +151,7 @@ CSS code for the board
     left: 425px;
 }
 .screw {
-    margin:2px;
+    margin:1px;
 }
 .screw.head {
     height: 4px;
@@ -171,20 +171,19 @@ CSS code for the board
 .feet {
 	float:left;
 	top: -7px;
-	width: 8px;
+	width: 7px;
 	height:60px;
-	margin:-5px 2px 2px;
+	margin:-5px 3px;
 	background:#D3D3D3;
 }
 .feet.short{
 	height:40px;
-	width: 7px;
+	width: 6px;
 }
 #cb_se_pins{
-	position:absolute;
+	position:relative;
 	top:-100px;
 	left:70px;
-	width:70px;
 }
 #cb_ext_pins{
 	position:absolute;
@@ -200,7 +199,7 @@ CSS code for the board
 	height: 20px;
 	background: #D3D3D3;
 	margin: 1px 5px 2px 2px;
-	border-radius: 25px;
+	border-radius: 100px;
 	position: relative;
 	float:left;
 }
@@ -210,7 +209,7 @@ CSS code for the board
 	position: absolute;
 	width: 16px;
 	height: 16px;
-	border-radius: 50px;
+	border-radius: 100px;
 	left: 2px;
 	top: 2px;
 	background:#2B2B2B;
@@ -222,11 +221,11 @@ CSS code for the board
 	color:#e0e0e0;
 	content: '0';
 	position: absolute;
-	width: 14px;
-	height: 14px;
-	border-radius: 50px;
-	top: 1px;
-	left: 1px;
+	width: 16px;
+	height: 16px;
+	border-radius: 100px;
+	top: 0px;
+	left: 0px;
 }
 .pinCheck label:after {
 	filter: alpha(opacity=0);
