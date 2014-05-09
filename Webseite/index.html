@@ -25,7 +25,37 @@
 		
 		<!--The div containing the status tab-->
 		<div class="mainDiv" id="status">
-			
+			<!--The sidebar-->
+			<div class="sidebar">
+				<h1 id="detail_title">--</h1>
+				<p>AKTUELLER WERT</p>
+				<p class="detail" id="p_val">--</p>
+				<p>KONFIGURATION</p>
+				<p class="detail">
+					<div class="select">
+						<select id="s_conf"> </select>
+						<label for="s_conf"> </label>
+					</div>
+				</p>
+				<p>TYP</p>
+				<p class="detail" id="p_type">--</p>
+				<p>MANIPULIERBAR</p>
+				<p class="detail" id="p_mani">--</p>
+				<p>POSITION AN CPU</p>
+				<p class="detail" id="p_pid">--</p>
+				<p>FAVORIT</p>
+				<p class="detail">
+					<div class="checkbox">
+						<input type="checkbox" id="cb_fav" onclick="toggleFavorite(displayDetailId)" value="None" />
+						<label for="cb_fav"> </label>
+					</div>
+				<p>BESCHREIBUNG</p>
+				<p class="detail" id="p_desc">--</p>
+				<p>SCRIPT-FUNKTION</p>
+				<p class="detail" id="p_func">--</p>
+			</div>
+			<!--End of the sidebar-->
+			<div id="board_wrapper">
 			<!--The board drawing-->
 			<div id="board">
 				<div class="green" id="cb_main">
@@ -101,6 +131,48 @@
 							<div class="pin"> </div>
 							<div class="pin"> </div>
 						</div>
+						<div id="cb_ext_pins">
+							<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="EXT0" id="EXT0" />
+									<label for="EXT0"> </label>
+								</div>
+							<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="EXT1" id="EXT1" />
+									<label for="EXT1"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="EXT2" id="EXT2" />
+									<label for="EXT2"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="EXT3" id="EXT3" />
+									<label for="EXT3"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="EXT4" id="EXT4" />
+									<label for="EXT4"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="EXT5" id="EXT5" />
+									<label for="EXT5"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="EXT6"  id="EXT6" />
+									<label for="EXT6"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="EXT7" id="EXT7" />
+									<label for="EXT7"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="EXT8" id="EXT8" />
+									<label for="EXT8"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="EXT9" id="EXT9" />
+									<label for="EXT9"> </label>
+								</div>
+						</div>
 					</div>
 					<div class="cb_el cb_se" id="cb_se1"> 
 						<div class="cb_el cb_se mon up silver"> </div>
@@ -108,6 +180,111 @@
 						<div class="cb_el cb_se bar black"> </div>
 						<div class="cb_el cb_se back black"> </div>
 						<div class="cb_el cb_se metal silver"> </div>
+						<div id="cb_se_pins">
+							<form action="index.html" method="post">
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C0" id="C0" />
+									<label for="C0"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C1" id="C1" />
+									<label for="C1"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C2" id="C2" />
+									<label for="C2"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C3" id="C3" />
+									<label for="C3"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C4" id="C4" />
+									<label for="C4"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C5" id="C5" />
+									<label for="C5"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C6"  id="C6" />
+									<label for="C6"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C7" id="C7" />
+									<label for="C7"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C8" id="C8" />
+									<label for="C8"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C9" id="C9" />
+									<label for="C9"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C10" id="C10" />
+									<label for="C10"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C11" id="C11" />
+									<label for="C11"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C12" id="C12" />
+									<label for="C12"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C1" id="C1" />
+									<label for="C1"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C2" id="C2" />
+									<label for="C2"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C3" id="C3" />
+									<label for="C3"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C4" id="C4" />
+									<label for="C4"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C5" id="C5" />
+									<label for="C5"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C6"  id="C6" />
+									<label for="C6"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C7" id="C7" />
+									<label for="C7"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C8" id="C8" />
+									<label for="C8"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C9" id="C9" />
+									<label for="C9"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C10" id="C10" />
+									<label for="C10"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C11" id="C11" />
+									<label for="C11"> </label>
+								</div>
+								<div class="pinCheck">
+									<input type="checkbox" name="OUT" value="C12" id="C12" />
+									<label for="C12"> </label>
+								</div>
+								<input type="submit" value="Anwenden" />
+							</form>
+						</div>
 					</div>
 					<div class="cb_el cb_se" id="cb_se2"> 
 						<div class="cb_el cb_se mon up silver"> </div>
@@ -134,80 +311,11 @@
 					</div>
 				<div class="circle led_on"> </div>
 				</div>
-
-				<div style="left:25px;position:absolute;border:solid 1px #f00;">Hallo Welt</div>
-
-				<div id="pins">
-
-					<form action="index.html" method="post">
-						<div class="pinCheck">
-							<input type="checkbox" name="OUT" value="C0" id="C0" />
-							<label for="C0"> </label>
-						</div>
-						<div class="pinCheck">
-							<input type="checkbox" name="OUT" value="C1" id="C1" />
-							<label for="C1"> </label>
-						</div>
-						<div class="pinCheck">
-							<input type="checkbox" name="OUT" value="C2" id="C2" />
-							<label for="C2"> </label>
-						</div>
-						<div class="pinCheck">
-							<input type="checkbox" name="OUT" value="C3" id="C3" />
-							<label for="C3"> </label>
-						</div>
-						<div class="pinCheck">
-							<input type="checkbox" name="OUT" value="C4" id="C4" />
-							<label for="C4"> </label>
-						</div>
-						<div class="pinCheck">
-							<input type="checkbox" name="OUT" value="C5" id="C5" />
-							<label for="C5"> </label>
-						</div>
-						<div class="pinCheck">
-							<input type="checkbox" name="OUT" value="C6"  id="C6" />
-							<label for="C6"> </label>
-						</div>
-						<div class="pinCheck">
-							<input type="checkbox" name="OUT" value="C7" id="C7" />
-							<label for="C7"> </label>
-						</div>
-						<input type="submit" value="Anwenden" />
-					</form>
-				</div>
+				
 			</div>
 			<!--End of the board drawing-->
-
-			<!--The sidebar-->
-			<div class="sidebar">
-				<h1 id="detail_title">--</h1>
-				<p>AKTUELLER WERT</p>
-				<p class="detail" id="p_val">--</p>
-				<p>KONFIGURATION</p>
-				<p class="detail">
-					<div class="select">
-						<select id="s_conf"> </select>
-						<label for="s_conf"> </label>
-					</div>
-				</p>
-				<p>TYP</p>
-				<p class="detail" id="p_type">--</p>
-				<p>MANIPULIERBAR</p>
-				<p class="detail" id="p_mani">--</p>
-				<p>POSITION AN CPU</p>
-				<p class="detail" id="p_pid">--</p>
-				<p>FAVORIT</p>
-				<p class="detail">
-					<div class="checkbox">
-						<input type="checkbox" id="cb_fav" onclick="toggleFavorite(displayDetailId)" value="None" />
-						<label for="cb_fav"> </label>
-					</div>
-				<p>BESCHREIBUNG</p>
-				<p class="detail" id="p_desc">--</p>
-				<p>SCRIPT-FUNKTION</p>
-				<p class="detail" id="p_func">--</p>
 			</div>
-			<!--End of the sidebar-->
+
 
 			<!--clear floating-->
 			<div style="clear:both"> </div>

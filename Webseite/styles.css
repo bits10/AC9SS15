@@ -46,6 +46,9 @@ a, input{
 #favorite tr:hover{
 	background:rgba(51,182,229,0.15);
 }
+#board_wrapper{
+	
+}
 
 .centered {
 	margin-left:auto;

@@ -2,34 +2,32 @@
 CSS code for the board
 */
 #board{
-	-webkit-transform: scale(0.5);
-	-moz-transform: scale(0.5);
-	-ms-transform: scale(0.5);
-	-o-transform: scale(0.5);
-	transform: scale(0.5);	
+	margin:auto;
+	width:500px;
 }
 .led_on{
-	box-shadow: 0 0 20px 10px #c00;
-	-webkit-box-shadow: 0 0 20px 10px #c00;
-	-moz-box-shadow: 0 0 20px 10px #c00;
+	box-shadow: 0 0 10px 5px #c00;
+	-webkit-box-shadow: 0 0 10px 5px #c00;
+	-moz-box-shadow: 0 0 10px 5px #c00;
 	background:#e00;
 	top:3px;
-	left:570px;
+	left:285px;
 }
 #cb_main{
 	position:relative;
-	width:900px; 
-	height:600px;  
+	top:150px;
+	width:450px; 
+	height:300px;  
 	border: 1px solid #000000;
 }
 #cb_cpu{
-	top:400px;
-	left:250px;
-	width:500px; 
-	height:100px;
+	top:200px;
+	left:75px;
+	width:250px; 
+	height:50px;
 }
 .cb_se {
-	width:162px;
+	width:80px;
 }
 .cb_se.bar{
 	width:25%;
@@ -60,105 +58,104 @@ CSS code for the board
 }
 
 #cb_se1{
-	top:100px;
-	left:880px; 
-	height:400px; 
+	top:50px;
+	left:440px; 
+	height:200px; 
 }
 #cb_se2{
-	top:300px;
-	left:-140px;
-	height:250px;
+	top:1500px;
+	left:-70px;
+	height:125px;
 	transform:rotate(180deg);
 	-webkit-transform:rotate(180deg);
 }
 #cb_con{
-	top:210px;
-	left:250px;
-	width:340px; 
-	height:60px; 
+	top:105px;
+	left:125px;
+	width:170px; 
+	height:30px; 
 }
 #cb_net{
-	top:170px;
+	top:85px;
 	left:0px;
-	width:175px; 
-	height:110px;
+	width:87px; 
+	height:55px;
 	border: 1px solid #000000;
 }
 #cb_ana{
-	top:540px;
-	left:250px;
-	width:500px;
-	height:50px;
+	top:270px;
+	left:125px;
+	width:250px;
+	position:relative;
 }
 #cb_ac{
-	top:60px;
-	left:10px;
-	width:50px;
-	height:100px;
+	top:30px;
+	left:5px;
+	width:25px;
 }
 .cb_pin{
-	width:70px; 
-	height:140px;
+	width:35px; 
+	height:70px;
 }
 .cb_pin_inner{
-	top:10px;
-	left:10px;
-	width:50px;
-	height:120px;
+	top:5px;
+	left:5px;
+	width:25px;
+	height:60px;
 	position:absolute;
 	background:#202020;
 }
 .cb_pin_inner_dist{
-	top:10px;
+	top:5px;
 	left:0px;
-	height:10px;
+	height:5px;
 }
 .cb_pin.ext{
-	top:40px;
-	left:700px;
+	top:20px;
+	left:350px;
 }
 .cb_pin.isp{
-	top:150px;
-	left:610px;
+	top:75px;
+	left:305px;
 }
 .cb_el{
 	position:absolute;
 }
 .a_box{
-	width:48px;
-	height:48px;
+	width:24px;
+	height:24px;
 	border: 1px solid #000000;
 	float: left;
 }
 .circle{
 	position: absolute;
-    width: 39px;
-    height: 39px;
+    width: 20px;
+    height: 20px;
     border-radius: 100px;
     border: 1px solid #000000;
 }
 .circle.lo{
-	top: 10px;
-    left: 10px;
+	top: 5px;
+    left: 5px;
 }
 .circle.ro{
-	top: 10px;
-    left: 850px;
+	top: 5px;
+    left: 425px;
 }
 .circle.lu{
-	top: 550px;
-    left: 10px;
+	top: 275px;
+    left: 5px;
 }
 .circle.ru{
-	top: 550px;
-    left: 850px;
+	top: 275px;
+    left: 425px;
 }
 .screw {
-    margin:4px;
+    margin:2px;
 }
 .screw.head {
-    height: 8px;
-    margin-top: 16px;
+    height: 4px;
+    margin-top: 8px;
     transform:rotate(150deg);
     -webkit-transform:rotate(150deg);
 	background:#888;
@@ -166,50 +163,58 @@ CSS code for the board
 .pin{
 	float:left;
 	background:#FFCC00;
-    width: 5px;
-    height: 5px;
+    width: 2px;
+    height: 2px;
     border-radius: 100px;
-    margin: 10px;
+    margin: 5px;
 }
 .feet {
 	float:left;
-	top: -15px;
-	width: 15px;
-	height:120px;
-	margin:-10px 5px 5px;
+	top: -7px;
+	width: 8px;
+	height:60px;
+	margin:-5px 2px 2px;
 	background:#D3D3D3;
 }
 .feet.short{
-	height:80px;
-	width: 14px;
+	height:40px;
+	width: 7px;
 }
-#pins{
+#cb_se_pins{
 	position:absolute;
-	top:0;
-	left:1000px;
+	top:-100px;
+	left:70px;
+	width:50px;
+}
+#cb_ext_pins{
+	position:absolute;
+	top:-175px;
+	left:-5px;
+	width:50px;
 }
 .pinCheck input[type=checkbox] {
 	visibility: hidden;
 }
 .pinCheck {
-	width: 40px;
-	height: 40px;
+	width: 20px;
+	height: 20px;
 	background: #D3D3D3;
-	margin: 10px auto;
-	border-radius: 50px;
+	margin: 5px auto;
+	border-radius: 25px;
 	position: relative;
+	float:left;
 }
 
 .pinCheck label {
 	cursor: pointer;
 	position: absolute;
-	width: 34px;
-	height: 34px;
+	width: 16px;
+	height: 16px;
 	border-radius: 50px;
-	left: 3px;
-	top: 3px;
+	left: 2px;
+	top: 2px;
 	background:#2B2B2B;
-	font-size:20px;
+	font-size:10px;
 	color:#fff;
 	text-align:center;
 }
@@ -217,27 +222,27 @@ CSS code for the board
 	color:#e0e0e0;
 	content: '0';
 	position: absolute;
-	width: 28px;
-	height: 28px;
+	width: 14px;
+	height: 14px;
 	border-radius: 50px;
 	top: 2px;
-	left: 3px;
+	left: 2px;
 }
 .pinCheck label:after {
 	filter: alpha(opacity=0);
 	opacity: 0;
 	content: 'I';
 	position: absolute;
-	width: 28px;
-	height: 28px;
+	width: 14px;
+	height: 14px;
 	background: #33b5e5;
 	border-radius: 50px;
-	top: 3px;
-	left: 3px;
+	top: 2px;
+	left: 2px;
 }
 
 .pinCheck:hover{
-	 box-shadow: 0 0 13px 7px #33B5E5;
+	 box-shadow: 0 0 6px 3px #33B5E5;
     z-index:1000000;
     position:relative;
 }
