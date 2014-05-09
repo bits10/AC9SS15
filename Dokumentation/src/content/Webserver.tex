@@ -1,1 +1,26 @@
 \chapter{Der Webserver}
+
+Als Basis für unser Projekt haben wir die Firmware von Ulrich Radig verwendet.
+Da diese Vorlage für unseren Anwendungsfall zu umfangreich ist,  haben wir uns 
+für die Abgespeckte Variante von Günther Menke entschieden. Die Änderungen sind
+zum einen das entfernte Kamera-Feature und um zusätzlichen Quellcode für einen
+alternativen Netzwerkcontroller abgespeckt wurde.
+
+\section{Einrichtung}
+
+Die Einstellung des Webservers erfolgt über die \textrm{config.h} Datei. Hier können
+IP-Adresse, Mac-Adresse oder die Ports eingestellt werden.
+
+\section{Einbindung der Website}
+
+Alle für den Betrieb der Website benötigten Dateien sind nicht über ein
+Dateisystem vorhanden, sondern werden beim zugriff des Benutzers auf den
+Webserver über die \textrm{webpage.h} datei geladen.
+Das erstellen der .h erfolgt über das Beigelegte \textrm{HTML Header Compiler}
+Werkzeug erstellt. Eine Beispiel zum erstellen der \textrm{webpage.h} Datei gibt
+es im Tutorial Abschnitt. Das Werkzeug wird im Kapitel Werkzeuge detailierter
+erklärt. Abschließend ist noch zu erwähnen, das die \textrm{webpage.h} nicht für manuelle
+Bearbeitung gedacht ist. Dies geschieht ausschließlich über die Quell-Dateien
+und dem anschließenden umwandeln mit dem \textrm{HTML Header Compiler}
+
+
