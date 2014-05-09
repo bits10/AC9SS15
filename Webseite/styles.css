@@ -30,6 +30,9 @@ a, input{
 	padding:10px 0 10px 0;
 	text-align:center;
 }
+#status {
+	padding-right:250px;
+}
 #settings tr .title {
 	text-align:right;
 	color:#2B2B2B;

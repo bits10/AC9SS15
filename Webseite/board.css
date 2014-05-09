@@ -3,7 +3,7 @@ CSS code for the board
 */
 #board{
 	margin:auto;
-	width:500px;
+	width:600px;
 }
 .led_on{
 	box-shadow: 0 0 10px 5px #c00;

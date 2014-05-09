@@ -25,37 +25,7 @@
 		
 		<!--The div containing the status tab-->
 		<div class="mainDiv" id="status">
-			<!--The sidebar-->
-			<div class="sidebar">
-				<h1 id="detail_title">--</h1>
-				<p>AKTUELLER WERT</p>
-				<p class="detail" id="p_val">--</p>
-				<p>KONFIGURATION</p>
-				<p class="detail">
-					<div class="select">
-						<select id="s_conf"> </select>
-						<label for="s_conf"> </label>
-					</div>
-				</p>
-				<p>TYP</p>
-				<p class="detail" id="p_type">--</p>
-				<p>MANIPULIERBAR</p>
-				<p class="detail" id="p_mani">--</p>
-				<p>POSITION AN CPU</p>
-				<p class="detail" id="p_pid">--</p>
-				<p>FAVORIT</p>
-				<p class="detail">
-					<div class="checkbox">
-						<input type="checkbox" id="cb_fav" onclick="toggleFavorite(displayDetailId)" value="None" />
-						<label for="cb_fav"> </label>
-					</div>
-				<p>BESCHREIBUNG</p>
-				<p class="detail" id="p_desc">--</p>
-				<p>SCRIPT-FUNKTION</p>
-				<p class="detail" id="p_func">--</p>
-			</div>
-			<!--End of the sidebar-->
-			<div id="board_wrapper">
+		<div id="board_wrapper">
 			<!--The board drawing-->
 			<div id="board">
 				<div class="green" id="cb_main">
@@ -315,7 +285,36 @@
 			</div>
 			<!--End of the board drawing-->
 			</div>
-
+			<!--The sidebar-->
+			<div class="sidebar">
+				<h1 id="detail_title">--</h1>
+				<p>AKTUELLER WERT</p>
+				<p class="detail" id="p_val">--</p>
+				<p>KONFIGURATION</p>
+				<p class="detail">
+					<div class="select">
+						<select id="s_conf"> </select>
+						<label for="s_conf"> </label>
+					</div>
+				</p>
+				<p>TYP</p>
+				<p class="detail" id="p_type">--</p>
+				<p>MANIPULIERBAR</p>
+				<p class="detail" id="p_mani">--</p>
+				<p>POSITION AN CPU</p>
+				<p class="detail" id="p_pid">--</p>
+				<p>FAVORIT</p>
+				<p class="detail">
+					<div class="checkbox">
+						<input type="checkbox" id="cb_fav" onclick="toggleFavorite(displayDetailId)" value="None" />
+						<label for="cb_fav"> </label>
+					</div>
+				<p>BESCHREIBUNG</p>
+				<p class="detail" id="p_desc">--</p>
+				<p>SCRIPT-FUNKTION</p>
+				<p class="detail" id="p_func">--</p>
+			</div>
+			<!--End of the sidebar-->
 
 			<!--clear floating-->
 			<div style="clear:both"> </div>
