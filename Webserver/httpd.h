@@ -70,6 +70,7 @@
 	extern void httpd_stack_clear (unsigned char);
 	extern void httpd_header_check (unsigned char);
 	extern void httpd_data_send (unsigned char);
+	unsigned char portToByte(unsigned char port);
  
 #endif //_HTTPD_H
 

@@ -1,11 +1,11 @@
 \chapter{Kommunikation zwischen Server und Webseite}
 
-\section*{Kommunikation im Projekt Radig}
+\section{Kommunikation im Projekt Radig}
 Im Projekt Radig ist keine echte Kommunikation zwischen dem Client und dem Server 
 vorhanden. 
 
 Die auf der Webseite dargestellten Werte werden vor dem senden der HTML-Seite 
-im HTML-Code eingefügt indem Platzhalter im Format "\%PORTA0" ersetzt und so statisch auf 
+im HTML-Code eingefügt indem Platzhalter im Format "`\%PORTA0"' ersetzt und so statisch auf 
 der Webseite dargestellt werden. Das Manipulieren der Pins findet über ein HTML-Formular 
 statt. Alle manipulierbaren Pins sind als Input vom Typ Checkbox dargestellt. Diese lassen 
 sich frei manipulieren und erst beim Betätigen des "Senden"-Buttons werden die 
@@ -21,7 +21,7 @@ eines Pins die gesamte Seite neu geladen und so Unmengen an unnötigen Daten üb
 Auch zum darstellen der aktuellen Werte muss die ganze Seite neu vom Server angefordert 
 werden.
 
-\section*{Erster Ansatz}
+\section{Erster Ansatz}
 Die Kommunikation zwischen Server und Client sollte mit Hilfe einer REST-Schnittstelle 
 stattfinden, die im Hintergrund über Javascript angesprochen werden kann. 
 
@@ -79,12 +79,12 @@ Nach den Anforderungen muss die Schnittstelle folgende Aufgaben ermöglichen:
 %\end{itemize}
 
 %-----------------------------------------------------------------------------------------
-\section*{Polling oder Pushing}
+\section{Polling oder Pushing}
 Die aktuellen Werte der Pins müssen bei jeder Änderung vom Server zum Client übertragen 
 werden, damit diese auf der Webseite immer korrekt dargestellt werden. Hierfür stehen zwei 
 verschiedene Konzepte zur Verfügung wie die Übertragung der Daten initialisiert werden.
 
-\subsection*{Polling}
+\subsection{Polling}
 Bei Polling werden vom Client kontinuierlich die Werte erneut angefordert, indem dieser 
 die entsprechende virtuell URL des Servers aufruft. Dies führt dazu, dass viele unnötige 
 Date übertragen werden, da sich eventuell nicht bei jedem erneuten anfordern der Werte 
@@ -97,7 +97,7 @@ wird. Auch das gesendete Datenvolumen wird dahingehend minimiert, das nur die Nu
 übertragen werden und nicht der gesamte HTML-Code der Webseite. Polling ist technisch sehr 
 einfach zu realisieren, da die Abfrage der Daten einfach zyklisch wiederholt werden.
 
-\subsection*{Pushing}
+\subsection{Pushing}
 Bei Pushing wird im Gegensatz zu Polling der Daten nicht vom Client initialisiert sondern 
 vom Server. Der Server weiß wann sich die Werte geändert haben und kann dem Client bei 
 jeder Änderung gezielt die neuen Daten Übermitteln. Das Übertragen der Daten könnte z.B. 
@@ -137,7 +137,7 @@ einen tendenziell größeren CPU erfordern mit dem auch Multitasking möglich is
 eine grundlegende Umgestaltung des Radig-Projektes um mehrere HTTP Verbindungen parallel 
 zu ermöglichen.
 
-\subsection*{Entscheidung}
+\subsection{Entscheidung}
 Da die technische Umsetzung vom Pushing nur schwer möglich ist werden wir auf Polling 
 setzen.
 
@@ -198,7 +198,7 @@ TODO: Hier noch Argumentation mit Übertragungszeit und Screenshot aus Chrome Ne
 %\end{itemize}
 
 %-----------------------------------------------------------------------------------------
-\section*{Aufbau der REST-Schnittstelle}
+\section{Aufbau der REST-Schnittstelle}
 
 \begin{itemize}
 	\item 6 URLS
@@ -206,23 +206,50 @@ TODO: Hier noch Argumentation mit Übertragungszeit und Screenshot aus Chrome Ne
 \end{itemize}
 	
 %-----------------------------------------------------------------------------------------
-\section*{Implementierung der REST-Schnitstelle auf dem Server}
+\section{Implementierung der REST-Schnitstelle auf dem Server}
 
-\begin{itemize}
-	\item Benutzung der Struktur von Radig
-	\item Platzhalter \%PortXY werden beim senden des Dokuments ersetzt durch passende 
-		  Werte
-	\item in /rest liegen Dateien values (mit Platzhaltern), pininfo und info (jeweils als
-	      statisches Dokument)
-	\item Dateien können von ausßen normal aufgerufen werden und werden ggfs. mit realen 
-	      Informationen aufgefüllt
-	\item Vorteil: Test außerhalb der Platine möglich, da Werte als String gekennzeichnet 
-	      sind in JSON, Pins haben dann den Wert "\%PortXY" anstatt "0" oder "1"
-	\item TODO: Wie werden die set URLs implementiert?
-\end{itemize}
+Für die Restschnittstelle wurde Weitestgehend der Bestehende Quellcode von Radig
+verwendet.
+Zum schalten der Eingänge sind Platzhalter vorgesehen (z.B. \%PortC1 ) mit
+diesen kann der direkte Port zusammen mit dem Pin (Hier Port C1) an eine
+beliebige Stelle im Quellcode platziert werden.
+Damit das System für uns möglichst flexibel Arbeitet, haben wir uns dafür
+entschieden, diese Dynamischen Angaben in eine Separate Datei auszulagern und
+über die REST Schnittstelle abzufragen. Konkreter liegt in dem /Rest Verzeichnis
+eine \textrm{values} Datei die die Platzhalter enthält. Zusätzlich gibt es noch eine
+\textrm{info} und \textrm{pininfo} Datei, die statische Informationen zu den
+Pins und Ports Enthält.
+Zum setzen der Ausgänge wird über einen Post Aufruf der entsprechende Port und
+Pin gesetzt. Die Informationen, die zum setzen eines Ports Benötigt werden
+setzen sich zusammen aus einem \textrm{SET} Befehl und dem Zu schaltendem Port
+und Pin. Abschließend muss das Ende der Schaltanweisung mit \textrm{SUB}
+gekennzeichnet werden, da der Webserver auf diese Steuerzeichen prüft. Ein
+Beispiel Post zum schalten der Pins C1 und C2 sieht folgendermaßen aus: \\
+
+\framebox{SET=C1\&SET=C2\&SUB=Senden} \\
+\\
+Anzumerken ist, das beim Setzen der Pins die bestehenden Zustände verloren
+gehen.
+
+%\begin{itemize}
+%	\item Benutzung der Struktur von Radig
+%	\item Die Eingägne werden durch Platzhalter (z.B. \%PortC1 ) angegeben. Beim
+%			übertragen des Dokuments werden die Platzhalter ersetzt durch passende Werte
+%	\item in /rest liegen Dateien values (mit Platzhaltern), pininfo und info
+	% (jeweils als
+%	      statisches Dokument)
+%	\item Dateien können von ausßen normal aufgerufen werden und werden ggfs. mit
+	% realen
+%	      Informationen aufgefüllt
+%	\item Vorteil: Test außerhalb der Platine möglich, da Werte als String
+	% gekennzeichnet
+%	      sind in JSON, Pins haben dann den Wert \%PortXY anstatt 0 oder 1
+%	\item TODO: Wie werden die set URLs implementiert?
+%	\item Die Ausgänge werden über die Post übertragung gesetzt.
+%\end{itemize}
 
 %-----------------------------------------------------------------------------------------
-\section*{Implementierung der REST-Schnitstelle auf dem Client}
+\section{Implementierung der REST-Schnitstelle auf dem Client}
 
 \begin{itemize}
 	\item Aufruf der URLs im Hintergrund mit Ajax
