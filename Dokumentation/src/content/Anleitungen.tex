@@ -28,24 +28,33 @@ Abhilfe Schafft hier die Alternative Programmiersoftware AVRDUDE, mit ihr ist
 es Möglich die Fuse-Bits zu ändern. Unter Linux kann dieser einfach über die
 Paketquellen installiert werden, für ein Windows Betriebssystem kann eine
 ausführbare Kommandozeilen-Anwendung auf der Projekt-Website heruntergeladen
-werden \url{http://savannah.nongnu.org/projects/avrdude}. 
+werden \url{http://savannah.nongnu.org/projects/avrdude}. Zusätzlich muss für
+windows noch libusb-win32 (\url{http://sourceforge.net/projects/libusb-win32/})
+vorhanden sein, das der Programmer mit den gewählten Parametern verwendet werden
+kann. Eine ausfühliche anleitung gibt es hier:
+\url{http://eliaselectronics.com/using-the-avrispmkii-with-avrdude-on-windows/}
+
 
 \begin{table}[H]
 \begin{tabular}{| p{.24\textwidth} | p{.76\textwidth} |}
 \hline
 Auslesen Linux:& sudo avrdude -P usb -p m644p -c avrispmkII  -U lfuse:r:-:h -U hfuse:r:-:h -B 22 \\ \hline
 Setzen Linux:& sudo avrdude -P usb -p m644p -c avrispmkII -U lfuse:w:0xFF:m -U hfuse:w:0xD6:m -B 22 \\ \hline
-% Auslesen Windows:& avrdude.exe -p m644p -c avrispmkII -U lfuse:r:-:h -U hfuse:r:-:h -B 22 \\ \hline 
-% Setzen Windows:& avrdude.exe -p m644p -c avrispmkII -U lfuse:w:0xFF:m -U hfuse:w:0xD6:m -B 22 \\ \hline
-%
-% Muss noch getestet werden!
-%
+Auslesen Windows:& avrdude.exe -p m644p -c avrispmkII -U lfuse:r:-:h -U hfuse:r:-:h -B 22 \\ \hline 
+Setzen Windows:& avrdude.exe -p m644p -c avrispmkII -U lfuse:w:0xFF:m -U hfuse:w:0xD6:m -B 22 \\ \hline
 \end{tabular}
 \caption{Auslesen und setzen von Fuse-Bits mit dem AVRDUDE}
 \label{tablelabel}
 \end{table}
+Die Ausgabe von AVRDUDE beim setzen der neuen Fuse-Bit Einstellungen.
 
-Ein Auszug der verwendeten Parameter aus der AVRDUDE Handbuch Seite.
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm]{content/pictures/Anleitung/neuerProzessor/avrOutput.png}
+\caption{AVRDUDE Ausgabe}
+\end{figure}
+
+Ein Auszug der verwendeten Parameter aus der AVRDUDE Handbuch Seite:
 
 \begin{table}[H]
 \begin{tabular}{| p{.35\textwidth} | p{.65\textwidth} |}
@@ -76,25 +85,9 @@ The filename field indicates the name of the file to read or write.  The format 
 \label{tablelabel}
 \end{table}
 
-Die Ausgabe von AVRDUDE beim setzen der neuen Fuse-Bit Einstellungen.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=13cm]{content/pictures/Anleitung/neuerProzessor/avrOutput.png}
-\caption{AVRDUDE Ausgabe}
-\end{figure}
-
-Anschließend kann der Mikrocontroller zusammen mit dem AV-Net-IO und AtmelStudio Programmiert werden. 
-
-
-
-\section{Konfiguration}
-
-Einstellen von:
-IP
-Mac
-Ein/Ausgänge
-
+Anschließend kann der Mikrocontroller zusammen mit dem AV-Net-IO und AtmelStudio
+Programmiert werden. Der Verwendete Mikrocontroller wird jetzt richtig erkannt,
+da es auch keine Probleme mit der Gerätesignatur gibt.
 
 \section{HTML Header Compiler}
 
