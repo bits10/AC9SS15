@@ -13,7 +13,8 @@ function getEl(id) {
  * Initialises the UI. Should only be called once at the startup.
  */
 function initUi() {
-	
+	  document.captureEvents(Event.MOUSEMOVE);
+	  
 	//Turn the screws
 	//This Block may be delelted wehen more disk space is required, but don't forget to also remove the CSS classed and divs!
 	var v=document.getElementsByClassName('head');
@@ -32,14 +33,17 @@ function initUi() {
 	});
 	
 	//Display REST information
-	getEl('setting_ip').innerHTML=getInfo().ip;
-	getEl('setting_def_ip').innerHTML=getInfo().def_ip;
 	getEl('setting_mac').innerHTML=getInfo().mac;
 	getEl('setting_version').innerHTML=getInfo().version;
 	getEl('changeIpInput').value=getInfo().ip;
 	getEl('changeFreqInput').value=getPollingFreq();
 
 	setOnFavoritesChanged(onFavoritesChanged);
+}
+
+function opcmo(elem) {
+	displayDetails(elem.htmlFor);
+
 }
 
 /**

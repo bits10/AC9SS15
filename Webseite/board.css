@@ -238,14 +238,22 @@ CSS code for the board
 	position:relative;
 	left:11px;
 	top:25px;
-	height:50px;
+	height:33px;
 	width:2px;
 	background: #33b5e5;
 	margin-bottom:25px;
 }
-.a_box_bar.short{
-	height:32px;
-	margin-bottom:25px;
+.a_box_bar.a{
+	height:66px;
+}
+.a_box_bar.b{
+	height:99px;
+}
+.a_box_bar.c{
+	height:142px;
+}
+.a_box_bar.d{
+	height:175px;
 }
 .pinCheck input[type=checkbox] {
 	visibility: hidden;
@@ -329,11 +337,11 @@ CSS code for the board
 	content: '+';
 }
 
-.pinCheckAnaloglabel:before {
+.pinCheckAnalog label:before {
 	content: 'A';
 }
 
-.pinCheckAnaloglabel:before {
+.pinCheckAnalog label:before {
 	content: 'A';
 }
 
