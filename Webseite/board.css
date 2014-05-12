@@ -280,16 +280,20 @@ CSS code for the board
 }
 
 .pinCheckUnclickable label {
-	background:rgba(0,0,0,0);
+		cursor:default;
+
 }
-.pinCheckUnclickable label:before {
-	color:#2B2B2B;
+
+.pinCheckUnclickable:hover{
+	box-shadow: 0 0 0 0 #33B5E5;
+    z-index:1000000;
+    position:relative;
 }
 .pinCheckUnclickable input[type=checkbox]:checked + label:after {
 	opacity:0;
 }
 
-.pinCheckGround label:before {
+.pinCheckMinus label:before {
 	content: '-';
 }
 
@@ -299,6 +303,14 @@ CSS code for the board
 
 .pinCheckAnaloglabel:before {
 	content: 'A';
+}
+
+.pinCheckAnaloglabel:before {
+	content: 'A';
+}
+
+.pinCheckNone label:before {
+	content: ' ';
 }
 
 
