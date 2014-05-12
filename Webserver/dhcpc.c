@@ -28,7 +28,6 @@
 #include "stack.h"
 #include "usart.h"
 #include "timer.h"
-#include "dnsc.h"
 #include "dhcpc.h"
 	
 #if USE_DHCP
@@ -153,9 +152,6 @@ unsigned char dhcp (void)
 
 		(*((unsigned long*)&netmask[0]))       = (*((unsigned long*)&cache.netmask[0]));
         (*((unsigned long*)&router_ip[0]))     = (*((unsigned long*)&cache.router_ip[0]));
-				#if USE_DNS
-				(*((unsigned long*)&dns_server_ip[0])) = (*((unsigned long*)&cache.dns1_ip[0]));
-				#endif
         dhcp_state = DHCP_STATE_FINISHED;
       break;
       case DHCP_STATE_NAK_RCVD:

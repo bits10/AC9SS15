@@ -32,9 +32,7 @@
 #include "usart.h"
 #include "stack.h"
 #include "httpd.h"
-#include "ntp.h"
 #include "timer.h"
-#include "dnsc.h"
 	
 volatile unsigned int variable[MAX_VAR];
 
@@ -46,12 +44,10 @@ COMMAND_STRUCTUR COMMAND_TABELLE[] = // Befehls-Tabelle
 	{"IP",command_ip},
 	{"NET",command_net},
 	{"ROUTER",command_router},
-	{"NTP",command_ntp},
 	{"MAC",command_mac},
 	{"VER",command_ver},
 	{"SV",command_setvar},
 	{"TIME",command_time},
-	{"NTPR",command_ntp_refresh},	
 	{"PING", command_ping},
 	#if HELPTEXT
 	{"HELP",command_help},
@@ -68,8 +64,6 @@ COMMAND_STRUCTUR COMMAND_TABELLE[] = // Befehls-Tabelle
 		"IP     - list/change ip\r\n"
 		"NET    - list/change netmask\r\n"
 		"ROUTER - list/change router ip\r\n"
-		"NTP    - list/change NTP\r\n"
-		"NTPR   - NTP Refresh\r\n"
 		"MAC    - list MAC-address\r\n"
 		"VER    - list enc version number\r\n"
 		"SV     - set variable\r\n"
@@ -138,17 +132,6 @@ void write_eeprom_ip (unsigned int eeprom_adresse)
 			eeprom_write_byte((unsigned char *)(eeprom_adresse + count),variable[count]);
 		}
 	}
-}
-
-//------------------------------------------------------------------------------
-//print/edit NTP Server IP
-void command_ntp (void)
-{
-	#if USE_NTP
-	write_eeprom_ip(NTP_IP_EEPROM_STORE);
-	(*((unsigned long*)&ntp_server_ip[0])) = get_eeprom_value(NTP_IP_EEPROM_STORE,NTP_IP);
-	usart_write("NTP_Server: %1i.%1i.%1i.%1i\r\n",ntp_server_ip[0],ntp_server_ip[1],ntp_server_ip[2],ntp_server_ip[3]);
-	#endif //USE_NTP
 }
 
 //------------------------------------------------------------------------------
@@ -240,15 +223,6 @@ void command_time (void)
 }
 
 //------------------------------------------------------------------------------
-//Time Refresh via NTP-Server
-void command_ntp_refresh (void)
-{
-	#if USE_NTP
-	ntp_request();
-	#endif //USE_NTP
-}
-
-//------------------------------------------------------------------------------
 // Sende "Ping" an angegebene Adresse
 void command_ping (void)
 {
@@ -299,13 +273,6 @@ void save_ip_addresses(void)
     eeprom_busy_wait ();
     eeprom_write_byte((unsigned char *)(ROUTER_IP_EEPROM_STORE + count),router_ip[count]);
   }
-  #if USE_DNS
-  for (unsigned char count = 0; count<4; count++)
-  {
-    eeprom_busy_wait ();
-    eeprom_write_byte((unsigned char *)(DNS_IP_EEPROM_STORE + count),dns_server_ip[count]);
-  }
-  #endif //USE_DNS
 }
 
 //------------------------------------------------------------------------------
@@ -315,11 +282,6 @@ void read_ip_addresses (void)
   (*((unsigned long*)&myip[0]))      = get_eeprom_value(IP_EEPROM_STORE,MYIP);
   (*((unsigned long*)&netmask[0]))   = get_eeprom_value(NETMASK_EEPROM_STORE,NETMASK);
   (*((unsigned long*)&router_ip[0])) = get_eeprom_value(ROUTER_IP_EEPROM_STORE,ROUTER_IP);
-	
-	#if USE_DNS
-	//DNS-Server IP aus EEPROM auslesen
-	(*((unsigned long*)&dns_server_ip[0])) = get_eeprom_value(DNS_IP_EEPROM_STORE,DNS_IP);
-	#endif
 }
 
 

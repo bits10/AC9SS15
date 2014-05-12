@@ -35,7 +35,6 @@
 #include "enc28j60.h"
 #include "config.h"
 #include "timer.h"
-#include "dnsc.h"
 #include "dhcpc.h"
 #include "stack.h"
 
@@ -92,12 +91,7 @@ void stack_init (void)
     (*((unsigned long*)&myip[0])) = get_eeprom_value(IP_EEPROM_STORE,MYIP);
 	(*((unsigned long*)&netmask[0])) = get_eeprom_value(NETMASK_EEPROM_STORE,NETMASK);
 	(*((unsigned long*)&router_ip[0])) = get_eeprom_value(ROUTER_IP_EEPROM_STORE,ROUTER_IP);
-	
-    #if USE_DNS
-    //DNS-Server IP aus EEPROM auslesen
-    (*((unsigned long*)&dns_server_ip[0])) = get_eeprom_value(DNS_IP_EEPROM_STORE,DNS_IP);
-    #endif
-  
+	 
 	//MAC Adresse setzen
 	mymac[0] = MYMAC1;
     mymac[1] = MYMAC2;

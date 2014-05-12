@@ -28,7 +28,6 @@
 #include <avr/interrupt.h>
 #include "usart.h"
 #include "stack.h"
-#include "ntp.h"
 #include "cmd.h"
 #include "dhcpc.h"
 #include "timer.h"
@@ -91,9 +90,6 @@ return;
         RESET();
 	}
     eth.timer = 1;
-	#if USE_NTP
-	ntp_timer--;
-	#endif //USE_NTP
 	#if USE_DHCP
 	if ( dhcp_lease > 0 ) dhcp_lease--;
     if ( gp_timer   > 0 ) gp_timer--;
