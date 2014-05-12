@@ -212,10 +212,15 @@ Für die Restschnittstelle wurde Weitestgehend der Bestehende Quellcode von Radi
 verwendet.
 Zum schalten der Eingänge sind Platzhalter vorgesehen (z.B. \%PortC1 ) mit
 diesen kann der direkte Port zusammen mit dem Pin (Hier Port C1) an eine
-beliebige Stelle im Quellcode platziert werden.
+beliebige Stelle im Quellcode platziert werden. Neu hinzugekommen ist das
+Ausgeben ob der Konkrete Pin über das DDRegister als Ein- oder Ausgang definiert ist.
+So können Änderungen die Über die Website gemacht werden gleich dem
+Entsprechendem Port zugewiesen werden. Das schema für den Platzhalter ist hier
+\%DDRxy. x steht hier für den Entsprechenden Port und y für den dazugehörenen
+pin.\\
+\\
 Damit das System für uns möglichst flexibel Arbeitet, haben wir uns dafür
-entschieden, diese Dynamischen Angaben in eine Separate Datei auszulagern und
-über die REST Schnittstelle abzufragen. Konkreter liegt in dem /Rest Verzeichnis
+entschieden, diese Dynamischen Angaben in eine Separate Datei auszulagern und über die REST Schnittstelle abzufragen. Konkreter liegt in dem /Rest Verzeichnis
 eine \textrm{values} Datei die die Platzhalter enthält. Zusätzlich gibt es noch eine
 \textrm{info} und \textrm{pininfo} Datei, die statische Informationen zu den
 Pins und Ports Enthält.
@@ -229,8 +234,7 @@ Beispiel Post zum schalten der Pins C1 und C2 sieht folgendermaßen aus: \\
 \framebox{SET=C1\&SET=C2\&SUB=Senden} \\
 \\
 Anzumerken ist, das beim Setzen der Pins die bestehenden Zustände verloren
-gehen.
-
+gehen. 
 %\begin{itemize}
 %	\item Benutzung der Struktur von Radig
 %	\item Die Eingägne werden durch Platzhalter (z.B. \%PortC1 ) angegeben. Beim
