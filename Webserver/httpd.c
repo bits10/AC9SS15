@@ -518,8 +518,8 @@ void httpd_data_send (unsigned char index)
 				http_entry[index].new_page_pointer = http_entry[index].new_page_pointer+6;
 			}
 			
-			//Einsetzen des Pin Status %PI@xy bis %PI@xy durch "ledon" oder "ledoff"
-			//x = 0 : PINA / x = 1 : PINB / x = 2 : PINC / x = 3 : PIND
+			//Einsetzen des Pin Status %PINxy bis %PINxy durch "1" oder "0"
+			//x = A : PINA / x = B : PINB / x = C : PINC / x = D : PIND
 			if (strncasecmp_P("PIN",http_entry[index].new_page_pointer,3)==0)
 			{
 				unsigned char pin  = (pgm_read_byte(http_entry[index].new_page_pointer+4)-48);	
@@ -547,6 +547,42 @@ void httpd_data_send (unsigned char index)
 				else
 				{
 					strcpy_P(var_conversion_buffer, PSTR("0"));
+				}
+				str_len = strnlen(var_conversion_buffer,CONVERSION_BUFFER_LEN);
+				memmove(&eth_buffer[TCP_DATA_START+a],var_conversion_buffer,str_len);
+				a += str_len-1;
+				http_entry[index].new_page_pointer = http_entry[index].new_page_pointer+5;
+			}
+			
+			//Einsetzen des DDR Status %DDRxy bis %DDRxy durch "i" oder "o" für input oder output
+			//x = A : PINA / x = B : PINB / x = C : PINC / x = D : PIND
+			if (strncasecmp_P("DDR",http_entry[index].new_page_pointer,3)==0)
+			{
+				unsigned char pin  = (pgm_read_byte(http_entry[index].new_page_pointer+4)-48);	
+				b = 0;
+				switch(pgm_read_byte(http_entry[index].new_page_pointer+3))
+				{
+					case 'A':
+						b = (DDRA & (1<<pin));
+						break;
+					case 'B':
+						b = (DDRB & (1<<pin));
+						break;
+					case 'C':
+						b = (DDRC & (1<<pin));
+						break;
+					case 'D':
+						b = (DDRD & (1<<pin));
+						break;    
+				}
+				
+				if(b)
+				{
+					strcpy_P(var_conversion_buffer, PSTR("i"));
+				}
+				else
+				{
+					strcpy_P(var_conversion_buffer, PSTR("o"));
 				}
 				str_len = strnlen(var_conversion_buffer,CONVERSION_BUFFER_LEN);
 				memmove(&eth_buffer[TCP_DATA_START+a],var_conversion_buffer,str_len);

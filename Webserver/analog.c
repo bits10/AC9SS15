@@ -52,9 +52,9 @@ ISR (ADC_vect)
 	// hier können Umrechnungen für die einzelnen AD-Kanäle eingebaut werden:
 	// z.B. für AD-Kanal 0 die Angabe in %, wobei 0=0% und 1023=100%
 	// AD-Kanal 0...3 entsprechen [channel-1]=4..7
-	if ((channel-1)==4) var_array[channel-1] = var_array[channel-1]*10;			// 0...10240
-	if ((channel-1)==4) var_array[channel-1] = var_array[channel-1]/1024;			// 0...10
-	if ((channel-1)==4) var_array[channel-1] = var_array[channel-1]*10;			// 0...100
+	//if ((channel-1)==4) var_array[channel-1] = var_array[channel-1]*10;			// 0...10240
+	//if ((channel-1)==4) var_array[channel-1] = var_array[channel-1]/1024;			// 0...10
+	//if ((channel-1)==4) var_array[channel-1] = var_array[channel-1]*10;			// 0...100
 
 	//usart_write("Kanal(%i)=%i\n\r",(channel-1),var_array[(channel-1)]);
 	if (channel > 7) channel = 0;
