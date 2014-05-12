@@ -1,1 +1,63 @@
 \chapter{Der Webserver}
+
+Als Basis für unser Projekt haben wir die Firmware von Ulrich Radig verwendet.
+Da diese Vorlage für unseren Anwendungsfall zu umfangreich ist,  haben wir uns 
+für die Abgespeckte Variante von Günther Menke entschieden. Die Änderungen sind
+zum einen das entfernte Kamera-Feature und um zusätzlichen Quellcode für einen
+alternativen Netzwerkcontroller abgespeckt wurde.
+
+\section{Einrichtung}
+
+Die Einstellung des Webservers erfolgt über die \textrm{config.h} Datei. In der
+\textrm{config.h} Datei, können Zum einen die verschiedenen Pins der Ports als Ein oder
+Ausgang definiert werden. Dabei gibt es ein paar Eigenheiten zu beachten:
+\begin{itemize}
+  \item OUTA Steht für den A Port, hier ist du beachten, das dieser Port die
+  Analog zu Digital Wandler beherbergt, Mit aktiviertem Wandler ist es nicht
+  möglich die Pins des Ports funktionierend als Ausgänge zu schalten, da die
+  Spannung nicht gehalten wird.
+  \item OUTB Ist nur mit Vorsicht zu genießen, da es sich hier um den Port der
+  für die Neztwerkkomunikation genutzt wird handelt. Deswegen wird der Port B
+  auch nicht Standardmäßig definiert.
+  \item OUTC Dieser Port wird von Polin standardmäßig für die Ausgänge verwendet
+  und ist von uns bereits so Modifiziert. Der gesamte Port wird auf dem
+  AVR-NET-IO über den 25Pin D-Sub Stecker geleitet. Wenn der Fuse-Bit für JTag
+  geschaltet ist werden 4 Pins des C Ports für das JTag Interface vewendet.
+  \item OUTC Der C Port liegt auf dem AVR-Net-IO auf dem EXT Anschluss und ist
+  für erweiterte Präferie geplant, so kann hier ein Cardreader oder ein
+  Erweiterungsboard angeschlossen werden.
+\end{itemize}
+Weiter kann die gewünschte IP-Adresse eingestellt werden, unter der das Gerät
+erreicht werden kann. Wichtig ist hier, das kein anderes Gerät die selbe Adresse
+im Netzwerk verwendet. Auch kann die Router IP-Adresse und Netzmaske angegeben
+werden. Ferner gibt es noch weitere Funtionen, die vom Board unterstützt werden.
+So ist es möglich geräte über Magic Packets mit Wake on Lan zu wecken, einen
+DNS-Server zu verwenden oder einen NTP Server einzurichten.
+%Ist das Getestet?
+Ein weiterer Wichtiger Einstellungspunkt ist die Aktuelle Mac adresse des
+Netzwerk Controllers. Diese wird über die Variablen MYMAC1-6 Definiert.
+Abschließend gibt es noch einige module die Aktiviert werden können:
+\begin{itemize}
+  \item USE\_ADC
+  \item HTTP\_AUTH\_DEFAULT
+  \item HTTP\_AUTH\_STRING
+  \item USE\_MAIL
+  \item GET\_WEATHER
+  \item CMD\_TELNET
+\end{itemize}
+%Testen oder Rauswerfen? [Jan]
+
+
+\section{Einbindung der Website}
+
+Alle für den Betrieb der Website benötigten Dateien sind nicht über ein
+Dateisystem vorhanden, sondern werden beim zugriff des Benutzers auf den
+Webserver über die \textrm{webpage.h} datei geladen.
+Das erstellen der .h erfolgt über das Beigelegte \textrm{HTML Header Compiler}
+Werkzeug erstellt. Eine Beispiel zum erstellen der \textrm{webpage.h} Datei gibt
+es im Tutorial Abschnitt. Das Werkzeug wird im Kapitel Werkzeuge detailierter
+erklärt. Abschließend ist noch zu erwähnen, das die \textrm{webpage.h} nicht für manuelle
+Bearbeitung gedacht ist. Dies geschieht ausschließlich über die Quell-Dateien
+und dem anschließenden umwandeln mit dem \textrm{HTML Header Compiler}
+
+

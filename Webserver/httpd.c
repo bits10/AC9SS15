@@ -46,9 +46,11 @@ struct http_table http_entry[MAX_TCP_ENTRY];
 //Hier wird das codierte Passwort aus config.h gespeichert.
 unsigned char http_auth_passwort[30];
 
-unsigned char post_in[5] = {'O','U','T','='};
+unsigned char post_in[5] = {'S','E','T','='};
 unsigned char post_ready[5] = {'S','U','B','='};
-unsigned char PORT_tmp = 0;
+unsigned char PORTA_tmp = 0;
+unsigned char PORTC_tmp = 0;
+unsigned char PORTD_tmp = 0;
 char dstr[24]={"No Time...             "};
 
 //----------------------------------------------------------------------------
@@ -220,38 +222,22 @@ void httpd_header_check (unsigned char index)
 			}
 			if(*http_entry[index].post_ptr == 0) 
 			{
+
+				unsigned char currPin  = (eth_buffer[a+2]-48);
 				switch (eth_buffer[a+1])
 				  {
 				    case ('A'):
-					  PORT_tmp = PORT_tmp + 1;
+					  PORTA_tmp = PORTA_tmp + portToByte(currPin);
 				      break;
-				
-				    case ('B'):
-					  PORT_tmp = PORT_tmp + 2;
-				      break;
+					 
+				//Port B is reserved for Ethernet
 				
 				    case ('C'):
-					  PORT_tmp = PORT_tmp + 4;
+					  PORTC_tmp = PORTC_tmp + portToByte(currPin);
 				      break;
 
 				    case ('D'):
-					  PORT_tmp = PORT_tmp + 8;
-				      break;
-
-				    case ('E'):
-					  PORT_tmp = PORT_tmp + 16;
-				      break;
-
-				    case ('F'):
-					  PORT_tmp = PORT_tmp + 32;
-				      break;
-
-				    case ('G'):
-					  PORT_tmp = PORT_tmp + 64;
-				      break;
-
-				    case ('H'):
-					  PORT_tmp = PORT_tmp + 128;
+					  PORTD_tmp = PORTD_tmp + portToByte(currPin);
 				      break;
 
                     #if USE_WOL
@@ -272,8 +258,12 @@ void httpd_header_check (unsigned char index)
 			if(*http_entry[index].post_ready_ptr == 0) 
 			{
 				http_entry[index].post = 0;
-				PORTC = PORT_tmp;
-                PORT_tmp = 0;
+				PORTA = PORTA_tmp;
+				PORTC = PORTC_tmp;
+				PORTD = PORTD_tmp;
+                PORTA_tmp = 0;
+				PORTC_tmp = 0;
+				PORTD_tmp = 0;
 				break;
 				//Submit gefunden
 			}
@@ -399,6 +389,35 @@ void httpd_header_check (unsigned char index)
 		break;
 	}
 	return;
+}
+
+unsigned char portToByte(unsigned char port){
+	switch (port)
+	{
+		case (0):
+		return 1;
+		
+		case (1):
+		return 2;
+		
+		case (2):
+		return 4;
+		
+		case (3):
+		return 8;
+		
+		case (4):
+		return 16;
+		
+		case (5):
+		return 32;
+		
+		case (6):
+		return 64;
+		
+		case (7):
+		return 128;
+	}
 }
 
 //----------------------------------------------------------------------------
