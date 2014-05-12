@@ -82,11 +82,6 @@
 	#define USE_NTP		0 //1 = NTP Client on
 	#define NTP_IP		IP(77,37,6,59)
 	
-	//Broadcast-Adresse für WOL
-	#define USE_WOL			1 //1 = WOL on
-	#define WOL_BCAST_IP	IP(192,168,0,255)
-	#define WOL_MAC 		{0x00,0x1A,0xA0,0x9C,0xC6,0x0A}
-	
 	//MAC Adresse des Webservers
 	#define MYMAC1	0x00
 	#define MYMAC2	0x22
@@ -113,13 +108,6 @@
 	//AUTH String "USERNAME:PASSWORT" max 14Zeichen 
 	//für Username:Passwort
 	#define HTTP_AUTH_STRING "user:pass"
-	
-    //Email vesand benutzen? Konfiguration des
-    //Emailclient in der Sendmail.h
-    #define USE_MAIL        0
-    
-    //Empfang von Wetterdaten auf der Console (über HTTP_GET)
-    #define GET_WEATHER     0
     
     //Commandos und Ausgaben erfolgen über Telnet
     #define CMD_TELNET      0

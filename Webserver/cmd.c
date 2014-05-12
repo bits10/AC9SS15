@@ -33,8 +33,6 @@
 #include "stack.h"
 #include "httpd.h"
 #include "ntp.h"
-#include "wol.h"
-#include "sendmail.h"
 #include "timer.h"
 #include "dnsc.h"
 	
@@ -54,13 +52,7 @@ COMMAND_STRUCTUR COMMAND_TABELLE[] = // Befehls-Tabelle
 	{"SV",command_setvar},
 	{"TIME",command_time},
 	{"NTPR",command_ntp_refresh},	
-	#if USE_WOL
-	{"WOL",command_wol},
-	#endif //USE_WOL
 	{"PING", command_ping},
-	#if USE_MAIL
-    {"mail", command_mail},
-    #endif //USE_MAIL
 	#if HELPTEXT
 	{"HELP",command_help},
 	{"?",command_help},
@@ -82,12 +74,6 @@ COMMAND_STRUCTUR COMMAND_TABELLE[] = // Befehls-Tabelle
 		"VER    - list enc version number\r\n"
 		"SV     - set variable\r\n"
         "PING   - send Ping\r\n"
-        #if USE_MAIL
-        "MAIL   - send E_MAIL\r\n"
-        #endif //USE_MAIL
-		#if USE_WOL
-		"WOL    - send WOL / set MAC / set MAC and IP\r\n"
-		#endif //USE_WOL
 		"TIME   - get time\r\n"
 		"HELP   - print Helptext\r\n"
 		"?      - print Helptext\r\n"
@@ -260,44 +246,6 @@ void command_ntp_refresh (void)
 	#if USE_NTP
 	ntp_request();
 	#endif //USE_NTP
-}
-
-//------------------------------------------------------------------------------
-//Sendet eine fertige E-MAIL
-#if USE_MAIL
-void command_mail (void)
-{
-	mail_enable = 1;
-}
-#endif //USE_MAIL
-
-//------------------------------------------------------------------------------
-//
-void command_wol (void)
-{
-	#if USE_WOL
-	// EEPROM beschreiben, falls Parameter angegeben wurden
-	if ((*((unsigned int*)&variable[0]) != 0x00000000) || (*((unsigned int*)&variable[1]) != 0x00000000) || (*((unsigned int*)&variable[2]) != 0x00000000))
-	{	
-		//schreiben der MAC
-		for (unsigned char count = 0; count<6; count++)
-		{
-			eeprom_busy_wait ();
-			eeprom_write_byte((unsigned char *)(WOL_MAC_EEPROM_STORE + count),variable[count]);
-		}
-		//zusätzlich schreiben der Broadcast-Adresse, falls vorhandenden
-		for (unsigned char count = 0; count<4 && (*((unsigned int*)&variable[6]) != 0x00000000);count++)
-		{
-			eeprom_busy_wait ();
-			eeprom_write_byte((unsigned char*)(WOL_BCAST_EEPROM_STORE + count),variable[count+6]);
-		}
-		//init
-		wol_init();
-	}else{
-		//MagicPacket senden
-		wol_request();
-	}
-	#endif //USE_WOL	
 }
 
 //------------------------------------------------------------------------------

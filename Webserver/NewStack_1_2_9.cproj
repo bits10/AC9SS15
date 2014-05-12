@@ -174,12 +174,6 @@
     <Compile Include="httpd.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="http_get.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="http_get.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
@@ -187,12 +181,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ntp.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="sendmail.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="sendmail.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="stack.c">
@@ -220,12 +208,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="webpage.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="wol.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="wol.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

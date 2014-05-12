@@ -32,7 +32,6 @@
 #include "stack.h"
 #include "base64.h"
 #include "analog.h"
-#include "wol.h"
 #include "timer.h"
 #include "usart.h"
 
@@ -240,11 +239,6 @@ void httpd_header_check (unsigned char index)
 					  PORTD_tmp = PORTD_tmp + portToByte(currPin);
 				      break;
 
-                    #if USE_WOL
-                    case 'W':
-                        wol_enable = 1;
-						break;
-                    #endif //USE_WOL
 				  }
 				http_entry[index].post_ptr = post_in;
 				//Schaltanweisung wurde gefunden

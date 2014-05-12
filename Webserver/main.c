@@ -29,15 +29,12 @@
 #include "enc28j60.h"
 #include "stack.h"
 #include "timer.h"
-#include "wol.h"
 #include "httpd.h"
 #include "cmd.h"
 #include "telnetd.h"
 #include "ntp.h"
 #include "base64.h"
-#include "http_get.h"
 #include "analog.h"
-#include "sendmail.h"
 #include <avr/eeprom.h>
 
 #include "dhcpc.h"
@@ -131,14 +128,6 @@ int main(void)
 	  command_time();
 	}
 	#endif //USE_NTP
-	
-	#if USE_WOL
-        wol_init();
-	#endif //USE_WOL
-    
-    #if USE_MAIL
-        mail_client_init();
-	#endif //USE_MAIL  
 		
 	while(1)
 	{
@@ -160,11 +149,6 @@ int main(void)
 			}
 			usart_status.usart_ready =0;
 		}
-		
-        //Wetterdaten empfangen (Testphase)
-        #if GET_WEATHER
-        http_request ();
-        #endif
         
         //Empfang von Zeitinformationen
 		#if USE_NTP
@@ -173,24 +157,6 @@ int main(void)
 			ntp_request();
 		}
 		#endif //USE_NTP
-		
-        //Versand von E-Mails
-        #if USE_MAIL
-        if (mail_enable == 1)
-        {
-            mail_enable = 0;
-            mail_send();
-        }
-        #endif //USE_MAIL
-        
-        //Rechner im Netzwerk aufwecken
-        #if USE_WOL
-        if (wol_enable == 1)
-        {
-            wol_enable = 0;
-            wol_request();
-        }
-        #endif //USE_WOL
         
         #if USE_DHCP
         if ( dhcp() != 0) //check for lease timeout
