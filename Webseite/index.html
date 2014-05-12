@@ -29,12 +29,12 @@
 			<!--The board drawing-->
 			<div id="board">
 				<form action="index.html" method="post" id="form">
-					<div class="green" id="cb_main">
+					<div class="green" id="mainboard">
 						<div class="circle lo background"> </div>
 						<div class="circle lu background"> </div>
 						<div class="circle ro background"> </div>
 						<div class="circle ru background"> </div>
-						<div class="cb_el black" id="cb_cpu">
+						<div class="boardE CPU black">
 							<div class="feet"> </div>
 							<div class="feet"> </div>
 							<div class="feet"> </div>
@@ -56,9 +56,9 @@
 							<div class="feet"> </div>
 							<div class="feet"> </div>
 						</div>
-						<div class="cb_el black" id="cb_cpu"> </div>
-						<div class="cb_el silver" id="cb_net"> </div>
-						<div class="cb_el black" id="cb_con">
+						<div class="boardE CPU black"> </div>
+						<div class="boardE Net silver"> </div>
+						<div class="boardE Control black">
 							<div class="feet short"> </div>
 							<div class="feet short"> </div>
 							<div class="feet short"> </div>
@@ -74,8 +74,8 @@
 							<div class="feet short"> </div>
 							<div class="feet short"> </div>
 						</div>
-						<div class="cb_el black" id="cb_con"> </div>
-						<div class="cb_el cb_pin isp black">
+						<div class="boardE Control black"> </div>
+						<div class="boardE cb_pin isp black">
 							<div class="cb_pin_inner">
 								<div class="pin"> </div>
 								<div class="pin"> </div>
@@ -89,7 +89,7 @@
 								<div class="pin"> </div>
 							</div>
 						</div>
-						<div class="cb_el cb_pin ext black">
+						<div class="boardE cb_pin ext black">
 							<div class="cb_pin_inner">
 								<div class="pin"> </div>
 								<div class="pin"> </div>
@@ -105,132 +105,132 @@
 							<div id="cb_ext_pins">
 								<div class="cb_pins_dist">
 									<div class="pinCheck">
-										<input type="checkbox" name="OUT" value="EXT1" id="D2"/>
+										<input type="checkbox" name="OUT" id="D2"/>
 										<label for="D2" onmouseover="opcmo(this)"> </label>
 									</div>
 									<div class="pinCheck">
-										<input type="checkbox" name="OUT" value="EXT2" id="D4"/>
+										<input type="checkbox" name="OUT" id="D4"/>
 										<label for="D4" onmouseover="opcmo(this)"> </label>
 									</div>
 									<div class="pinCheck">
-										<input type="checkbox" name="OUT" value="EXT3" id="D6"/>
+										<input type="checkbox" name="OUT" id="D6"/>
 										<label for="D6" onmouseover="opcmo(this)"> </label>
 									</div>
 									<div class="pinCheck pinCheckUnclickable pinCheckNone">
-										<input type="checkbox" name="OUT" value="EXT0" id="pinCheck16" />
+										<input type="checkbox" name="OUT" id="pinCheck16" />
 										<label for="pinCheck16"> </label>
 									</div>
 
 									<div class="pinCheck pinCheckUnclickable pinCheckMinus">
-										<input type="checkbox" name="OUT" value="EXT4" id="pinCheck13" />
-										<label for="pinCheck13"></label>
+										<input type="checkbox" name="OUT" id="pinCheck13" />
+										<label for="pinCheck13"> </label>
 									</div>
 								</div>
 								<div class="cb_pins_dist b" id="cb_ext_pins_dist">
 									<div class="pinCheck">
-										<input type="checkbox" name="OUT" value="EXT5" id="D3"/>
+										<input type="checkbox" name="OUT" id="D3"/>
 										<label for="D3" onmouseover="opcmo(this)"> </label>
 									</div>
 									<div class="pinCheck">
-										<input type="checkbox" name="OUT" value="EXT6"  id="D5"/>
+										<input type="checkbox" name="OUT" id="D5"/>
 										<label for="D5" onmouseover="opcmo(this)"> </label>
 									</div>
 									<div class="pinCheck">
-										<input type="checkbox" name="OUT" value="EXT7" id="D7"/>
+										<input type="checkbox" name="OUT" id="D7"/>
 										<label for="D7" onmouseover="opcmo(this)"> </label>
 									</div>
 									<div class="pinCheck pinCheckUnclickable pinCheckNone">
-										<input type="checkbox" name="OUT" value="EXT8" id="pinCheck14" />
+										<input type="checkbox" name="OUT" id="pinCheck14" />
 										<label for="pinCheck14"> </label>
 									</div>
 									<div class="pinCheck pinCheckUnclickable pinCheckPlus">
-										<input type="checkbox" name="OUT" value="EXT9" id="pinCheck15" />
+										<input type="checkbox" name="OUT" id="pinCheck15" />
 										<label for="pinCheck15"> </label>
 									</div>
 								</div>
 							</div>
 							<div id="cb_ext_pins_bar"><div id="cb_ext_pins_bar_h"></div></div>
 						</div>
-						<div class="cb_el cb_se" id="cb_se1"> 
-							<div class="cb_el cb_se mon up silver"> </div>
-							<div class="cb_el cb_se mon do silver"> </div>
-							<div class="cb_el cb_se bar black"> </div>
-							<div class="cb_el cb_se back black"> </div>
-							<div class="cb_el cb_se metal silver"> </div>
+						<div class="boardE se" id="boardSA1"> 
+							<div class="boardE se mon up silver"> </div>
+							<div class="boardE se mon do silver"> </div>
+							<div class="boardE se bar black"> </div>
+							<div class="boardE se back black"> </div>
+							<div class="boardE se metal silver"> </div>
 							<div id="cb_se_pins">
 								<div class="cb_pins_dist">
 								<div class="pinCheck pinCheckUnclickable pinCheckNone">
-										<input type="checkbox" name="OUT" value="pinCheck0" id="pinCheck0" />
+										<input type="checkbox" name="OUT"id="pinCheck0" />
 										<label for="pinCheck0"> </label>
 									</div>
 									<div class="pinCheck">
-										<input type="checkbox" name="OUT" value="C7" id="C7" />
-										<label for="C7"> </label>
+										<input type="checkbox" name="OUT"id="C7" />
+										<label for="C7" onmouseover="opcmo(this)"> </label>
 									</div>
 									<div class="pinCheck">
-										<input type="checkbox" name="OUT" value="C6" id="C6" />
-										<label for="C6"> </label>
+										<input type="checkbox" name="OUT" id="C6" />
+										<label for="C6" onmouseover="opcmo(this)"> </label>
 									</div>
 									<div class="pinCheck">
-										<input type="checkbox" name="OUT" value="C5" id="C5" />
-										<label for="C5"> </label>
+										<input type="checkbox" name="OUT" id="C5" />
+										<label for="C5" onmouseover="opcmo(this)"> </label>
 									</div>
 									<div class="pinCheck">
-										<input type="checkbox" name="OUT" value="C4" id="C4" />
-										<label for="C4"> </label>
+										<input type="checkbox" name="OUT" id="C4" />
+										<label for="C4" onmouseover="opcmo(this)"> </label>
 									</div>
 									<div class="pinCheck">
-										<input type="checkbox" name="OUT" value="C3" id="C3" />
-										<label for="C3"> </label>
+										<input type="checkbox" name="OUT" id="C3" />
+										<label for="C3" onmouseover="opcmo(this)"> </label>
 									</div>
 									<div class="pinCheck">
-										<input type="checkbox" name="OUT" value="C2" id="C2" />
-										<label for="C2"> </label>
+										<input type="checkbox" name="OUT" id="C2" />
+										<label for="C2" onmouseover="opcmo(this)"> </label>
 									</div>
 									<div class="pinCheck">
-										<input type="checkbox" name="OUT" value="C1"  id="C1" />
-										<label for="C1"> </label>
+										<input type="checkbox" name="OUT" id="C1" />
+										<label for="C1" onmouseover="opcmo(this)"> </label>
 									</div>
 									<div class="pinCheck">
-										<input type="checkbox" name="OUT" value="A0" id="A0" />
-										<label for="A0"> </label>
+										<input type="checkbox" name="OUT" id="A0" />
+										<label for="A0" onmouseover="opcmo(this)"> </label>
 									</div>
 									<div class="pinCheck">
-										<input type="checkbox" name="OUT" value="A1" id="A1" />
-										<label for="A1"> </label>
+										<input type="checkbox" name="OUT" id="A1" />
+										<label for="A1" onmouseover="opcmo(this)"> </label>
 									</div>
 									<div class="pinCheck">
-										<input type="checkbox" name="OUT" value="A2" id="A2" />
-										<label for="A2"> </label>
+										<input type="checkbox" name="OUT" id="A2" />
+										<label for="A2" onmouseover="opcmo(this)"> </label>
 									</div>
 									<div class="pinCheck">
-										<input type="checkbox" name="OUT" value="A3" id="A3" />
-										<label for="A3"> </label>
+										<input type="checkbox" name="OUT" id="A3" />
+										<label for="A3" onmouseover="opcmo(this)"> </label>
 									</div>
 									<div class="pinCheck">
-										<input type="checkbox" name="OUT" value="A4" id="A4" />
-										<label for="A4"> </label>
+										<input type="checkbox" name="OUT" id="A4" />
+										<label for="A4" onmouseover="opcmo(this)"> </label>
 									</div>
 								</div>
 								<div class="cb_pins_dist b" id="cb_se_pins_dist">
 									<div class="pinCheck pinCheckUnclickable pinCheckNone">
-										<input type="checkbox" name="OUT" value="pinCheck1" id="pinCheck1" />
+										<input type="checkbox" name="OUT" id="pinCheck1" />
 										<label for="pinCheck1"> </label>
 									</div>
 									<div class="pinCheck pinCheckUnclickable pinCheckPlus">
-										<input type="checkbox" name="OUT" value="pinCheck2" id="pinCheck2" />
+										<input type="checkbox" name="OUT" id="pinCheck2" />
 										<label for="pinCheck2"> </label>
 									</div>
 									<div class="pinCheck pinCheckUnclickable pinCheckNone">
-										<input type="checkbox" name="OUT" value="pinCheck3" id="pinCheck3" />
+										<input type="checkbox" name="OUT" id="pinCheck3" />
 										<label for="pinCheck3"> </label>
 									</div>
 									<div class="pinCheck pinCheckUnclickable pinCheckNone">
-										<input type="checkbox" name="OUT" value="pinCheck4" id="pinCheck4" />
+										<input type="checkbox" name="OUT" id="pinCheck4" />
 										<label for="pinCheck4"> </label>
 									</div>
 									<div class="pinCheck pinCheckUnclickable pinCheckMinus">
-										<input type="checkbox" name="OUT" value="pinCheck5" id="pinCheck5" />
+										<input type="checkbox" name="OUT" id="pinCheck5" />
 										<label for="pinCheck5"> </label>
 									</div>
 									<div class="pinCheck pinCheckUnclickable pinCheckMinus">
@@ -265,14 +265,14 @@
 							</div>
 							<div id="cb_se_pins_bar"><div id="cb_se_pins_bar_v"></div></div>
 						</div>
-						<div class="cb_el cb_se" id="cb_se2"> 
-							<div class="cb_el cb_se mon up silver"> </div>
-							<div class="cb_el cb_se mon do silver"> </div>
-							<div class="cb_el cb_se bar black"> </div>
-							<div class="cb_el cb_se back black"> </div>
-							<div class="cb_el cb_se metal silver"> </div>
+						<div class="boardE se" id="boardSA2"> 
+							<div class="boardE se mon up silver"> </div>
+							<div class="boardE se mon do silver"> </div>
+							<div class="boardE se bar black"> </div>
+							<div class="boardE se back black"> </div>
+							<div class="boardE se metal silver"> </div>
 						</div>
-						<div class="cb_el " id="cb_ana">
+						<div class="boardE Ana">
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
 								<div class="a_box_bar"> </div>
 								<div class="pinCheck pinCheckUnclickable pinCheckPlus">
@@ -289,22 +289,28 @@
 							</div>
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
 								<div class="a_box_bar d"> </div>
-								<div class="pinCheck pinCheckUnclickable pinCheckAnalog">
-										<input type="checkbox" name="OUT" value="ADC4" id="$3_check" />
+								<div class="tBox">
+									<div class="pinCheck pinCheckUnclickable pinCheckAnalog">
+										<input type="checkbox" name="OUT" id="$3_check" />
 										<label for="$3_check"> </label>
+									</div>
+									5,7V
 								</div>
 							</div>
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
 								<div class="a_box_bar c"> </div>
-								<div class="pinCheck pinCheckUnclickable pinCheckAnalog">
-										<input type="checkbox" name="OUT" value="ADC3" id="$2_check" />
+								<div class="tBox">
+									<div class="pinCheck pinCheckUnclickable pinCheckAnalog">
+										<input type="checkbox" name="OUT" id="$2_check" />
 										<label for="$2_check"> </label>
+									</div>
+									4,5V
 								</div>
 							</div>
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
 								<div class="a_box_bar"> </div>
 								<div class="pinCheck pinCheckUnclickable pinCheckPlus">
-										<input type="checkbox" name="OUT" value="A2" id="pinCheck19" />
+										<input type="checkbox" name="OUT" id="pinCheck19" />
 										<label for="pinCheck19"> </label>
 								</div>
 							</div>
@@ -317,16 +323,22 @@
 							</div>
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
 								<div class="a_box_bar b"> </div>
-								<div class="pinCheck pinCheckUnclickable pinCheckAnalog">
+								<div class="tBox">
+									<div class="pinCheck pinCheckUnclickable pinCheckAnalog">
 										<input type="checkbox" name="OUT" value="ADC2" id="$1_check" />
 										<label for="$1_check"> </label>
+									</div>
+									5,6V	
 								</div>
 							</div>
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
 								<div class="a_box_bar a"> </div>
-								<div class="pinCheck pinCheckUnclickable pinCheckAnalog">
+								<div class="tBox">
+									<div class="pinCheck pinCheckUnclickable pinCheckAnalog">
 										<input type="checkbox" name="OUT" value="ADC1" id="$0_check" />
 										<label for="$0_check"> </label>
+									</div>
+									4,3V
 								</div>
 							</div>
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
@@ -344,11 +356,11 @@
 								</div>
 							</div>
 						</div>
-						<div class="cb_el " id="cb_ac">
+						<div class="boardE AC">
 							<div class="a_box blue"><div class="circle screw silver"><div class="screw head"> </div></div></div>
 							<div class="a_box blue"><div class="circle screw silver"><div class="screw head"> </div></div></div>
 						</div>
-					<div class="circle led_on"> </div>
+						<div class="circle led_on"> </div>
 					</div>
 				</form>
 			</div>

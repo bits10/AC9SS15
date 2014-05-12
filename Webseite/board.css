@@ -5,6 +5,63 @@ CSS code for the board
 	margin:auto;
 	width:600px;
 }
+#mainboard{
+	position:relative;
+	top:150px;
+	width:450px; 
+	height:300px;  
+	border: 1px solid #000000;
+}
+
+/*
+ * BoardElemente
+ */
+
+#boardSA1{
+	top:50px;
+	left:440px; 
+	height:200px; 
+}
+#boardSA2{
+	top:150px;
+	left:-70px;
+	height:125px;
+	transform:rotate(180deg);
+	-webkit-transform:rotate(180deg);
+}
+.boardE{
+	position:absolute;
+}
+.boardE.AC{
+	top:30px;
+	left:5px;
+	width:25px;
+}
+.boardE.CPU{
+	top:200px;
+	left:125px;
+	width:260px; 
+	height:50px;
+}
+.boardE.Control{
+	top:105px;
+	left:125px;
+	width:168px; 
+	height:30px;
+}
+.boardE.Net{
+	top:85px;
+	left:0px;
+	width:87px; 
+	height:55px;
+	border: 1px solid #000000;
+}
+.boardE.Ana{
+	top:270px;
+	left:125px;
+	width:260px;
+	position:relative;
+}
 .led_on{
 	box-shadow: 0 0 10px 5px #c00;
 	-webkit-box-shadow: 0 0 10px 5px #c00;
@@ -13,86 +70,87 @@ CSS code for the board
 	top:3px;
 	left:285px;
 }
-#cb_main{
-	position:relative;
-	top:150px;
-	width:450px; 
-	height:300px;  
-	border: 1px solid #000000;
-}
-#cb_cpu{
-	top:200px;
-	left:125px;
-	width:260px; 
-	height:50px;
-}
-.cb_se {
+
+/*
+ * Kleinteile für die Seriellen Anschlüsse
+ */
+.se {
 	width:80px;
 }
-.cb_se.bar{
+.se.bar{
 	width:25%;
 	height:100%;
 }
-.cb_se.mon{
+.se.mon{
 	left:-30%;
 	width:70%;
 	height:7.5%;
 }
-.cb_se.mon.up{
+.se.mon.up{
 	top:2.5%;
 }
-.cb_se.mon.do{
+.se.mon.do{
 	top:90%;
 }
-.cb_se.metal{
+.se.metal{
 	top:12.5%;
 	left:25%;
 	width:25%;
 	height:75%;
 }
-.cb_se.back{
+.se.back{
 	top:12.5%;
 	left:-40%;
 	width:60%;
 	height:75%;
 }
 
-#cb_se1{
-	top:50px;
-	left:440px; 
-	height:200px; 
+/*
+ * Kleinteile für die CPU und den Controller
+ * Füße
+ */
+.feet {
+	float:left;
+	top: -7px;
+	width: 7px;
+	height:60px;
+	margin:-5px 3px;
+	background:#D3D3D3;
 }
-#cb_se2{
-	top:150px;
-	left:-70px;
-	height:125px;
-	transform:rotate(180deg);
-	-webkit-transform:rotate(180deg);
+.feet.short{
+	height:40px;
+	width: 6px;
 }
-#cb_con{
-	top:105px;
-	left:125px;
-	width:168px; 
-	height:30px; 
-}
-#cb_net{
-	top:85px;
-	left:0px;
-	width:87px; 
-	height:55px;
+
+
+/*
+ * Kleinteile Analoger Anschluss
+ * AC und Analog
+ */
+.a_box{
+	width:24px;
+	height:24px;
 	border: 1px solid #000000;
+	float: left;
 }
-#cb_ana{
-	top:270px;
-	left:125px;
-	width:260px;
+.screw {
+    margin:1px;
+}
+.screw.head {
+    height: 4px;
+    margin-top: 8px;
+    transform:rotate(150deg);
+    -webkit-transform:rotate(150deg);
+	background:#888;
+}
+.tBox{
 	position:relative;
+	width:100px;
 }
-#cb_ac{
-	top:30px;
-	left:5px;
-	width:25px;
-}
+
+/*
+ * Pins innerhalb von ISP und EXT
+ */
 .cb_pin{
 	width:35px; 
 	height:70px;
@@ -118,15 +176,10 @@ CSS code for the board
 	top:75px;
 	left:305px;
 }
-.cb_el{
-	position:absolute;
-}
-.a_box{
-	width:24px;
-	height:24px;
-	border: 1px solid #000000;
-	float: left;
-}
+
+/*
+ * 
+ */
 .circle{
 	position: absolute;
     width: 20px;
@@ -150,36 +203,6 @@ CSS code for the board
 	top: 275px;
     left: 425px;
 }
-.screw {
-    margin:1px;
-}
-.screw.head {
-    height: 4px;
-    margin-top: 8px;
-    transform:rotate(150deg);
-    -webkit-transform:rotate(150deg);
-	background:#888;
-}
-.pin{
-	float:left;
-	background:#FFCC00;
-    width: 2px;
-    height: 2px;
-    border-radius: 100px;
-    margin: 5px;
-}
-.feet {
-	float:left;
-	top: -7px;
-	width: 7px;
-	height:60px;
-	margin:-5px 3px;
-	background:#D3D3D3;
-}
-.feet.short{
-	height:40px;
-	width: 6px;
-}
 
 /*
  * anklickbaren Pins für CB_SE und EXT
@@ -192,20 +215,7 @@ CSS code for the board
 #cb_se_pins_dist{
 	top:10px;
 }
-#cb_se_pins_bar{
-	position:relative;
-	left:40px;
-	top:-50px;
-	width:28px;
-	height:2px;
-	padding:150px 0px 150px 0px;
-	border-right:2px solid #33b5e5;
-}
-#cb_se_pins_bar_v{
-	background:#33b5e5;
-	width:100%;
-	height:100%;
-}
+
 .cb_pins_dist{
 	position:absolute;
 	width:30px;
@@ -220,6 +230,28 @@ CSS code for the board
 }
 #cb_ext_pins_dist{
 	left:24px;
+}
+
+/*
+ * Balken für die Verbindung Pin zu den Elementen
+ * se_pins_bar und se_pins_bar_v (vertikal): T-Element für das cb_se 
+ * ext_pins_bar und ext_pins_bar_h (horizontal): T-Element für das cb_ext 
+ * a_box_bar: Balken mit unterschiedlichen Längen (normal,a,b,c,d) 
+ */
+
+#cb_se_pins_bar{
+	position:relative;
+	left:40px;
+	top:-50px;
+	width:28px;
+	height:2px;
+	padding:150px 0px 150px 0px;
+	border-right:2px solid #33b5e5;
+}
+#cb_se_pins_bar_v{
+	background:#33b5e5;
+	width:100%;
+	height:100%;
 }
 #cb_ext_pins_bar{
 	position:relative;
@@ -255,22 +287,32 @@ CSS code for the board
 .a_box_bar.d{
 	height:175px;
 }
+
+/*
+ * Klickbaren und nicht Klickbaren (Unclickable) Pins
+ * PinCheck (Digitaler Pin)
+ * PinCheckMinus (Minuspol)
+ * PinCheckPlus (Pluspol)
+ * PinCheckAnalog (Analoger Pin)
+ * PinCheckNone (nichts)
+ */
+
 .pinCheck input[type=checkbox] {
 	visibility: hidden;
 }
 .pinCheck {
+	position:relative;
 	width: 20px;
 	height: 20px;
 	background: #D3D3D3;
-	margin: 1px 1px 2px 2px;
+	margin: 1px 8px 2px 2px;
 	border-radius: 100px;
 	position: relative;
 	float:left;
 }
-
 .pinCheck label {
-	cursor: pointer;
-	position: absolute;
+	cursor:pointer;
+	position:absolute;
 	width: 16px;
 	height: 16px;
 	border-radius: 100px;
@@ -303,23 +345,19 @@ CSS code for the board
 	top: 1px;
 	left: 1px;
 }
-
 .pinCheck:hover{
 	 box-shadow: 0 0 6px 3px #33B5E5;
     z-index:1000000;
     position:relative;
 }
-
 .pinCheck input[type=checkbox]:checked + label:after {
 	filter: alpha(opacity=100);
 	opacity: 1;
 }
-
 .pinCheckUnclickable label {
 		cursor:default;
 
 }
-
 .pinCheckUnclickable:hover{
 	box-shadow: 0 0 0 0 #33B5E5;
     z-index:1000000;
@@ -328,29 +366,21 @@ CSS code for the board
 .pinCheckUnclickable input[type=checkbox]:checked + label:after {
 	opacity:0;
 }
-
 .pinCheckMinus label:before {
 	content: '-';
 }
-
 .pinCheckPlus label:before {
 	content: '+';
 }
-
 .pinCheckAnalog label:before {
 	content: 'A';
 }
-
 .pinCheckAnalog label:before {
 	content: 'A';
 }
-
 .pinCheckNone label:before {
 	content: ' ';
 }
-
-
-
 /*
  * Short test of the visual effect displaying a selected component.
  */
