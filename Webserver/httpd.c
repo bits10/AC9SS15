@@ -450,43 +450,7 @@ void httpd_data_send (unsigned char index)
 				a = a + (str_len-1);
 				http_entry[index].new_page_pointer=http_entry[index].new_page_pointer+5;
 			}
-			            
-			//Einsetzen des Port Status %PORTxy durch "checked" wenn Portx.Piny = 1
-			//x: A..G  y: 0..7 
-			if (strncasecmp_P("PORT",http_entry[index].new_page_pointer,4)==0)
-			{
-				unsigned char pin  = (pgm_read_byte(http_entry[index].new_page_pointer+5)-48);	
-				b = 0;
-				switch(pgm_read_byte(http_entry[index].new_page_pointer+4))
-				{
-					case 'A':
-						b = (PORTA & (1<<pin));
-						break;
-					case 'B':
-						b = (PORTB & (1<<pin));
-						break;
-					case 'C':
-						b = (PORTC & (1<<pin));
-						break;
-					case 'D':
-						b = (PORTD & (1<<pin));
-						break; 
-				}
-				
-				if(b)
-				{
-					strcpy_P(var_conversion_buffer, PSTR("1"));
-				}
-				else
-				{
-					strcpy_P(var_conversion_buffer, PSTR("\0"));
-				}
-				str_len = strnlen(var_conversion_buffer,CONVERSION_BUFFER_LEN);
-				memmove(&eth_buffer[TCP_DATA_START+a],var_conversion_buffer,str_len);
-				a += str_len-1;
-				http_entry[index].new_page_pointer = http_entry[index].new_page_pointer+6;
-			}
-			
+			  			
 			//Einsetzen des Pin Status %PINxy bis %PINxy durch "1" oder "0"
 			//x = A : PINA / x = B : PINB / x = C : PINC / x = D : PIND
 			if (strncasecmp_P("PIN",http_entry[index].new_page_pointer,3)==0)
