@@ -275,16 +275,16 @@ CSS code for the board
 	background: #33b5e5;
 	margin-bottom:25px;
 }
-.a_box_bar.a{
+.a_box_bar.A4{
 	height:66px;
 }
-.a_box_bar.b{
+.a_box_bar.A5{
 	height:99px;
 }
-.a_box_bar.c{
+.a_box_bar.A6{
 	height:142px;
 }
-.a_box_bar.d{
+.a_box_bar.A7{
 	height:175px;
 }
 

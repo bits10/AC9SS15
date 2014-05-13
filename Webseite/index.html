@@ -102,58 +102,18 @@
 							<div class="boardE se metal silver"> </div>
 						</div>
 						<div class="boardE Ana">
-							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
-								<div class="a_box_bar"> </div>
-								<script>writePinCheckPlus(1);</script>
-							</div>
-							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
-								<div class="a_box_bar"> </div>
-								<script>writePinCheckMinus(1);</script>
-							</div>
-							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
-								<div class="a_box_bar d"> </div>
-								<div class="tBox">
-									<script>writePinCheckAnalog(['A7']);</script>
-								</div>
-							</div>
-							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
-								<div class="a_box_bar c"> </div>
-								<div class="tBox">
-									<script>writePinCheckAnalog(['A6']);</script>
-								</div>
-							</div>
-							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
-								<div class="a_box_bar"> </div>
-								<script>writePinCheckPlus(1);</script>
-							</div>
-							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
-								<div class="a_box_bar"> </div>
-								<script>writePinCheckMinus(1);</script>
-							</div>
-							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
-								<div class="a_box_bar b"> </div>
-								<div class="tBox">
-									<script>writePinCheckAnalog(['A5']);</script>
-								</div>
-							</div>
-							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
-								<div class="a_box_bar a"> </div>
-								<div class="tBox">
-									<script>writePinCheckAnalog(['A4']);</script>
-								</div>
-							</div>
-							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
-								<div class="a_box_bar"> </div>
-								<script>writePinCheckMinus(1);</script>
-							</div>
-							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
-								<div class="a_box_bar"> </div>
-								<script>writePinCheckMinus(1);</script>
-							</div>
+							<script>
+								writePlusMinusBox(1);
+								writeAnalogBox(['A7']);
+								writeAnalogBox(['A6']);
+								writePlusMinusBox(1);
+								writeAnalogBox(['A5']);
+								writeAnalogBox(['A4']);
+								writePlusMinusBox(1);
+							</script>
 						</div>
 						<div class="boardE AC">
-							<div class="a_box blue"><div class="circle screw silver"><div class="screw head"> </div></div></div>
-							<div class="a_box blue"><div class="circle screw silver"><div class="screw head"> </div></div></div>
+							<script>write(2, '<div class="a_box blue"><div class="circle screw silver"><div class="screw head"></div></div></div>');</script>
 						</div>
 						<div class="circle led_on"> </div>
 					</div>

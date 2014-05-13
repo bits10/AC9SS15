@@ -175,7 +175,6 @@ function editFavorit() {
 function write(count, string, ids) {
 	for(var i=0;i<count;i++) {
 		var s = ids==undefined?string:string.replace(/%id/g,ids[i]);
-		console.log(s);
 		document.write(s);
 	}
 }
@@ -198,4 +197,12 @@ function writePinCheckNone(count) {
 
 function writePinCheckAnalog(ids) {
 	write(ids.length, '<div class="pinCheck pinCheckUnclickable pinCheckAnalog"><input type="checkbox" name="OUT" id="%id_check" /><label for="%id_check" onmouseover="opcmoId(\'%id\')"> </label></div><p class="analogValue" id="%id">--</p>', ids);
+}
+
+function writePlusMinusBox(count) {
+	write(count, '<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div><div class="a_box_bar"> </div><script>writePinCheckPlus(1);</script></div><div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div><div class="a_box_bar"> </div><script>writePinCheckMinus(1);</script></div>');
+}
+
+function writeAnalogBox(ids) {
+	write(ids.length, '<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div><div class="a_box_bar %id"> </div><div class="tBox"><script>writePinCheckAnalog([\'%id\']);</script></div>	</div>', ids);
 }
