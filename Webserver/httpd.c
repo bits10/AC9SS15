@@ -213,37 +213,55 @@ void httpd_header_check (unsigned char index)
 	{
 		for(a = TCP_DATA_START_VAR;a<(TCP_DATA_END_VAR);a++)
 		{	
-			//Schaltanweisung finden!
+			//Schaltanweisung "SET=" finden 
 			if (eth_buffer[a] != *http_entry[index].post_ptr++)
 			{
 				http_entry[index].post_ptr = post_in;
 			}
+			//Wenn schaltanweisung gefunden
 			if(*http_entry[index].post_ptr == 0) 
 			{
-
-				unsigned char currPin  = (eth_buffer[a+2]-48);
+				//prüft ob pin geschalten werden muss (z.B. SET=C2)
 				switch (eth_buffer[a+1])
 				  {
 				    case ('A'):
-					  PORTA_tmp = PORTA_tmp + portToByte(currPin);
+					  PORTA_tmp = PORTA_tmp + (1 << (eth_buffer[a+2]-48));
 				      break;
 					 
 				//Port B is reserved for Ethernet
 				
 				    case ('C'):
-					  PORTC_tmp = PORTC_tmp + portToByte(currPin);
+					  PORTC_tmp = PORTC_tmp + (1 << (eth_buffer[a+2]-48));
 				      break;
 
 				    case ('D'):
-					  PORTD_tmp = PORTD_tmp + portToByte(currPin);
+					  PORTD_tmp = PORTD_tmp + (1 << (eth_buffer[a+2]-48));
 				      break;
+					
+					case('O'):
+						//Prüft ob Ein/Ausgänge redefiniert werden sollen (z.B. SET=OUTC0F)
+						switch(eth_buffer[a+4])
+						{
+						    case ('A'):
+						    DDRA = charToHexDigit(eth_buffer[a+5]) * 16 + charToHexDigit(eth_buffer[a+6]);
+						    break;
+						    
+						    //Port B is reserved for Ethernet
+						    
+						    case ('C'):
+						    DDRC = charToHexDigit(eth_buffer[a+5]) * 16 + charToHexDigit(eth_buffer[a+6]);
+						    break;
 
+						    case ('D'):
+						    DDRD = charToHexDigit(eth_buffer[a+5]) * 16 + charToHexDigit(eth_buffer[a+6]);
+						    break;
+						}
 				  }
 				http_entry[index].post_ptr = post_in;
-				//Schaltanweisung wurde gefunden
+				//Schaltanweisung "SET=" wurde gefunden
 			}
 		
-			//Submit schließt die suche ab!
+			// Schaltanweisung "SUB=" (Submit) im Postdata schließt die suche nach Schaltanweisungen ab!
 			if (eth_buffer[a] != *http_entry[index].post_ready_ptr++)
 			{
 				http_entry[index].post_ready_ptr = post_ready;
@@ -384,34 +402,12 @@ void httpd_header_check (unsigned char index)
 	return;
 }
 
-unsigned char portToByte(unsigned char port){
-	switch (port)
-	{
-		case (0):
-		return 1;
-		
-		case (1):
-		return 2;
-		
-		case (2):
-		return 4;
-		
-		case (3):
-		return 8;
-		
-		case (4):
-		return 16;
-		
-		case (5):
-		return 32;
-		
-		case (6):
-		return 64;
-		
-		case (7):
-		return 128;
-	}
-	return 0;
+unsigned char charToHexDigit(char c)
+{
+	if (c >= 'A')
+	return c - 'A' + 10;
+	else
+	return c - '0';
 }
 
 //----------------------------------------------------------------------------
@@ -551,11 +547,11 @@ void httpd_data_send (unsigned char index)
 				
 				if(b)
 				{
-					strcpy_P(var_conversion_buffer, PSTR("i"));
+					strcpy_P(var_conversion_buffer, PSTR("o"));
 				}
 				else
 				{
-					strcpy_P(var_conversion_buffer, PSTR("o"));
+					strcpy_P(var_conversion_buffer, PSTR("i"));
 				}
 				str_len = strnlen(var_conversion_buffer,CONVERSION_BUFFER_LEN);
 				memmove(&eth_buffer[TCP_DATA_START+a],var_conversion_buffer,str_len);
