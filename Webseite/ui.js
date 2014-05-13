@@ -31,9 +31,7 @@ function initUi() {
 	setOnValuesChanged(updateUI);
 	
 	//Display REST information
-	getEl('setting_mac').innerHTML=getInfo().mac;
 	getEl('setting_version').innerHTML=getInfo().version;
-	getEl('changeIpInput').value=getInfo().ip;
 	getEl('changeFreqInput').value=getPollingFreq();
 
 	setOnFavoritesChanged(onFavoritesChanged);
@@ -64,6 +62,8 @@ function updateUI(pinInfo, values, time){
 	}
 	
 	updateDetailsValue();
+	
+	//Hier nur Werte updaten!! TODO
 	updateFavoritesTable();
 }
 
@@ -132,10 +132,9 @@ function updateFavoritesTable() {
 	var tb = getEl('favoritesTbody');
 	tb.innerHTML = "";
 	var favs = getFavoritelist();
-	console.log(favs);
 	for(var k in favs) {
 		var id = favs[k].id;
-		tb.innerHTML+='<tr><td>' + getName(id) + '</td><td>' + getDescription(id) + '</td><td>' + getPosition(id) + '</td><td>' + getDataDirectionDescription(getDataDirection(id)) + '</td><td>' +getTypeName(id) + '</td><td>' + getValue(id) + '</td><td>' + getFunction(id)(getValue(id)) + '</td><td><input type="button" value="Anpassen"/><input type="button" value="Entfernen"/></td></tr>';
+		tb.innerHTML+='<tr><td>' + getName(id) + '</td><td>' + getDescription(id) + '</td><td>' + getPosition(id) + '</td><td>' + getDataDirectionDescription(getDataDirection(id)) + '</td><td>' +getTypeName(id) + '</td><td>' + getValue(id) + '</td><td>' + getFunction(id)(getValue(id)) + '</td><td><input type="button" value="Anpassen" onclick="editFavorit(\'' + id + '\')"/><input type="button" value="Entfernen" onClick="removeFavorite(\'' + id + '\');"/></td></tr>';
 
 	}
 }
@@ -166,4 +165,37 @@ function onFavoritesChanged() {
 function showErrorOverlay(message) {
 	getEl('errorText').innerHTML=message;
 	showOverlay('showError');
+}
+
+function editFavorit() {
+	showOverlay('configureFav');
+}
+
+
+function write(count, string, ids) {
+	for(var i=0;i<count;i++) {
+		var s = ids==undefined?string:string.replace(/%id/g,ids[i]);
+		console.log(s);
+		document.write(s);
+	}
+}
+
+function writePinCheck(ids) {
+	write(ids.length, '<div class="pinCheck"><input type="checkbox" name="OUT" id="%id"/><label for="%id" onmouseover="opcmo(this)"></label></div>', ids);
+}
+
+function writePinCheckMinus(count) {
+	write(count, '<div class="pinCheck pinCheckUnclickable pinCheckMinus"><input type="checkbox" name="OUT" id="pinMinus"/><label for="pinMinus"></label></div>');
+}
+
+function writePinCheckPlus(count) {
+	write(count, '<div class="pinCheck pinCheckUnclickable pinCheckPlus"><input type="checkbox" name="OUT" id="pinPlus"/><label for="pinPlus"></label></div>');
+}
+
+function writePinCheckNone(count) {
+	write(count, '<div class="pinCheck pinCheckUnclickable pinCheckNone"><input type="checkbox" name="OUT" id="pinNone"/><label for="pinNone"></label></div>');
+}
+
+function writePinCheckAnalog(ids) {
+	write(ids.length, '<div class="pinCheck pinCheckUnclickable pinCheckAnalog"><input type="checkbox" name="OUT" id="%id_check" /><label for="%id_check" onmouseover="opcmoId(\'%id\')"> </label></div><p class="analogValue" id="%id">--</p>', ids);
 }

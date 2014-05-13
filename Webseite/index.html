@@ -35,118 +35,37 @@
 						<div class="circle ro background"> </div>
 						<div class="circle ru background"> </div>
 						<div class="boardE CPU black">
-							<div class="feet"> </div>
-							<div class="feet"> </div>
-							<div class="feet"> </div>
-							<div class="feet"> </div>
-							<div class="feet"> </div>
-							<div class="feet"> </div>
-							<div class="feet"> </div>
-							<div class="feet"> </div>
-							<div class="feet"> </div>
-							<div class="feet"> </div>
-							<div class="feet"> </div>
-							<div class="feet"> </div>
-							<div class="feet"> </div>
-							<div class="feet"> </div>
-							<div class="feet"> </div>
-							<div class="feet"> </div>
-							<div class="feet"> </div>
-							<div class="feet"> </div>
-							<div class="feet"> </div>
-							<div class="feet"> </div>
+							<script>write(20, '<div class="feet"></div>');</script>
 						</div>
 						<div class="boardE CPU black"> </div>
 						<div class="boardE Net silver"> </div>
 						<div class="boardE Control black">
-							<div class="feet short"> </div>
-							<div class="feet short"> </div>
-							<div class="feet short"> </div>
-							<div class="feet short"> </div>
-							<div class="feet short"> </div>
-							<div class="feet short"> </div>
-							<div class="feet short"> </div>
-							<div class="feet short"> </div>
-							<div class="feet short"> </div>
-							<div class="feet short"> </div>
-							<div class="feet short"> </div>
-							<div class="feet short"> </div>
-							<div class="feet short"> </div>
-							<div class="feet short"> </div>
+							<script>write(14, '<div class="feet short"></div>');</script>
 						</div>
 						<div class="boardE Control black"> </div>
 						<div class="boardE cb_pin isp black">
 							<div class="cb_pin_inner">
-								<div class="pin"> </div>
-								<div class="pin"> </div>
-								<div class="pin"> </div>
-								<div class="pin"> </div>
-								<div class="pin"> </div>
-								<div class="pin"> </div>
-								<div class="pin"> </div>
-								<div class="pin"> </div>
-								<div class="pin"> </div>
-								<div class="pin"> </div>
+								<script>write(10, '<div class="pin"></div>');</script>
 							</div>
 						</div>
 						<div class="boardE cb_pin ext black">
 							<div class="cb_pin_inner">
-								<div class="pin"> </div>
-								<div class="pin"> </div>
-								<div class="pin"> </div>
-								<div class="pin"> </div>
-								<div class="pin"> </div>
-								<div class="pin"> </div>
-								<div class="pin"> </div>
-								<div class="pin"> </div>
-								<div class="pin"> </div>
-								<div class="pin"> </div>
+								<script>write(10, '<div class="pin"></div>');</script>
 							</div>
 							<div id="cb_ext_pins">
 								<div class="cb_pins_dist">
-									<div class="pinCheck">
-										<input type="checkbox" name="OUT" id="D2"/>
-										<label for="D2" onmouseover="opcmo(this)"> </label>
-									</div>
-									<div class="pinCheck">
-										<input type="checkbox" name="OUT" id="D4"/>
-										<label for="D4" onmouseover="opcmo(this)"> </label>
-									</div>
-									<div class="pinCheck">
-										<input type="checkbox" name="OUT" id="D6"/>
-										<label for="D6" onmouseover="opcmo(this)"> </label>
-									</div>
-									<div class="pinCheck pinCheckUnclickable pinCheckNone">
-										<input type="checkbox" name="OUT" id="pinCheck16" />
-										<label for="pinCheck16"> </label>
-									</div>
-
-									<div class="pinCheck pinCheckUnclickable pinCheckMinus">
-										<input type="checkbox" name="OUT" id="pinCheck13" />
-										<label for="pinCheck13"> </label>
-									</div>
+									<script>
+										writePinCheck(['D2', 'D4', 'D6']);
+										writePinCheckNone(1);
+										writePinCheckMinus(1);
+									</script>
 								</div>
 								<div class="cb_pins_dist b" id="cb_ext_pins_dist">
-									<div class="pinCheck">
-										<input type="checkbox" name="OUT" id="D3"/>
-										<label for="D3" onmouseover="opcmo(this)"> </label>
-									</div>
-									<div class="pinCheck">
-										<input type="checkbox" name="OUT" id="D5"/>
-										<label for="D5" onmouseover="opcmo(this)"> </label>
-									</div>
-									<div class="pinCheck">
-										<input type="checkbox" name="OUT" id="D7"/>
-										<label for="D7" onmouseover="opcmo(this)"> </label>
-									</div>
-									<div class="pinCheck pinCheckUnclickable pinCheckNone">
-										<input type="checkbox" name="OUT" id="pinCheck14" />
-										<label for="pinCheck14"> </label>
-									</div>
-									<div class="pinCheck pinCheckUnclickable pinCheckPlus">
-										<input type="checkbox" name="OUT" id="pinCheck15" />
-										<label for="pinCheck15"> </label>
-									</div>
+									<script>
+										writePinCheck(['D3', 'D5', 'D7']);
+										writePinCheckNone(1);
+										writePinCheckPlus(1);
+									</script>
 								</div>
 							</div>
 							<div id="cb_ext_pins_bar"><div id="cb_ext_pins_bar_h"></div></div>
@@ -159,108 +78,18 @@
 							<div class="boardE se metal silver"> </div>
 							<div id="cb_se_pins">
 								<div class="cb_pins_dist">
-								<div class="pinCheck pinCheckUnclickable pinCheckNone">
-										<input type="checkbox" name="OUT"id="pinCheck0" />
-										<label for="pinCheck0"> </label>
-									</div>
-									<div class="pinCheck">
-										<input type="checkbox" name="OUT"id="C0" />
-										<label for="C0" onmouseover="opcmo(this)"> </label>
-									</div>
-									<div class="pinCheck">
-										<input type="checkbox" name="OUT" id="C1" />
-										<label for="C1" onmouseover="opcmo(this)"> </label>
-									</div>
-									<div class="pinCheck">
-										<input type="checkbox" name="OUT" id="C2" />
-										<label for="C2" onmouseover="opcmo(this)"> </label>
-									</div>
-									<div class="pinCheck">
-										<input type="checkbox" name="OUT" id="C3" />
-										<label for="C3" onmouseover="opcmo(this)"> </label>
-									</div>
-									<div class="pinCheck">
-										<input type="checkbox" name="OUT" id="C4" />
-										<label for="C4" onmouseover="opcmo(this)"> </label>
-									</div>
-									<div class="pinCheck">
-										<input type="checkbox" name="OUT" id="C5" />
-										<label for="C5" onmouseover="opcmo(this)"> </label>
-									</div>
-									<div class="pinCheck">
-										<input type="checkbox" name="OUT" id="C6" />
-										<label for="C6" onmouseover="opcmo(this)"> </label>
-									</div>
-									<div class="pinCheck">
-										<input type="checkbox" name="OUT" id="C7" />
-										<label for="C7" onmouseover="opcmo(this)"> </label>
-									</div>
-									<div class="pinCheck">
-										<input type="checkbox" name="OUT" id="A0" />
-										<label for="A0" onmouseover="opcmo(this)"> </label>
-									</div>
-									<div class="pinCheck">
-										<input type="checkbox" name="OUT" id="A1" />
-										<label for="A1" onmouseover="opcmo(this)"> </label>
-									</div>
-									<div class="pinCheck">
-										<input type="checkbox" name="OUT" id="A2" />
-										<label for="A2" onmouseover="opcmo(this)"> </label>
-									</div>
-									<div class="pinCheck">
-										<input type="checkbox" name="OUT" id="A3" />
-										<label for="A3" onmouseover="opcmo(this)"> </label>
-									</div>
+									<script>
+										writePinCheckNone(1);
+										writePinCheck(['C0', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'A0', 'A1', 'A2', 'A3']);
+									</script>			
 								</div>
 								<div class="cb_pins_dist b" id="cb_se_pins_dist">
-									<div class="pinCheck pinCheckUnclickable pinCheckNone">
-										<input type="checkbox" name="OUT" id="pinCheck1" />
-										<label for="pinCheck1"> </label>
-									</div>
-									<div class="pinCheck pinCheckUnclickable pinCheckPlus">
-										<input type="checkbox" name="OUT" id="pinCheck2" />
-										<label for="pinCheck2"> </label>
-									</div>
-									<div class="pinCheck pinCheckUnclickable pinCheckNone">
-										<input type="checkbox" name="OUT" id="pinCheck3" />
-										<label for="pinCheck3"> </label>
-									</div>
-									<div class="pinCheck pinCheckUnclickable pinCheckNone">
-										<input type="checkbox" name="OUT" id="pinCheck4" />
-										<label for="pinCheck4"> </label>
-									</div>
-									<div class="pinCheck pinCheckUnclickable pinCheckMinus">
-										<input type="checkbox" name="OUT" id="pinCheck5" />
-										<label for="pinCheck5"> </label>
-									</div>
-									<div class="pinCheck pinCheckUnclickable pinCheckMinus">
-										<input type="checkbox" name="OUT" value="pinCheck6"  id="pinCheck6" />
-										<label for="pinCheck6"> </label>
-									</div>
-									<div class="pinCheck pinCheckUnclickable pinCheckMinus">
-										<input type="checkbox" name="OUT" value="pinCheck7" id="pinCheck7" />
-										<label for="pinCheck7"> </label>
-									</div>
-									<div class="pinCheck pinCheckUnclickable pinCheckMinus">
-										<input type="checkbox" name="OUT" value="pinCheck8" id="pinCheck8" />
-										<label for="pinCheck8"> </label>
-									</div>
-									<div class="pinCheck pinCheckUnclickable pinCheckMinus">
-										<input type="checkbox" name="OUT" value="pinCheck9" id="pinCheck9" />
-										<label for="pinCheck9"> </label>
-									</div>
-									<div class="pinCheck pinCheckUnclickable pinCheckMinus">
-										<input type="checkbox" name="OUT" value="pinCheck10" id="pinCheck10" />
-										<label for="pinCheck10"> </label>
-									</div>
-									<div class="pinCheck pinCheckUnclickable pinCheckMinus">
-										<input type="checkbox" name="OUT" value="pinCheck11" id="pinCheck11" />
-										<label for="pinCheck11"> </label>
-									</div>
-									<div class="pinCheck pinCheckUnclickable pinCheckMinus">
-										<input type="checkbox" name="OUT" value="pinCheck12" id="pinCheck12" />
-										<label for="pinCheck12"> </label>
-									</div>
+									<script>
+										writePinCheckNone(1);
+										writePinCheckPlus(1);
+										writePinCheckNone(2);
+										writePinCheckMinus(8);
+									</script>
 								</div>
 							</div>
 							<div id="cb_se_pins_bar"><div id="cb_se_pins_bar_v"></div></div>
@@ -275,85 +104,51 @@
 						<div class="boardE Ana">
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
 								<div class="a_box_bar"> </div>
-								<div class="pinCheck pinCheckUnclickable pinCheckPlus">
-										<input type="checkbox" name="OUT" value="A0" id="pinCheck17" />
-										<label for="pinCheck17"> </label>
-								</div>
+								<script>writePinCheckPlus(1);</script>
 							</div>
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
 								<div class="a_box_bar"> </div>
-								<div class="pinCheck pinCheckUnclickable pinCheckMinus">
-										<input type="checkbox" name="OUT" value="A1" id="pinCheck18" />
-										<label for="pinCheck18"> </label>
-								</div>
+								<script>writePinCheckMinus(1);</script>
 							</div>
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
 								<div class="a_box_bar d"> </div>
 								<div class="tBox">
-									<div class="pinCheck pinCheckUnclickable pinCheckAnalog">
-										<input type="checkbox" name="OUT" id="A7_check" />
-										<label for="A7_check" onmouseover="opcmoId('A7')"> </label>
-									</div>
-									<p class="analogValue" id="A7">--</p>
+									<script>writePinCheckAnalog(['A7']);</script>
 								</div>
 							</div>
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
 								<div class="a_box_bar c"> </div>
 								<div class="tBox">
-									<div class="pinCheck pinCheckUnclickable pinCheckAnalog">
-										<input type="checkbox" name="OUT" id="A6_check" />
-										<label for="A6_check" onmouseover="opcmoId('A6')"> </label>
-									</div>
-									<p class="analogValue" id="A6">--</p>
+									<script>writePinCheckAnalog(['A6']);</script>
 								</div>
 							</div>
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
 								<div class="a_box_bar"> </div>
-								<div class="pinCheck pinCheckUnclickable pinCheckPlus">
-										<input type="checkbox" name="OUT" id="pinCheck19" />
-										<label for="pinCheck19"> </label>
-								</div>
+								<script>writePinCheckPlus(1);</script>
 							</div>
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
 								<div class="a_box_bar"> </div>
-								<div class="pinCheck pinCheckUnclickable pinCheckMinus">
-										<input type="checkbox" name="OUT" id="pinCheck20" />
-										<label for="pinCheck22"> </label>
-								</div>
+								<script>writePinCheckMinus(1);</script>
 							</div>
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
 								<div class="a_box_bar b"> </div>
 								<div class="tBox">
-									<div class="pinCheck pinCheckUnclickable pinCheckAnalog">
-										<input type="checkbox" name="OUT" id="A5_check" />
-										<label for="A5_check" onmouseover="opcmoId('A5')"> </label>
-									</div>
-									<p class="analogValue" id="A5">--</p>
+									<script>writePinCheckAnalog(['A5']);</script>
 								</div>
 							</div>
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
 								<div class="a_box_bar a"> </div>
 								<div class="tBox">
-									<div class="pinCheck pinCheckUnclickable pinCheckAnalog">
-										<input type="checkbox" name="OUT" id="A4_check" />
-										<label for="A4_check" onmouseover="opcmoId('A4')"> </label>
-									</div>
-									<p class="analogValue" id="A4">--</p>
+									<script>writePinCheckAnalog(['A4']);</script>
 								</div>
 							</div>
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
 								<div class="a_box_bar"> </div>
-								<div class="pinCheck pinCheckUnclickable pinCheckPlus">
-										<input type="checkbox" name="OUT" id="pinCheck21" />
-										<label for="pinCheck21"> </label>
-								</div>
+								<script>writePinCheckMinus(1);</script>
 							</div>
 							<div class="a_box blue"> <div class="circle screw silver"> <div class="screw head"> </div></div>
 								<div class="a_box_bar"> </div>
-								<div class="pinCheck pinCheckUnclickable pinCheckMinus">
-										<input type="checkbox" name="OUT" value="A5" id="pinCheck22" />
-										<label for="pinCheck22"> </label>
-								</div>
+								<script>writePinCheckMinus(1);</script>
 							</div>
 						</div>
 						<div class="boardE AC">
@@ -383,18 +178,16 @@
 				<p>POSITION AN CPU</p>
 				<p class="detail" id="detail_pin">--</p>
 				<p>FAVORIT</p>
-				<p class="detail">
-					<div class="checkbox">
-						<input type="checkbox" id="detail_fav" onclick="toggleFavorite(displayDetailId)" value="None" />
-						<label for="detail_fav"> </label>
-					</div>
+				<p class="checkbox detail">
+					<input type="checkbox" id="detail_fav" onclick="toggleFavorite(displayDetailId)" value="None" />
+					<label for="detail_fav"> </label>
 				</p>
 				<p>BESCHREIBUNG</p>
 				<p class="detail" id="detail_desc">--</p>
 				<p>SCRIPT-FUNKTION</p>
 				<p class="detail" id="detail_func">--</p>
 				<p> </p>
-				<input type='button' value='Anpassen' />
+				<input type='button' value='Anpassen' onclick='editFavorit(displayDetailId);'/>
 			</div>
 			<!--End of the sidebar-->
 
@@ -429,12 +222,6 @@
 			<table cellspacing="0">
 				<tbody >
 					<tr>
-						<td class="title">Mac-Adresse</td>
-						<td>
-							<p id="setting_mac">--</p>
-						</td>
-					</tr>
-					<tr>
 						<td class="title">Server-Version</td>
 						<td>
 							<p id="setting_version">--</p>
@@ -445,6 +232,7 @@
 						<td>
 							<p id="setting_freq">--</p>
 							<input type="button" value="&Auml;ndern" onclick="showOverlay('changeFreq')"/>
+							<input type="button" value="Pausieren" onclick="value=togglePause()?'Starten':'Pausieren'"/>
 						</td>
 					</tr>
 					<tr>
@@ -494,20 +282,7 @@
 	</div>
 	<!--End #showCredits-->
 	
-	<!--Overlay to display Credits-->
-	<div class="overlay" id="changeIp">
-		<div class="overlayMain">
-			<h1>Server-IP Adresse &auml;ndern</h1>
-			<input type="text" id="changeIpInput"/>
-			<div class="bottom">
-				<input class="cancel" type="button" value="Abbrechen" onclick="hideOverlay();"/>
-				<input class="ok" type="button" value="OK" onclick="hideOverlay();showOverlay('showWait');if(!setIP(getEl('changeIpInput').value))showErrorOverlay('Die eingegebene IP war nicht korrekt. Bitte versuchen Sie es erneut.');"/>
-			</div>
-		</div>
-	</div>
-	<!--End #changeIp-->
-	
-	<!--Overlay to display Credits-->
+	<!--Overlay to configure Favorites-->
 	<div class="overlay" id="configureFav">
 		<div class="overlayMain">
 			<h1>Favorit anpassen</h1>
@@ -528,15 +303,6 @@
 				<input class="cancel" type="button" value="Seite neuladen" onclick="window.location.reload()"/>
 				<input class="ok" type="button" value="Schlie&szlig;en" onclick="hideOverlay();"/>
 			</div>
-		</div>
-	</div>
-	<!--End #showError-->
-	
-		<!--Overlay to an error message-->
-	<div class="overlay" id="showWait">
-		<div class="overlayMain">
-			<h1>Warte auf Verbindung...</h1>
-			<p>Es wird darauf gewartet das der Server sich mit der neuen IP-Adresse meldet.</p>
 		</div>
 	</div>
 	<!--End #showError-->

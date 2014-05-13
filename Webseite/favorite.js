@@ -58,9 +58,14 @@ function isFavorite(id){
  * Removes Favorites from the list
  */
 function removeFavorite(id){
-	favoritelist[id]=undefined;
+	if(!(typeof id ===  'string')) {
+		throw 'invalid key';
+		//console.log('invalid key');
+	}
+		
+	delete favoritelist[id];
 	//schneidet aus Array raus
-	//console.log(id + " aus Array gelöscht");
+	console.log(id + " aus Array gelöscht");
 	saveCookie();
 	onFavoritesChanged();
 }

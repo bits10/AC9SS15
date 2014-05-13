@@ -136,7 +136,6 @@ function isDigital(id){
  * @param {Object} The name of the pin.
  */
 function getName(id){
-console.log(id);
 	return cachedPinInfo[getIndex(id)].name;
 }
 
@@ -210,28 +209,6 @@ function getPinCount(){
  */
 function getId(index){
 	return cachedPinInfo[getIndex(id)].id;
-}
-
-/**
- * Sets the ip of the board and causes the side to reload.
- * @param {Object} the new ip of the board
- * @return false if the operation was not successfull
- */
-function setIP(ip){
-	var format = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;  
- 	if(!ip.match(format)){  
- 		return false;  
- 	}  
-  	
-  	try{
-  		loadURL(urlModifyIP+ip);
-  		window.location.href="http://"+ip+"/index.html";
-  	}catch(e){
-  		console.log(e);
-  		return false;
-  	}
-	
-	return true;
 }
 
 /**
