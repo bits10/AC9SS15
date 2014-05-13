@@ -28,9 +28,7 @@ function initUi() {
 	}
 	
 	//Init Settings for rest.js
-	setOnValuesChange(function(values, time){
-		getEl('setting_freq').innerHTML=time+"ms";
-	});
+	setOnValuesChanged(updateUI);
 	
 	//Display REST information
 	getEl('setting_mac').innerHTML=getInfo().mac;
@@ -41,9 +39,32 @@ function initUi() {
 	setOnFavoritesChanged(onFavoritesChanged);
 }
 
+function opcmoId(id) {
+	displayDetails(id);
+}
+
 function opcmo(elem) {
 	displayDetails(elem.htmlFor);
+}
 
+function updateUI(pinInfo, values, time){
+	//Update frequency in settings panel
+	getEl('setting_freq').innerHTML=time+"ms";
+	
+	//Update all values
+	for(var i=0; i<pinInfo.length; i++) {
+		var el = getEl(pinInfo[i].id);
+		if(el) {
+			if(el.type === 'checkbox') {
+				el.checked=values[i].v=='1';
+			} else {
+				el.innerHTML=values[i].v;
+			}
+		}
+	}
+	
+	updateDetailsValue();
+	updateFavoritesTable();
 }
 
 /**
@@ -66,11 +87,13 @@ function setMain(div){
 
 function displayDetails(id){
 	displayDetailId=id;
+	if(id==undefined)
+		return;
 		
-	getEl('cb_fav').checked=isFavorite(id);
+	getEl('detail_fav').checked=isFavorite(id);
 	getEl("detail_title").innerHTML=getName(id);
-	getEl('p_pid').innerHTML=isDigital(id)?"Port "+id.charAt(0)+" Pin "+id.charAt(1):getName(id);
-	var s=getEl('s_conf');
+	getEl('detail_pin').innerHTML=getPosition(id);
+	var s=getEl('detail_conf');
 	s.innerHTML="";
 	var opts=getDataDirectionOptions(id);
 	for (var i=0;i<opts.length;i++){
@@ -79,22 +102,49 @@ function displayDetails(id){
     	opt.innerHTML = getDataDirectionDescription(opts[i]);
     	s.appendChild(opt);
 	}
-	getEl('p_type').innerHTML=isDigital(id)?"Digital":"Analog";
-	getEl('p_desc').innerHTML=getDescription(id);
-	getEl('p_func').innerHTML=getFunction(id);
+	getEl('detail_type').innerHTML=isDigital(id)?"Digital":"Analog";
+	getEl('detail_desc').innerHTML=getDescription(id);
+	getEl('detail_func').innerHTML=getFunction(id)+"";
 	
-	refershSidebarValue();
+	updateDetailsValue();
 }
 
-function refershSidebarValue(){
-	var el=getEl('p_val');
-	var dd=getDataDirection(displayDetailId);
-	switch(dd){
-		case 'i':el.innerHTML=getValue(displayDetailId);break;
-		case 'o':el.innerHTML=getValue(displayDetailId) + "<br><input type='button' value='Wert &auml;ndern' onclick='changeDetailValue()'/>";break;
-		default:el.innerHTML="undefined";
+function updateDetailsValue(){
+	var id = displayDetailId;
+	if(id==undefined)
+		return;
+		
+	var el=getEl('detail_val');
+	var dd=getDataDirection(id);
+	
+	if(isDigital(id)) {
+		el.innerHTML="<div class='checkbox'><input type='checkbox'id='detail_val_cb'value='None'/><label for='detail_val_cb'></label></div>";
+		el=getEl('detail_val_cb');
+		el.checked=getValue(displayDetailId)=='1';
+		el.disabled=dd!='o'
+	} else {
+		el.innerHTML=getValue(id);
 	}
-	getEl('s_conf').value=dd;
+	getEl('detail_conf').value=dd;
+}
+
+function updateFavoritesTable() {
+	var tb = getEl('favoritesTbody');
+	tb.innerHTML = "";
+	var favs = getFavoritelist();
+	console.log(favs);
+	for(var k in favs) {
+		var id = favs[k].id;
+		tb.innerHTML+='<tr><td>' + getName(id) + '</td><td>' + getDescription(id) + '</td><td>' + getPosition(id) + '</td><td>' + getDataDirectionDescription(getDataDirection(id)) + '</td><td>' +getTypeName(id) + '</td><td>' + getValue(id) + '</td><td>' + getFunction(id)(getValue(id)) + '</td><td><input type="button" value="Anpassen"/><input type="button" value="Entfernen"/></td></tr>';
+
+	}
+}
+
+function getTypeName(id) {
+	return isDigital(id)?"Digital":"Analog";
+}
+function getPosition(id){
+	return isDigital(id)?"Port "+id.charAt(0)+" Pin "+id.charAt(1):getName(id);
 }
 
 function showOverlay(id) {
@@ -109,8 +159,8 @@ function hideOverlay() {
 }
 
 function onFavoritesChanged() {
-	var tb = getEl('favoritesTbody');
-	//tb.innerHTML = "";
+	displayDetails(displayDetailId);
+	updateFavoritesTable();
 }
 
 function showErrorOverlay(message) {

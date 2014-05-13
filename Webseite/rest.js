@@ -21,7 +21,7 @@ function initRest(){
 	if(isInitialised)
 		return;
 	
-	setOnValuesChange(function(values, time){});
+	setOnValuesChanged(function(pinInfo, values, time){});
 	
 	setOnNetworkError(function(state, response){});
 	
@@ -43,7 +43,7 @@ function refreshValues(){
 		lastPollingTime=Date.now();
 	
 		if(state==200) {
-			onValuesChanged(cachedValues, realPollingFreq);	
+			onValuesChanged(cachedPinInfo, cachedValues, realPollingFreq);	
 	
 			if(!isPaused)
 				window.setTimeout("refreshValues()",pollingFreq);
@@ -91,7 +91,7 @@ function loadURLAsync(url, func){
  * and the second is the current polling rate in milliseconds.
  * @param {Object} The function to be invoked after a new value set was recieved.
  */
-function setOnValuesChange(func){
+function setOnValuesChanged(func){
 	onValuesChanged=func;
 }
 
@@ -136,6 +136,7 @@ function isDigital(id){
  * @param {Object} The name of the pin.
  */
 function getName(id){
+console.log(id);
 	return cachedPinInfo[getIndex(id)].name;
 }
 
@@ -253,6 +254,15 @@ function setPollingFreq(freq){
  */
 function getPollingFreq(){
 	return pollingFreq;
+}
+
+/**
+ * Returns thedefault description for the pin with the given id.
+ * @return the default description
+ */
+function getDefaultDescription(id){
+	var desc=cachedPinInfo[getIndex(id)].desc;
+	return desc?desc:"--";
 }
 
 /**

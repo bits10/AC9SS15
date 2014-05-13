@@ -345,7 +345,7 @@ CSS code for the board
 	top: 1px;
 	left: 1px;
 }
-.pinCheck:hover{
+.pinCheck:hover {
 	 box-shadow: 0 0 6px 3px #33B5E5;
     z-index:1000000;
     position:relative;

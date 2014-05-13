@@ -30,6 +30,18 @@
 	transform: rotate(-45deg);
 }
 
+.checkbox input[type=checkbox][disabled] + label:after {
+	border: 3px solid #888;
+	border-top: none;
+	border-right: none;
+	
+}
+
+.checkbox input[type=checkbox][disabled] + label:active, .checkbox input[type=checkbox][disabled] + label:hover {
+	box-shadow: 0 0 2px #888, inset 0 1px 2px white;
+	cursor: default;
+}
+
 .checkbox label:hover::after {
 	opacity: 0.5;
 }
@@ -47,8 +59,6 @@
 	visibility: hidden;
 }
 input[type="button"],input[type="submit"]  {
-	float: left; 
-    clear: left; 
 	padding:5px;
 	color:#2B2B2B;
 	border-radius: 3px;
@@ -63,6 +73,7 @@ input[type="button"],input[type="submit"]  {
     outline:none;
     border-width:0;
     appearance:none;
+    margin-right:10px;
 }
 input[type="button"]:hover, input[type="submit"]:hover{
 	box-shadow: 0 0 5px #33B5E5;

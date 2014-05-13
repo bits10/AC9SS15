@@ -67,6 +67,7 @@ a, input{
 	text-decoration: none;
 	outline:none;
 }
+
 h1 {
 	color:#2B2B2B;
 	margin: 10px 0 10px 0;
@@ -282,4 +283,12 @@ table input:nth-child(2){
 
 .slideThree input[type=checkbox]:checked + label {
 	left: 33px;
+}
+
+.analogValue{
+	color:#888;
+}
+
+.analogValue:hover{
+	text-shadow: 0 0 3px #33B5E5;
 }
