@@ -26,7 +26,6 @@ a, input{
 	overflow: hidden;
 }
 #header{
-	background:#2B2B2B;
 	border-bottom:solid 3px #33b5e5;
 	padding:10px 0 10px 0;
 	text-align:center;
@@ -73,21 +72,6 @@ h1 {
 	color:#2B2B2B;
 	margin: 10px 0 10px 0;
 	text-shadow: 0 1px 0px #fff;
-}
-.background{
-	background:#fcfcfc;
-}
-.black{
-	background:#000000;
-}
-.green{
-	background:#008000;
-}
-.silver{
-	background:#D3D3D3;
-}
-.blue{
-	background:#4169E1;
 }
 
 p{
@@ -215,4 +199,33 @@ table input:nth-child(2){
 
 .analogValue:hover{
 	text-shadow: 0 0 3px #33B5E5;
+}
+
+/*Farben*/
+.background{
+	background:#fcfcfc;
+}
+.black{
+	background:#000000;
+}
+.grew {
+	background:#202020;
+}
+.green{
+	background:#008000;
+}
+.silver{
+	background:#D3D3D3;
+}
+.blue{
+	background:#4169E1;
+}
+.red{
+	background:#e00;
+}
+.gold{
+	background:#FFCC00;
+}
+.header_bgcolor {
+	background:#2B2B2B;
 }

@@ -17,11 +17,13 @@ CSS code for the board
  * BoardElemente
  */
 
+/*Serieller Anschluss rechts*/
 #boardSA1{
 	top:50px;
 	left:440px; 
 	height:200px; 
 }
+/*Serieller Anschluss rechts*/
 #boardSA2{
 	top:150px;
 	left:-70px;
@@ -29,26 +31,31 @@ CSS code for the board
 	transform:rotate(180deg);
 	-webkit-transform:rotate(180deg);
 }
+/*Klasse für jedes BoardElement. Attribute werden weitervererbt*/
 .boardE{
 	position:absolute;
 }
+/*Stromanschluss*/
 .boardE.AC{
 	top:30px;
 	left:5px;
 	width:25px;
 }
+/*CPU*/
 .boardE.CPU{
 	top:200px;
 	left:125px;
 	width:260px; 
 	height:50px;
 }
+/*Controller oberhalb der CPU*/
 .boardE.Control{
 	top:105px;
 	left:125px;
 	width:168px; 
 	height:30px;
 }
+/*Netzwerkcontroller*/
 .boardE.Net{
 	top:85px;
 	left:0px;
@@ -56,13 +63,31 @@ CSS code for the board
 	height:55px;
 	border: 1px solid #000000;
 }
+/*Analoger Anschluss Bereich*/
 .boardE.Ana{
 	top:270px;
 	left:125px;
 	width:260px;
 	position:relative;
 }
-.led_on{
+/*EXT-Anschluss*/
+.boardE.EXT{
+	top:25px;
+	left:355px;
+	width:25px; 
+	height:60px;
+	border: 5px solid black;
+}
+/*ISP-Anschluss*/
+.boardE.ISP{
+	top:80px;
+	left:310px;
+	width:25px; 
+	height:60px;
+	border: 5px solid black;
+}
+/*LED*/
+.boardE.LED{
 	box-shadow: 0 0 10px 5px #c00;
 	-webkit-box-shadow: 0 0 10px 5px #c00;
 	-moz-box-shadow: 0 0 10px 5px #c00;
@@ -71,33 +96,41 @@ CSS code for the board
 	left:285px;
 }
 
+
 /*
  * Kleinteile für die Seriellen Anschlüsse
  */
+/*Breite der Seriellen Anschlüsse*/
 .se {
 	width:80px;
 }
+/*Blaken in der mitte der Seriellen Anschlüsse*/
 .se.bar{
 	width:25%;
 	height:100%;
 }
+/*Montageschrauben der Seriellen Anschlüsse*/
 .se.mon{
 	left:-30%;
 	width:70%;
 	height:7.5%;
 }
+/*Montageschraube oben*/
 .se.mon.up{
 	top:2.5%;
 }
+/*Montageschraube unten*/
 .se.mon.do{
 	top:90%;
 }
+/*Metallrahmen*/
 .se.metal{
 	top:12.5%;
 	left:25%;
 	width:25%;
 	height:75%;
 }
+/*Hinterteil*/
 .se.back{
 	top:12.5%;
 	left:-40%;
@@ -127,15 +160,18 @@ CSS code for the board
  * Kleinteile Analoger Anschluss
  * AC und Analog
  */
-.a_box{
+/*Box der Analogen Anschlüsse*/
+.a_box {
 	width:24px;
 	height:24px;
 	border: 1px solid #000000;
 	float: left;
 }
+/*Schrauben der Analogen Anschlüsse und Netzanchluss*/
 .screw {
     margin:1px;
 }
+/*Schraubenkopf mit Schraubenschlitz*/
 .screw.head {
     height: 4px;
     margin-top: 8px;
@@ -143,6 +179,7 @@ CSS code for the board
     -webkit-transform:rotate(150deg);
 	background:#888;
 }
+/*Textbox für die Analogen Anschlüsse rechts neben den klickbaren Pins*/ 
 .tBox{
 	position:relative;
 	width:100px;
@@ -151,34 +188,15 @@ CSS code for the board
 /*
  * Pins innerhalb von ISP und EXT
  */
-.cb_pin{
-	width:35px; 
-	height:70px;
+.pin{
+	float:left;
+    width: 2px;
+    height: 2px;
+    border-radius: 100px;
+    margin: 5px;
 }
-.cb_pin_inner{
-	top:5px;
-	left:5px;
-	width:25px;
-	height:60px;
-	position:absolute;
-	background:#202020;
-}
-.cb_pin_inner_dist{
-	top:5px;
-	left:0px;
-	height:5px;
-}
-.cb_pin.ext{
-	top:20px;
-	left:350px;
-}
-.cb_pin.isp{
-	top:75px;
-	left:305px;
-}
-
 /*
- * 
+ * Löcher in der Platine und Kreisdefeinitionen
  */
 .circle{
 	position: absolute;
@@ -187,49 +205,55 @@ CSS code for the board
     border-radius: 100px;
     border: 1px solid #000000;
 }
+/*Loch links oben*/
 .circle.lo{
 	top: 5px;
     left: 5px;
 }
+/*Loch rechts oben*/
 .circle.ro{
 	top: 5px;
     left: 425px;
 }
+/*Loch links unten*/
 .circle.lu{
 	top: 275px;
     left: 5px;
 }
+/*Loch rechts unten*/
 .circle.ru{
 	top: 275px;
     left: 425px;
 }
 
 /*
- * anklickbaren Pins für CB_SE und EXT
+ * Dvis für die anklickbaren Pins für CB_SE und EXT
  */
-#cb_se_pins{
-	position:relative;
-	top:-50px;
-	left:70px;
-}
-#cb_se_pins_dist{
-	top:10px;
-}
-
-.cb_pins_dist{
+/*1tes inneres Div*/
+.pinCheck_div{
 	position:absolute;
 	width:30px;
 }
-.cb_pins_dist.b{
+/*2tes innere Div für EXT neben dem ersten*/
+.pinCheck_div.a{
 	left:22px;
 }
-#cb_ext_pins{
+/*2tes innere Div für Seriellen Anschluss neben dem ersten*/
+.pinCheck_div.b{
+	left:20px;
+	top:10px;
+}
+/*Positionsangabe der äußeren Divs für EXT*/
+.pinCheck_div.ext{
 	position:relative;
 	top:-150px;
 	left:-6px;
 }
-#cb_ext_pins_dist{
-	left:24px;
+/*Positionsangabe der äußeren Divs für Seriellen Anschluss*/
+.pinCheck_div.sa{
+	position:relative;
+	top:-50px;
+	left:70px;
 }
 
 /*

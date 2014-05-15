@@ -16,7 +16,7 @@
 	<div class="background" id="main">
 		
 		<!--The header including the navigation-->
-		<div id="header">
+		<div class="header_bgcolor" id="header">
 		  	<a id="status_bt" class="buttonlink" href="javascript:setMain('status')">STATUS</a>
 			<a id="favorite_bt" class="buttonlink" href="javascript:setMain('favorite')">FAVORITEN</a>
 			<a id="settings_bt" class="buttonlink" href="javascript:setMain('settings')">EINSTELLUNGEN</a>
@@ -30,37 +30,42 @@
 			<div id="board">
 				<form action="index.html" method="post" id="form">
 					<div class="green" id="mainboard">
+						<!-- Platinenloch links oben mit Farbe: background-->
 						<div class="circle lo background"> </div>
+						<!-- Platinenloch links unten mit Farbe: background-->
 						<div class="circle lu background"> </div>
+						<!-- Platinenloch rechts oben mit Farbe: background-->
 						<div class="circle ro background"> </div>
+						<!-- Platinenloch rechts unten mit Farbe: background-->
 						<div class="circle ru background"> </div>
+						<!-- BoardElement: CPU Farbe: black-->
 						<div class="boardE CPU black">
 							<script>write(20, '<div class="feet"></div>');</script>
 						</div>
 						<div class="boardE CPU black"> </div>
+						<!-- BoardElement: Netzwerkanschluss Farbe: silver-->
 						<div class="boardE Net silver"> </div>
+						<!-- BoardElement: Kontroller Farbe: black-->
 						<div class="boardE Control black">
 							<script>write(14, '<div class="feet short"></div>');</script>
 						</div>
 						<div class="boardE Control black"> </div>
-						<div class="boardE cb_pin isp black">
-							<div class="cb_pin_inner">
-								<script>write(10, '<div class="pin"></div>');</script>
-							</div>
+						<!-- BoardElement: ISP Farbe: grew-->
+						<div class="boardE ISP grew">
+								<script>write(10, '<div class="pin gold"></div>');</script>
 						</div>
-						<div class="boardE cb_pin ext black">
-							<div class="cb_pin_inner">
-								<script>write(10, '<div class="pin"></div>');</script>
-							</div>
-							<div id="cb_ext_pins">
-								<div class="cb_pins_dist">
+						<!-- BoardElement: EXT Farbe: grew -->
+						<div class="boardE EXT grew">
+							<script>write(10, '<div class="pin gold"></div>');</script>
+							<div class="pinCheck_div ext">
+								<div class="pinCheck_div">
 									<script>
 										writePinCheck(['D2', 'D4', 'D6']);
 										writePinCheckNone(1);
 										writePinCheckMinus(1);
 									</script>
 								</div>
-								<div class="cb_pins_dist b" id="cb_ext_pins_dist">
+								<div class="pinCheck_div a">
 									<script>
 										writePinCheck(['D3', 'D5', 'D7']);
 										writePinCheckNone(1);
@@ -70,20 +75,21 @@
 							</div>
 							<div id="cb_ext_pins_bar"><div id="cb_ext_pins_bar_h"></div></div>
 						</div>
+						<!-- BoardElement: Serieller Anschluss 1 Farbe: black-->
 						<div class="boardE se" id="boardSA1"> 
 							<div class="boardE se mon up silver"> </div>
 							<div class="boardE se mon do silver"> </div>
 							<div class="boardE se bar black"> </div>
 							<div class="boardE se back black"> </div>
 							<div class="boardE se metal silver"> </div>
-							<div id="cb_se_pins">
-								<div class="cb_pins_dist">
+							<div class="pinCheck_div sa">
+								<div class="pinCheck_div">
 									<script>
 										writePinCheckNone(1);
 										writePinCheck(['C0', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'A0', 'A1', 'A2', 'A3']);
 									</script>			
 								</div>
-								<div class="cb_pins_dist b" id="cb_se_pins_dist">
+								<div class="pinCheck_div b">
 									<script>
 										writePinCheckNone(1);
 										writePinCheckPlus(1);
@@ -115,7 +121,7 @@
 						<div class="boardE AC">
 							<script>write(2, '<div class="a_box blue"><div class="circle screw silver"><div class="screw head"></div></div></div>');</script>
 						</div>
-						<div class="circle led_on"> </div>
+						<div class="circle boardE LED red"> </div>
 					</div>
 				</form>
 			</div>
