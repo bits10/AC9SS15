@@ -131,29 +131,25 @@
 			<div class="sidebar">
 				<h1 id="detail_title">--</h1>
 				<p>AKTUELLER WERT</p>
-				<p class="detail" id="detail_val">--</p>
-				<p>KONFIGURATION</p>
-				<p class="detail">
-					<div class="select">
-						<select id="detail_conf"> </select>
-						<label for="detail_conf"> </label>
-					</div>
+				<div id="detail_val"><p class="detail">--</p></div>
+				<p>FAVORIT</p>
+				<p class="checkbox">
+					<input type="checkbox" id="detail_fav" onclick="toggleFavorite(sidebarId)" value="None" />
+					<label for="detail_fav"> </label>
 				</p>
+				<p>&nbsp;</p>	
 				<p>TYP</p>
 				<p class="detail" id="detail_type">--</p>
 				<p>POSITION AN CPU</p>
 				<p class="detail" id="detail_pin">--</p>
-				<p>FAVORIT</p>
-				<p class="checkbox detail">
-					<input type="checkbox" id="detail_fav" onclick="toggleFavorite(displayDetailId)" value="None" />
-					<label for="detail_fav"> </label>
-				</p>
+				<p>KONFIGURATION</p>
+				<p class="select detail" id="detail_conf">--</p>
 				<p>BESCHREIBUNG</p>
-				<p class="detail" id="detail_desc">--</p>
+				<p class="select detail" id="detail_desc">--</p>
 				<p>SCRIPT-FUNKTION</p>
-				<p class="detail" id="detail_func">--</p>
-				<p> </p>
-				<input type='button' value='Anpassen' onclick='editFavorit(displayDetailId);'/>
+				<p class="select detail" id="detail_func">--</p>	
+				<p></p>	
+				<input type="button" value="Anpassen" onclick="startConfigurePin(sidebarId)"/>
 			</div>
 			<!--End of the sidebar-->
 
@@ -242,23 +238,67 @@
 			<p>&nbsp;</p>
 			<p>Weitere Informationen und Sources sind auf <a href="https://github.com/doofmars/Embedded-Webserver">GitHub</a> zu finden.</p>
 			<div class="bottom">
-				<input class="ok" type="button" value="Schlie&szlig;en" onclick="hideOverlay();"/>
+				<input class="ok" type="button" value="Schließen" onclick="hideOverlay();"/>
 			</div>
 		</div>
 	</div>
 	<!--End #showCredits-->
 	
-	<!--Overlay to configure Favorites-->
-	<div class="overlay" id="configureFav">
+	<!--Overlay to configure Pins-->
+	<div class="overlay" id="configurePin">
 		<div class="overlayMain">
-			<h1>Favorit anpassen</h1>
+			<h1 id="conf_title">Pin anpassen</h1>
+			<table cellspacing="0">
+				<tr>
+					<td>Typ</td>
+					<td id="conf_type"></td>
+				</tr>
+				<tr>
+					<td>Position an CPU</td>
+					<td id="conf_pin"></td>
+				</tr>
+				<tr>
+					<td>Favorit</td>
+					<td>
+						<div class="checkbox">
+							<input type="checkbox" id="conf_fav" value="None" />
+							<label for="conf_fav"> </label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>Konfiguration</td>
+					<td>
+						<div class="select">
+							<select id="conf_conf"> </select>
+							<label for="conf_conf"> </label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>Beschreibung</td>
+					<td>
+						<input type="text" id="conf_desc"style="wdth:100%"/>
+					</td>
+				</tr>
+				<tr>
+					<td>Funktion</td>
+					<td id="conf_func_td">
+						<p>function(x) {</p>
+						<textarea spellcheck="false" id="conf_func">return x;</textarea>
+						<p>}</p>
+					</td>
+				</tr>
+			</table>
+		<p id="conf_func_error" style="color:red">Die Funktion enthält einen Syntaxfehler</p>
+
 			<div class="bottom">
 				<input class="cancel" type="button" value="Abbrechen" onclick="hideOverlay();"/>
-				<input class="ok" type="button" value="Schlie&szlig;en" onclick="hideOverlay();"/>
+				<input class="ok" type="button" value="Übernehmen" onclick="endConfigurePin();"/>
 			</div>
 		</div>
 	</div>
-	<!--End #configureFav-->
+	<!--End #configurePin-->
 	
 	<!--Overlay to an error message-->
 	<div class="overlay" id="showError">
@@ -267,7 +307,7 @@
 			<p id="errorText"> </p>
 			<div class="bottom">
 				<input class="cancel" type="button" value="Seite neuladen" onclick="window.location.reload()"/>
-				<input class="ok" type="button" value="Schlie&szlig;en" onclick="hideOverlay();"/>
+				<input class="ok" type="button" value="Schließen" onclick="hideOverlay();"/>
 			</div>
 		</div>
 	</div>

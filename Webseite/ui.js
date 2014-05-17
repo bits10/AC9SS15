@@ -1,5 +1,6 @@
 //The id of the pin displayed in the sidebar.
-var displayDetailId;
+var sidebarId;
+var configureId;
 
 /**
  * Shortcut for document.getElementById(id).
@@ -38,11 +39,11 @@ function initUi() {
 }
 
 function opcmoId(id) {
-	displayDetails(id);
+	setSidebarId(id);
 }
 
 function opcmo(elem) {
-	displayDetails(elem.htmlFor);
+	setSidebarId(elem.htmlFor);
 }
 
 function updateUI(pinInfo, values, time){
@@ -61,7 +62,7 @@ function updateUI(pinInfo, values, time){
 		}
 	}
 	
-	updateDetailsValue();
+	updateSidebarValues();
 	
 	//Hier nur Werte updaten!! TODO
 	updateFavoritesTable();
@@ -85,32 +86,24 @@ function setMain(div){
 	getEl(div+'_bt').style.borderColor=fg;
 }
 
-function displayDetails(id){
-	displayDetailId=id;
+function setSidebarId(id){
+	sidebarId=id;
 	if(id==undefined)
 		return;
 		
 	getEl('detail_fav').checked=isFavorite(id);
-	getEl("detail_title").innerHTML=getName(id);
+	getEl('detail_title').innerHTML=getName(id);
 	getEl('detail_pin').innerHTML=getPosition(id);
-	var s=getEl('detail_conf');
-	s.innerHTML="";
-	var opts=getDataDirectionOptions(id);
-	for (var i=0;i<opts.length;i++){
-    	var opt = document.createElement('option');
-    	opt.value = opts[i];
-    	opt.innerHTML = getDataDirectionDescription(opts[i]);
-    	s.appendChild(opt);
-	}
+	getEl('detail_conf').innerHTML=getDataDirectionDescription(getDataDirection(id));
 	getEl('detail_type').innerHTML=isDigital(id)?"Digital":"Analog";
 	getEl('detail_desc').innerHTML=getDescription(id);
-	getEl('detail_func').innerHTML=getFunction(id)+"";
+	getEl('detail_func').innerHTML=getFunctionText(id).substring(0, 100).replace(/\n/g, '<br/>').replace(/ /g, '&nbsp;');
 	
-	updateDetailsValue();
+	updateSidebarValues();
 }
 
-function updateDetailsValue(){
-	var id = displayDetailId;
+function updateSidebarValues(){
+	var id = sidebarId;
 	if(id==undefined)
 		return;
 		
@@ -118,12 +111,12 @@ function updateDetailsValue(){
 	var dd=getDataDirection(id);
 	
 	if(isDigital(id)) {
-		el.innerHTML="<div class='checkbox'><input type='checkbox'id='detail_val_cb'value='None'/><label for='detail_val_cb'></label></div>";
+		el.innerHTML="<p class='checkbox'><input type='checkbox'id='detail_val_cb'value='None'/><label for='detail_val_cb'></label></p>";
 		el=getEl('detail_val_cb');
-		el.checked=getValue(displayDetailId)=='1';
+		el.checked=getValue(sidebarId)=='1';
 		el.disabled=dd!='o'
 	} else {
-		el.innerHTML=getValue(id);
+		el.innerHTML='<p class="detail">' + getValue(id) + '</p>';
 	}
 	getEl('detail_conf').value=dd;
 }
@@ -134,9 +127,56 @@ function updateFavoritesTable() {
 	var favs = getFavoritelist();
 	for(var k in favs) {
 		var id = favs[k].id;
-		tb.innerHTML+='<tr><td>' + getName(id) + '</td><td>' + getDescription(id) + '</td><td>' + getPosition(id) + '</td><td>' + getDataDirectionDescription(getDataDirection(id)) + '</td><td>' +getTypeName(id) + '</td><td>' + getValue(id) + '</td><td>' + getFunction(id)(getValue(id)) + '</td><td><input type="button" value="Anpassen" onclick="editFavorit(\'' + id + '\')"/><input type="button" value="Entfernen" onClick="removeFavorite(\'' + id + '\');"/></td></tr>';
+		tb.innerHTML+='<tr><td>' + getName(id) + '</td><td>' + getDescription(id) + '</td><td>' + getPosition(id) + '</td><td>' + getDataDirectionDescription(getDataDirection(id)) + '</td><td>' +getTypeName(id) + '</td><td>' + getValue(id) + '</td><td>' + getFunction(id)(getValue(id)) + '</td><td><input type="button" value="Anpassen" onclick="startConfigurePin(\'' + id + '\')"/><input type="button" value="Entfernen" onClick="removeFavorite(\'' + id + '\');"/></td></tr>';
 
 	}
+}
+
+function startConfigurePin(id) {
+	if(!id) {
+		showErrorOverlay("Bitte wählen Sie zuerst einen Pin aus.");
+		return;
+	}
+	
+	getEl('conf_title').innerHTML=getName(id);
+	getEl('conf_fav').checked=isFavorite(id);
+	getEl('conf_pin').innerHTML=getPosition(id);
+
+	var s=getEl('conf_conf');
+	s.innerHTML="";
+	var opts=getDataDirectionOptions(id);
+	for (var i=0;i<opts.length;i++){
+    	var opt = document.createElement('option');
+    	opt.value = opts[i];
+    	opt.innerHTML = getDataDirectionDescription(opts[i]);
+    	s.appendChild(opt);
+	}
+	s.value=getDataDirection(id);
+	getEl('conf_type').innerHTML=isDigital(id)?"Digital":"Analog";
+	getEl('conf_desc').value=getDescription(id);
+	getEl('conf_func').value=getFunctionText(id);
+	getEl('conf_func_error').innerHTML='';
+	
+	configureId=id;
+	showOverlay('configurePin');
+ 
+}
+
+function endConfigurePin() {
+	var id=configureId;
+	
+	try {
+		setFavorit(id, getEl('conf_fav').checked);
+		setDataDirection(id, getEl('conf_conf').value);
+		setDescription(id, getEl('conf_desc').value);
+		setFunction(id, getEl('conf_func').value);
+		hideOverlay();
+		updateSidebarValues();
+	} catch(e) {
+		getEl('conf_func_error').innerHTML="Ein Fehler ist aufgetreten:<br>"+e;
+	}
+
+
 }
 
 function getTypeName(id) {
@@ -158,7 +198,7 @@ function hideOverlay() {
 }
 
 function onFavoritesChanged() {
-	displayDetails(displayDetailId);
+	setSidebarId(sidebarId);
 	updateFavoritesTable();
 }
 
@@ -166,11 +206,6 @@ function showErrorOverlay(message) {
 	getEl('errorText').innerHTML=message;
 	showOverlay('showError');
 }
-
-function editFavorit() {
-	showOverlay('configureFav');
-}
-
 
 function write(count, string, ids) {
 	for(var i=0;i<count;i++) {

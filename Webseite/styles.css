@@ -88,8 +88,8 @@ p.detail{
 	text-align:left;
 	padding: 0 40px 40px 20px;
 	width:250px;
-	background:#eee;
-	box-shadow: inset 0 1px 3px #888;
+	background:#f5f5f5;
+	box-shadow: inset 0 0 2px #888;
 	position:absolute;
 	top:0;
 	right:-20px;
@@ -111,6 +111,9 @@ table tr td {
 	padding:18px;
 	border-bottom:1px solid #e0e0e0;
 	border-left: 1px solid #e0e0e0;
+}
+table tr td input[type="button"]{
+	margin-right:10px;
 }
 table tr:nth-child(2n){
 	background: rgba(150,150,150,0.05)
@@ -145,9 +148,12 @@ table input:nth-child(2){
 	overflow:auto;
 	padding:20px;
 	box-shadow:0 0 10px #000;
-	text-align:center;
 	overflow-y:srcoll;
+	text-align: center;
 	padding-bottom:63px;
+}
+.overlayMain h1 {
+	text-align:center;
 }
 .overlay .bottom{
 	border-top:1px solid #888;
@@ -161,6 +167,9 @@ table input:nth-child(2){
 	margin-top:0;
 }
 
+configurePin {
+	text-align:left;
+}
 .bottom .ok {
 	float:right;
 	clear:none;
@@ -180,18 +189,34 @@ table input:nth-child(2){
 #changeFreqInput, #changeIpInput {
 	text-align:right;
 }
-#showError .overlayMain{
+#showError .overlayMain {
 	background: #a90329;
 	background: -moz-linear-gradient(top, #a90329 0%, #8f0222 44%, #6d0019 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a90329), 
 		color-stop(44%,#8f0222), color-stop(100%,#6d0019));
 	text-shadow: 0 1px 0px #a00;
+}
+#showError p {
 	color:#e0e0e0;
 }
 
 #showError h1 {
 	text-shadow: 0 1px 0px #a00;
 	color:#eee;	
+}
+#configurePin .overlayMain {
+	padding-left: 0;
+	padding-right: 0;
+	text-align: left;
+	padding-bottom: 45px;
+}
+#configurePin table input {
+	width: 100%;
+}
+#configurePin table tr td {
+	border-left: 0;
+	padding-left:30px;
+	padding-right:30px;
 }
 .analogValue{
 	color:#888;
@@ -228,4 +253,22 @@ table input:nth-child(2){
 }
 .header_bgcolor {
 	background:#2B2B2B;
+}
+
+#conf_func_td * {
+	margin-top:0;
+	font-family:Monaco, "Lucida Console", monospace;	
+}
+
+#conf_func {
+	width:100%;
+	height:100px;
+	margin:0;
+	padding-left: 15px;
+}
+#conf_func_error {
+	color:#a90329;
+	padding:10px;
+	text-align:center;
+	margin:0;
 }
