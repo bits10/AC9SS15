@@ -337,6 +337,7 @@ CSS code for the board
 	border-radius: 100px;
 	position: relative;
 	float:left;
+	cursor:default;
 }
 .pinCheck label {
 	cursor:pointer;
@@ -361,7 +362,7 @@ CSS code for the board
 	top: 0px;
 	left: 0px;
 }
-.pinCheck label:after {
+.pinCheckClickable label:after {
 	filter: alpha(opacity=0);
 	opacity: 0;
 	content: 'I';
@@ -373,26 +374,18 @@ CSS code for the board
 	top: 1px;
 	left: 1px;
 }
-.pinCheck:hover {
-	 box-shadow: 0 0 6px 3px #33B5E5;
-    z-index:1000000;
-    position:relative;
-}
-.pinCheck input[type=checkbox]:checked + label:after {
+.pinCheckClickable input[type=checkbox]:checked + label:after {
 	filter: alpha(opacity=100);
 	opacity: 1;
 }
-.pinCheckUnclickable label {
-		cursor:default;
-
+.pinCheckClickable {
+	cursor:pointer;
+	box-shadow: 0 0 6px 3px #00CC00;
 }
-.pinCheckUnclickable:hover{
-	box-shadow: 0 0 0 0 #33B5E5;
+.pinCheckClickable:hover, pinCheckAnalog:hover {
+	box-shadow: 0 0 6px 3px #33B5E5;
     z-index:1000000;
     position:relative;
-}
-.pinCheckUnclickable input[type=checkbox]:checked + label:after {
-	opacity:0;
 }
 .pinCheckMinus label:before {
 	content: '-';
@@ -413,7 +406,7 @@ CSS code for the board
  * Short test of the visual effect displaying a selected component.
  */
 .selected{
-    box-shadow: 0 0 13px 7px #33B5E5;
+    box-shadow: 0 0 6px 3px #33B5E5;
     z-index:1000000;
     position:relative;
 }

@@ -28,6 +28,9 @@ function initUi() {
     	v[i].style.setProperty('-moz-transform', r);
 	}
 	
+	v=getPinInfo();
+
+	
 	//Init Settings for rest.js
 	setOnValuesChanged(updateUI);
 	
@@ -52,14 +55,30 @@ function updateUI(pinInfo, values, time){
 	
 	//Update all values
 	for(var i=0; i<pinInfo.length; i++) {
-		var el = getEl(pinInfo[i].id);
+		var id=pinInfo[i].id;
+		var el = getEl(id);
 		if(el) {
+			//Update value
 			if(el.type === 'checkbox') {
 				el.checked=values[i].v=='1';
 			} else {
 				el.innerHTML=values[i].v;
 			}
 		}
+		
+
+			
+		//Skip the currently displayed pin
+		if(sidebarId==id)
+			continue;
+			
+		//Update input output display
+		el=getHighlightElem(id)
+		if(el) {
+			removeClass('pinCheckClickable', el);
+			if(values[i].dd=='o')
+				addClass('pinCheckClickable', el);
+			}
 	}
 	
 	updateSidebarValues();
@@ -85,12 +104,35 @@ function setMain(div){
 	getEl(div).style.display="block";
 	getEl(div+'_bt').style.borderColor=fg;
 }
-
+function addClass(clazz, item) {
+	item.className+=' '+clazz;
+}
+function removeClass(clazz, item) {
+	item.className = item.className.replace(' '+clazz, '');
+}
+function getHighlightElem(id) {
+	var el;
+	if(isDigital(id)) {
+		el=getEl(id);
+	} else {
+		el=getEl(id+'_check');
+	}
+	
+	return el?el.parentNode:null;
+}
 function setSidebarId(id){
+	if(sidebarId) {
+		var el=getHighlightElem(sidebarId);
+		removeClass('selected', el);
+	}
+
 	sidebarId=id;
 	if(id==undefined)
 		return;
-		
+	
+	var el=getHighlightElem(id);
+	addClass('selected', el);
+
 	getEl('detail_fav').checked=isFavorite(id);
 	getEl('detail_title').innerHTML=getName(id);
 	getEl('detail_pin').innerHTML=getPosition(id);
@@ -172,6 +214,8 @@ function endConfigurePin() {
 		setFunction(id, getEl('conf_func').value);
 		hideOverlay();
 		updateSidebarValues();
+		
+		var el=getHighlightElem(id);
 	} catch(e) {
 		getEl('conf_func_error').innerHTML="Ein Fehler ist aufgetreten:<br>"+e;
 	}
@@ -219,19 +263,19 @@ function writePinCheck(ids) {
 }
 
 function writePinCheckMinus(count) {
-	write(count, '<div class="pinCheck pinCheckUnclickable pinCheckMinus"><input type="checkbox" name="OUT" id="pinMinus"/><label for="pinMinus"></label></div>');
+	write(count, '<div class="pinCheck pinCheckMinus"><input type="checkbox" name="OUT" id="pinMinus"/><label for="pinMinus"></label></div>');
 }
 
 function writePinCheckPlus(count) {
-	write(count, '<div class="pinCheck pinCheckUnclickable pinCheckPlus"><input type="checkbox" name="OUT" id="pinPlus"/><label for="pinPlus"></label></div>');
+	write(count, '<div class="pinCheck pinCheckPlus"><input type="checkbox" name="OUT" id="pinPlus"/><label for="pinPlus"></label></div>');
 }
 
 function writePinCheckNone(count) {
-	write(count, '<div class="pinCheck pinCheckUnclickable pinCheckNone"><input type="checkbox" name="OUT" id="pinNone"/><label for="pinNone"></label></div>');
+	write(count, '<div class="pinCheck pinCheckNone"><input type="checkbox" name="OUT" id="pinNone"/><label for="pinNone"></label></div>');
 }
 
 function writePinCheckAnalog(ids) {
-	write(ids.length, '<div class="pinCheck pinCheckUnclickable pinCheckAnalog"><input type="checkbox" name="OUT" id="%id_check" /><label for="%id_check" onmouseover="opcmoId(\'%id\')"> </label></div><p class="analogValue" id="%id">--</p>', ids);
+	write(ids.length, '<div><div class="pinCheck pinCheckAnalog"><input type="checkbox" name="OUT" id="%id_check" /><label for="%id_check" onmouseover="opcmoId(\'%id\')"> </label></div></div><p class="analogValue" id="%id">--</p>', ids);
 }
 
 function writePlusMinusBox(count) {

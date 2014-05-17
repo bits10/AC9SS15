@@ -222,10 +222,6 @@ configurePin {
 	color:#888;
 }
 
-.analogValue:hover{
-	text-shadow: 0 0 3px #33B5E5;
-}
-
 /*Farben*/
 .background{
 	background:#fcfcfc;
