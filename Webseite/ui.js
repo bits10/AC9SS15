@@ -64,21 +64,29 @@ function updateUI(pinInfo, values, time){
 			} else {
 				el.innerHTML=values[i].v;
 			}
+			//Update onclick function (depending on input or output)
+			if(values[i].dd=='o') {
+				el.setAttribute('onchange', 'setValue("'+id+'", this.checked);');
+				el.setAttribute('onclick', '');
+			} else {
+				el.setAttribute('onchange', 'return false;');
+				el.setAttribute('onclick', 'return false;');
+			}
 		}
 		
-
-			
 		//Skip the currently displayed pin
 		if(sidebarId==id)
 			continue;
 			
 		//Update input output display
-		el=getHighlightElem(id)
+		el=getHighlightElem(id);
 		if(el) {
-			removeClass('pinCheckClickable', el);
-			if(values[i].dd=='o')
-				addClass('pinCheckClickable', el);
+			el.setAttribute('oncontextmenu', 'startConfigurePin("'+id+'");return false;');
+			removeClass('pinCheckOutput', el);
+			if(values[i].dd=='o') {
+				addClass('pinCheckOutput', el);
 			}
+		}
 	}
 	
 	updateSidebarValues();
@@ -136,10 +144,11 @@ function setSidebarId(id){
 	getEl('detail_fav').checked=isFavorite(id);
 	getEl('detail_title').innerHTML=getName(id);
 	getEl('detail_pin').innerHTML=getPosition(id);
-	getEl('detail_conf').innerHTML=getDataDirectionDescription(getDataDirection(id));
+	getEl('detail_conf').innerHTML=getDDDescription(getDD(id));
 	getEl('detail_type').innerHTML=isDigital(id)?"Digital":"Analog";
 	getEl('detail_desc').innerHTML=getDescription(id);
 	getEl('detail_func').innerHTML=getFunctionText(id).substring(0, 100).replace(/\n/g, '<br/>').replace(/ /g, '&nbsp;');
+
 	
 	updateSidebarValues();
 }
@@ -150,7 +159,7 @@ function updateSidebarValues(){
 		return;
 		
 	var el=getEl('detail_val');
-	var dd=getDataDirection(id);
+	var dd=getDD(id);
 	
 	if(isDigital(id)) {
 		el.innerHTML="<p class='checkbox'><input type='checkbox'id='detail_val_cb'value='None'/><label for='detail_val_cb'></label></p>";
@@ -169,7 +178,7 @@ function updateFavoritesTable() {
 	var favs = getFavoritelist();
 	for(var k in favs) {
 		var id = favs[k].id;
-		tb.innerHTML+='<tr><td>' + getName(id) + '</td><td>' + getDescription(id) + '</td><td>' + getPosition(id) + '</td><td>' + getDataDirectionDescription(getDataDirection(id)) + '</td><td>' +getTypeName(id) + '</td><td>' + getValue(id) + '</td><td>' + getFunction(id)(getValue(id)) + '</td><td><input type="button" value="Anpassen" onclick="startConfigurePin(\'' + id + '\')"/><input type="button" value="Entfernen" onClick="removeFavorite(\'' + id + '\');"/></td></tr>';
+		tb.innerHTML+='<tr><td>' + getName(id) + '</td><td>' + getDescription(id) + '</td><td>' + getPosition(id) + '</td><td>' + getDDDescription(getDD(id)) + '</td><td>' +getTypeName(id) + '</td><td>' + getValue(id) + '</td><td>' + getFunction(id)(getValue(id)) + '</td><td><input type="button" value="Anpassen"/><input type="button" value="Entfernen" onClick="removeFavorite(\'' + id + '\');"/></td></tr>';
 
 	}
 }
@@ -180,20 +189,22 @@ function startConfigurePin(id) {
 		return;
 	}
 	
+	console.log('id: ' +id);
+	
 	getEl('conf_title').innerHTML=getName(id);
 	getEl('conf_fav').checked=isFavorite(id);
 	getEl('conf_pin').innerHTML=getPosition(id);
 
 	var s=getEl('conf_conf');
 	s.innerHTML="";
-	var opts=getDataDirectionOptions(id);
+	var opts=getDDOptions(id);
 	for (var i=0;i<opts.length;i++){
     	var opt = document.createElement('option');
     	opt.value = opts[i];
-    	opt.innerHTML = getDataDirectionDescription(opts[i]);
+    	opt.innerHTML = getDDDescription(opts[i]);
     	s.appendChild(opt);
 	}
-	s.value=getDataDirection(id);
+	s.value=getDD(id);
 	getEl('conf_type').innerHTML=isDigital(id)?"Digital":"Analog";
 	getEl('conf_desc').value=getDescription(id);
 	getEl('conf_func').value=getFunctionText(id);
@@ -209,7 +220,7 @@ function endConfigurePin() {
 	
 	try {
 		setFavorit(id, getEl('conf_fav').checked);
-		setDataDirection(id, getEl('conf_conf').value);
+		setDD(id, getEl('conf_conf').value);
 		setDescription(id, getEl('conf_desc').value);
 		setFunction(id, getEl('conf_func').value);
 		hideOverlay();
@@ -259,7 +270,7 @@ function write(count, string, ids) {
 }
 
 function writePinCheck(ids) {
-	write(ids.length, '<div class="pinCheck"><input type="checkbox" name="OUT" id="%id"/><label for="%id" onmouseover="opcmo(this)"></label></div>', ids);
+	write(ids.length, '<div class="pinCheck pinCheckSelectable"><input type="checkbox" name="OUT" id="%id"/><label for="%id" onmouseover="opcmo(this)"></label></div>', ids);
 }
 
 function writePinCheckMinus(count) {
