@@ -229,3 +229,34 @@ table input:nth-child(2){
 .header_bgcolor {
 	background:#2B2B2B;
 }
+
+/*Loading Loop*/
+
+.ball {
+    background-color: rgba(0,0,0,0);
+    border: 3px solid rgba(0,183,229,0.9);
+    opacity: .9;
+    border-top: 5px solid rgba(0,0,0,0);
+    border-left: 5px solid rgba(0,0,0,0);
+    border-radius: 100px;
+    width: 10px;
+    height: 10px;
+    -moz-animation: spin .9s infinite linear;
+    -webkit-animation: spin .9s infinite linear;
+    float:right;
+    top:12px;
+    right: 10px;
+    display:block;
+    position:absolute;
+}
+
+@-moz-keyframes spin {
+    0% {-moz-transform: rotate(0deg);}
+    100% {-moz-transform: rotate(360deg);
+    };
+}
+@-webkit-keyframes spin {
+    0% {-webkit-transform: rotate(0deg);}
+    100% {-webkit-transform: rotate(360deg);
+    };
+}
