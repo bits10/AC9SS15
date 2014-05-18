@@ -92,7 +92,7 @@ function updateUI(pinInfo, values, time){
 	updateSidebarValues();
 	
 	//Hier nur Werte updaten!! TODO
-	updateFavoritesTable();
+	updateFavoritesTableValues();
 }
 
 /**
@@ -177,9 +177,21 @@ function updateFavoritesTable() {
 	tb.innerHTML = "";
 	var favs = getFavoritelist();
 	for(var k in favs) {
-		var id = favs[k].id;
-		tb.innerHTML+='<tr><td>' + getName(id) + '</td><td>' + getDescription(id) + '</td><td>' + getPosition(id) + '</td><td>' + getDDDescription(getDD(id)) + '</td><td>' +getTypeName(id) + '</td><td>' + getValue(id) + '</td><td>' + getFunction(id)(getValue(id)) + '</td><td><input type="button" value="Anpassen"/><input type="button" value="Entfernen" onClick="removeFavorite(\'' + id + '\');"/></td></tr>';
+		tb.innerHTML+='<tr><td class="row_title">' + getName(k) + '</td><td>' + getDescription(k) + '</td><td>' + getPosition(k) + '</td><td>' + getDDDescription(getDD(k)) + '</td><td>' +getTypeName(k) + '</td><td id="'+k+'_v"></td><td id="'+k+'_cv"></td><td><input type="image" src="ic_edit.svg" height="16px" alt="Anpassen" title="Pin anpassen" onclick="startConfigurePin(\''+k+'\')"/><input type="image" src="ic_trash.svg" height="16px" alt="Entfernen" title="Als Favorit entfernen" onClick="removeFavorite(\'' + k + '\');"/></td></tr>';
+	}
+	
+	updateFavoritesTableValues();
+}
 
+function updateFavoritesTableValues() {
+	var favs = getFavoritelist();
+	for(var k in favs) {
+		var el=getEl(k+'_v');
+		if(el)
+			el.innerHTML=getValue(k);
+		el=getEl(k+'_cv');
+		if(el)
+			el.innerHTML=getFunction(k)(getValue(k));
 	}
 }
 

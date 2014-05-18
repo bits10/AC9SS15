@@ -10,7 +10,7 @@
 <script src="rest.js" type="text/javascript"> </script>
 <script src="ui.js" type="text/javascript"> </script>
 </head>
-<body onload="initRest();initFavorites();initUi();setMain('status');">
+<body onload="initRest();initFavorites();initUi();setMain('status');" style="overflow:scroll;">
 	
 	<!--The main div. Only the header and one of the other children should be visible a time-->
 	<div class="background" id="main">
@@ -149,7 +149,7 @@
 				<p>SCRIPT-FUNKTION</p>
 				<p class="select detail" id="detail_func">--</p>	
 				<p></p>	
-				<input type="button" value="Anpassen" onclick="startConfigurePin(sidebarId)"/>
+				<input type="image" src="ic_edit.svg" height="16px" alt="Anpassen" title="Pin anspassen" onclick="startConfigurePin(sidebarId)"/>
 			</div>
 			<!--End of the sidebar-->
 

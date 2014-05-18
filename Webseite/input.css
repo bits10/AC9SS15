@@ -58,7 +58,7 @@
 .checkbox input[type=checkbox] {
 	visibility: hidden;
 }
-input[type="button"],input[type="submit"]  {
+input[type="button"],input[type="submit"],input[type="image"], button  {
 	padding:5px;
 	color:#2B2B2B;
 	border-radius: 3px;
@@ -74,11 +74,11 @@ input[type="button"],input[type="submit"]  {
     border-width:0;
     appearance:none;
 }
-input[type="button"]:hover, input[type="submit"]:hover{
+input[type="button"]:hover, input[type="submit"]:hover,input[type="image"]:hover, button:hover{
 	box-shadow: 0 0 5px #33B5E5;
 	outline:none;
 }
-input[type="button"]:active, input[type="submit"]:active{
+input[type="button"]:active, input[type="submit"]:active,input[type="image"]:active, button:active{
 	box-shadow:inset 0 0 3px #888, 0 0 5px #33B5E5;
 	outline:none;
 }

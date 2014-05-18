@@ -106,7 +106,7 @@ function getDescription(id){
 	 */
 function setFunction(id, func){
 		//Will throw a exception is the func text contains a syntax error
-		new Function(func);
+		new Function(func)(1.324);
 		favoritelist[id].func=func;
 	//console.log("Beschreibung geändert");
 		saveCookie();
