@@ -1,5 +1,6 @@
 //The id of the pin displayed in the sidebar.
-var displayDetailId;
+var sidebarId;
+var configureId;
 
 /**
  * Shortcut for document.getElementById(id).
@@ -27,6 +28,9 @@ function initUi() {
     	v[i].style.setProperty('-moz-transform', r);
 	}
 	
+	v=getPinInfo();
+
+	
 	//Init Settings for rest.js
 	setOnValuesChanged(updateUI);
 	
@@ -38,11 +42,11 @@ function initUi() {
 }
 
 function opcmoId(id) {
-	displayDetails(id);
+	setSidebarId(id);
 }
 
 function opcmo(elem) {
-	displayDetails(elem.htmlFor);
+	setSidebarId(elem.htmlFor);
 }
 
 function updateUI(pinInfo, values, time){
@@ -51,20 +55,44 @@ function updateUI(pinInfo, values, time){
 	
 	//Update all values
 	for(var i=0; i<pinInfo.length; i++) {
-		var el = getEl(pinInfo[i].id);
+		var id=pinInfo[i].id;
+		var el = getEl(id);
 		if(el) {
+			//Update value
 			if(el.type === 'checkbox') {
 				el.checked=values[i].v=='1';
 			} else {
 				el.innerHTML=values[i].v;
 			}
+			//Update onclick function (depending on input or output)
+			if(values[i].dd=='o') {
+				el.setAttribute('onchange', 'setValue("'+id+'", this.checked);');
+				el.setAttribute('onclick', '');
+			} else {
+				el.setAttribute('onchange', 'return false;');
+				el.setAttribute('onclick', 'return false;');
+			}
+		}
+		
+		//Skip the currently displayed pin
+		if(sidebarId==id)
+			continue;
+			
+		//Update input output display
+		el=getHighlightElem(id);
+		if(el) {
+			el.setAttribute('oncontextmenu', 'startConfigurePin("'+id+'");return false;');
+			removeClass('pinCheckOutput', el);
+			if(values[i].dd=='o') {
+				addClass('pinCheckOutput', el);
+			}
 		}
 	}
 	
-	updateDetailsValue();
+	updateSidebarValues();
 	
 	//Hier nur Werte updaten!! TODO
-	updateFavoritesTable();
+	updateFavoritesTableValues();
 }
 
 /**
@@ -84,46 +112,62 @@ function setMain(div){
 	getEl(div).style.display="block";
 	getEl(div+'_bt').style.borderColor=fg;
 }
+function addClass(clazz, item) {
+	item.className+=' '+clazz;
+}
+function removeClass(clazz, item) {
+	item.className = item.className.replace(' '+clazz, '');
+}
+function getHighlightElem(id) {
+	var el;
+	if(isDigital(id)) {
+		el=getEl(id);
+	} else {
+		el=getEl(id+'_check');
+	}
+	
+	return el?el.parentNode:null;
+}
+function setSidebarId(id){
+	if(sidebarId) {
+		var el=getHighlightElem(sidebarId);
+		removeClass('selected', el);
+	}
 
-function displayDetails(id){
-	displayDetailId=id;
+	sidebarId=id;
 	if(id==undefined)
 		return;
-		
+	
+	var el=getHighlightElem(id);
+	addClass('selected', el);
+
 	getEl('detail_fav').checked=isFavorite(id);
-	getEl("detail_title").innerHTML=getName(id);
+	getEl('detail_title').innerHTML=getName(id);
 	getEl('detail_pin').innerHTML=getPosition(id);
-	var s=getEl('detail_conf');
-	s.innerHTML="";
-	var opts=getDataDirectionOptions(id);
-	for (var i=0;i<opts.length;i++){
-    	var opt = document.createElement('option');
-    	opt.value = opts[i];
-    	opt.innerHTML = getDataDirectionDescription(opts[i]);
-    	s.appendChild(opt);
-	}
+	getEl('detail_conf').innerHTML=getDDDescription(getDD(id));
 	getEl('detail_type').innerHTML=isDigital(id)?"Digital":"Analog";
 	getEl('detail_desc').innerHTML=getDescription(id);
-	getEl('detail_func').innerHTML=getFunction(id)+"";
+	getEl('detail_func').innerHTML=getFunctionText(id).substring(0, 100).replace(/\n/g, '<br/>').replace(/ /g, '&nbsp;');
+
 	
-	updateDetailsValue();
+	updateSidebarValues();
 }
 
-function updateDetailsValue(){
-	var id = displayDetailId;
+function updateSidebarValues(){
+	var id = sidebarId;
 	if(id==undefined)
 		return;
 		
 	var el=getEl('detail_val');
-	var dd=getDataDirection(id);
+	var dd=getDD(id);
 	
 	if(isDigital(id)) {
-		el.innerHTML="<div class='checkbox'><input type='checkbox'id='detail_val_cb'value='None'/><label for='detail_val_cb'></label></div>";
+		el.innerHTML="<p class='checkbox'><input type='checkbox'id='detail_val_cb'value='None'/><label for='detail_val_cb'></label></p>";
 		el=getEl('detail_val_cb');
-		el.checked=getValue(displayDetailId)=='1';
+		el.checked=getValue(sidebarId)=='1';
 		el.disabled=dd!='o'
 	} else {
-		el.innerHTML=getValue(id);
+		el.innerHTML='<p class="detail">' + getValue(id) + '</p>';
 	}
 	getEl('detail_conf').value=dd;
 }
@@ -133,10 +177,73 @@ function updateFavoritesTable() {
 	tb.innerHTML = "";
 	var favs = getFavoritelist();
 	for(var k in favs) {
-		var id = favs[k].id;
-		tb.innerHTML+='<tr><td>' + getName(id) + '</td><td>' + getDescription(id) + '</td><td>' + getPosition(id) + '</td><td>' + getDataDirectionDescription(getDataDirection(id)) + '</td><td>' +getTypeName(id) + '</td><td>' + getValue(id) + '</td><td>' + getFunction(id)(getValue(id)) + '</td><td><input type="button" value="Anpassen" onclick="editFavorit(\'' + id + '\')"/><input type="button" value="Entfernen" onClick="removeFavorite(\'' + id + '\');"/></td></tr>';
-
+		tb.innerHTML+='<tr><td class="row_title">' + getName(k) + '</td><td>' + getDescription(k) + '</td><td>' + getPosition(k) + '</td><td>' + getDDDescription(getDD(k)) + '</td><td>' +getTypeName(k) + '</td><td id="'+k+'_v"></td><td id="'+k+'_cv"></td><td><input type="image" src="ic_edit.svg" height="16px" alt="Anpassen" title="Pin anpassen" onclick="startConfigurePin(\''+k+'\')"/><input type="image" src="ic_trash.svg" height="16px" alt="Entfernen" title="Als Favorit entfernen" onClick="removeFavorite(\'' + k + '\');"/></td></tr>';
 	}
+	
+	updateFavoritesTableValues();
+}
+
+function updateFavoritesTableValues() {
+	var favs = getFavoritelist();
+	for(var k in favs) {
+		var el=getEl(k+'_v');
+		if(el)
+			el.innerHTML=getValue(k);
+		el=getEl(k+'_cv');
+		if(el)
+			el.innerHTML=getFunction(k)(getValue(k));
+	}
+}
+
+function startConfigurePin(id) {
+	if(!id) {
+		showErrorOverlay("Bitte wählen Sie zuerst einen Pin aus.");
+		return;
+	}
+	
+	console.log('id: ' +id);
+	
+	getEl('conf_title').innerHTML=getName(id);
+	getEl('conf_fav').checked=isFavorite(id);
+	getEl('conf_pin').innerHTML=getPosition(id);
+
+	var s=getEl('conf_conf');
+	s.innerHTML="";
+	var opts=getDDOptions(id);
+	for (var i=0;i<opts.length;i++){
+    	var opt = document.createElement('option');
+    	opt.value = opts[i];
+    	opt.innerHTML = getDDDescription(opts[i]);
+    	s.appendChild(opt);
+	}
+	s.value=getDD(id);
+	getEl('conf_type').innerHTML=isDigital(id)?"Digital":"Analog";
+	getEl('conf_desc').value=getDescription(id);
+	getEl('conf_func').value=getFunctionText(id);
+	getEl('conf_func_error').innerHTML='';
+	
+	configureId=id;
+	showOverlay('configurePin');
+ 
+}
+
+function endConfigurePin() {
+	var id=configureId;
+	
+	try {
+		setFavorit(id, getEl('conf_fav').checked);
+		setDD(id, getEl('conf_conf').value);
+		setDescription(id, getEl('conf_desc').value);
+		setFunction(id, getEl('conf_func').value);
+		hideOverlay();
+		updateSidebarValues();
+		
+		var el=getHighlightElem(id);
+	} catch(e) {
+		getEl('conf_func_error').innerHTML="Ein Fehler ist aufgetreten:<br>"+e;
+	}
+
+
 }
 
 function getTypeName(id) {
@@ -158,7 +265,7 @@ function hideOverlay() {
 }
 
 function onFavoritesChanged() {
-	displayDetails(displayDetailId);
+	setSidebarId(sidebarId);
 	updateFavoritesTable();
 }
 
@@ -166,11 +273,6 @@ function showErrorOverlay(message) {
 	getEl('errorText').innerHTML=message;
 	showOverlay('showError');
 }
-
-function editFavorit() {
-	showOverlay('configureFav');
-}
-
 
 function write(count, string, ids) {
 	for(var i=0;i<count;i++) {
@@ -180,23 +282,23 @@ function write(count, string, ids) {
 }
 
 function writePinCheck(ids) {
-	write(ids.length, '<div class="pinCheck"><input type="checkbox" name="OUT" id="%id"/><label for="%id" onmouseover="opcmo(this)"></label></div>', ids);
+	write(ids.length, '<div class="pinCheck pinCheckSelectable"><input type="checkbox" name="OUT" id="%id"/><label for="%id" onmouseover="opcmo(this)"></label></div>', ids);
 }
 
 function writePinCheckMinus(count) {
-	write(count, '<div class="pinCheck pinCheckUnclickable pinCheckMinus"><input type="checkbox" name="OUT" id="pinMinus"/><label for="pinMinus"></label></div>');
+	write(count, '<div class="pinCheck pinCheckMinus"><input type="checkbox" name="OUT" id="pinMinus"/><label for="pinMinus"></label></div>');
 }
 
 function writePinCheckPlus(count) {
-	write(count, '<div class="pinCheck pinCheckUnclickable pinCheckPlus"><input type="checkbox" name="OUT" id="pinPlus"/><label for="pinPlus"></label></div>');
+	write(count, '<div class="pinCheck pinCheckPlus"><input type="checkbox" name="OUT" id="pinPlus"/><label for="pinPlus"></label></div>');
 }
 
 function writePinCheckNone(count) {
-	write(count, '<div class="pinCheck pinCheckUnclickable pinCheckNone"><input type="checkbox" name="OUT" id="pinNone"/><label for="pinNone"></label></div>');
+	write(count, '<div class="pinCheck pinCheckNone"><input type="checkbox" name="OUT" id="pinNone"/><label for="pinNone"></label></div>');
 }
 
 function writePinCheckAnalog(ids) {
-	write(ids.length, '<div class="pinCheck pinCheckUnclickable pinCheckAnalog"><input type="checkbox" name="OUT" id="%id_check" /><label for="%id_check" onmouseover="opcmoId(\'%id\')"> </label></div><p class="analogValue" id="%id">--</p>', ids);
+	write(ids.length, '<div><div class="pinCheck pinCheckAnalog"><input type="checkbox" name="OUT" id="%id_check" /><label for="%id_check" onmouseover="opcmoId(\'%id\')"> </label></div></div><p class="analogValue" id="%id">--</p>', ids);
 }
 
 function writePlusMinusBox(count) {

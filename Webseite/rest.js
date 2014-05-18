@@ -14,6 +14,7 @@ var realPollingFreq=0;
 var lastPollingTime=Date.now();
 var isInitialised;
 var isPaused=0;
+var taskIdCounter=0;
 /*
  * Inits the REST interface. Should only be called once at the startup of the page!
  */
@@ -28,15 +29,26 @@ function initRest(){
 	cachedInfo=JSON.parse(loadURL(urlInfo));
 	cachedPinInfo=JSON.parse(loadURL(urlPinInfo));
 	cachedValues=JSON.parse(loadURL(urlValues));
-	refreshValues();
+	startNewRefershTask();
 	isInitialised=1;
 }
 
+function startNewRefershTask(postParams) {
+	 refreshValues(++taskIdCounter, postParams);
+}
+/*function cancelRefreshTask() {
+	taskIdCounter++;
+}*/
 /*
  * Internally used function to refresh the values in an given interval.
  */
-function refreshValues(){
-	loadURLAsync(urlValues, function(state, response) {
+function refreshValues(taskId, postParams){
+	if(taskIdCounter!=taskId) {
+		console.log("Task canceled!");
+		return;
+	}
+	
+	loadURLAsync(urlValues, postParams, function(state, response) {
 		cachedValues=JSON.parse(response);
 	
 		realPollingFreq=Date.now()-lastPollingTime;
@@ -46,7 +58,7 @@ function refreshValues(){
 			onValuesChanged(cachedPinInfo, cachedValues, realPollingFreq);	
 	
 			if(!isPaused)
-				window.setTimeout("refreshValues()",pollingFreq);
+				window.setTimeout("refreshValues("+taskId+", null)",pollingFreq);
 				
 		} else {
 			onNetworkError(state, response);
@@ -75,14 +87,20 @@ function loadURL(url){
  * @param {Object} the URL of the requested resource.
  * @return The loaded content.
  */
-function loadURLAsync(url, func){
+function loadURLAsync(url, postParams, func){
   	x=new XMLHttpRequest();
   	x.onreadystatechange=function() {
   		if(x.readyState==4)
   			func(x.status,x.responseText);
   	};
-	x.open("GET",url,true);
-	x.send();
+	x.open("POST",url,true);
+	
+	if(postParams) {
+		x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');	
+		x.send(postParams);
+	} else {
+		x.send();
+	}
 }
 
 /**
@@ -121,6 +139,10 @@ function getValue(id){
  */
 function setValue(id,value){
 	//return loadURLAsync(urlModify+id+'='+value, function(){});
+	console.log(id+ ": " + value);
+	throw 'Werw';
+	//startNewRefershTask("OUT=XYZ;SUB=OK");
+	
 }
 
 /**
@@ -152,7 +174,7 @@ function getInfo(){
  * @param {Object} The name of the pin.
  * @return An array with all possible data directions.
  */
-function getDataDirectionOptions(id){
+function getDDOptions(id){
 	return cachedPinInfo[getIndex(id)].ddOptions;
 }
 
@@ -161,7 +183,7 @@ function getDataDirectionOptions(id){
  * @param {Object} The data direction.
  * @return A String describing the given data description.
  */
-function getDataDirectionDescription(dd) {
+function getDDDescription(dd) {
 	switch(dd){
 		case 'i':return"Eingang";
 		case 'o':return"Ausgang";
@@ -174,7 +196,7 @@ function getDataDirectionDescription(dd) {
  * @param {Object} The name of the pin.
  * @return The data direction of the pin with the given id.
  */
-function getDataDirection(id){
+function getDD(id){
 	return  cachedValues[getIndex(id)].dd;
 }
 
@@ -183,7 +205,7 @@ function getDataDirection(id){
  * @param {Object} The id of the pin.
  * @param {Object} The new data direction.
  */
-function setDataDirection(id, dd) {
+function setDD(id, dd) {
 	
 }
 

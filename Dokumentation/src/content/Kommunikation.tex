@@ -209,32 +209,38 @@ TODO: Hier noch Argumentation mit Übertragungszeit und Screenshot aus Chrome Ne
 \section{Implementierung der REST-Schnitstelle auf dem Server}
 
 Für die Restschnittstelle wurde Weitestgehend der Bestehende Quellcode von Radig
-verwendet.
-Zum schalten der Eingänge sind Platzhalter vorgesehen (z.B. \%PortC1 ) mit
-diesen kann der direkte Port zusammen mit dem Pin (Hier Port C1) an eine
-beliebige Stelle im Quellcode platziert werden. Neu hinzugekommen ist das
-Ausgeben ob der Konkrete Pin über das DDRegister als Ein- oder Ausgang definiert ist.
-So können Änderungen die Über die Website gemacht werden gleich dem
-Entsprechendem Port zugewiesen werden. Das schema für den Platzhalter ist hier
-\%DDRxy. x steht hier für den Entsprechenden Port und y für den dazugehörenen
-pin.\\
+verwendet. Zum auslesen ob ein Pin gesetzt ist sind Platzhalter vorgesehen.
+Das Schema für so einen Platzhalter ist \textrm{\%PINXY} und setzt sich zusammen aus dem
+Aufruf \textrm{\%PIN}, dem anzusprechendem Port X = [A,C oder D] und dem Pin Y = [0-7] (z.B.
+\textrm{\%PINC1 } ). Mit diesem Platzhalter kann der direkte Pin Ausgelesen
+(Hier Port C und Pin 1) und an eine beliebige Stelle im Quellcode platziert werden. Neu
+hinzugekommen ist das Ausgeben der Information ob der Konkrete Pin über das
+DDRegister als Ein- oder Ausgang definiert ist. Das Schema ist für diesen
+Platzhalter ist \textrm{\%DDRXY} und setzt sich zusammen aus dem Aufruf \textrm{\%DDR}, dem
+anzusprechendem Port X = [A,C oder D] und dem Pin Y = [0-7] (z.B.
+\textrm{\%DDRD1} ). \\
 \\
 Damit das System für uns möglichst flexibel Arbeitet, haben wir uns dafür
-entschieden, diese Dynamischen Angaben in eine Separate Datei auszulagern und über die REST Schnittstelle abzufragen. Konkreter liegt in dem /Rest Verzeichnis
-eine \textrm{values} Datei die die Platzhalter enthält. Zusätzlich gibt es noch eine
-\textrm{info} und \textrm{pininfo} Datei, die statische Informationen zu den
-Pins und Ports Enthält.
-Zum setzen der Ausgänge wird über einen Post Aufruf der entsprechende Port und
-Pin gesetzt. Die Informationen, die zum setzen eines Ports Benötigt werden
-setzen sich zusammen aus einem \textrm{SET} Befehl und dem Zu schaltendem Port
-und Pin. Abschließend muss das Ende der Schaltanweisung mit \textrm{SUB}
-gekennzeichnet werden, da der Webserver auf diese Steuerzeichen prüft. Ein
-Beispiel Post zum schalten der Pins C1 und C2 sieht folgendermaßen aus: \\
-
-\framebox{SET=C1\&SET=C2\&SUB=Senden} \\
+entschieden, diese Dynamischen Angaben in eine Separate Datei auszulagern und
+über die REST Schnittstelle abzufragen. Konkreter liegt in dem /Rest
+Verzeichnis eine \textrm{values} Datei die die Platzhalter enthält. Zusätzlich
+gibt es noch eine \textrm{info} und \textrm{pininfo} Datei, die statische
+Informationen zu den Pins und Ports Enthält. \\
 \\
-Anzumerken ist, das beim Setzen der Pins die bestehenden Zustände verloren
-gehen. 
+Das setzen der Ausgänge wird über einen HTTP-Post Aufruf getätigt. So können die
+Pins des entsprechenden Ports gesetzt oder umgeschaltet werden. Die
+Informationen, die zum setzen eines Ports benötigt werden setzen sich zusammen
+aus einem \textrm{SET} Befehl und dem Aufruf PORTXYZ zum setzen oder dem
+\textrm{SET} Befehl und dem Aufruf OUTXYZ. X steht für den anzusprechendem Port
+X = [A,C oder D]. Y und Z Stehen für die Einstellung der Pins in hexadezimaler
+Schreibweise (00-FF) Abschließend muss das Ende der Schaltanweisung mit
+\textrm{SUB} gekennzeichnet werden, da der Webserver auf diese Steuerzeichen
+prüft. Ein Beispiel Post zum setzen der Pins C0-C3 auf Ein, der Pins C4-C7 auf
+Aus, dem umschalten der Pins D0-D3 als Ausgang und der Pins D4-D7 als Eingang
+sieht folgendermaßen aus:
+\\
+
+\framebox{SET=PORTC0F\&SET=OUTD0F\&SUB=Senden} 
 %\begin{itemize}
 %	\item Benutzung der Struktur von Radig
 %	\item Die Eingägne werden durch Platzhalter (z.B. \%PortC1 ) angegeben. Beim

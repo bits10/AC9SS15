@@ -1,6 +1,6 @@
 var favoritelist=new Object();
 var onFavoritesChanged = function(){};
-var defaultFunction=function(x){return x;};
+var defaultFunction='return x;';
 function initFavorites(){
 	// addFavorite(1);
 	// addFavorite(10);
@@ -34,9 +34,18 @@ function replaceAll(find, replace, str) {
 	/*
 	 * adds the ID to the Favoritelist
 	 */
+function setFavorit(id, value) {
+	if(value) {
+		addFavorite(id);
+	} else {
+		removeFavorite(id);
+	}
+}
 function addFavorite(id){
+	if(!id)
+		return;
 	if(!isFavorite()){
-		favoritelist[id]={id:id,des:"",func:'if(x==1) {return "True";} else { return "False";}'};
+		favoritelist[id]={id:id,des:"",func:'if(x==1) {\n    return "True";\n} else {\n    return "False";\n}'};
 	//	console.log( favoritelist[id].func +' favorit hinzugefügt');
 		saveCookie();
 		onFavoritesChanged();
@@ -95,18 +104,23 @@ function getDescription(id){
 	/*
 	 * Writes Function in the FavoriteList
 	 */
-	function setFunction(id, func){
+function setFunction(id, func){
+		//Will throw a exception is the func text contains a syntax error
+		new Function(func)(1.324);
 		favoritelist[id].func=func;
 	//console.log("Beschreibung geändert");
 		saveCookie();
 
-	onFavoritesChanged();
+		onFavoritesChanged();
 	}
 	/*
 	 * Reads Function out of the Favoritelist
 	 */
 function getFunction(id){
-	return isFavorite(id)&&favoritelist[id].func!=''?new Function('x', favoritelist[id].func):defaultFunction;
+	return new Function('x', getFunctionText(id));
+	}
+function getFunctionText(id){
+	return isFavorite(id)&&favoritelist[id].func!=''?favoritelist[id].func:defaultFunction;
 	}
  	/*
  	 * Changes the ; in Function to # , because of cut offs while saving

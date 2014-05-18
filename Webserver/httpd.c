@@ -46,9 +46,6 @@ unsigned char http_auth_passwort[30];
 
 unsigned char post_in[5] = {'S','E','T','='};
 unsigned char post_ready[5] = {'S','U','B','='};
-unsigned char PORTA_tmp = 0;
-unsigned char PORTC_tmp = 0;
-unsigned char PORTD_tmp = 0;
 char dstr[24]={"No Time...             "};
 
 //----------------------------------------------------------------------------
@@ -221,23 +218,27 @@ void httpd_header_check (unsigned char index)
 			//Wenn schaltanweisung gefunden
 			if(*http_entry[index].post_ptr == 0) 
 			{
-				//prüft ob pin geschalten werden muss (z.B. SET=C2)
+				//kompletten port schalten werden muss (z.B. SET=PORTCFF)
 				switch (eth_buffer[a+1])
 				  {
-				    case ('A'):
-					  PORTA_tmp = PORTA_tmp + (1 << (eth_buffer[a+2]-48));
-				      break;
-					 
-				//Port B is reserved for Ethernet
-				
-				    case ('C'):
-					  PORTC_tmp = PORTC_tmp + (1 << (eth_buffer[a+2]-48));
-				      break;
+				    case ('P'):
+						switch(eth_buffer[a+5])
+						{
+						    case ('A'):
+						    PORTA = charToHexDigit(eth_buffer[a+6]) * 16 + charToHexDigit(eth_buffer[a+7]);
+						    break;
+						    
+						    //Port B is reserved for Ethernet
+						    
+						    case ('C'):
+						    PORTC = charToHexDigit(eth_buffer[a+6]) * 16 + charToHexDigit(eth_buffer[a+7]);
+						    break;
 
-				    case ('D'):
-					  PORTD_tmp = PORTD_tmp + (1 << (eth_buffer[a+2]-48));
-				      break;
-					
+						    case ('D'):
+						    PORTD = charToHexDigit(eth_buffer[a+6]) * 16 + charToHexDigit(eth_buffer[a+7]);
+						    break;
+						}
+					break;
 					case('O'):
 						//Prüft ob Ein/Ausgänge redefiniert werden sollen (z.B. SET=OUTC0F)
 						switch(eth_buffer[a+4])
@@ -256,6 +257,7 @@ void httpd_header_check (unsigned char index)
 						    DDRD = charToHexDigit(eth_buffer[a+5]) * 16 + charToHexDigit(eth_buffer[a+6]);
 						    break;
 						}
+					break;
 				  }
 				http_entry[index].post_ptr = post_in;
 				//Schaltanweisung "SET=" wurde gefunden
@@ -269,12 +271,6 @@ void httpd_header_check (unsigned char index)
 			if(*http_entry[index].post_ready_ptr == 0) 
 			{
 				http_entry[index].post = 0;
-				PORTA = PORTA_tmp;
-				PORTC = PORTC_tmp;
-				PORTD = PORTD_tmp;
-                PORTA_tmp = 0;
-				PORTC_tmp = 0;
-				PORTD_tmp = 0;
 				break;
 				//Submit gefunden
 			}
