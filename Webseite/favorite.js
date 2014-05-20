@@ -1,7 +1,7 @@
 var favoritelist=new Object();
 var onFavoritesChanged = function(){};
 var defaultFunctionDigital='if(x==1) {\n    return "True";\n} else {\n    return "False";\n}';
-var defaultFunctionAnalog='var num = x/200;\nreturn num.toFixed(2) + "V";';
+var defaultFunctionAnalog='var num = x/200;\nreturn num.toFixed(2) + " V";';
 
 function initFavorites(){
 	// addFavorite(1);
