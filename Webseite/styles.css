@@ -75,10 +75,6 @@ body::-webkit-scrollbar{
     background:rgba(51,182,229,0.15);
 }
 
-#favorite::-webkit-scrollbar{ 
-    display: block; 
-}
-
 #board_wrapper{
 
 }
@@ -157,6 +153,10 @@ table tr td input[type="button"],table tr td input[type="image"]{
     margin-right:10px;
 }
 
+table tr td input[type="button"]:last-child,table tr td input[type="image"]:last-child{
+    margin-right:0;
+}
+
 table tr:nth-child(2n){
     background: rgba(150,150,150,0.05)
 }
@@ -165,7 +165,7 @@ table td:first-child {
     border-left:0;
 }
 
-table input:nth-child(2){
+table input:nth-child(n+2){
     margin-top:5px;
 }
 
@@ -173,6 +173,11 @@ table input:nth-child(2){
     color:#2b2b2b;
     font-weight:bold;
     text-align:center;
+}
+
+.row_trailer {
+    width:1%;
+    white-space: pre;
 }
 
 .overlay{
@@ -251,8 +256,7 @@ configurePin {
 #showError .overlayMain {
     background: #a90329;
     background: -moz-linear-gradient(top, #a90329 0%, #8f0222 44%, #6d0019 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a90329),
-        color-stop(44%,#8f0222), color-stop(100%,#6d0019));
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a90329), color-stop(44%,#8f0222), color-stop(100%,#6d0019));
     text-shadow: 0 1px 0px #a00;
 }
 

@@ -1,4 +1,5 @@
 {
-	"mac":"ca:b5:0b:22:d9:a7",
-	"version":"1.0"
+    "ip":"%IP",
+    "def_ip":"%DEF_IP",
+    "version":"1.0"
 }
