@@ -1,6 +1,8 @@
 var favoritelist=new Object();
 var onFavoritesChanged = function(){};
-var defaultFunction='return x;';
+var defaultFunctionDigital='if(x==1) { return "True"; } else { return "False"; }';
+var defaultFunctionAnalog='return x + "V";';
+
 function initFavorites(){
 	// addFavorite(1);
 	// addFavorite(10);
@@ -27,29 +29,37 @@ function initFavorites(){
 // 
 }
 
-function replaceAll(find, replace, str) {
-  return str.replace(new RegExp(find, 'g'), replace);
-}
+//function replaceAll(find, replace, str) {
+ // return str.replace(new RegExp(find, 'g'), replace);
+//}
 
 	/*
 	 * adds the ID to the Favoritelist
 	 */
 function setFavorit(id, value) {
-	if(value) {
-		addFavorite(id);
-	} else {
-		removeFavorite(id);
+	initPin(id);
+	favoritelist[id].isFavorite=value;
+	saveCookie();
+	onFavoritesChanged;
+}
+/*
+ * checks if ID is in list, if not ID will get in favoritelist
+ */
+function initPin(id){
+	if(!favoritelist[id]){
+	addPin(id);	
 	}
 }
-function addFavorite(id){
+function addPin(id){
 	if(!id)
 		return;
-	if(!isFavorite()){
-		favoritelist[id]={id:id,des:"",func:'if(x==1) {\n    return "True";\n} else {\n    return "False";\n}'};
-	//	console.log( favoritelist[id].func +' favorit hinzugefügt');
-		saveCookie();
-		onFavoritesChanged();
-	}
+	
+	var func = isDigital(id) ? defaultFunctionDigital : defaultFunctionAnalog;
+	favoritelist[id]={id:id,des:"",func:func, isFavorite: false};
+//	console.log( favoritelist[id].func +' favorit hinzugefügt');
+	saveCookie();
+	onFavoritesChanged();
+
 }
 /*
  * returns Favoritelist
@@ -58,31 +68,29 @@ function getFavoritelist(){
 	return favoritelist;
 }
 /*
- * return true or false, if id is in favoritelist or not
+ * return true or false, if isFavorite is true or false
  */
 function isFavorite(id){
-	return favoritelist.hasOwnProperty(id)&&favoritelist[id]!=undefined;
+	initPin();
+	return favoritelist[id].isFavorite;
 }
 /*
- * Removes Favorites from the list
+ * Resets Pin (delets it from array and adds it again)
  */
-function removeFavorite(id){
+function resetPin(id){
 	if(!(typeof id ===  'string')) {
 		throw 'invalid key';
 		//console.log('invalid key');
 	}
 		
 	delete favoritelist[id];
-	//schneidet aus Array raus
-	console.log(id + " aus Array gelöscht");
-	saveCookie();
+	addPin(id);
 	onFavoritesChanged();
 }
 function saveCookie(){
 	var a=new Date();
-	a=new Date(a.getTime() +1000*60*60*24*365*10);
-	//cookie ist ein Jahr gültig?
-	document.cookie="sa=" + changeFunctionToCookie()+";expires="+a.toGMTString();
+	a=new Date(a.getTime() +1000000*60*60*24*365*10);
+	document.cookie="sa=" + changeFunctionToCookie()+";expires="+a.toGMTString()+";secure";
 	//jeder neue Wert wird hinten angehängt
 	//console.log("favorites=" + changeFunctionToCookie()+";expires="+a.toGMTString());
 	} 
@@ -90,21 +98,25 @@ function saveCookie(){
 	 * Writes Description in the Favoriteliste
 	 */
 function setDescription(id, des){
-		favoritelist[id].des=des;
+	initPin(id);
+	favoritelist[id].des=des;
 	//console.log("Beschreibung geändert");
 	saveCookie();
 	onFavoritesChanged();
 	}
+
 	/*
 	 * Reads Description out of the Favoritelist
 	 */
 function getDescription(id){
-	return isFavorite(id)&&favoritelist[id].des!=''?favoritelist[id].des:getDefaultDescription(id);
+	initPin(id);
+	return favoritelist[id].des!=''?favoritelist[id].des:getDefaultDescription(id);
 }
 	/*
 	 * Writes Function in the FavoriteList
 	 */
 function setFunction(id, func){
+	initPin(id);
 		//Will throw a exception is the func text contains a syntax error
 		new Function(func)(1.324);
 		favoritelist[id].func=func;
@@ -117,10 +129,15 @@ function setFunction(id, func){
 	 * Reads Function out of the Favoritelist
 	 */
 function getFunction(id){
+	initPin(id);
 	return new Function('x', getFunctionText(id));
 	}
+	/*
+	 * Returns the Function in clean text
+	 */
 function getFunctionText(id){
-	return isFavorite(id)&&favoritelist[id].func!=''?favoritelist[id].func:defaultFunction;
+	initPin(id);
+	return favoritelist[id].func;
 	}
  	/*
  	 * Changes the ; in Function to # , because of cut offs while saving
@@ -134,7 +151,7 @@ function changeFunctionToCookie(){
 }
 
 function toggleFavorite(id){
-	isFavorite(id)?removeFavorite(id):addFavorite(id);
+	setFavorite(id, !isFavorite(id));
 	//addFavorite(id);
 }
 
