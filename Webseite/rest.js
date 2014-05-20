@@ -93,12 +93,13 @@ function loadURLAsync(url, postParams, func){
   		if(x.readyState==4)
   			func(x.status,x.responseText);
   	};
-	x.open("POST",url,true);
 	
 	if(postParams) {
+        x.open("POST",url,true);
 		x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');	
 		x.send(postParams);
 	} else {
+        x.open("GET",url,true);
 		x.send();
 	}
 }
