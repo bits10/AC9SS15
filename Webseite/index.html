@@ -184,29 +184,55 @@
 		<div class="mainDiv" id="settings">
 			<table cellspacing="0">
 				<tbody >
-					<tr>
-						<td class="title">Server-Version</td>
+                    <tr>
+						<td class="title">IP-Adresse</td>
 						<td>
-							<p id="setting_version">--</p>
+							<p id="setting_ip">--</p>
+                            <input type="button" value="Ändern" onclick="showErrorOverlay('Not yet implemented!');"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="title">Reboot IP-Adresse</td>
+						<td>
+                            <p>Nach einem Neustart meldet sich das Board mit dieser IP-Adresse am Netzwerk an:</p>
+							<p id="setting_def_ip">--</p>
 						</td>
 					</tr>
 					<tr>
 						<td class="title">Polling Frequenz</td>
 						<td>
 							<p id="setting_freq">--</p>
-							<input type="button" value="&Auml;ndern" onclick="showOverlay('changeFreq')"/>
+							<input type="button" value="Ändern" onclick="showOverlay('changeFreq')"/>
 							<input type="button" value="Pausieren" onclick="value=togglePause()?'Starten':'Pausieren'"/>
 						</td>
 					</tr>
+                    <tr>
+						<td class="title">Zurücksetzen</td>
+						<td>
+                            <p>Sezt alle Favoriten, Beschreibungen und Funktionen zurück. Die Seite wird anschließend neu geladen.</p>
+							<input type="button" value="Zurücksetzen" onclick="showErrorOverlay('Not yet implemented!');"/>
+						</td>
+					</tr>
 					<tr>
-						<td class="title">&Uuml;ber</td>
+						<td class="title">Server-Version</td>
+						<td>
+							<p id="setting_version">--</p>
+						</td>
+					</tr>
+                     <tr>
+						<td class="title">Build-Datum</td>
+						<td>
+							<p id="setting_build_date">--</p>
+						</td>
+					</tr>
+                    <tr>
+						<td class="title">Über</td>
 						<td>
 							<input type="button" value="Credits zeigen" onclick="showOverlay('showCredits')"/>
 						</td>
 					</tr>
 				</tbody>
 			</table>
-            <form action="index.html"method="post"><input type="text"value="text"name="ok"/><input type="text"value="text"name="ok2"/><input type="submit" value="Test" /></form>
 		</div>
 		<!--End #settings-->
 	</div>
@@ -230,7 +256,7 @@
 	<div class="overlay" id="showCredits">
 		<div class="overlayMain">
 			<h1>Credits</h1>
-			<p>&copy;2014 Ann-Sophie Dietrich, Marcel Schlipf, Jan-Hendrik Preu&szlig; & Christian W&uuml;rthner</p>
+			<p>&copy;2014 Ann-Sophie Dietrich, Marcel Schlipf, Jan-Hendrik Preuß & Christian Würthner</p>
 			<p>&nbsp;</p>
 			<p>Ein Projekt im Rahmen einer Semesterarbeit im Studiengang &bdquo;Allgemeine 
 				Informatik&ldquo; der <a href="http://hs-furtwangen.de/">Hochschule Furtwangen Univesity</a>.</p>

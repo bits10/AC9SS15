@@ -35,6 +35,9 @@ function initUi() {
 	setOnValuesChanged(updateUI);
 	
 	//Display REST information
+    getEl('setting_ip').innerHTML=getInfo().ip;
+    getEl('setting_build_date').innerHTML=getInfo().build_date;
+    getEl('setting_def_ip').innerHTML=getInfo().def_ip;
 	getEl('setting_version').innerHTML=getInfo().version;
 	getEl('changeFreqInput').value=getPollingFreq();
 
