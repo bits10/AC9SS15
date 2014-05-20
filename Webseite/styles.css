@@ -241,6 +241,11 @@ configurePin {
     clear:none;
 }
 
+.bottom .cancel2 {
+    float:left;
+    margin-left:10px;
+}
+
 .overlay .overlayContent {
     display:none;
 }

@@ -230,14 +230,22 @@ function startConfigurePin(id) {
  
 }
 
-function endConfigurePin() {
+function endConfigurePin(reset) {
 	var id=configureId;
-	
+    
+        
 	try {
-		setFavorite(id, getEl('conf_fav').checked);
-		setDD(id, getEl('conf_conf').value);
-		setDescription(id, getEl('conf_desc').value);
-		setFunction(id, getEl('conf_func').value);
+        if(reset) {
+           resetPin(id);
+            
+        } else {
+            setFavorite(id, getEl('conf_fav').checked);
+            setDD(id, getEl('conf_conf').value);
+		    setDescription(id, getEl('conf_desc').value);
+            setFunction(id, getEl('conf_func').value);   
+            
+        }
+
 		hideOverlay();
 		updateSidebarValues();
 		
