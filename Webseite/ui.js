@@ -177,6 +177,10 @@ function updateFavoritesTable() {
 	tb.innerHTML = "";
 	var favs = getFavoritelist();
 	for(var k in favs) {
+	console.log(k);
+		if(!isFavorite(k))
+			continue;
+			
 		tb.innerHTML+='<tr><td class="row_title">' + getName(k) + '</td><td>' + getDescription(k) + '</td><td>' + getPosition(k) + '</td><td>' + getDDDescription(getDD(k)) + '</td><td>' +getTypeName(k) + '</td><td id="'+k+'_v"></td><td id="'+k+'_cv"></td><td><input type="image" src="ic_edit.svg" height="16px" alt="Anpassen" title="Pin anpassen" onclick="startConfigurePin(\''+k+'\')"/><input type="image" src="ic_trash.svg" height="16px" alt="Entfernen" title="Als Favorit entfernen" onClick="removeFavorite(\'' + k + '\');"/></td></tr>';
 	}
 	
@@ -231,7 +235,7 @@ function endConfigurePin() {
 	var id=configureId;
 	
 	try {
-		setFavorit(id, getEl('conf_fav').checked);
+		setFavorite(id, getEl('conf_fav').checked);
 		setDD(id, getEl('conf_conf').value);
 		setDescription(id, getEl('conf_desc').value);
 		setFunction(id, getEl('conf_func').value);

@@ -1,6 +1,6 @@
 var favoritelist=new Object();
 var onFavoritesChanged = function(){};
-var defaultFunctionDigital='if(x==1) { return "True"; } else { return "False"; }';
+var defaultFunctionDigital='if(x==1) {\n    return "True";\n} else {\n    return "False";\n}';
 var defaultFunctionAnalog='return x + "V";';
 
 function initFavorites(){
@@ -29,6 +29,10 @@ function initFavorites(){
 // 
 }
 
+function replaceAll(find, replace, str) {
+  return str.replace(new RegExp(find, 'g'), replace);
+}
+
 //function replaceAll(find, replace, str) {
  // return str.replace(new RegExp(find, 'g'), replace);
 //}
@@ -36,7 +40,7 @@ function initFavorites(){
 	/*
 	 * adds the ID to the Favoritelist
 	 */
-function setFavorit(id, value) {
+function setFavorite(id, value) {
 	initPin(id);
 	favoritelist[id].isFavorite=value;
 	saveCookie();
@@ -47,7 +51,7 @@ function setFavorit(id, value) {
  */
 function initPin(id){
 	if(!favoritelist[id]){
-	addPin(id);	
+		addPin(id);	
 	}
 }
 function addPin(id){
@@ -71,13 +75,15 @@ function getFavoritelist(){
  * return true or false, if isFavorite is true or false
  */
 function isFavorite(id){
-	initPin();
+	initPin(id);
 	return favoritelist[id].isFavorite;
 }
 /*
  * Resets Pin (delets it from array and adds it again)
  */
 function resetPin(id){
+	console.log("resetPin");
+	
 	if(!(typeof id ===  'string')) {
 		throw 'invalid key';
 		//console.log('invalid key');
@@ -90,7 +96,7 @@ function resetPin(id){
 function saveCookie(){
 	var a=new Date();
 	a=new Date(a.getTime() +1000000*60*60*24*365*10);
-	document.cookie="sa=" + changeFunctionToCookie()+";expires="+a.toGMTString()+";secure";
+	document.cookie="sa=" + changeFunctionToCookie()+";expires="+a.toGMTString();
 	//jeder neue Wert wird hinten angehängt
 	//console.log("favorites=" + changeFunctionToCookie()+";expires="+a.toGMTString());
 	} 
