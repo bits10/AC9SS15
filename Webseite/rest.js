@@ -137,11 +137,44 @@ function getValue(id){
  * @param {Object} the id of the pin to modify
  * @param {Object} the new value. Should be 1 or 0.
  */
-function setValue(id,value){
+function sendValues(){
 	//return loadURLAsync(urlModify+id+'='+value, function(){});
-	console.log(id+ ": " + value);
-	throw 'Werw';
-	//startNewRefershTask("OUT=XYZ;SUB=OK");
+	
+	var newValues = new Object();
+	for(var k in cachedValues) {
+		var id = getId(k);
+		var num=id.charAt(1);
+		var port=id.charAt(0);
+		
+		if(!newValues[port]) {
+			newValues[port]=new Array(8);
+			for (var i=0; i<newValues[port].length; i++) 
+				newValues[port][i] = 0; 
+		}
+			
+		if(getDD(id) == 'o') {
+			newValues[port][num]=getEl(id).checked+0;
+		} 
+	}
+	
+	var post = "";
+	for(var k in newValues) {
+		var hex = 0;
+		for(var i=0; i<newValues[k].length; i++) {
+			hex += newValues[k][i] << i;
+		}
+		
+		hex = hex.toString(16);
+		
+		while(hex.length<2)
+			hex += "0";
+			
+		post += "SET=PORT" + k + hex + "&";
+
+	}
+	
+	post += "SUB";
+	startNewRefershTask(post);
 	
 }
 

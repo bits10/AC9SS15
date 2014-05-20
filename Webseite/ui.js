@@ -66,7 +66,7 @@ function updateUI(pinInfo, values, time){
 			}
 			//Update onclick function (depending on input or output)
 			if(values[i].dd=='o') {
-				el.setAttribute('onchange', 'setValue("'+id+'", this.checked);');
+				el.setAttribute('onchange', 'sendValues()');
 				el.setAttribute('onclick', '');
 			} else {
 				el.setAttribute('onchange', 'return false;');
