@@ -96,7 +96,7 @@ function resetPin(id){
 function saveCookie(){
 	var a=new Date();
 	a=new Date(a.getTime() +1000000*60*60*24*365*10);
-	document.cookie="sa=" + changeFunctionToCookie()+";expires="+a.toGMTString()+";secure";
+	document.cookie="sa=" + changeFunctionToCookie()+";expires="+a.toGMTString();
 	//jeder neue Wert wird hinten angehängt
 	//console.log("favorites=" + changeFunctionToCookie()+";expires="+a.toGMTString());
 	} 
@@ -124,7 +124,9 @@ function getDescription(id){
 function setFunction(id, func){
 	initPin(id);
 		//Will throw a exception is the func text contains a syntax error
-		new Function(func)(1.324);
+		if(!new Function(func)(1.324))
+            throw 'Function has no return value!';
+    
 		favoritelist[id].func=func;
 	//console.log("Beschreibung geändert");
 		saveCookie();
