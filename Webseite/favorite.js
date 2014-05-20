@@ -96,7 +96,7 @@ function resetPin(id){
 function saveCookie(){
 	var a=new Date();
 	a=new Date(a.getTime() +1000000*60*60*24*365*10);
-	document.cookie="sa=" + changeFunctionToCookie()+";expires="+a.toGMTString();
+	document.cookie="sa=" + changeFunctionToCookie()+";expires="+a.toGMTString()+";secure";
 	//jeder neue Wert wird hinten angehängt
 	//console.log("favorites=" + changeFunctionToCookie()+";expires="+a.toGMTString());
 	} 
