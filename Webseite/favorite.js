@@ -44,7 +44,7 @@ function setFavorite(id, value) {
 	initPin(id);
 	favoritelist[id].isFavorite=value;
 	saveCookie();
-	onFavoritesChanged;
+	onFavoritesChanged();
 }
 /*
  * checks if ID is in list, if not ID will get in favoritelist
