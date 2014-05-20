@@ -173,7 +173,7 @@ function sendValues(){
 
 	}
 	
-	post += "SUB";
+	post += "SUB=Senden";
 	startNewRefershTask(post);
 	
 }
