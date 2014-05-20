@@ -240,7 +240,48 @@ function getDD(id){
  * @param {Object} The new data direction.
  */
 function setDD(id, dd) {
+		
+	var newValues = new Object();
+	for(var k in cachedValues) {
+		var kid = getId(k);
+        console.log(i);
+		var num=kid.charAt(1);
+		var port=kid.charAt(0);
+		
+		if(!newValues[port]) {
+            console.log("new:"+port);
+			newValues[port]=new Array(8);
+			for(var i=0; i<newValues[port].length; i++) 
+				newValues[port][i] = 0; 
+		}
+			
+        newValues[port][num]=(cachedValues[k].dd=='o')+0;
+        
+        if(id == kid) {
+            newValues[port][num]=(dd=='o')+0;
+        }
+	}
 	
+    console.log(newValues);
+	var post = "";
+	for(var k in newValues) {
+		var hex = 0;
+		for(var i=0; i<newValues[k].length; i++) {
+			hex += newValues[k][i] << i;
+		}
+		
+		hex = hex.toString(16);
+		
+		while(hex.length<2)
+			hex += "0";
+			
+		post += "SET=OUT" + k + hex + "&";
+
+	}
+	
+	post += "SUB=Senden";
+    startNewRefershTask(post);
+
 }
 
 /**

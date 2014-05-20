@@ -240,10 +240,13 @@ function endConfigurePin(reset) {
             
         } else {
             setFavorite(id, getEl('conf_fav').checked);
-            setDD(id, getEl('conf_conf').value);
 		    setDescription(id, getEl('conf_desc').value);
             setFunction(id, getEl('conf_func').value);   
             
+            var dd= getEl('conf_conf').value;
+            if(dd != getDD(id))
+                setDD(id,dd);
+
         }
 
 		hideOverlay();
