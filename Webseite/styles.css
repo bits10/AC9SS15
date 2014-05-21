@@ -3,7 +3,7 @@
 *{
     padding:0;
     margin:0;
-    font-family:Calibri,Candara,Segoe,"Segoe UI",Arial,sans-serif;
+    font-family:Arial,sans-serif;
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
@@ -15,10 +15,6 @@ a, input{
     cursor:pointer;
 }
 
-body {
-    overflow:scroll;
-}
-
 body::-webkit-scrollbar{ 
     display: none; 
 }
@@ -27,7 +23,6 @@ body::-webkit-scrollbar{
     position:fixed;
     width:100%;
     height:100%;
-    min-height: 300px;
     min-width: 900px;
 }
 
@@ -36,17 +31,17 @@ body::-webkit-scrollbar{
     height:calc(100% - 47px);
     width:100%;
     position: relative;
-    overflow: scroll;
+    overflow: auto;
 }
 
-.mainDiv::-webkit-scrollbar { 
-    display: none; 
+#status::-webkit-scrollbar { 
+        display: none; 
 }
 
 #header{
     border-bottom:solid 3px #33b5e5;
     padding:10px 0 10px 0;
-    height:22px;
+    height:21px;
     text-align:center;
 }
 
@@ -353,20 +348,20 @@ configurePin {
 
 /*Loading Loop*/
 
-.ball {
+.loading_loop {
     background-color: rgba(0,0,0,0);
     border: 3px solid rgba(0,183,229,0.9);
-    opacity: .9;
     border-top: 5px solid rgba(0,0,0,0);
     border-left: 5px solid rgba(0,0,0,0);
     border-radius: 100px;
     width: 10px;
     height: 10px;
+    animation: spin .9s infinite linear;
     -moz-animation: spin .9s infinite linear;
     -webkit-animation: spin .9s infinite linear;
     float:right;
     top:12px;
-    right: 10px;
+    right: 12px;
     display:block;
     position:absolute;
 }
@@ -379,5 +374,10 @@ configurePin {
 @-webkit-keyframes spin {
     0% {-webkit-transform: rotate(0deg);}
     100% {-webkit-transform: rotate(360deg);
+    };
+}
+@keyframes spin {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);
     };
 }
