@@ -65,7 +65,7 @@ function updateUI(pinInfo, values, time){
 			if(el.type === 'checkbox') {
 				el.checked=values[i].v=='1';
 			} else {
-				el.innerHTML=values[i].v;
+				el.innerHTML=getFunction(id)(getValue(id));
 			}
 			//Update onclick function (depending on input or output)
 			if(values[i].dd=='o') {
