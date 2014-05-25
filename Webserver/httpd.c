@@ -231,7 +231,8 @@ void httpd_header_check (unsigned char index)
 						switch(eth_buffer[a+5])
 						{
 						    case ('A'):
-						    PORTA = charToHexDigit(eth_buffer[a+6]) * 16 + charToHexDigit(eth_buffer[a+7]);
+                            case ('B'):
+                            //Ignore Port A and B in order to prevent a wrong configuration
 						    break;
 						    
 						    //Port B is reserved for Ethernet
@@ -250,7 +251,8 @@ void httpd_header_check (unsigned char index)
 						switch(eth_buffer[a+4])
 						{
 						    case ('A'):
-						    DDRA = charToHexDigit(eth_buffer[a+5]) * 16 + charToHexDigit(eth_buffer[a+6]);
+                            case ('B'):
+                            //Ignore Port A and B in order to prevent a wrong configuration
 						    break;
 						    
 						    //Port B is reserved for Ethernet
@@ -497,11 +499,10 @@ void httpd_data_send (unsigned char index)
 				b = 0;
 				switch(pgm_read_byte(http_entry[index].new_page_pointer+3))
 				{
+                    //A und B überbrücken
 					case 'A':
-						b = (DDRA & (1<<pin));
-						break;
 					case 'B':
-						b = (DDRB & (1<<pin));
+						b = 0;
 						break;
 					case 'C':
 						b = (DDRC & (1<<pin));

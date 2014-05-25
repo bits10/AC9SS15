@@ -69,7 +69,7 @@ function updateUI(pinInfo, values, time){
 			}
 			//Update onclick function (depending on input or output)
 			if(values[i].dd=='o') {
-				el.setAttribute('onchange', 'sendValues()');
+				el.setAttribute('onchange', 'setValue("' + id + '", this.checked, true);');
 				el.setAttribute('onclick', '');
 			} else {
 				el.setAttribute('onchange', 'return false;');
@@ -183,7 +183,7 @@ function updateFavoritesTable() {
 		if(!isFavorite(k))
 			continue;
 
-        tb.innerHTML+='<tr><td class="row_title">' + getName(k) + '</td><td>' + getDescription(k) + '</td><td>' + getPosition(k) + '</td><td>' + getDDDescription(getDD(k)) + '</td><td>' +getTypeName(k) + '</td><td id="'+k+'_v"></td><td id="'+k+'_cv"></td><td class="row_trailer"><input type="image" src="ic_edit.svg" height="16px" alt="Anpassen" title="Pin anpassen" onclick="startConfigurePin(\''+k+'\')"/><input type="image" src="ic_trash.svg" height="16px" alt="Entfernen" title="Als Favorit entfernen" onClick="setFavorite(\'' + k + '\', false);"/></td></tr>';
+        tb.innerHTML+='<tr><td class="row_title">' + getName(k) + '</td><td>' + getDescription(k) + '</td><td>' + getPosition(k) + '</td><td>' + getDDDescription(getDD(k)) + '</td><td>' +getTypeName(k) + '</td><td id="'+k+'_v"></td><td id="'+k+'_cv"></td><td class="row_trailer"><input type="button" value="Anspassen" title="Pin anpassen" onclick="startConfigurePin(\''+k+'\')"/><input type="button" value="Entfernen" title="Als Favorit entfernen" onClick="setFavorite(\'' + k + '\', false);"/></td></tr>';
 	}
 	
 	updateFavoritesTableValues();
@@ -222,6 +222,7 @@ function startConfigurePin(id) {
     	opt.innerHTML = getDDDescription(opts[i]);
     	s.appendChild(opt);
 	}
+    console.log("DataDirectionRegister:" + getDD(id));
 	s.value=getDD(id);
 	getEl('conf_type').innerHTML=isDigital(id)?"Digital":"Analog";
 	getEl('conf_desc').value=getDescription(id);

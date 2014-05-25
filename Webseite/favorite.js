@@ -1,7 +1,7 @@
 var favoritelist=new Object();
 var onFavoritesChanged = function(){};
 var defaultFunctionDigital='if(x==1) {\n    return "True";\n} else {\n    return "False";\n}';
-var defaultFunctionAnalog='var num = x/200;\nreturn num.toFixed(2) + " V";';
+var defaultFunctionAnalog='var num = x/204.8;\nreturn num.toFixed(2) + " V";';
 
 function initFavorites(){
 	// addFavorite(1);
@@ -96,7 +96,7 @@ function resetPin(id){
 function saveCookie(){
 	var a=new Date();
 	a=new Date(a.getTime() +1000000*60*60*24*365*10);
-	document.cookie="sa=" + changeFunctionToCookie()+";expires="+a.toGMTString();
+	//document.cookie="sa=" + changeFunctionToCookie()+";expires="+a.toGMTString();
 	//jeder neue Wert wird hinten angehängt
 	//console.log("favorites=" + changeFunctionToCookie()+";expires="+a.toGMTString());
 	} 

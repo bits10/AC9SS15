@@ -2,8 +2,6 @@ var urlValues="rest/values";
 var urlPinInfo="rest/pininfo";
 var urlModifyValue="rest/setpin?";
 var urlInfo="rest/info";
-var urlModifyIP="rest/setip?";
-var urlModifyDd="rest/setdd?";
 var onValuesChanged;
 var onNetworkError;
 var cachedInfo;
@@ -33,6 +31,9 @@ function initRest(){
 	isInitialised=1;
 }
 
+function cancelRefreshTask() {
+    ++taskIdCounter;
+}
 function startNewRefershTask(postParams) {
 	 refreshValues(++taskIdCounter, postParams);
 }
@@ -132,6 +133,13 @@ function getValue(id){
 	return cachedValues[getIndex(id)].v;
 }
 
+function setValue(id, value, apply) {
+    cachedValues[getIndex(id)].v = value;
+
+    if(apply)
+        sendValues();
+}
+    
 /**
  * Sets the value for the pin with the id. Has no effect if the pin is not editable.
  * Returns the answer of the server.
@@ -140,7 +148,7 @@ function getValue(id){
  */
 function sendValues(){
 	//return loadURLAsync(urlModify+id+'='+value, function(){});
-	
+	cancelRefreshTask();
 	var newValues = new Object();
 	for(var k in cachedValues) {
 		var id = getId(k);
@@ -154,7 +162,7 @@ function sendValues(){
 		}
 			
 		if(getDD(id) == 'o') {
-			newValues[port][num]=getEl(id).checked+0;
+			newValues[port][num]=cachedValues[getIndex(id)].v;
 		} 
 	}
 	
@@ -162,18 +170,23 @@ function sendValues(){
 	for(var k in newValues) {
 		var hex = 0;
 		for(var i=0; i<newValues[k].length; i++) {
+            if(newValues[k][i]==true)
+                newValues[k][i]=1;
+            else
+                newValues[k][i]=0;
 			hex += newValues[k][i] << i;
 		}
 		
 		hex = hex.toString(16);
-		
+        
 		while(hex.length<2)
-			hex += "0";
+			hex = "0" + hex;
 			
 		post += "SET=PORT" + k + hex + "&";
 
 	}
-	
+    
+    post = post.toUpperCase();
 	post += "SUB=Senden";
 	startNewRefershTask(post);
 	
@@ -240,7 +253,7 @@ function getDD(id){
  * @param {Object} The new data direction.
  */
 function setDD(id, dd) {
-		
+    cancelRefreshTask();
 	var newValues = new Object();
 	for(var k in cachedValues) {
 		var kid = getId(k);
@@ -273,12 +286,13 @@ function setDD(id, dd) {
 		hex = hex.toString(16);
 		
 		while(hex.length<2)
-			hex += "0";
+            hex = "0" + hex;
 			
 		post += "SET=OUT" + k + hex + "&";
 
 	}
 	
+    post = post.toUpperCase();
 	post += "SUB=Senden";
     startNewRefershTask(post);
 
