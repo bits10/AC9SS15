@@ -187,26 +187,19 @@
 		<div class="mainDiv" id="settings">
 			<table cellspacing="0">
 				<tbody >
-                    <tr>
-						<td class="title">IP-Adresse</td>
-						<td>
-							<p id="setting_ip">--</p>
-                            <input type="button" value="Ändern" onclick="showErrorOverlay('Not yet implemented!');"/>
-						</td>
-					</tr>
-					<tr>
-						<td class="title">Reboot IP-Adresse</td>
-						<td>
-                            <p>Nach einem Neustart meldet sich das Board mit dieser IP-Adresse am Netzwerk an:</p>
-							<p id="setting_def_ip">--</p>
-						</td>
-					</tr>
 					<tr>
 						<td class="title">Polling Frequenz</td>
 						<td>
 							<p id="setting_freq">--</p>
 							<input type="button" value="Ändern" onclick="showOverlay('changeFreq')"/>
 							<input type="button" value="Pausieren" onclick="value=togglePause()?'Starten':'Pausieren'"/>
+						</td>
+					</tr>
+                    <tr>
+						<td class="title">Reload Funktion</td>
+						<td>
+                            <p>Eine Skriptfunktion die nach jedem neuladen der Messwerte aufgerufen wird.</p>
+							<input type="button" value="Sktiprfunktion anpassen" onclick="startConfigureReloadFunc();"/>
 						</td>
 					</tr>
                     <tr>
@@ -314,14 +307,14 @@
 				</tr>
 				<tr>
 					<td>Funktion</td>
-					<td id="conf_func_td">
-						<p>function(x) {</p>
-						<textarea spellcheck="false" id="conf_func">return x;</textarea>
-						<p>}</p>
+					<td>
+						<p class="code">function(x) {</p>
+						<textarea class="edit_code" spellcheck="false" id="conf_func">return x;</textarea>
+						<p class="code">}</p>
 					</td>
 				</tr>
 			</table>
-		<p id="conf_func_error" style="color:red">Die Funktion enthält einen Syntaxfehler</p>
+		<p id="conf_func_error" class="error">Die Funktion enthält einen Syntaxfehler</p>
 
 			<div class="bottom">
 				<input class="cancel" type="button" value="Abbrechen" onclick="hideOverlay();"/>
@@ -332,6 +325,23 @@
 	</div>
 	<!--End #configurePin-->
 	
+    <!--Overlay to edit the reload function -->
+	<div class="overlay" id="configureReloadFunc">
+		<div class="overlayMain">
+			<h1>Reload Funktion anpassen</h1>
+            <p class="code">function(x) {</p>
+            <textarea class="edit_code" spellcheck="false" id="conf_reload_func"></textarea>
+            <p class="code">}</p>
+            <p id="conf_reload_func_error" class="error">Die Funktion enthält einen Syntaxfehler</p>
+
+			<div class="bottom">
+				    <input class="cancel" type="button" value="Abbrechen" onclick="hideOverlay();"/>
+                    <input class="ok" type="button" value="Übernehmen" onclick="endConfigureReloadFunc();"/>
+			</div>
+		</div>
+	</div>
+	<!--End #configureReloadFunc-->
+    
 	<!--Overlay to an error message-->
 	<div class="overlay" id="showError">
 		<div class="overlayMain">

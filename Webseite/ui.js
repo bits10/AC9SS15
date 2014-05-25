@@ -1,6 +1,8 @@
 //The id of the pin displayed in the sidebar.
 var sidebarId;
 var configureId;
+var reloadFuncText = '';
+var reloadFunc = new Function(reloadFuncText);
 
 /**
  * Shortcut for document.getElementById(id).
@@ -35,9 +37,7 @@ function initUi() {
 	setOnValuesChanged(updateUI);
 	
 	//Display REST information
-    getEl('setting_ip').innerHTML=getInfo().ip;
     getEl('setting_build_date').innerHTML=getInfo().build_date;
-    getEl('setting_def_ip').innerHTML=getInfo().def_ip;
 	getEl('setting_version').innerHTML=getInfo().version;
 	getEl('changeFreqInput').value=getPollingFreq();
 
@@ -93,9 +93,14 @@ function updateUI(pinInfo, values, time){
 	}
 	
 	updateSidebarValues();
-	
-	//Hier nur Werte updaten!! TODO
 	updateFavoritesTableValues();
+    
+    try {
+        if(reloadFunc)
+            reloadFunc();
+    } catch(e) {
+        showErrorOverlay("Beim ausführen des Reload-Skriptes ist ein Fehhler aufgetreten: <br>" + e + "<br><br><input type='button' value='Reload-Funktion zurücksetzen' onclick='resetReloadFunc();hideOverlay();'/>");
+    }
 }
 
 /**
@@ -262,6 +267,30 @@ function endConfigurePin(reset) {
 	}
 
 
+}
+
+function startConfigureReloadFunc() {
+    getEl('conf_reload_func_error').innerHTML='';
+    getEl('conf_reload_func').value=reloadFuncText;
+    showOverlay('configureReloadFunc');
+}
+
+function endConfigureReloadFunc() {
+    var funcText=getEl('conf_reload_func').value;
+
+    try {
+        new Function(funcText)();
+        reloadFunc=new Function(funcText);
+        reloadFuncText=funcText;
+        hideOverlay();
+    } catch(e) {
+		getEl('conf_reload_func_error').innerHTML="Ein Fehler ist aufgetreten:<br>"+e;
+	}
+}
+
+function resetReloadFunc() {
+    reloadFuncText='';
+    reloadFunc=new Function(reloadFuncText);
 }
 
 function getTypeName(id) {
