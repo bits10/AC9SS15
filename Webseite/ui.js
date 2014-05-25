@@ -37,7 +37,6 @@ function initUi() {
 	setOnValuesChanged(updateUI);
 	
 	//Display REST information
-    getEl('setting_build_date').innerHTML=getInfo().build_date;
 	getEl('setting_version').innerHTML=getInfo().version;
 	getEl('changeFreqInput').value=getPollingFreq();
 
@@ -155,9 +154,8 @@ function setSidebarId(id){
 	getEl('detail_conf').innerHTML=getDDDescription(getDD(id));
 	getEl('detail_type').innerHTML=isDigital(id)?"Digital":"Analog";
 	getEl('detail_desc').innerHTML=getDescription(id);
-	getEl('detail_func').innerHTML=getFunctionText(id).substring(0, 100).replace(/\n/g, '<br/>').replace(/ /g, '&nbsp;');
+	getEl('detail_func').innerHTML=getFunctionText(id).replace(/\n/g, '<br/>').replace(/ /g, '&nbsp;');
 
-	
 	updateSidebarValues();
 }
 
