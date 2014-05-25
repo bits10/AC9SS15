@@ -345,7 +345,7 @@ function writePinCheckNone(count) {
 }
 
 function writePinCheckAnalog(ids) {
-	write(ids.length, '<div><div class="pinCheck pinCheckAnalog"><input type="checkbox" name="OUT" id="%id_check" /><label for="%id_check" onmouseover="opcmoId(\'%id\')"> </label></div></div><p class="analogValue" id="%id">--</p>', ids);
+	write(ids.length, '<div><div class="pinCheck pinCheckAnalog"><input type="checkbox" name="OUT" id="%id_check" onclick="return false;"/><label for="%id_check" onmouseover="opcmoId(\'%id\')"> </label></div></div><p class="analogValue" id="%id">--</p>', ids);
 }
 
 function writePlusMinusBox(count) {
