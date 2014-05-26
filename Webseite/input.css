@@ -88,6 +88,7 @@ input[type="text"], textarea {
 	background:#eee;
 	border:0;
 	padding:5px;
+    width:calc(100% - 10px);
 	cursor:text;
 	-webkit-user-select:auto;
 }

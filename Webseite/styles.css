@@ -280,10 +280,6 @@ configurePin {
     padding-bottom: 45px;
 }
 
-#configurePin table input {
-    width: 100%;
-}
-
 #configurePin table tr td {
     border-left: 0;
     padding-left:30px;
@@ -338,8 +334,9 @@ configurePin {
 }
 
 .edit_code {
+    font-family:Monaco, "Lucida Console", monospace;	
     text-align: left;
-    width:100%;
+    max-width: calc(100% - 15px);
     height:100px;
     margin:0;
     padding-left: 15px;
