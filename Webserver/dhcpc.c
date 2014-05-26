@@ -25,7 +25,6 @@
 #include "config.h"
 #include <avr/io.h>
 #include <avr/pgmspace.h>
-#include "stack.h"
 #include "usart.h"
 #include "timer.h"
 #include "dhcpc.h"

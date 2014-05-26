@@ -27,7 +27,6 @@
 #ifndef _DHCPCLIENT_H
 	#define _DHCPCLIENT_H
 
-	//#define DHCP_DEBUG usart_write
 	#define DHCP_DEBUG(...)
 
 	#define DHCP_CLIENT_PORT		  68

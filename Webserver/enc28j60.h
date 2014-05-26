@@ -7,9 +7,7 @@
 #include <avr/interrupt.h>
 
 #include "config.h"
-#include "usart.h"
 
-//#define ENC_DEBUG usart_write
 #define ENC_DEBUG(...)
 
 

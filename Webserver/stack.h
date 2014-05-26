@@ -26,8 +26,7 @@
 #ifndef _STACK_H
 	#define _STACK_H
 
-//#define DEBUG usart_write	//mit Debugausgabe
-#define DEBUG(...) 			//ohne Debugausgabe
+#define DEBUG(...) 		
 
 #define MAX_APP_ENTRY 5
 

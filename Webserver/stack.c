@@ -29,9 +29,7 @@
 #include <avr/io.h>
 
 #include <avr/pgmspace.h>
-#include "usart.h"
 #include "httpd.h"
-#include "telnetd.h"
 #include "enc28j60.h"
 #include "config.h"
 #include "timer.h"

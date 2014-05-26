@@ -44,7 +44,7 @@
       <ToolOptions>
         <InterfaceProperties>
           <JtagEnableExtResetOnStartSession>false</JtagEnableExtResetOnStartSession>
-          <IspClock>2020000</IspClock>
+          <IspClock>2000000</IspClock>
         </InterfaceProperties>
         <InterfaceName>ISP</InterfaceName>
       </ToolOptions>
@@ -72,6 +72,18 @@
       <ToolNumber>0900000090DC</ToolNumber>
       <ToolName>JTAGICE mkII</ToolName>
     </com_atmel_avrdbg_tool_jtagicemkii>
+    <com_atmel_avrdbg_tool_simulator>
+      <ToolOptions xmlns="">
+        <InterfaceProperties>
+          <JtagEnableExtResetOnStartSession>false</JtagEnableExtResetOnStartSession>
+        </InterfaceProperties>
+        <InterfaceName>ISP</InterfaceName>
+      </ToolOptions>
+      <ToolType xmlns="">com.atmel.avrdbg.tool.simulator</ToolType>
+      <ToolNumber xmlns="">
+      </ToolNumber>
+      <ToolName xmlns="">Simulator</ToolName>
+    </com_atmel_avrdbg_tool_simulator>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -141,12 +153,6 @@
     <Compile Include="base64.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="cmd.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="cmd.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="config.h">
       <SubType>compile</SubType>
     </Compile>
@@ -177,22 +183,10 @@
     <Compile Include="stack.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="telnetd.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="telnetd.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="timer.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="timer.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="usart.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="usart.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="webpage.h">

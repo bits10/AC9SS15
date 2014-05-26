@@ -98,9 +98,6 @@
 	//für Username:Passwort
 	#define HTTP_AUTH_STRING "user:pass"
     
-    //Commandos und Ausgaben erfolgen über Telnet
-    #define CMD_TELNET      0
-    
 #endif //_CONFIG_H
 
 

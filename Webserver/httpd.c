@@ -33,7 +33,6 @@
 #include "base64.h"
 #include "analog.h"
 #include "timer.h"
-#include "usart.h"
 
 
 #include "httpd.h"

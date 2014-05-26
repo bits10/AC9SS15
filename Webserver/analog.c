@@ -56,7 +56,6 @@ ISR (ADC_vect)
 	//if ((channel-1)==4) var_array[channel-1] = var_array[channel-1]/1024;			// 0...10
 	//if ((channel-1)==4) var_array[channel-1] = var_array[channel-1]*10;			// 0...100
 
-	//usart_write("Kanal(%i)=%i\n\r",(channel-1),var_array[(channel-1)]);
 	if (channel > 7) channel = 0;
     ADMUX =(1<<REFS0) + channel;
     //ANALOG_ON;//ADC ON

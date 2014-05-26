@@ -25,7 +25,6 @@
 #include "base64.h"
 #include <avr/pgmspace.h>
 #include <avr/io.h>
-#include "usart.h"
 
 
 

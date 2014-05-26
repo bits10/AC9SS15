@@ -26,9 +26,7 @@
 #include "config.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include "usart.h"
 #include "stack.h"
-#include "cmd.h"
 #include "dhcpc.h"
 #include "timer.h"
 
@@ -85,10 +83,6 @@ return;
 {
 	//tick 1 second
 	time++;
-    if((stack_watchdog++) > WTT)  //emergency reset of the stack
-    {
-        RESET();
-	}
     eth.timer = 1;
 	#if USE_DHCP
 	if ( dhcp_lease > 0 ) dhcp_lease--;
