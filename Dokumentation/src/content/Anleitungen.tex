@@ -1,5 +1,32 @@
-\chapter{Tutorial} %Soll der name verwendet werden? [janp]
+\chapter{Tutorial} %TODO Soll der name verwendet werden? [janp]
 %Wenn name geändert wirt, referenzen auf name Prüfen!
+
+%TODO Ausführlicher
+\section{Einen Mikrocontroller austauschen}
+Prozessor vorsichtig mit flachem Schraubendreher anheben.
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{content/pictures/Anleitung/tauscheProzessor/1_Hebel.jpg}
+\caption{G1}
+\end{figure}
+Gelösten Prozessor Abziehen.
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{content/pictures/Anleitung/tauscheProzessor/2_Geloest.jpg}
+\caption{G2}
+\end{figure}
+Der Sockel ohne Mikrocontroller
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{content/pictures/Anleitung/tauscheProzessor/3_Sockel.jpg}
+\caption{G3}
+\end{figure}
+D-Förmige Einkerbung beim Einbau beachten
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{content/pictures/Anleitung/tauscheProzessor/4_Markierung.jpg}
+\caption{G4}
+\end{figure}
 
 \section{Einrichten eines neuen Microcotrollers}
 Für unser Projekt sollen alle notwendigen Programmbestandteile sowie die gesamte
@@ -23,15 +50,16 @@ Fehlermeldung begrüßt.
 \includegraphics[width=13cm]{content/pictures/Anleitung/neuerProzessor/AnleitungNeuerProzessor2_fehler.png}
 \caption{DeviceProgramming}
 \end{figure}
+%TODO Richtige Fusebits angeben
 
 Abhilfe Schafft hier die Alternative Programmiersoftware AVRDUDE, mit ihr ist
 es Möglich die Fuse-Bits zu ändern. Unter Linux kann dieser einfach über die
 Paketquellen installiert werden, für ein Windows Betriebssystem kann eine
 ausführbare Kommandozeilen-Anwendung auf der Projekt-Website heruntergeladen
 werden \url{http://savannah.nongnu.org/projects/avrdude}. Zusätzlich muss für
-windows noch libusb-win32 (\url{http://sourceforge.net/projects/libusb-win32/})
+Windows noch libusb-win32 (\url{http://sourceforge.net/projects/libusb-win32/})
 vorhanden sein, das der Programmer mit den gewählten Parametern verwendet werden
-kann. Eine ausfühliche anleitung gibt es hier:
+kann. Eine ausführliche Anleitung gibt es hier:
 \url{http://eliaselectronics.com/using-the-avrispmkii-with-avrdude-on-windows/}
 
 
@@ -43,7 +71,7 @@ Setzen Linux:& sudo avrdude -P usb -p m644p -c avrispmkII -U lfuse:w:0xFF:m -U h
 Auslesen Windows:& avrdude.exe -p m644p -c avrispmkII -U lfuse:r:-:h -U hfuse:r:-:h -B 22 \\ \hline 
 Setzen Windows:& avrdude.exe -p m644p -c avrispmkII -U lfuse:w:0xFF:m -U hfuse:w:0xD6:m -B 22 \\ \hline
 \end{tabular}
-\caption{Auslesen und setzen von Fuse-Bits mit dem AVRDUDE}
+\caption{Auslesen und setzen von Fuse-Bits des ATmega644P mit AVRDUDE}
 \label{tablelabel}
 \end{table}
 Die Ausgabe von AVRDUDE beim setzen der neuen Fuse-Bit Einstellungen.
