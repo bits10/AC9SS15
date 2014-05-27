@@ -16,8 +16,11 @@ function getEl(id) {
  * Initialises the UI. Should only be called once at the startup.
  */
 function initUi() {
-	  document.captureEvents(Event.MOUSEMOVE);
-	  
+    
+    reloadFuncText=getDb('reloadFuncText', '');
+    reloadFunc = new Function(reloadFuncText);
+
+    
 	//Turn the screws
 	//This Block may be delelted wehen more disk space is required, but don't forget to also remove the CSS classed and divs!
 	var v=document.getElementsByClassName('head');
@@ -38,7 +41,6 @@ function initUi() {
 	
 	//Display REST information
 	getEl('setting_version').innerHTML=getInfo().version;
-	getEl('changeFreqInput').value=getPollingFreq();
 
 	setOnFavoritesChanged(onFavoritesChanged);
 }
@@ -280,6 +282,7 @@ function endConfigureReloadFunc() {
         new Function(funcText)();
         reloadFunc=new Function(funcText);
         reloadFuncText=funcText;
+        putDb('reloadFuncText', reloadFuncText);
         hideOverlay();
     } catch(e) {
 		getEl('conf_reload_func_error').innerHTML="Ein Fehler ist aufgetreten:<br>"+e;
@@ -289,6 +292,19 @@ function endConfigureReloadFunc() {
 function resetReloadFunc() {
     reloadFuncText='';
     reloadFunc=new Function(reloadFuncText);
+    putDb('reloadFuncText', reloadFuncText);
+}
+
+function startConfigureFreq() {
+    getEl('changeFreqInput').value=getPollingFreq();
+    showOverlay('configureFreq');
+}
+
+function endConfigureFreq() {
+    hideOverlay();
+    
+    if(!setPollingFreq(getEl('changeFreqInput').value))
+        showErrorOverlay('Die eingegebene Frequenz war nicht korrekt. Der Wert mus zwischen 0 und 60000 liegen. Bitte versuchen Sie es erneut.');
 }
 
 function getTypeName(id) {

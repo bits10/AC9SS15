@@ -28,6 +28,7 @@ function initRest(){
 	cachedPinInfo=JSON.parse(loadURL(urlPinInfo));
 	cachedValues=JSON.parse(loadURL(urlValues));
 	startNewRefershTask();
+    pollingFreq=getDb('pollingFreq', 1000);
 	isInitialised=1;
 }
 
@@ -330,6 +331,7 @@ function getId(index){
 function setPollingFreq(freq){
 	if(!isNaN(parseFloat(freq)) && isFinite(freq)) {
 		pollingFreq=freq;
+        putDb('pollingFreq', pollingFreq);
 		return true;
 	}
 	
