@@ -59,6 +59,11 @@ extern unsigned char mymac[6];
 	#define ETH_INT_DISABLE EIMSK &= ~(1<<INT2)
 #endif
 
+#if defined (__AVR_ATmega1284__) || defined (__AVR_ATmega1284P__)
+	#define ETH_INT_ENABLE  EIMSK |= (1<<INT2)
+	#define ETH_INT_DISABLE EIMSK &= ~(1<<INT2)
+#endif
+
 
 /*************************************************************
   public functions prototypes

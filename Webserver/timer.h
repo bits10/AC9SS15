@@ -28,6 +28,10 @@
 	#if defined (__AVR_ATmega644__) || defined (__AVR_ATmega644P__)
 		#define TIMSK TIMSK1
 	#endif 
+	
+	#if defined (__AVR_ATmega1284__) || defined (__AVR_ATmega1284P__)
+		#define TIMSK TIMSK1
+	#endif
 
 	volatile unsigned long time;
     volatile unsigned int  stack_watchdog;

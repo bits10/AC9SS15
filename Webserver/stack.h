@@ -78,7 +78,7 @@ extern unsigned int IP_id_counter;
 	#define MTU_SIZE 1200
 #endif
 
-#if defined (__AVR_ATmega128__)
+#if defined (__AVR_ATmega1284__) || defined (__AVR_ATmega1284P__)
 	#define MAX_TCP_ENTRY 5	
 	#define MAX_UDP_ENTRY 5
 	#define MAX_ARP_ENTRY 5
