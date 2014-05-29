@@ -91,6 +91,7 @@ input[type="text"], textarea {
     width:calc(100% - 10px);
 	cursor:text;
 	-webkit-user-select:auto;
+    -moz-user-select:auto;
 }
 input[type="text"]:focus, textarea:focus {
 	outline:none;
