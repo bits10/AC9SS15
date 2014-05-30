@@ -303,6 +303,7 @@ CSS code for the board
 	background: #33b5e5;
 	margin-bottom:25px;
 }
+/* unterschiedliche Längen der Balken */
 .a_box_bar.A4{
 	height:66px;
 }
@@ -413,6 +414,10 @@ CSS code for the board
     position:relative;
 }
 
+
+/*
+ * Beschriftungen der Boardelemente
+ */
 .labeling{
     position:absolute;
     color: white;
@@ -421,6 +426,7 @@ CSS code for the board
     width: 100%;
     text-align: center;
 }
+/*gedrehte Beschrifung rechts neben dem AC/DC Anschluss*/
 .labeling.ac{
     right:-22px;
     bottom: 17px;
