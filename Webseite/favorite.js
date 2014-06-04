@@ -138,3 +138,28 @@ function toggleFavorite(id){
 function setOnFavoritesChanged(func) {
 	onFavoritesChanged=func;
 }
+
+function exportFavorites() {
+    var a = document.createElement('a');
+    a.href='data:Application/octet-stream,' + encodeURIComponent(JSON.stringify(favoritelist));
+    a.click();
+}
+
+function importFavorites() {
+    var fileSelector = document.createElement('input');
+    fileSelector.setAttribute('type', 'file');
+
+    var selectDialogueLink = document.createElement('a');
+    selectDialogueLink.setAttribute('href', '');
+    selectDialogueLink.innerText = "Select File";
+
+    selectDialogueLink.onclick = function () {
+        fileSelector.click();
+        console.log(fileSelector.value);
+        return false;
+    }
+ 
+ 
+ selectDialogueLink.click();
+ 
+}
