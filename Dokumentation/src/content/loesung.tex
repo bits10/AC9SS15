@@ -1,4 +1,6 @@
-\chapter{Der Webserver}
+\chapter{Ausgewählte Lösung}
+
+\section{Der Webserver}
 
 Als Basis für unser Projekt haben wir die Firmware von Ulrich Radig verwendet.
 Da diese Vorlage für unseren Anwendungsfall zu umfangreich ist,  haben wir uns 
@@ -6,7 +8,7 @@ für die Abgespeckte Variante von Günther Menke entschieden. Die Änderungen si
 zum einen das entfernte Kamera-Feature und um zusätzlichen Quellcode für einen
 alternativen Netzwerkcontroller abgespeckt wurde.
 
-\section{Einrichtung}
+\subsection{Einrichtung}
 
 Die Einstellung des Webservers erfolgt über die \textrm{config.h} Datei. In der
 \textrm{config.h} Datei, können Zum einen die verschiedenen Pins der Ports als Ein oder
@@ -33,7 +35,7 @@ im Netzwerk verwendet. Auch kann die Router IP-Adresse und Netzmaske angegeben
 werden. Eine weitere Wichtige Einstellung ist die verwendete Mac Adresse
 des Netzwerk Controllers. Diese wird über die Variablen MYMAC1-6 Definiert.
 
-\section{Einbindung der Website}
+\subsection{Einbindung der Website}
 
 Alle für den Betrieb der Website benötigten Dateien sind nicht über ein
 Dateisystem vorhanden, sondern werden beim Zugriff des Benutzers auf den
@@ -45,4 +47,4 @@ erklärt. Abschließend ist noch zu erwähnen, das die \textrm{webpage.h} nicht 
 Bearbeitung gedacht ist. Dies geschieht ausschließlich über die Quell-Dateien
 und dem anschließenden umwandeln mit dem \textrm{HTML Header Compiler}.
 
-
+\section{Die Website}
