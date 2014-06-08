@@ -11,7 +11,6 @@ var pollingFreq=1000;
 var realPollingFreq=0;
 var lastPollingTime=Date.now();
 var isInitialised;
-var isPaused=0;
 var taskIdCounter=0;
 /*
  * Inits the REST interface. Should only be called once at the startup of the page!
@@ -58,9 +57,7 @@ function refreshValues(taskId, postParams){
 	
 		if(state==200) {
 			onValuesChanged(cachedPinInfo, cachedValues, realPollingFreq);	
-	
-			if(!isPaused)
-				window.setTimeout("refreshValues("+taskId+", null)",pollingFreq);
+            window.setTimeout("refreshValues("+taskId+", null)",pollingFreq);
 				
 		} else {
 			onNetworkError(state, response);
@@ -374,19 +371,3 @@ function getIndex(id){
 			
 	return -1;
 }
-
-/**
- * Toggles the isPaused field and starts the refreshing process again if 
- * the pause mode was disabled. Returns true if the pause mode was entered and
- * false if the pause mode was disabled.
- * @return Returns true if it is now paused and false otherwise
- */
-function togglePause() {
-	isPaused=!isPaused;
-	
-	if(!isPaused)
-		refreshValues();
-		
-	return isPaused;
-}
-

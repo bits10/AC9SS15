@@ -115,7 +115,7 @@ body::-webkit-scrollbar{
     background:#f5f5f5;
     box-shadow: inset 0 0 2px #888;
     position:fixed;
-    top:44px;/*Depending on .header height*/
+    top:45px;/*Depending on .header height (.buttonlink height + .buttonlink border-bottom*/
     right:0;
     bottom:-20px;
     height: auto;
