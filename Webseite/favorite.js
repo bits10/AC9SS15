@@ -157,7 +157,7 @@ function importFavorites() {
         fileSelector.click();
         console.log(fileSelector.value);
         return false;
-    }
+    };
  
  
  selectDialogueLink.click();
