@@ -62,12 +62,12 @@ body::-webkit-scrollbar{
 /*Header*/
 #header{
     border-bottom:solid 3px #33b5e5;
-    padding-top: 10px;
-    height:24px;
+    height:42px;/*Changing this will also require to update the .buttonlink height and. sidebar top*/
     text-align:center;
 }
 
 .buttonlink{
+    display: inline-block;
     border-bottom:solid 3px;
     bottom:0;
     margin: 0 10px 0 10px;
@@ -76,6 +76,8 @@ body::-webkit-scrollbar{
     font-size:18px;
     text-decoration: none;
     outline:none;
+    padding: 10px 15px 0 15px;
+    height: 29px;/*header height - padding-top - header-border-bottom -> 42-10-3=29 */
 }
 
 /*Main-DIV*/
@@ -113,7 +115,7 @@ body::-webkit-scrollbar{
     background:#f5f5f5;
     box-shadow: inset 0 0 2px #888;
     position:fixed;
-    top:44px;
+    top:44px;/*Depending on .header height*/
     right:0;
     bottom:-20px;
     height: auto;
