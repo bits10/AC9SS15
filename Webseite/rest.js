@@ -474,6 +474,20 @@ function getId(index) {
 	return cachedPinInfo[index].id;
 }
 
+/*
+ * Returns "Digital" or "Analog", depending on isDigital(id)
+ */
+function getTypeName(id) {
+	return isDigital(id)?"Digital":"Analog";
+}
+
+/*
+ * Returns a text describing the pins position on the cpu
+ */
+function getPosition(id){
+	return isDigital(id)?"Port "+id.charAt(0)+" Pin "+id.charAt(1):getName(id);
+}
+
 /**
  * Returns the index in all data structures of the pin with the given id.
  * @param {Object} The name of the pin.
