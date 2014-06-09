@@ -213,7 +213,7 @@ function updateSidebarValues() {
 		el.innerHTML = "<p class='checkbox'><input type='checkbox'id='detail_val_cb'value='None'/><label for='detail_val_cb'></label></p>";
 		el = getEl('detail_val_cb');
 		el.checked = getValue(sidebarId)=='1';
-		el.disabled = dd != 'o';
+		el.disabled = getDD(id) != 'o';
         
 	} else {
         //Just set a p element with the value in it in detail_val
