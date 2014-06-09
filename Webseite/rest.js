@@ -50,10 +50,10 @@ function initRest() {
     }
 	
     //Init the onValuesChanged variable with an empty function
-	setOnValuesChanged(function(pinInfo, values, time){});
+	setOnValuesChanged(function(pinInfo, values, time) {});
 	
     //Init the onNetworkError variable with an empty function
-	setOnNetworkError(function(state, response){});
+	setOnNetworkError(function(state, response) {});
 	
     //Load the server info, this must only happen once
 	cachedInfo = JSON.parse(loadURL(urlInfo));
@@ -96,7 +96,7 @@ function startNewRefershTask(postParams) {
 /*
  * Internally used function to refresh the values in an given interval.
  */
-function refreshValues(taskId, postParams){
+function refreshValues(taskId, postParams) {
     //Check if this task is still in use or if the taskIdCounter was raised
 	if(taskIdCounter != taskId) {
 		return;
@@ -105,7 +105,8 @@ function refreshValues(taskId, postParams){
     
     //Check if values or dd was changed, if true call sendValues() and return (send values will start a new refresh task)
     //If postParams are supplied, just ignore changes becuase the post params will already contain the info to send to the server
-    if(!postParams && JSON.stringify(cachedValues) !== JSON.stringify(cachedValuesReference)) {
+    //Also check if cachedValues and cachedValuesReference are bot defined
+    if(!postParams && cachedValues && cachedValuesReference && JSON.stringify(cachedValues) !== JSON.stringify(cachedValuesReference)) {
         console.log("Values or DD was changed! (Call sendValues)");
         sendValues();
         return;
@@ -148,7 +149,7 @@ function refreshValues(taskId, postParams){
  * @param {Object} the URL of the requested resource.
  * @return The loaded content.
  */
-function loadURL(url){
+function loadURL(url) {
     //Create a new XMLHttpRequest
   	x=new XMLHttpRequest();
     
@@ -172,7 +173,7 @@ function loadURL(url){
  * @param {Function} the function to call after the transmission is done. Should have two params: the http status (200, 404...) and the laoded content
  * @return The loaded content.
  */
-function loadURLAsync(url, postParams, func){
+function loadURLAsync(url, postParams, func) {
     //Create a new XMLHttpRequest
   	x = new XMLHttpRequest();
     
@@ -213,7 +214,7 @@ function loadURLAsync(url, postParams, func){
  * and the second is the current polling rate in milliseconds.
  * @param {Object} The function to be invoked after a new value set was recieved.
  */
-function setOnValuesChanged(func){
+function setOnValuesChanged(func) {
 	onValuesChanged = func;
 }
 
@@ -223,7 +224,7 @@ function setOnValuesChanged(func){
  * the second is the loaded text.
  * @param {Object} The function to be invoked when a network error occured.
  */
-function setOnNetworkError(func){
+function setOnNetworkError(func) {
 	onNetworkError = func;
 }
 
@@ -231,7 +232,7 @@ function setOnNetworkError(func){
  * Returns the value for the pin or analog input with the id.
  * @param {Object} the value of the pin or analog input.
  */
-function getValue(id){
+function getValue(id) {
 	return cachedValues[getIndex(id)].v;
 }
 
@@ -254,8 +255,8 @@ function setValue(id, value, apply) {
  * @param {Object} the id of the pin to modify
  * @param {Object} the new value. Should be 1 or 0.
  */
-function sendValues(){
-	//return loadURLAsync(urlModify+id+'='+value, function(){});
+function sendValues() {
+	//return loadURLAsync(urlModify+id+'='+value, function() {});
 	cancelRefreshTask();
 	var newValues = new Object();
 	for(var k in cachedValues) {
@@ -353,7 +354,7 @@ function setDD(id, dd) {
  * Returns if the pin with the given id is a digital one.
  * @param {Object} The id of the pin.
  */
-function isDigital(id){
+function isDigital(id) {
 	return cachedPinInfo[getIndex(id)].type=='d';
 }
 
@@ -361,7 +362,7 @@ function isDigital(id){
  * Returns the name of the pin with the given id.
  * @param {Object} The name of the pin.
  */
-function getName(id){
+function getName(id) {
 	return cachedPinInfo[getIndex(id)].name;
 }
 
@@ -369,7 +370,7 @@ function getName(id){
  * Returns the info array, including 'ip', 'def_ip', 'mac' and 'version'.
  * Usage: getInfo().ip
  */
-function getInfo(){		
+function getInfo() {		
 	return cachedInfo;
 }
 
@@ -378,7 +379,7 @@ function getInfo(){
  * @param {Object} The name of the pin.
  * @return An array with all possible data directions.
  */
-function getDDOptions(id){
+function getDDOptions(id) {
 	return cachedPinInfo[getIndex(id)].ddOptions;
 }
 
@@ -388,7 +389,7 @@ function getDDOptions(id){
  * @return A String describing the given data description.
  */
 function getDDDescription(dd) {
-	switch(dd){
+	switch(dd) {
 		case 'i': return"Eingang";
 		case 'o': return"Ausgang";
 	}
@@ -400,15 +401,15 @@ function getDDDescription(dd) {
  * @param {Object} The name of the pin.
  * @return The data direction of the pin with the given id.
  */
-function getDD(id){
-	return  cachedValues[getIndex(id)].dd;
+function getDD(id) {
+	return cachedValues[getIndex(id)].dd;
 }
 
 /**
  * Returns the pin info array, including 'e' (editable, 0 or 1), 'id' (the pin's id),'n' (the pin's name) and 't' (the pin's type, d or a).
  * Usage: getPinInfo()[0].id
  */
-function getPinInfo(){		
+function getPinInfo() {		
 	return cachedPinInfo;
 }
 
@@ -416,7 +417,7 @@ function getPinInfo(){
  * Returns the count of the available pins.
  * @return the count of the available pins.
  */
-function getPinCount(){
+function getPinCount() {
 	return this.cachedPinInfo.length;
 }
 
@@ -424,7 +425,7 @@ function getPinCount(){
  * Returns the default name of the pin with the given id.
  * @param {Object} The name of the pin.
  */
-function getId(index){
+function getId(index) {
 	return cachedPinInfo[getIndex(id)].id;
 }
 
@@ -433,7 +434,7 @@ function getId(index){
  * @param {Object} the new ip of the board
  * @return true if the operation was successfull, false otherwise
  */
-function setPollingFreq(freq){
+function setPollingFreq(freq) {
     //If freq is a number
 	if(!isNaN(parseFloat(freq)) && isFinite(freq)) {
         //Set polling freq
@@ -453,7 +454,7 @@ function setPollingFreq(freq){
  * Returns the polling freq.
  * @return polling freq
  */
-function getPollingFreq(){
+function getPollingFreq() {
 	return pollingFreq;
 }
 
@@ -461,7 +462,7 @@ function getPollingFreq(){
  * Returns thedefault description for the pin with the given id.
  * @return the default description
  */
-function getDefaultDescription(id){
+function getDefaultDescription(id) {
 	var desc=cachedPinInfo[getIndex(id)].desc;
 	return desc?desc:"--";
 }
@@ -469,7 +470,7 @@ function getDefaultDescription(id){
 /**
  * Returns the id of the pin stored at the given index.
  */
-function getId(index){
+function getId(index) {
 	return cachedPinInfo[index].id;
 }
 
@@ -478,7 +479,7 @@ function getId(index){
  * @param {Object} The name of the pin.
  * @return The index of the pin with the given id or -1 if no entry was found
  */
-function getIndex(id){
+function getIndex(id) {
 	for(var i=0;i<cachedPinInfo.length;i++)
 		if(cachedPinInfo[i].id == id)
 			return i;
