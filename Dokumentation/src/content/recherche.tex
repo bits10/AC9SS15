@@ -1,3 +1,77 @@
 \chapter{Recherche}
 
 \section{andere Lösungsmöglichkeiten}
+
+Neben dem vorgegebenen Projekt von Ulrich Radig gibt es noch einige andere
+Möglichkeiten einen Webserver oder Scripte auf das AVR-Net-IO zu bekommen.
+
+\subsection{Ethersex}
+
+Auf der Projekt-Website (\url{http://ethersex.de}) bewirbt sich Ethersex als
+\begin{quote} \textit{
+		\enquote{[\ldots] eine Firmware mit Netzwerkunterstützung für 8-bit AVR
+		Mikrokontroller, die durch eine Community entwickelt wird.  }
+	}
+	\cite{Ethersex}
+\end{quote}
+
+Sie unterstützt sowohl die von uns verwendeten ATMega Prozessoren, das
+AVR-Net-IO board und auch den verwendeten ENC28J60 Netzwerk Controller.
+Durch einen ausführlichen Quick Start Guide
+(\url{http://ethersex.de/index.php/Quick_Start_Guide/Preparation}) auf der
+Projekt Seite ist es auch sehr einfach möglich selbst für Laien einen
+lauffähiges Projekt hinzugekommen. Fast die gesamte Konfiguration kann
+über einen Menü vorgenommen werden. So muss nicht wie beim Radig Projekt zum
+ändern der Mac Adresse in eine Headerdatei geschrieben werden. 
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=13cm]{content/pictures/Recherche/Ethersex/Ehtersex1.png}
+	\caption{Ethersex menuconfig}
+	\label{Ethersex1}
+\end{figure} 
+
+Im Bild (Abb. \ref{Ethersex1}) sieht man den Startbildschirm des
+Menüs, das über den Befehl \textrm{make menuconfig} erreicht werden kann.
+Hier können verschiedenste Einstellungen getroffen werden. Zum Beispiel, den
+verwendeten Microkontroller, welche Mac Adresse der Netzwerk Controller
+verwendet oder welche IP Adresse gewünscht ist.
+Nachdem die Konfiguration abgeschlossen ist, kann das Hexfile mit dem
+\textrm{make} Befehl erstellt werden. In der Abbildung \ref{Ethersex2} sieht man
+das am ende des \textrm{Make} Prozesses die aktuelle Größe des erstellten Binary Datei
+angezeigt ist.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=13cm]{content/pictures/Recherche/Ethersex/Ethersex2.png}
+	\caption{Ethersex make project}
+	\label{Ethersex2}
+\end{figure} 
+
+Das Einbinden der Website beim Ethersex Projekt wird in der Anleitung
+folgendermaßen beschrieben:
+
+\begin{quote}
+	\textit{
+		\enquote{Falls die Option Supply Inline Files aktiviert ist, werden alle
+		Dateien, die unter vfs/embed/ abgelegt sind, automatisch beim Erstellen des
+		Images mit gzip gepackt und an das Ende der Firmware angehängt. Die
+		Dateinamen bleiben dabei unverändert [\ldots]} }
+	\cite[\url{http://www.ethersex.de/index.php/HTTPD_(Deutsch)}]{Ethersex}
+\end{quote}
+
+\subsection{Elektronik 2000}
+
+Einen anderen Ansatz verfolgt das Projekt Elektronik 2000.
+Hier wird nicht nur der Webserver geboten sondern eine erweiterte GUI um das
+Board zu programmieren. Dafür wird mit einem grafischem Designer eine Logik
+entworfen und über einen ISP Programmer auf das Board gebracht.
+
+\begin{quote}
+	\textit{
+		\enquote{Das E2000-NET-IO basiert auf dem AVR-NET-IO von Pollin. Durch die
+		E2000-Firmware wird aus dem AVR-NET-IO von Pollin ein autak laufendes
+		Logikmodul. Mit diesem Modul können über Netzwerk Schaltvorgänge ausgeführt
+		werden. Außerdem sind Zeitgesteuerte Schaltvorgänge möglich.} }
+	\cite{elektronik2000}
+\end{quote}
