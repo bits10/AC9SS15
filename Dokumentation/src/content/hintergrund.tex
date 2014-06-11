@@ -310,6 +310,37 @@ Empfolene Tool Settings
 
 \subsection{HTML Header Compiler}
 
+Die Website, welche hauptsächlich aus verschiedenen .html und .js Dateien
+besteht, ist mangels Dateisystem für unsere Firmware nicht verwendbar. Die
+gesamten Dateien müssen in einer C-Headerdatei gebunden werden. Zum
+automatischen umwandeln haben wir deswegen einen speziellen HTML Header Compiler
+entwickelt der die Website in eine für den Webserver verständliche Headerdatei umwandelt.
+Der Compiler durchsucht den Eingabe Ornder und sammelt die darin enthaltenen
+Dateien. Daraus entsteht dann die für das Projekt benötigte Header Datei,
+bestehend einem Array von Buchstaben für jede Datei.
+
+Eine Beispiel Umwandlung:
+
+
+\begin{figure}[H]
+\lstinputlisting[language=HTML]{content/code/index.html}
+\caption{index.htm}
+\label{input}
+\end{figure}
+
+\begin{figure}[H]
+\lstinputlisting[language=C]{content/code/webpage.h}
+\caption{webpage.h}
+\label{output}
+\end{figure}
+
+Abbildung \ref{input} zeigt eine simple "`Hallo Welt"' Website, die keine
+weitere Funktion besitzt. Nachdem die Website mit dem HTML-Header-Compiler
+umgewandelt wurde, entsteht die Headerdatei aus Abbildung \ref{output}. Gut zu
+erkenne ist das Array aus Buchstaben welches die index.html Datei widerspiegelt.
+Am Ende der Headerdatei ist ein weiteres Array, bestehend aus Schlüssel-Wert
+paaren für den Webserver. Hier wird hinterlegt welche Dateien vorhanden sind.
+
 \section{Prozessorgrößen}
 
 \section{System Architektur}

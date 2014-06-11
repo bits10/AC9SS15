@@ -1,40 +1,58 @@
 \chapter{Benutzerhandbuch} 
 
-%TODO Ausführlicher
 \section{Einen Mikrocontroller austauschen}
-Prozessor vorsichtig mit flachem Schraubendreher anheben.
-\begin{figure}[H]
-\centering
-\includegraphics[width=13cm]{content/pictures/Anleitung/tauscheProzessor/1_Hebel.jpg}
-\caption{G1}
-\end{figure}
-Gelösten Prozessor Abziehen.
-\begin{figure}[H]
-\centering
-\includegraphics[width=13cm]{content/pictures/Anleitung/tauscheProzessor/2_Geloest.jpg}
-\caption{G2}
-\end{figure}
-Der Sockel ohne Mikrocontroller
-\begin{figure}[H]
-\centering
-\includegraphics[width=13cm]{content/pictures/Anleitung/tauscheProzessor/3_Sockel.jpg}
-\caption{G3}
-\end{figure}
-D-Förmige Einkerbung beim Einbau beachten
-\begin{figure}[H]
-\centering
-\includegraphics[width=13cm]{content/pictures/Anleitung/tauscheProzessor/4_Markierung.jpg}
-\caption{G4}
-\end{figure}
-
-\section{Einrichten eines neuen Microcotrollers}
-
 Für unser Projekt sollen alle notwendigen Programmbestandteile sowie die gesamte
 Website auf dem Microcotnroller gespeichert werden. Der beim AVR-Net-IO
 mitgelieferte ATmega32 bietet hierfür jedoch nicht ausreichend Speicher.
 Wir haben uns deswegen für den aus der gleichen Baureihe stammenden ATmega644P
 entschieden der mit seinen 64KB Programmspeicher den doppelten Speicherplatz
 bietet als der kleinere ATmeag32.
+
+Für den Wechsel ist es notwendig, den alten Controller vom Sockel zu entfernen
+und den neuen Controller einbauen zu können. Hierfür gibt es spezielle
+Werkzeuge doch wenn man beim Vorgang Vorsicht walten lässt, kann man den
+Controller auch mit einem kleinen möglichst breiten Schlitzschraubendreher
+entfernen. Dazu zuerst den Mikrocontroller vorsichtig mit dem Schraubendreher
+als Hebel wie in Abbildung \ref{ausbau1} lösen.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{content/pictures/Anleitung/tauscheProzessor/1_Hebel.jpg}
+\caption{Schraubendreher am Controller}
+\label{ausbau1}
+\end{figure}
+
+Zum einfachen lösen kann der Hebel auch von der anderen Seite angesetzt
+werden. Anschließend den gelösten Prozessor abziehen.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{content/pictures/Anleitung/tauscheProzessor/2_Geloest.jpg}
+\caption{Der gelöste Mikrocontroller}
+\label{ausbau2}
+\end{figure}
+
+Nachdem der Mikrocontroller entfernt wurde hat man einen guten Blick auf den
+Sockel (Abb. \ref{ausbau3}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{content/pictures/Anleitung/tauscheProzessor/3_Sockel.jpg}
+\caption{Der Sockel auf dem AVR-Net-IO}
+\label{ausbau3}
+\end{figure}
+
+Beim Einbau ist unbeding darauf zu achten den neuen Mikrocontroller entsprechend
+der D-Förmige Einkerbung in den Sockel zu setzen. (Siehe Abbildung \ref{ausbau4})
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{content/pictures/Anleitung/tauscheProzessor/4_Markierung.jpg}
+\caption{G4}
+\label{ausbau4}
+\end{figure}
+
+\section{Einrichten eines neuen Microcotrollers}
 
 Für einen neuen Chip ist es anfangs notwendig die Fuse-Bits richtig zu setzen,
 damit der Chip Ordnungsgemäß Arbeitet.
@@ -118,7 +136,19 @@ da es auch keine Probleme mit der Gerätesignatur gibt.
 
 \section{HTML Header Compiler}
 
-Parameter und Funktionsweise
+Usage: hhc.jar -in <INPUT FOLDER> -out <OUTPUT FILE>
+
+-in, -input	The input directory [required]
+-out, -output	The output file [required]
+-v, -verbose	Verbose Mode
+-n, -newline	Keeps \\n, \\r and \\t in the output
+
+
+
+
+\section{ISP-Programmer anschließen}
+
+\section{Debuggen über JTAG}
 
 \section{Hexfiles Überspielen}
 
