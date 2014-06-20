@@ -3,10 +3,36 @@
 \section{Der Webserver}
 
 Als Basis für unser Projekt haben wir die Firmware von Ulrich Radig verwendet.
-Da diese Vorlage für unseren Anwendungsfall zu umfangreich ist,  haben wir uns 
-für die Abgespeckte Variante von Günther Menke entschieden. Die Änderungen sind
-zum einen das entfernte Kamera-Feature und um zusätzlichen Quellcode für einen
-alternativen Netzwerkcontroller abgespeckt wurde.
+Zusätzlich von der Uhrsprungsversion von Ulrich Radig gibt es noch eine Etwas
+vereinfachte Version von Günther Menke. Wir haben wir uns für die vereinfachte
+Variante von Günther Menke entschieden. Die Unterschiede zwischen beiden
+Versionen belaufen sich auf das entfernte Kamera-Feature und um
+zusätzlichen Quellcode für einen alternativen Netzwerkcontroller.
+
+\subsection{Änderungen}
+
+Zu der bereits vereinfachten Version von Günther Menke mussten wir für unser
+Projekt noch Funktionalität von der ursprünglichen Version entfernen. Das
+Problem lag darin, das wir für die Dateien der Website möglichst viel freien
+Speicherplatz benötigen, der von den entsprechenden Funktionen belegt wurde.
+Schlussendlich wurde Folgende Funktionalität aus der Version von Günther Menke
+entfernt:
+
+\begin{itemize}
+  \item \textbf{(WOL) Wake on Lan} Funktionalität um andere Geräte im Netzwerk
+  durch bestimmte Datenpackete aufzuwecken.
+  \item \textbf{Sendmail} Senden von E-Mails.
+  \item \textbf{Weather} Ermitteln von Wetterdaten.
+  \item \textbf{(NTP) Network Time Protocol} Empfangen von Internetzeit
+  \item \textbf{(DNS) Domain Name System} Beantwortung von Anfragen zur
+  Namensauflösung.
+  \item \textbf{(USART) Universal Synchronous and Asynchronous Serial Receiver and
+  Transmitter} eine Schnittstelle im Mikrocontroller zum Daten
+  Austausch mit PC über die COM-Schnittstelle.
+  \item \textbf{(Telnet) Telecommunication Network} zeichenorientierten
+  Datenaustausch über eine TCP-Verbindung.
+  \item \textbf{(CMD) Command Control} Verwaltung der Telnet Konsolen Befehle.
+\end{itemize}
 
 \subsection{Einrichtung}
 
