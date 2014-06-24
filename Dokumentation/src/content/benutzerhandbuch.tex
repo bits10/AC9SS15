@@ -42,7 +42,7 @@ Sockel (Abb. \ref{ausbau3}).
 \label{ausbau3}
 \end{figure}
 
-Beim Einbau ist unbeding darauf zu achten den neuen Mikrocontroller entsprechend
+Beim Einbau ist unbedingt darauf zu achten den neuen Mikrocontroller entsprechend
 der D-Förmige Einkerbung in den Sockel zu setzen. (Siehe Abbildung \ref{ausbau4})
 
 \begin{figure}[H]
@@ -68,7 +68,6 @@ Fehlermeldung begrüßt.
 \includegraphics[width=13cm]{content/pictures/Anleitung/neuerProzessor/AnleitungNeuerProzessor2_fehler.png}
 \caption{DeviceProgramming}
 \end{figure}
-%TODO Richtige Fusebits angeben
 
 Abhilfe Schafft hier die Alternative Programmiersoftware AVRDUDE, mit ihr ist
 es Möglich die Fuse-Bits zu ändern. Unter Linux kann dieser einfach über die
@@ -80,6 +79,9 @@ vorhanden sein, das der Programmer mit den gewählten Parametern verwendet werde
 kann. Eine ausführliche Anleitung gibt es hier:
 \url{http://eliaselectronics.com/using-the-avrispmkii-with-avrdude-on-windows/}
 
+Die in Folgendem Beispiel angezeigten Befehle sind die von uns verwendeten Fuse
+Einstellungen. Für eine genauere Beschreibung wofür die einzelnen Fuse-Bits
+verwendet werden, ist der Abschnitt Fusebits im Kapitel Hardware.
 
 \begin{table}[H]
 \begin{tabular}{| p{.24\textwidth} | p{.76\textwidth} |}
@@ -92,7 +94,6 @@ Setzen Windows:& avrdude.exe -p m644p -c avrispmkII -U lfuse:w:0xFF:m -U hfuse:w
 \caption{Auslesen und setzen von Fuse-Bits des ATmega644P mit AVRDUDE}
 \label{tablelabel}
 \end{table}
-Die Ausgabe von AVRDUDE beim setzen der neuen Fuse-Bit Einstellungen.
 
 \begin{figure}[h]
 \centering
