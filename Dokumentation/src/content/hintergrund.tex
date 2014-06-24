@@ -316,6 +316,19 @@ Empfolene Tool Settings
 
 \subsection{AVRDUDE}
 
+Avrdude ist ein Alternatives Werkzeug zum Bearbeiten von Mikrocontrollern. Es
+ist im Gegensatz zum Atmel Studio lediglich ein Konsolen Werkzeug ohne
+grafische Oberfläche. Mit Avrdude können unter anderem die Fusebits von einem
+Mikrocontroller gelesen und gesetzt werden. Weiter ist es möglich eine Sicherung
+von dem Aktuellen stand des Mikrocontrollers herzustellen oder ein Hex Datei auf
+den Mikrocontroller aufzuspielen. Avrdude unterstützt eine Reihe von ISP Geräten
+unter anderem auch den von uns verwendeten Atmel AVRISPmkII. Der Einsatz von
+Avrdude war notwendig, da die Fusebits von einem Neuen Microcontroller
+Standartmäßig auf den internen Quarz-Kristall gesetzt sind und nicht auf den
+Externen Kristall des AVR-NET-IO Boards.
+Eine genaue Anleitung gibt es im Kapitel \ref{chap:Benutzerhandbuch}
+Benutzerhandbuch.
+
 \subsection{HTML Header Compiler}
 
 Die Website, welche hauptsächlich aus verschiedenen .html und .js Dateien
@@ -336,24 +349,39 @@ Eine Beispiel Umwandlung:
 \label{input}
 \end{figure}
 
+Das eingegebene Verzeichnis, welches die Datei enthält wird eingelesen und in
+folgende Headerdatei umgewandelt. In unserem Beispiel besteht das Verzeichnis
+nur aus einer einzelnen Headerdatei.
+Abbildung \ref{input} zeigt eine simple "`Hallo Welt"' Website, die keine
+weitere Funktion besitzt. Nachdem die Website mit dem HTML-Header-Compiler
+umgewandelt wurde, entsteht die Headerdatei aus Abbildung \ref{output}. Gut zu
+erkenne ist das Array aus Buchstaben in hexadezimaler Schreibweise welches die
+index.html Datei widerspiegelt.
+Am Ende der Headerdatei ist ein weiteres Array, bestehend aus Schlüssel-Wert
+paaren für den Webserver. Hier wird hinterlegt welche Dateien vorhanden sind.
+Der letzte Eintrag in diesem Array signalisiert das Ende der Suche und ist die
+Bedingung für den Webserver um zur Standardausgabe zu wechseln. Bsp: Eine HTML
+Datei wird angefordert die nicht existent ist, resultiert in der Ausgabe von
+index.html.
+
 \begin{figure}[H]
 \lstinputlisting[language=C]{content/code/webpage.h}
 \caption{webpage.h}
 \label{output}
 \end{figure}
 
-Abbildung \ref{input} zeigt eine simple "`Hallo Welt"' Website, die keine
-weitere Funktion besitzt. Nachdem die Website mit dem HTML-Header-Compiler
-umgewandelt wurde, entsteht die Headerdatei aus Abbildung \ref{output}. Gut zu
-erkenne ist das Array aus Buchstaben welches die index.html Datei widerspiegelt.
-Am Ende der Headerdatei ist ein weiteres Array, bestehend aus Schlüssel-Wert
-paaren für den Webserver. Hier wird hinterlegt welche Dateien vorhanden sind.
+Anzumerken ist das Standardmäßig der HTML Header Compiler die eingegebenen HTML
+und JS Dateien optimiert in die Headerdatei speichert. Dazu wird die
+Formatierung für den Zeilenvorschub, Tabulator oder Wagenrücklauf entfernt.
+Falls dies für die Entwicklung nicht gewünscht ist, kann man diese Funktion
+durch den Parameter \textrm{-n oder -newline} deaktivieren.
 
-\section{Prozessorgrößen}
 
-\section{System Architektur}
 
-\begin{itemize}
-\item Was soll hier rein??
-\end{itemize}
+%\section{Prozessorgrößen}
 
+%TODO Was soll hier rein??
+
+%\section{System Architektur}
+
+%TODO Was soll hier rein??

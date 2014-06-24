@@ -1,4 +1,5 @@
 \chapter{Benutzerhandbuch} 
+\label{chap:Benutzerhandbuch}
 
 \section{Einen Mikrocontroller austauschen}
 Für unser Projekt sollen alle notwendigen Programmbestandteile sowie die gesamte
@@ -81,7 +82,8 @@ kann. Eine ausführliche Anleitung gibt es hier:
 
 Die in Folgendem Beispiel angezeigten Befehle sind die von uns verwendeten Fuse
 Einstellungen. Für eine genauere Beschreibung wofür die einzelnen Fuse-Bits
-verwendet werden, ist der Abschnitt Fusebits im Kapitel Hardware.
+verwendet werden, ist der Abschnitt \ref{chap:Fuse} Fusebits im Kapitel 
+Hardware.
 
 \begin{table}[H]
 \begin{tabular}{| p{.24\textwidth} | p{.76\textwidth} |}
@@ -137,14 +139,54 @@ da es auch keine Probleme mit der Gerätesignatur gibt.
 
 \section{HTML Header Compiler}
 
-Usage: hhc.jar -in <INPUT FOLDER> -out <OUTPUT FILE>
+Da der HTML Header Compiler in Java entwickelt wurde muss für die Verwendung die
+Java Laufzeitumgebung ab Version 6 installiert sein. Zum Ausführen des Compiler
+muss zuerst mit einer Konsole in den Entsprechenden Ordner navigiert werden.
+Anschließend kann mit folgendem Befehl die Datei ausgegeben werden. 
+\\
 
--in, -input	The input directory [required]
--out, -output	The output file [required]
--v, -verbose	Verbose Mode
--n, -newline	Keeps \\n, \\r and \\t in the output
+\framebox[1.1\width]{java -jar hhc.jar -in <INPUT FOLDER> -out <OUTPUT FILE>} 
+\\
 
+Die Angaben in den spitzen Klammern müssen durch den entsprechenden Pfad und
+die entsprechende Datei ausgetauscht werden. Standardmäßig optimiert der
+HTML Header Compiler die eingegebenen Dateien, falls dies nicht gewünscht ist
+gibt es zusätzlich zu den vorgegebenen Optionen weitere Flags
+die gesetzt werden können. Hier alle Parameter im Überblick:
 
+\begin{table}[H]
+\begin{tabular}{| p{.24\textwidth} | p{.76\textwidth} |}
+\hline
+-in, -input & Der Eigabepfad mit allen für die Website benötigten Dateien. z.B. \textrm{-in "Webseite"} \\ \hline 
+-out, -output & Die Ausgabe Headerdatei z.B. \textrm{-out "Webserver/webpage.h"} \\ \hline
+-v, -verbose &  Gibt die ausgegebenen Dateien auf der Console aus. \\  
+ \hline 
+ -n, -newline & Behält die Formatierung für den Zeilenvorschub, Tabulator
+ oder Wagenrücklauf in den HTML und JS Dateien (\textbackslash n and
+ \textbackslash r \textbackslash t).
+ Benötigt dadurch abhängig von der Website mehr Speicher, ermöglicht aber ein
+ einfacheres Debuggen von eingebundenem JavaScript Code.  \\ \hline
+\end{tabular}
+\caption{Parameter des HTML Header Compiler}
+\label{tablelabel}
+\end{table}
+
+Um die Entwicklung zu vereinfachen ist es hilfreich, wenn für den Parameteraufruf
+des HTML Header Compilers ein einfaches Schell- oder Batch-Script erstellt, das
+die Dateien aus dem Ordner für die Website als Headerdatei in den Ordner für den
+Webserver schreibt.
+
+\begin{figure}[H]
+\lstinputlisting[language=sh]{content/code/buildwebpage.sh}
+\caption{build webpage.sh für Linux}
+\label{output}
+\end{figure}
+
+\begin{figure}[H]
+\lstinputlisting[language=sh]{content/code/buildwebpage.bat}
+\caption{build webpage.bat für Windows}
+\label{output}
+\end{figure}
 
 
 \section{ISP-Programmer anschließen}
