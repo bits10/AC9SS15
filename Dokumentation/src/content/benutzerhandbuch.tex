@@ -49,11 +49,43 @@ der D-Förmige Einkerbung in den Sockel zu setzen. (Siehe Abbildung \ref{ausbau4
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{content/pictures/Anleitung/tauscheProzessor/4_Markierung.jpg}
-\caption{G4}
+\caption{Markierung zum Einbau}
 \label{ausbau4}
 \end{figure}
 
-\section{Einrichten eines neuen Microcotrollers}
+\section{ISP-Programmer anschließen}
+
+Der Anschluss des AVRISPmkII Programmers erfolgt über einen 6 Poligen Stecker,
+allerdings hat das AVR-Net-IO einen 10 Poligen Stecker. Deswegen wurde hierfür
+eigens ein Adapter angefertigt der das ISP Signal von den 6 Polen des Programmers
+auf das AVR-Net-IO bring.
+
+%TODO Grafik anschlüsse Abbildung schematisch
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|} \hline
+	 \textbf{10-poliger Anschluss} & \textbf{6-poliger Anschluss} \\ \hline
+	 1 MOSI & 1 MISO \\ \hline
+	 2 VCC & 2 VCC \\ \hline
+	 3 - (*) & 3 SCK \\ \hline
+	 4,6,8,10 GND & 4 MOSI \\ \hline
+	 5 RESET & 5 RESET \\ \hline
+	 7 SCK & 6 GND \\ \hline
+	 9 MISO &   \\ \hline
+\end{tabular}
+\caption{Die Pinbelegung für den 6 und 10 poligen Anschluss \cite{mikrocontroller.isp}}
+\label{pinbelegung}
+\end{table}
+
+%TODO Grafik adatper im einsatz.
+
+Mit dem angefertigtem Adapter kann der Debugger anschließend ganz einfach mit
+dem Board verbunden werden. Wenn der Mikrocontroller richtig, wie im nächsten Schritt
+beschrieben, konfiguriert ist, kann der Programmer auch in Atmel Studio
+verwendet werden.
+
+\section{Einrichten eines neuen Mikrocontrollers}
 
 Für einen neuen Chip ist es anfangs notwendig die Fuse-Bits richtig zu setzen,
 damit der Chip Ordnungsgemäß Arbeitet.
@@ -94,7 +126,7 @@ Auslesen Windows:& avrdude.exe -p m644p -c avrispmkII -U lfuse:r:-:h -U hfuse:r:
 Setzen Windows:& avrdude.exe -p m644p -c avrispmkII -U lfuse:w:0xFF:m -U hfuse:w:0xD6:m -B 22 \\ \hline
 \end{tabular}
 \caption{Auslesen und setzen von Fuse-Bits des ATmega644P mit AVRDUDE}
-\label{tablelabel}
+\label{ParameterAvrdude1}
 \end{table}
 
 \begin{figure}[h]
@@ -126,12 +158,11 @@ The \textrm{op} field specifies what operation to perform:\newline
 \textbf{r} read device memory and write to the specified file\newline
 \textbf{w} read data from the specified file and write to the device memory \newline
 The filename field indicates the name of the file to read or write.  The format field is optional and contains the format of the file to read or write. \newline
-\textbf{Hier die Bytes die gesetzt werden 0xFF bzw 0xD6}
-\\ \hline
+\textbf{Hier die Bytes die gesetzt werden 0xFF bzw 0xD6} \\ \hline
 -B bitclock & Specify the bit clock period for the JTAG interface or the ISP clock \\ \hline
 \end{tabular}
 \caption{Auslesen und setzen von Fuse-Bits mit dem AVRDUDE}
-\label{tablelabel}
+\label{parameterAvrdude2}
 \end{table}
 Anschließend kann der Mikrocontroller zusammen mit dem AV-Net-IO und AtmelStudio
 Programmiert werden. Der Verwendete Mikrocontroller wird jetzt richtig erkannt,
@@ -168,7 +199,7 @@ die gesetzt werden können. Hier alle Parameter im Überblick:
  einfacheres Debuggen von eingebundenem JavaScript Code.  \\ \hline
 \end{tabular}
 \caption{Parameter des HTML Header Compiler}
-\label{tablelabel}
+\label{parameterHHC}
 \end{table}
 
 Um die Entwicklung zu vereinfachen ist es hilfreich, wenn für den Parameteraufruf
@@ -178,20 +209,23 @@ Webserver schreibt.
 
 \begin{figure}[H]
 \lstinputlisting[language=sh]{content/code/buildwebpage.sh}
-\caption{build webpage.sh für Linux}
+\caption{BuildWebpage.sh für Linux}
 \label{output}
 \end{figure}
 
 \begin{figure}[H]
 \lstinputlisting[language=sh]{content/code/buildwebpage.bat}
-\caption{build webpage.bat für Windows}
+\caption{BuildWebpage.bat für Windows}
 \label{output}
 \end{figure}
 
-
-\section{ISP-Programmer anschließen}
-
 \section{Debuggen über JTAG}
+
+Der JTAGICEmkII Debugger von Atmel, den wir für unser Projekt gestellt bekommen
+haben, unterstützt neben ISP auch JTAG. Allerdings werden für den Anschluss von
+JTAG andere Pins benötigt als für den Anschluss eines ISP Programmers.
+
+%TODO Grafik Pins auf Mikrocontroller zu JTAG
 
 \section{Hexfiles Überspielen}
 
