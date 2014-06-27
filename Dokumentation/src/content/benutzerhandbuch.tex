@@ -60,7 +60,14 @@ allerdings hat das AVR-Net-IO einen 10 Poligen Stecker. Deswegen wurde hierfür
 eigens ein Adapter angefertigt der das ISP Signal von den 6 Polen des Programmers
 auf das AVR-Net-IO bring.
 
-%TODO Grafik anschlüsse Abbildung schematisch
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=6cm]{content/pictures/Anleitung/ISP-Stecker.png}
+  \caption[Schematische Darstellung des ISP Anschlusses]{Schematische Darstellung des ISP Anschlusses (Pin 1 \& 2
+  ist auf der Platine markiert)}
+  \label{ispanschluss}
+\end{center}
+\end{figure}
 
 \begin{table}[H]
 \centering
@@ -78,7 +85,13 @@ auf das AVR-Net-IO bring.
 \label{pinbelegung}
 \end{table}
 
-%TODO Grafik adatper im einsatz.
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=10cm]{content/pictures/Anleitung/adapter.jpg}
+  \caption{Der Adapter}
+  \label{adapter}
+\end{center}
+\end{figure}
 
 Mit dem angefertigtem Adapter kann der Debugger anschließend ganz einfach mit
 dem Board verbunden werden. Wenn der Mikrocontroller richtig, wie im nächsten Schritt
@@ -260,9 +273,6 @@ JTAG andere Pins benötigt als für den Anschluss eines ISP Programmers.
 \section{Hexfiles Überspielen}
 
 Zum übertragen der Hexfiles gibt es verschiedene Möglichkeiten.
-
-\subsection{AVRDUDE}
-
 
 
 \subsection{Atmel Studio}
