@@ -1,6 +1,15 @@
 \chapter{Ausgewählte Lösung}
+%TODO überarbeiten issue #18
+
+Neben den Beiden anderen Projekten haben wir uns für das Projekt von Ullrich
+Radig Entschieden. Die Vorteile des Projektes gegenüber Ethersex oder Elektronik
+2000 liegen darin, das die beiden Projekte zu speziell und umfangreich für unsere
+Anforderungen sind. Zum einen war es unsere Aufgabe eine möglichst umfangreiche
+Website zu erstelle, die Struckur von Ethersex ist für eine auf die Website
+fokusierte Programmierung schlicht zu umfangreich und schlechter anpassbar.
 
 \section{Der Webserver}
+%TODO überarbeiten issue #18
 
 Als Basis für unser Projekt haben wir die Firmware von Ulrich Radig verwendet.
 Zusätzlich von der Uhrsprungsversion von Ulrich Radig gibt es noch eine Etwas
@@ -33,33 +42,6 @@ entfernt:
   Datenaustausch über eine TCP-Verbindung.
   \item \textbf{(CMD) Command Control} Verwaltung der Telnet Konsolen Befehle.
 \end{itemize}
-
-\subsection{Einrichtung}
-
-Die Einstellung des Webservers erfolgt über die \textrm{config.h} Datei. In der
-\textrm{config.h} Datei, können Zum einen die verschiedenen Pins der Ports als Ein oder
-Ausgang definiert werden. Dabei gibt es ein paar Eigenheiten zu beachten:
-\begin{itemize}
-  \item OUTA steht für den A Port, hier ist du beachten, das dieser Port die
-  Analog zu Digital Wandler beherbergt. Mit aktiviertem Wandler ist es nicht
-  möglich die Pins des Ports funktionierend als Ausgänge zu schalten, da die
-  Spannung nicht gehalten wird.
-  \item OUTB ist nur mit Vorsicht zu genießen. Hier handelt es sich um den Port
-  der auf dem AVR-Net-IO für die Neztwerkkomunikation genutzt wird. Deswegen
-  wird Port B auch nicht Standardmäßig definiert.
-  \item OUTC dieser Port wird von Polin standardmäßig für die Ausgänge verwendet
-  und ist von uns bereits so Modifiziert. Der gesamte Port wird auf dem
-  AVR-NET-IO über den 25Pin D-Sub Stecker geleitet. Wenn der Fuse-Bit für JTag
-  geschaltet ist werden 4 Pins des C Ports für das JTag Interface verwendet.
-  \item OUTC Der C Port liegt auf dem AVR-Net-IO auf dem EXT Anschluss und ist
-  für erweiterte Peripherie geplant, so kann hier ein Cardreader oder ein
-  Erweiterungsboard angeschlossen werden.
-\end{itemize}
-Weiter kann die gewünschte IP-Adresse eingestellt werden, unter der das Gerät
-erreicht werden kann. Wichtig ist hier, das kein anderes Gerät die selbe Adresse
-im Netzwerk verwendet. Auch kann die Router IP-Adresse und Netzmaske angegeben
-werden. Eine weitere Wichtige Einstellung ist die verwendete Mac Adresse
-des Netzwerk Controllers. Diese wird über die Variablen MYMAC1-6 Definiert.
 
 \subsection{Einbindung der Website}
 
