@@ -330,32 +330,32 @@ Eine genaue Anleitung gibt es im Kapitel \ref{chap:Benutzerhandbuch}
 Benutzerhandbuch.
 
 \subsection{HTML Header Compiler}
+\label{chap:hintergrund.HHC}
 
-Die Website, welche hauptsächlich aus verschiedenen .html und .js Dateien
-besteht, ist mangels Dateisystem für unsere Firmware nicht verwendbar. Die
-gesamten Dateien müssen in einer C-Headerdatei gebunden werden. Zum
-automatischen umwandeln haben wir deswegen einen speziellen HTML Header Compiler
-entwickelt der die Website in eine für den Webserver verständliche Headerdatei umwandelt.
-Der Compiler durchsucht den Eingabe Ornder und sammelt die darin enthaltenen
-Dateien. Daraus entsteht dann die für das Projekt benötigte Header Datei,
-bestehend einem Array von Buchstaben für jede Datei.
+Zum automatischen umwandeln der Quell-Dateien (html, js, png etc\ldots) haben
+wir einen speziellen HTML Header Compiler entwickelt der die Website in eine
+für den Webserver verständliche Headerdatei umwandelt. Der Compiler durchsucht
+den Eingabe Ordner und sammelt die darin enthaltenen Dateien. Daraus entsteht
+dann die für das Projekt benötigte Header Datei, bestehend einem Array von
+Buchstaben für jede Datei. Der \ac{HHC} ist den Projektdateien, mit denen diese
+Dokumentation ausgeliefert wurde beigelegt, kann aber auch zusammen mit dem
+Projekt auf Github \url{https://github.com/doofmars/Embedded-Webserver}
+bezogen werden.\\
 
-Eine Beispiel Umwandlung:
-
+Eine Beispiel Umwandlung: 
 
 \begin{figure}[H]
 \lstinputlisting[language=HTML]{content/code/index.html}
 \caption{index.htm}
-\label{input}
+\label{HHC.input}
 \end{figure}
 
-Das eingegebene Verzeichnis, welches die Datei enthält wird eingelesen und in
-folgende Headerdatei umgewandelt. In unserem Beispiel besteht das Verzeichnis
-nur aus einer einzelnen Headerdatei.
-Abbildung \ref{input} zeigt eine simple "`Hallo Welt"' Website, die keine
+Das eingegebene Verzeichnis, welches die \textrm{index.html} Datei enthält wird
+eingelesen und in die folgende Headerdatei umgewandelt.
+Abbildung \ref{HHC.input} zeigt eine simple "`Hallo Welt"' Website, die keine
 weitere Funktion besitzt. Nachdem die Website mit dem HTML-Header-Compiler
-umgewandelt wurde, entsteht die Headerdatei aus Abbildung \ref{output}. Gut zu
-erkenne ist das Array aus Buchstaben in hexadezimaler Schreibweise welches die
+umgewandelt wurde, entsteht die Headerdatei aus Abbildung \ref{HHC.output}. Gut
+zu erkenne ist das Array aus Buchstaben in hexadezimaler Schreibweise welches die
 index.html Datei widerspiegelt.
 Am Ende der Headerdatei ist ein weiteres Array, bestehend aus Schlüssel-Wert
 paaren für den Webserver. Hier wird hinterlegt welche Dateien vorhanden sind.
@@ -367,7 +367,7 @@ index.html.
 \begin{figure}[H]
 \lstinputlisting[language=C]{content/code/webpage.h}
 \caption{webpage.h}
-\label{output}
+\label{HHC.output}
 \end{figure}
 
 Anzumerken ist das Standardmäßig der HTML Header Compiler die eingegebenen HTML
@@ -375,6 +375,14 @@ und JS Dateien optimiert in die Headerdatei speichert. Dazu wird die
 Formatierung für den Zeilenvorschub, Tabulator oder Wagenrücklauf entfernt.
 Falls dies für die Entwicklung nicht gewünscht ist, kann man diese Funktion
 durch den Parameter \textrm{-n oder -newline} deaktivieren.
+Außerdem ist die entstandene Headerdatei nicht zur Bearbeitung gedacht. Die
+Bearbeitung erfolgt ausschließlich im Quelltext (z.B. der index.html). Analog
+kann man dazu einen beliebigen Compiler einer herkömmlichen Programmiersprache sehen. Dieser
+erzeugt aus dem Quelltext eine Binärdatei, diese ist nicht unbedingt
+für Menschen lesbar. Bei Änderungen wird der Quelltext angepasst und neu
+Compiliert. Da die Headerdatei folglich nicht bearbeitet werden muss haben wir
+uns für eine Ausgabe als Array aus Buchstaben in hexadezimaler Schreibweise
+entschieden, da es eine einfachere Programmatische Strukturierung erlaubt.
 
 \subsection{AVRISPmkII}
 

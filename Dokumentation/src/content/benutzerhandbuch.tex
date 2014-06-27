@@ -169,6 +169,7 @@ Programmiert werden. Der Verwendete Mikrocontroller wird jetzt richtig erkannt,
 da es auch keine Probleme mit der Gerätesignatur gibt.
 
 \section{HTML Header Compiler}
+\label{chap:benutzerhandbuch.HHC}
 
 Da der HTML Header Compiler in Java entwickelt wurde muss für die Verwendung die
 Java Laufzeitumgebung ab Version 6 installiert sein. Zum Ausführen des Compiler
@@ -205,7 +206,9 @@ die gesetzt werden können. Hier alle Parameter im Überblick:
 Um die Entwicklung zu vereinfachen ist es hilfreich, wenn für den Parameteraufruf
 des HTML Header Compilers ein einfaches Schell- oder Batch-Script erstellt, das
 die Dateien aus dem Ordner für die Website als Headerdatei in den Ordner für den
-Webserver schreibt.
+Webserver schreibt. Falls eine Änderung an der Website vorgenommen wurde muss
+vor dem Programmieren des Mikrocontrollers lediglich der \ac{HHC} Ausgeführt
+werden.
 
 \begin{figure}[H]
 \lstinputlisting[language=sh]{content/code/buildwebpage.sh}
