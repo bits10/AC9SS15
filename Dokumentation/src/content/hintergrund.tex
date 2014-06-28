@@ -211,8 +211,8 @@ Das Manipulieren von Servereinstellungen war bereits im Projekt Radig möglich.
 Hierfür interpretiert der Server die POST-Parameter jeder Anfrage und setzt ggf.
 die Pins neu. Für die neuen Anforderungen wie das Manipulieren des DDR haben
 wir und dazu entschlossen den bereits vorhandenen Code nur leicht zu
-manipulieren und zu erweitern.\\
-\\
+manipulieren und zu erweitern.
+
 Für das Abfragen von Daten ist im Projekt Radig keine Lösung vorhanden, da hier
 die Werte statisch in Form von Platzhaltern im HTML-Text eingebunden sind und
 beim Abfragen der HTML-Datei durch die Werte ersetzt werden. Folglich muss die
@@ -223,33 +223,34 @@ dynamisch abzufragen, um sie gesondert von der Webseite laden zu können.
 \subsubsection{Mögliche Techniken für Datenabfrage}
 
 Für die dynamische Datenabfrage gibt es veschiedene Standards. Hierzu gehöhren
-verscheidene XML-Basierte Protokolle wie RSS, als auch das so genannte
-REST.\\
-\\
-XML-Basierte Protokolle wie RSS oder SOAP weisen typischerweise einen großen
-Protokoll-Overhead auf und sind deswegen nur bedingt für den Einsatz auf einem
+verscheidene \ac{XML}-Basierte Protokolle wie RSS, als auch das so genannte
+\ac{REST}.
+
+\ac{XML}-Basierte Protokolle wie \ac{RSS} oder \ac{SOAP} weisen typischerweise
+einen großen Protokoll-Overhead auf und sind deswegen nur bedingt für den Einsatz auf einem
 Microcontroller geeignet, da das System zu viel unnötige Daten übertragen
-müsste. Außerdem muss das dynamische HTTP-Abfragen der Daten per JavaScript
-erfolgen, welches die in XML präsentierten Daten erst wieder parsen müsste, was
-zusätzlichen Code auf dem Client bedeuten würden.\\
-\\
-REST hingegen präsentieren die Daten in JSON, welches von
+müsste. Außerdem muss das dynamische \ac{HTTP}-Abfragen der Daten per JavaScript
+erfolgen, welches die in \ac{XML} präsentierten Daten erst wieder parsen müsste, was
+zusätzlichen Code auf dem Client bedeuten würden.
+
+\ac{REST} hingegen präsentieren die Daten in \ac{JSON}, welches von
 JavaScript direkt als Objekt interpretiert werden kann. Dies erspart das
-aufwendige parsen der Daten. Außerdem ist der Protokoll-Overhead bei JSON
-tendenziell kleiner als bei XML-Basierten Lösungen, da weniger lange Tagnamen
-vorhanden sind, was eine effektievere Übertragung ermöglicht.\\
-\\
-Aus diesen Gründen haben wir uns für eine REST Lösung entschieden.
+aufwendige parsen der Daten. Außerdem ist der Protokoll-Overhead bei \ac{JSON}
+tendenziell kleiner als bei \ac{XML}-Basierten Lösungen, da weniger lange Tagnamen
+vorhanden sind, was eine effektievere Übertragung ermöglicht.
+
+Aus diesen Gründen haben wir uns für eine \ac{REST} Lösung entschieden.
 
 \subsubsection{Design der REST-Schnittstelle}
-Bei REST gibt es für jede Abfrage eine seperate URL. Bei uns liegen alle URLs im
-Unterverzeichnis \textrm{/rest}. Insgesamt gibt es 3 URLs:
+Bei \ac{REST} gibt es für jede Abfrage eine seperate \ac{URL}. Bei uns liegen
+alle URLs im Unterverzeichnis \textrm{/rest}. Insgesamt gibt es 3 URLs:
 \begin{itemize}
   \item  \textrm{/rest/info} liefert generelle, statische Informationen über den
   Server, wie z.B. die Server-Version
   \item  \textrm{/rest/pininfo} liefert generelle, statische Informationen über
   die einzelnen Pins, wie z.B. den Namen des Pins
-  \item  \textrm{/rest/valus} liefert nur die aktuellen Werte und DDR-Einträge.
+  \item  \textrm{/rest/valus} liefert nur die aktuellen Werte und
+  \ac{DDR}-Einträge.
 \end{itemize}
 
 Um die dargestellten Werte auf der Webseite zu aktualisieren muss folglich nur
@@ -261,14 +262,15 @@ Informationen statisch sind und nie geändert werden. Die Größe dieser Dateien
 ist deshalb weniger ausschlaggebend.
 %-----------------------------------------------------------------------------------------
 \subsection{Implementierung der REST-Schnitstelle auf dem Server}
-Für die Implementierung der REST-Schnittstelle setzen wir auf dem besethenden
-Code aus dem Projekt Radig auf. Typischerweise sind REST-URLs virtuelle URLs.
-Das bedeuted das unter dieser URL keine Datei vorhanden ist, sondern diese bei
+Für die Implementierung der \ac{REST}-Schnittstelle setzen wir auf dem
+besethenden Code aus dem Projekt Radig auf. Typischerweise sind
+\ac{REST}-\ac{URL}s virtuelle \ac{URL}s.
+Das bedeuted das unter dieser \ac{URL} keine Datei vorhanden ist, sondern diese bei
 bedarf dynamisch erzeugt werden. Um die Implementierung möglichst einfach zu
-halten haben wir uns dazu entschlossen unter der gegebenen URL (also z.B  
+halten haben wir uns dazu entschlossen unter der gegebenen \ac{URL} (also z.B  
 \textrm{/rest/values}) eine mit Platzhaltern versehene Datei abzulegen. Das
 Vorgehen mit Platzhaltern wurde schon im Projekt Radig verwendet um die
-Informationen in den statischen HTML-Code einzufügen. Die Platzhalter
+Informationen in den statischen \ac{HTML}-Code einzufügen. Die Platzhalter
 werden vor dem Senden der Datei durch zugehörige Werte ersetzt.\\
 \\
 Das Schema für so einen Platzhalter ist \textrm{\%PINXY} und setzt sich zusammen aus dem
@@ -322,14 +324,51 @@ sieht folgendermaßen aus:
 %-----------------------------------------------------------------------------------------
 \subsection{Erweiterung der POST-Parameter}
 Um Manipulationen an dem Board vorzunehemen haben wir uns entschlossen das
-vorhandenen System zu erweitern. Hierbei werden bei jeder HTTP-Anfrage die
+vorhandenen System zu erweitern. Hierbei werden bei jeder \ac{HTTP}-Anfrage die
 POST-Parameter ausgewertet und das Board entsprechend manipuliert.\\
 \\
 TODO
 
 %-----------------------------------------------------------------------------------------
 \subsection{Implementierung der REST-Schnitstelle auf dem Client}
+Auf der Webseite müssen die vom Server bereitgestellten \ac{REST}-URLs im
+Hintergrund aufgerufen werden können. Hierzu verwendeden wir die bereits in JavaScript
+enthaltene \ac{AJAX} Bibliothek. \ac{AJAX} erlaubt JavaScript URLs im
+Hintergrund zu laden, ohne das der Nutzer dies bemerkt oder die Seite neu geladen wird. 
 
+\begin{figure}[H]
+\lstinputlisting[language=JavaScript]{content/code/ajaxexample.js}
+\caption{JavaScript um \textrm{/rest/valus} abzufragen und in ein Objekt zu
+parsen}
+\label{Ein typischer AJAX-Request}
+\end{figure}
+
+Der hier beispielhaft gezeigte Quelltext ermöglicht das laden der \ac{URL}
+\textrm{/rest/valus}.
+Hierfür wird ein XMLHttpRequest-Objekt verwendet und der geladene Text
+(\textrm{x.responseText}) wird mit \textrm{JSON.parse(\ldots)} in ein
+JavaScript-Objekt verwandelt.
+
+Sämtliche Server-Kommunikation findet ausschlißlich in \textrm{rest.js} statt.
+Hier werden Methoden zum ansprechen des Servers bereit gestellt, welche überall
+verwendet werden können ohne Netzwerkcode zu schreiben. Um beliebige Dateien
+abzufragen gibt es die Methoden \textrm{loadURL(url)} und
+\textrm{loadURLAsync(url, postParams, func)}. \textrm{loadURL(url)} lädt die
+Datei synchron und gibt den erhaltenen Text zurück. Das synchrone Laden
+bedeutet, das der Aufruf dieser Methode das Programm blockiert, bis die Datei
+vollständig geladen wurde. \textrm{loadURLAsync(url, postParams, func)} hingegen
+lädt die Datei asynchron im Hintergrund. Sobald das Laden abgeschlossen ist wird
+die als Parameter übergebene Funktion \textrm{func} aufgerufen.
+\textrm{loadURLAsync(url, postParams, func)} kann außerdem ein Text als
+POST-Parameter übergeben werden. Dies ermöglicht das Manipulieren des Boards
+über die POST-Parameter, welche vom Board interpretiert werden.
+
+\textrm{rest.js} ruft \textrm{loadURLAsync(\ldots)} in einer festen Frequenz
+kontinuirlich auf. Nach jeder aktualisierung wird eine Funktion aufgerufen,
+welche über die Methode \textrm{setOnValuesChanged(func)} gesetzt werden kann.
+
+Alle von \textrm{rest.js} zur Verfügugn gestellten Funktionen sowie deren
+Verwendung sind der ausführlichen Sourcecode-Dokumentation zu entnehmen.
 %\begin{itemize}
 %  \item Aufruf der URLs im Hintergrund mit Ajax
 %  \item info und pininfo werden zu Beginn einmalig aufgerufen (synchron um zu
@@ -344,8 +383,8 @@ TODO
 %  \item Funktion onValueChanged wird jedes mal aufgerufen wenn neue Daten zur
 %  Verfügung stehen
 %  \item onError wird aufgerufen wenn ein Fehler in der Kommunikation aufgetreten ist
-%  \item Über setter werden die entsprechenden URLs assynchron aufgerufen und so die
-%  Daten an den Server übermittelt
+%  \item Über setter werden die entsprechenden URLs assynchron aufgerufen und so
+% die  Daten an den Server übermittelt
 %\end{itemize}
 
 %-----------------------------------------------------------------------------------------
