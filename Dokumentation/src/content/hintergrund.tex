@@ -329,7 +329,44 @@ TODO
 
 %-----------------------------------------------------------------------------------------
 \subsection{Implementierung der REST-Schnitstelle auf dem Client}
+Auf der Webseite müssen die vom Server bereitgestellten REST-URLs im Hintergrund
+aufgerufen werden können. Hierzu verwendeden wir die bereits in JavaScript
+enthaltene AJAX Bibliothek. AJAX erlaubt JavaScript URLs im Hintergrund zu
+laden, ohne das der Nutzer dies bemerkt oder die Seite neu geladen wird. 
 
+\begin{figure}[H]
+\lstinputlisting[language=JavaScript]{content/code/ajaxexample.js}
+\caption{JavaScript um \textrm{/rest/valus} abzufragen und in ein Objekt zu
+parsen}
+\label{Ein typischer AJAX-Request}
+\end{figure}
+
+Der hier beispielhaft gezeigte Quelltext ermöglicht das laden der URL
+\textrm{/rest/valus}.
+Hierfür wird ein XMLHttpRequest-Objekt verwendet und der geladene Text
+(\textrm{x.responseText}) wird mit \textrm{JSON.parse(\ldots)} in ein
+JavaScript-Objekt verwandelt.
+
+Sämtliche Server-Kommunikation findet ausschlißlich in \textrm{rest.js} statt.
+Hier werden Methoden zum ansprechen des Servers bereit gestellt, welche überall
+verwendet werden können ohne Netzwerkcode zu schreiben. Um beliebige Dateien
+abzufragen gibt es die Methoden \textrm{loadURL(url)} und
+\textrm{loadURLAsync(url, postParams, func)}. \textrm{loadURL(url)} lädt die
+Datei synchron und gibt den erhaltenen Text zurück. Das synchrone Laden
+bedeutet, das der Aufruf dieser Methode das Programm blockiert, bis die Datei
+vollständig geladen wurde. \textrm{loadURLAsync(url, postParams, func)} hingegen
+lädt die Datei asynchron im Hintergrund. Sobald das Laden abgeschlossen ist wird
+die als Parameter übergebene Funktion \textrm{func} aufgerufen.
+\textrm{loadURLAsync(url, postParams, func)} kann außerdem ein Text als
+POST-Parameter übergeben werden. Dies ermöglicht das Manipulieren des Boards
+über die POST-Parameter, welche vom Board interpretiert werden.
+
+\textrm{rest.js} ruft \textrm{loadURLAsync(\ldots)} in einer festen Frequenz
+kontinuirlich auf. Nach jeder aktualisierung wird eine Funktion aufgerufen,
+welche über die Methode \textrm{setOnValuesChanged(func)} gesetzt werden kann.
+
+Alle von \textrm{rest.js} zur Verfügugn gestellten Funktionen sowie deren
+Verwendung sind der ausführlichen Sourcecode-Dokumentation zu entnehmen.
 %\begin{itemize}
 %  \item Aufruf der URLs im Hintergrund mit Ajax
 %  \item info und pininfo werden zu Beginn einmalig aufgerufen (synchron um zu
@@ -344,8 +381,8 @@ TODO
 %  \item Funktion onValueChanged wird jedes mal aufgerufen wenn neue Daten zur
 %  Verfügung stehen
 %  \item onError wird aufgerufen wenn ein Fehler in der Kommunikation aufgetreten ist
-%  \item Über setter werden die entsprechenden URLs assynchron aufgerufen und so die
-%  Daten an den Server übermittelt
+%  \item Über setter werden die entsprechenden URLs assynchron aufgerufen und so
+% die  Daten an den Server übermittelt
 %\end{itemize}
 
 %-----------------------------------------------------------------------------------------
