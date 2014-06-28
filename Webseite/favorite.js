@@ -162,6 +162,10 @@ function setOnFavoritesChanged(func) {
 	onFavoritesChanged = func;
 }
 
+/*
+ * Imports the given text as new favoritlist and reloads the webpage.
+ * The text must be JSON encoded.
+ */
 function importFavoritList(favoritListText) {
     favoritelist = JSON.parse(favoritListText);
     save();
