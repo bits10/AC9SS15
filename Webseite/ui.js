@@ -471,6 +471,40 @@ function showErrorOverlay(message) {
 }
 
 /*
+ * shows a dialog to import the settings
+ */
+function showImportOverlay() {
+    getEl('importSettingsText').innerHTML="";
+    showOverlay('importSettings');
+}
+
+/*
+ * shows a dialog providing the text to export the settings
+ */
+function showExportOverlay() {
+   getEl('exportSettingsText').innerHTML = JSON.stringify(getFavoritelist());
+   showOverlay('exportSettings');
+
+
+}
+
+/*
+ * Called when the OK button on the import dialog is pressed.
+ * Imports the settings in the textarea of the dialog.
+ */
+function importSettings() {
+    try {
+        importFavoritList(getEl('importSettingsText').value);
+        hideOverlay();
+        
+    } catch(e) {
+        hideOverlay();
+        showErrorOverlay("Beim Importieren ist ein Fehler aufgetreten:<br>" + e)
+        
+    }
+}
+
+/*
  * From here all fucntions are used to shorten the HTML code and save disk space
  */
 

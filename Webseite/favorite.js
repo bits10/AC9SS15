@@ -161,3 +161,9 @@ function toggleFavorite(id){
 function setOnFavoritesChanged(func) {
 	onFavoritesChanged = func;
 }
+
+function importFavoritList(favoritListText) {
+    favoritelist = JSON.parse(favoritListText);
+    save();
+    window.location.reload();
+}

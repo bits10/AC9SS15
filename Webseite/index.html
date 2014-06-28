@@ -211,8 +211,8 @@
                     <tr>
 						<td class="title">Einstellungen Exportieren / Importieren</td>
 						<td>
-							<input type="button" value="Exportieren" onclick="exportFavorites();"/>
-                            <input type="button" value="Importieren" onclick="importFavorites();"/>
+							<input type="button" value="Exportieren" onclick="showExportOverlay();"/>
+                            <input type="button" value="Importieren" onclick="showImportOverlay();"/>
 						</td>
 					</tr>
                     <tr>
@@ -308,7 +308,7 @@
 					</td>
 				</tr>
 			</table>
-		<p id="conf_func_error" class="error">Die Funktion enthält einen Syntaxfehler</p>
+		    <p id="conf_func_error" class="error">Die Funktion enthält einen Syntaxfehler</p>
 
 			<div class="bottom">
 				<input class="cancel" type="button" value="Abbrechen" onclick="hideOverlay();"/>
@@ -349,5 +349,32 @@
 	</div>
 	<!--End #showError-->
 	
+    <!--Overlay to export settings -->
+	<div class="overlay" id="exportSettings">
+		<div class="overlayMain">
+			<h1>Einstellungen Exportieren</h1>
+            <p>Kopieren Sie den folgenden Text und speichern Sie ihn ab:</p>
+            <textarea class="edit_code" readonly spellcheck="false" id="exportSettingsText"></textarea>
+            <div class="bottom">
+                <input class="ok" type="button" value="OK" onclick="hideOverlay();"/>
+			</div>
+		</div>
+	</div>
+	<!--End #exportSettings-->
+    
+    <!--Overlay to import settings -->
+	<div class="overlay" id="importSettings">
+		<div class="overlayMain">
+			<h1>Einstellungen Importieren</h1>
+            <p>Fügen Sie hier den zuvor exportierten Text ein:</p>
+            <textarea class="edit_code" spellcheck="false" id="importSettingsText"></textarea>
+            <div class="bottom">
+                <input class="ok" type="button" value="Importieren" onclick="importSettings();"/>
+            	<input class="cancel" type="button" value="Abbrechen" onclick="hideOverlay();"/>
+			</div>
+		</div>
+	</div>
+	<!--End #importSettings-->
+    
 </body>
 </html>
