@@ -32,4 +32,26 @@
 
 \section{Fuse Bits}
 \label{chap:Fuse}
-%TODO Wahl der Fuse Bits
+
+Die Fuse-Bits sind die Grundlegenden Einstellungen, mit denen ein
+Mikrocontroller arbeitet. Sie müssen geändert werden, wenn ein anderer Taktgeber
+gewünscht ist oder Schnittstellen de- oder aktiviert werden sollen.
+
+\begin{table} [H]
+\begin{tabular}{|l|l|l|} \hline
+Fuse Name & Bedeutung & Bytes\\ \hline
+BODLEVEL & Brown-out Detector trigger level & E-Fuse 0\&1\\ \hline
+OCDEN & Aktiviert On-Chip Debuging & H-Fuse 7\\ \hline
+JTAGEN & Aktiviert das \ac{JTAG} Interface & H-Fuse 6\\ \hline
+SPIEN & Aktiviert das \ac{ISP} Interface & H-Fuse 5\\ \hline
+WDTON & \ac{WDT} immer an & H-Fuse 4\\ \hline
+EESAVE & Schützt den \acs{EEPROM} wärend des Lösch-Zyklus & H-Fuse 3\\ \hline
+BOOTSZ & Boot Flash Sektor Größe & H-Fuse 1\&2\\ \hline
+BOOTRST & Boot Reset Vektor & H-Fuse 0\\ \hline
+CKDIV8 & Teilt den Takt der Uhr intern durch 8 & L-Fuse 8\\ \hline
+CKOUT & Ausgabe des Takts der Uhr auf Port B1 & L-Fuse 7\\ \hline
+SUT\_CKSEL & Wahl der Takt-Quelle & L-Fuse 0-6\\ \hline
+\end{tabular}
+\caption{Die Bedeutung der einzelnen Fuse-Bits (ATMega-664P)}
+\label{fuses}
+\end{table}
