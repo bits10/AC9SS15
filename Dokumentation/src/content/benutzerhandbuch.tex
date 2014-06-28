@@ -60,7 +60,14 @@ allerdings hat das AVR-Net-IO einen 10 Poligen Stecker. Deswegen wurde hierfür
 eigens ein Adapter angefertigt der das ISP Signal von den 6 Polen des Programmers
 auf das AVR-Net-IO bring.
 
-%TODO Grafik anschlüsse Abbildung schematisch
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=6cm]{content/pictures/Anleitung/ISP-Stecker.png}
+  \caption[Schematische Darstellung des ISP Anschlusses]{Schematische Darstellung des ISP Anschlusses (Pin 1 \& 2
+  ist auf der Platine markiert)}
+  \label{ispanschluss}
+\end{center}
+\end{figure}
 
 \begin{table}[H]
 \centering
@@ -78,7 +85,13 @@ auf das AVR-Net-IO bring.
 \label{pinbelegung}
 \end{table}
 
-%TODO Grafik adatper im einsatz.
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=10cm]{content/pictures/Anleitung/adapter.jpg}
+  \caption{Der Adapter}
+  \label{adapter}
+\end{center}
+\end{figure}
 
 Mit dem angefertigtem Adapter kann der Debugger anschließend ganz einfach mit
 dem Board verbunden werden. Wenn der Mikrocontroller richtig, wie im nächsten Schritt
@@ -169,6 +182,7 @@ Programmiert werden. Der Verwendete Mikrocontroller wird jetzt richtig erkannt,
 da es auch keine Probleme mit der Gerätesignatur gibt.
 
 \section{HTML Header Compiler}
+\label{chap:benutzerhandbuch.HHC}
 
 Da der HTML Header Compiler in Java entwickelt wurde muss für die Verwendung die
 Java Laufzeitumgebung ab Version 6 installiert sein. Zum Ausführen des Compiler
@@ -205,7 +219,9 @@ die gesetzt werden können. Hier alle Parameter im Überblick:
 Um die Entwicklung zu vereinfachen ist es hilfreich, wenn für den Parameteraufruf
 des HTML Header Compilers ein einfaches Schell- oder Batch-Script erstellt, das
 die Dateien aus dem Ordner für die Website als Headerdatei in den Ordner für den
-Webserver schreibt.
+Webserver schreibt. Falls eine Änderung an der Website vorgenommen wurde muss
+vor dem Programmieren des Mikrocontrollers lediglich der \ac{HHC} Ausgeführt
+werden.
 
 \begin{figure}[H]
 \lstinputlisting[language=sh]{content/code/buildwebpage.sh}
@@ -219,6 +235,33 @@ Webserver schreibt.
 \label{output}
 \end{figure}
 
+\subsection{Konfiguration des Webservers}
+
+Die Einstellung des Webservers erfolgt über die \textrm{config.h} Datei. In der
+\textrm{config.h} Datei, können Zum einen die verschiedenen Pins der Ports als Ein oder
+Ausgang definiert werden. Dabei gibt es ein paar Eigenheiten zu beachten:
+\begin{itemize}
+  \item OUTA steht für den A Port, hier ist du beachten, das dieser Port die
+  Analog zu Digital Wandler beherbergt. Mit aktiviertem Wandler ist es nicht
+  möglich die Pins des Ports funktionierend als Ausgänge zu schalten, da die
+  Spannung nicht gehalten wird.
+  \item OUTB ist nur mit Vorsicht zu genießen. Hier handelt es sich um den Port
+  der auf dem AVR-Net-IO für die Neztwerkkomunikation genutzt wird. Deswegen
+  wird Port B auch nicht Standardmäßig definiert.
+  \item OUTC dieser Port wird von Polin standardmäßig für die Ausgänge verwendet
+  und ist von uns bereits so Modifiziert. Der gesamte Port wird auf dem
+  AVR-NET-IO über den 25Pin D-Sub Stecker geleitet. Wenn der Fuse-Bit für JTag
+  geschaltet ist werden 4 Pins des C Ports für das JTag Interface verwendet.
+  \item OUTC Der C Port liegt auf dem AVR-Net-IO auf dem EXT Anschluss und ist
+  für erweiterte Peripherie geplant, so kann hier ein Cardreader oder ein
+  Erweiterungsboard angeschlossen werden.
+\end{itemize}
+Weiter kann die gewünschte IP-Adresse eingestellt werden, unter der das Gerät
+erreicht werden kann. Wichtig ist hier, das kein anderes Gerät die selbe Adresse
+im Netzwerk verwendet. Auch kann die Router IP-Adresse und Netzmaske angegeben
+werden. Eine weitere Wichtige Einstellung ist die verwendete Mac Adresse
+des Netzwerk Controllers. Diese wird über die Variablen MYMAC1-6 Definiert.
+
 \section{Debuggen über JTAG}
 
 Der JTAGICEmkII Debugger von Atmel, den wir für unser Projekt gestellt bekommen
@@ -230,9 +273,6 @@ JTAG andere Pins benötigt als für den Anschluss eines ISP Programmers.
 \section{Hexfiles Überspielen}
 
 Zum übertragen der Hexfiles gibt es verschiedene Möglichkeiten.
-
-\subsection{AVRDUDE}
-
 
 
 \subsection{Atmel Studio}
