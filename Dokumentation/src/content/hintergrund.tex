@@ -102,8 +102,8 @@ einfach zu realisieren, da die Abfrage der Daten einfach zyklisch wiederholt wer
 \subsubsection{Pushing}
 Bei Pushing wird im Gegensatz zu Polling der Daten nicht vom Client initialisiert sondern
 vom Server. Der Server weiß wann sich die Werte geändert haben und kann dem Client bei
-jeder Änderung gezielt die neuen Daten Übermitteln. Das Übertragen der Daten könnte z.B.
-durch einen Interrupt ausgelöst werden.
+jeder Änderung gezielt die neuen Daten übermitteln. Das Übertragen der Daten
+könnte z.B. durch einen Interrupt ausgelöst werden.
 
 Im direkten vergleich zu Polling bietet Pushing verschiedene Vorteile. So wird nicht nur
 das Volumen der übertragenen Daten reduziert indem keine unnötigen Abfragen stattfinden,
@@ -134,16 +134,25 @@ Projekt setzt aus diesen Gründen auf HTTP 1.0 bei dem für jede Anfrage eine Ve
 geöffnet und nach erfolgreichem Übertragen der Daten wieder geschlossen wird. So ist auch
 die Kommunikation mit mehreren Clients problemlos möglich.
 
-Um HTML5 Server-Sent Events auf dem Pollin Net-IO Board zu implementieren würde es als
-einen tendenziell größeren CPU erfordern mit dem auch Multitasking möglich ist sowohl auch
-eine grundlegende Umgestaltung des Radig-Projektes um mehrere HTTP Verbindungen parallel
-zu ermöglichen.
-
 \subsubsection{Entscheidung}
-Da die technische Umsetzung vom Pushing nur schwer möglich ist werden wir auf Polling
-setzen.
+Pushing ist leider nur schwer umsetzbar auf dem Microcontroller. Dies ist
+bedingt durch die knappen Resourcen wie Arbeitsspeicher, als auch durch das nur
+schwer umsetzbare Multitasking, das für einen reibungslosen Ablauf nötig ist. Ohne Multitasking
+ist nicht gewährliestet das alle Dateien übertragen werden können, da der
+Server, sobald eine Server-Sent Event Verbindung aufgebaut wird, nicht mehr
+verfügbar ist, bis diese wieder geschlossen wird. Eine Benutzung durch mehrere
+Clients ist so nicht denkbar und auch die Nutzung von nur einem Client kann zu
+Problemen führen wenn dieser Daten anfordert nachdem die Server-Sent Event
+Verbindung aufgebaut worden ist.
 
-TODO: Hier noch Argumentation mit Übertragungszeit und Screenshot aus Chrome Network Log
+Die Implementierung von Multitaskign ist zwar prinzipiell möglich, erfordert
+aber einen tiefen Eingriff in das Vorlagenprojekt, da neben der eigentlichen
+Nebenläufigkeit zusätzlich der gesamte Server threadsafe gestaltet werden
+müsste.
+
+Aus diesen Gründen entschlossen wir uns das technisch unsauberere Polling zu
+verwenden, da die Implementierung von Pushing den Rahmen des Projektes
+übersteigen würde.
 
 
 %\begin{itemize}
