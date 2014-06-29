@@ -18,7 +18,7 @@ Rasberry Pi und einem oder mehreren Clients.
 \includegraphics[width=13cm]{content/pictures/neues_system.png}
 \caption{Der grobe Aufbau des neues Systems, links zwei Pollin Net-IO Boards,
 in der Mitte ein Rasberry Pi und links ein Client}
-\label{ausbau1}
+\label{struktur}
 \end{figure}
 Die Clients fragen alle Daten, welche in einer kleinen Datenbank
 zwischengespeichert werden sollten, von dem zentralen Rasberry Pi ab. So ergeben
@@ -50,6 +50,7 @@ anbietet) konfiguriert werden können. Ansonsten ist die Webseite ohne große
 
 %-----------------------------------------------------------------------------------------
 \section{Änderungen an der Webseite/Server-Schnittstelle}
+\label{aenderung_schnitstelle}
 Die Kommunikation zwischen Server und Webseite muss für die neuen Anforderungen
 entsprechend erweitert werden. \\
 \\
@@ -64,7 +65,7 @@ z.B. \textrm{/rest/values?id=192.168.2.6}.\\
 Danach sollte das aktuell über die POST-Parameter stattfindende
 Setzen von Pins ebenfalls über die REST-Schnittstelle gelöst werden. Hierfür
 müssen zwei neue URLs eingeführt werden, eine zum setzen der Pinwerte und eine
-zum setzen des DDR Registers. Natürlich müssen auch die neuen URLs über den
+zum setzen des DDRs. Natürlich müssen auch die neuen URLs über den
 Parameter zum identifizieren des betroffnen Boards verfügen.\\
 \\
 Zum Schluss muss noch eine URL bereitgestellt werden um eine Liste aller
@@ -112,14 +113,90 @@ aufgerufen wird, wird \textrm{ui.js} darüber informiert, das sich die Messwerte
 geändert haben, was zur aktualisierung der Oberfläche führt.
 
 \subsection{Scriptfunktionen}
+Aktuell gibt es zwei verschiedene Typen von Skriptfunktionen. Für jeden Pin
+lässt sich eine Skriptfunktion zum erstellen des dargestellten Messwertes
+hinterlegen. Diese Skriptfunktionen müssen nicht geändert werden.\\
+\\
+Zusätzlich gibt es eine Skrtipfunktion die in den Einstellungen festgelegt
+werden kann. Sie muss für jedes Board separat verfügbar und anpassbar sein.
+Aktuell wird sie auf dem Clientsystem als JavaScript ausgeführt, dass hat zu
+Folge das die Skriptfunktion nur so lange funktioniert, wie das Clientsystem
+aktiv ist, die Webseite also angezeigt wird. Diese Skriptfunktion sollte auf dem
+Rasberry Pi gespeichert und ausgeführt werden.
 
 \subsection{Auswahl des darzustellenden Boards}
+\label{auswahl_board}
+Da die Webseite immer nur ein Pollin Net-IO Board darstellen kann, muss dem
+Nutzer eine Möglichkeit gegeben werden, eines aus allen verfügbaren auszuwählen.
+Hierfür bietet es sich an im \textrm{div} Element mit der ID \textrm{header}
+ein \textrm{select} anzubieten (z.B. auf der linken Seite, siehe
+Abbildung \ref{select_board}), mit dem das darzustellende Board ausgewählt
+werden kann.
+Für die Positionierung des Elementes kann das \textrm{div} Element mit der ID \textrm{loading_loop} als
+Vorlage genutzt werden.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{content/pictures/select_board.png}
+\caption{Vorgeschalgene Position für ein select-Element um die darzustellende
+Platine zu wählen}
+\label{select_board}
+\end{figure}
+
+Beim Einfügen des \textrm{select} Elements in der Header ist zu beachten das die
+Höhe des Headers nicht verändert werden sollte. Sollte dies dennoch nötig sein,
+müssen die Kommentare im CSS-Code beachtet werden, um alle anderen nötigen
+Änderungen durchzuführen.
 
 \subsection{Verwaltung der Boards im System}
+\label{verwaltung_system}
+Im Einstellungs-Tab der Webseite muss eine Möglichkeit ergänzt werden, um die
+neue Pollin Net-IO Boards zum System hinzuzufügen und vorhandene zu editieren
+oder zu löschen. Für jedes Board sollte eine Sktipfunktion und ein Name
+hinterlegbar sein. Der Name ermöglicht es dem Benutzer die Boards leichter
+voneinander zu unterscheiden.
 
 %-----------------------------------------------------------------------------------------
 \section{Der neue Server}
-
+Beim Server, der auf dem Rasberry Pi betrieben werden sollte, gibt es zwei
+grundsätzliche Lösungsmöglichkeiten. Zum einen lässt sich der Server als
+C/C++/Java-Programm realisieren das einen Webserver zur Verfügung stellt oder
+man realisiert den Server als PHP-Programm auf einem XAMPP-Server.\\
+\\
+Bei beiden Alternativen muss der Server mit den einzelnen Pollin Net-IO Boards
+kommunizieren, die Daten über die REST-Schnittstelle bzw. die Server-Sent Events
+bereitstellen sowie die Webseite hosten.
 
 %-----------------------------------------------------------------------------------------
 \section{Herangehensweise an das Projekt}
+\subsection{Einpflegen des Rasberry Pi}
+Im ersten Schritt sollte der Rasberry Pi in das bestehende System eingepflegt
+werden. Hierfür sollte die Kommunikation zwischen Server und Webseite vorerst so
+belassen werden wie sie aktuell ist, inklusive Polling. Der Server muss die
+Daten von dem Pollin Net-IO Board empfangen (per Polling oder Pushing) und in
+eine kleine Datenbank (oder ein Array etc.) hinterlegen. Bei jeder Abfrage der
+Webseite werden die aktuellsten Daten weitergeleitet.\\
+\\
+Zu beachten ist, das später die Skripte auf dem Server ausgeführt werden sollen.
+Aus diesem Grunf würde sich PHP als Programmiersprache anbieten, da PHP-Code,
+der als Text vorliegt, direkt mit \textrm{eval()} ausgeführt werden kann.
+
+\subsection{Betreiben mehrer Pollin Net-IO Boards}
+Anschließend sollten mehrer Pollin Net-IO Boards betrieben werden können.
+Hierfür muss die Server/Webseiten-Schnitstelle entsprechend dem Kapitel
+\ref{aenderung_schnitstelle} überarbeitet werden. Die direkte Implementierung
+der HTML5 Server-Sent Events ist empfehlenswert. Außerdem muss die Oberfläche
+der Webseite um eine Auswahlmöglichkeit für das zu verwendende Board sowie eine
+Konfigurationsmöglichkeit für die einzelnen Boards im System erweitert werden
+(siehe Kapitel \ref{auswahl_board} und \ref{verwaltung_system}).
+
+\subsection{Verlagern der Skriptfunktionen auf den Server}
+Im letzten Schritt sollten die Skriptfunktionen, die nach jedem neuladen der
+Werte ausgeführt wird (aktuell im Settings-Tab einstellbar), auf dem Server
+gespeichert und ausgeführt werden. Die Skriptfunktionen müssen natürlich von der
+Webseite aus für jedes Board einzeln anpassbar sein. Wenn die Serverstruktur auf Basis des
+XAMPP-Servers gewählt wurde, bietet sich PHP als Skriptsprache an, da der Code
+nach dem Empfang neuer Werte direkt mit \textrm{eval()} ausgeführt werden kann.
+Wichitg ist hierbei das über einfache Getter und Setter Funktionen der Zugriff
+auf alle aktuellen Messwerte möglich ist und die Skriptfunktion auch Pins von
+Boards sowie deren DDR manipulieren kann.
