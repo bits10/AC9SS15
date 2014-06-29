@@ -53,7 +53,7 @@
 	#define OUTC 		0xFF
 
     // PD0..PD7: Connectior "EXT.,etc."
-	#define OUTD 		0x00
+	#define OUTD 		0xFF
 
     //Watchdog timer for the ENC2860, resets the stack if timeout occurs
     #define WTT 1200 //Watchdog timer in timer interrupt
