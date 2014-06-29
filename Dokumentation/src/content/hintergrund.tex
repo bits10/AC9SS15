@@ -10,7 +10,7 @@ Die auf der Webseite dargestellten Werte werden vor dem senden der HTML-Seite
 im HTML-Code eingefügt indem Platzhalter im Format "`\%PORTA0"' ersetzt und so statisch auf
 der Webseite dargestellt werden. Das Manipulieren der Pins findet über ein HTML-Formular
 statt. Alle manipulierbaren Pins sind als Input vom Typ Checkbox dargestellt. Diese lassen
-sich frei manipulieren und erst beim Betätigen des "Senden"-Buttons werden die
+sich frei manipulieren und erst beim Betätigen des "`Senden"'-Buttons werden die
 Informationen per POST-Event an den Server gesendet und so die Seite neu aufgerufen. Der
 Server filtert die POST Informationen aus dem HTTP-Header und manipuliert die Pins gemäß
 den Anweisungen. Beim senden des angeforderten HTML-Dokumentes werden die neuen Werte in
@@ -93,7 +93,7 @@ Date übertragen werden, da sich eventuell nicht bei jedem erneuten anfordern de
 diese auch tatsächlich verändert haben und so die gleichen Datensätze oft mehrmals
 angefordert werden.
 
-Im vergleich zu der Radig-Lösung bietet Polling den Vorteil das die Werte kontinuierlich
+Im Vergleich zu der Radig-Lösung bietet Polling den Vorteil das die Werte kontinuierlich
 nach geladen und so immer korrekt dargestellt werden während die Webseite dargestellt
 wird. Auch das gesendete Datenvolumen wird dahingehend minimiert, das nur die Nutzdaten
 übertragen werden und nicht der gesamte HTML-Code der Webseite. Polling ist technisch sehr
@@ -153,60 +153,6 @@ müsste.
 Aus diesen Gründen entschlossen wir uns das technisch unsauberere Polling zu
 verwenden, da die Implementierung von Pushing den Rahmen des Projektes
 übersteigen würde.
-
-
-%\begin{itemize}
-%	\item Daten können entweder per Polling vom Client (Webseite abgefragt werden) oder
-%		  vom Server bei einem Event (Änderung eines Eingangs) per Push geschickt werden
-%	\item Pro/Contra Push
-%	\begin{itemize}
-%		\item Pro: Daten werden nur übertragen wenn es wirklich nötig ist, kein unnötiger
-%			  Datenverkehr
-%		\item Pro: Leistung bleibt auch mit mehreren Clients eher konstant
-%			  (Genau Begründung ausarbeiten!)
-%		\item Pro: Board wird entlastet, kein DOS, mehrere Clients können Webseite
-%		      trotzdem problemlos aufbauen
-%	\end{itemize}
-%	\item Pro/Contra Polling
-%	\begin{itemize}
-%		\item Pro: Leichter zu implementieren - normale Dateiabfrage
-%		\item Contra: Es werden viele unnötige Daten übertragen
-%		\item Contra: Leistung nimmt mit steigender Anzahl von Clients ab
-%		\item Pro: Im Prinzip nicht langsamer als Push: Limitierende Komponente ist die
-%			  Übertragungszeit! (Hier Bild von Chrome Netzwerkvehrkehr)
-%	\end{itemize}
-%
-%	\item Push bessere Lösung
-%	\item Umsetzung aber nicht möglich
-%	\item Server kann keine Verbindung zu Client aufbauen
-%	\begin{itemize}
-%		\item Javascript kann keinen Serverport öffnen
-%		\item Client hat keine öffentliche IP
-%	\end{itemize}
-%	\item Technische Lösung: HTML 5 Server Sent Events
-%	\begin{itemize}
-%		\item Technischer Standart, Eingeführt mit HTML 5
-%		\item Client ruft virtuelle URL auf, ähnlich REST
-%		\item So wird ein Stream geöffnet
-%		\item Bei einem Event schreibt der Server die Informationen in den Stream
-%		\item Client benutzt Javascript API um die jeweiligen Informationen zu lesen
-%	\end{itemize}
-%	\item Mit ATmega CPU und Radig Projrkt als Vorlage nicht lösbar
-%	\begin{itemize}
-%		\item Radig kann nur eine Verbindung handeln. Aufbau - Übertragung - Abbau für
-%			  jede Datei
-%		\item HTTP 1.0
-%		\item Aufruf einer HTML5 Server Sent Event URL würde dazu führen das der Server
-%			  blockiert ist
-%		\item Gesamte Struktur auf nur eine Verbindung ausgelegt
-%		\item Bei Umschreiben (sehr tiefer Eingriff!) stößt die CPU schnell an Grenzen
-%		\item Multitasking nötig, Stack für jede Verbindung führt zu RAM Problemen
-%		\item Sprengt vermutlich zeitlichen Rahmen
-%	\end{itemize}
-%	\item Daraus resutltiert die Verwendung von Polling
-%	\item Da Polling nicht langsamer ist, gibt es keine Nachteile bei Frequenzen von ca.
-%		  200ms (auch bei zB. 3 Clients)
-%\end{itemize}
 
 %-----------------------------------------------------------------------------------------
 \subsection{Aufbau der Server-Kommunikation}
@@ -290,14 +236,13 @@ hinzugekommen ist das Ausgeben der Information ob der Konkrete Pin über das
 DDRegister als Ein- oder Ausgang definiert ist. Das Schema ist für diesen
 Platzhalter ist \textrm{\%DDRXY} und setzt sich zusammen aus dem Aufruf \textrm{\%DDR}, dem
 anzusprechendem Port X = [A,C oder D] und dem Pin Y = [0-7] (z.B.
-\textrm{\%DDRD1} ). \\
-\\
-Damit das System für uns möglichst flexibel Arbeitet, haben wir uns dafür
-entschieden, diese Dynamischen Angaben in eine Separate Datei auszulagern und
-über die REST Schnittstelle abzufragen. Konkreter liegt in dem /Rest
-Verzeichnis eine \textrm{values} Datei die die Platzhalter enthält. Zusätzlich
-gibt es noch eine \textrm{info} und \textrm{pininfo} Datei, die statische
-Informationen zu den Pins und Ports Enthält. \\
+\textrm{\%DDRD1} ). 
+
+%-----------------------------------------------------------------------------------------
+\subsection{Erweiterung der POST-Parameter}
+Um Manipulationen an dem Board vorzunehemen haben wir uns entschlossen das
+vorhandenen System zu erweitern. Hierbei werden bei jeder \ac{HTTP}-Anfrage die
+POST-Parameter ausgewertet und das Board entsprechend manipuliert.\\
 \\
 Das setzen der Ausgänge wird über einen HTTP-Post Aufruf getätigt. So können die
 Pins des entsprechenden Ports gesetzt oder umgeschaltet werden. Die
@@ -313,32 +258,9 @@ sieht folgendermaßen aus:
 \\
 
 \framebox{SET=PORTC0F\&SET=OUTD0F\&SUB=Senden}
-%\begin{itemize}
-%	\item Benutzung der Struktur von Radig
-%	\item Die Eingägne werden durch Platzhalter (z.B. \%PortC1 ) angegeben. Beim
-%			übertragen des Dokuments werden die Platzhalter ersetzt durch passende Werte
-%	\item in /rest liegen Dateien values (mit Platzhaltern), pininfo und info
-% (jeweils als
-%	      statisches Dokument)
-%	\item Dateien können von ausßen normal aufgerufen werden und werden ggfs. mit
-% realen
-%	      Informationen aufgefüllt
-%	\item Vorteil: Test außerhalb der Platine möglich, da Werte als String
-% gekennzeichnet
-%	      sind in JSON, Pins haben dann den Wert \%PortXY anstatt 0 oder 1
-%	\item TODO: Wie werden die set URLs implementiert?
-%	\item Die Ausgänge werden über die Post übertragung gesetzt.
-%\end{itemize}
 
 %-----------------------------------------------------------------------------------------
-\subsection{Erweiterung der POST-Parameter}
-Um Manipulationen an dem Board vorzunehemen haben wir uns entschlossen das
-vorhandenen System zu erweitern. Hierbei werden bei jeder \ac{HTTP}-Anfrage die
-POST-Parameter ausgewertet und das Board entsprechend manipuliert.\\
-\\
-TODO
 
-%-----------------------------------------------------------------------------------------
 \subsection{Implementierung der REST-Schnitstelle auf dem Client}
 Auf der Webseite müssen die vom Server bereitgestellten \ac{REST}-URLs im
 Hintergrund aufgerufen werden können. Hierzu verwendeden wir die bereits in JavaScript
@@ -402,6 +324,10 @@ Verwendung sind der ausführlichen Sourcecode-Dokumentation zu entnehmen.
 
 %-----------------------------------------------------------------------------------------
 \subsection{Das Atmel Studio}
+
+Das Atmel Studio ist als \ac{IDE} das zentrale Werkzeug um einen Mikrocontroller
+zu programmieren.
+
 
 \subsubsection{Device Programming}
 \label{Chap:atmelStudio.Programming}
