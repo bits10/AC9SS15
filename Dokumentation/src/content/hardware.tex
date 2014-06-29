@@ -30,7 +30,7 @@ Anhang, Abbildung \ref{anh:schaltplan})
 \begin{itemize}
   \item Betriebsspannung 9V 
   \item Stromaufnahme ca. 190 mA
-  \item 8 Digitale Ausgänge, 4 Digitale Eingänge
+  \item 14 Digitale Ein/Ausgänge, 4 Digitale Eingänge
   \item 4 Analoge Eingänge
   \item ATmega644P Mikrocontroller
   \item integrierte ISP-Schnittstelle
@@ -40,17 +40,22 @@ Anhang, Abbildung \ref{anh:schaltplan})
 Das Team hatte zu Beginn einen ATmega32 Prozessor als Vorgabe. Dieser hat jedoch nur 32kB Flash Speicher. Nach ersten 
 Feldversuchen wurde schnell klar, dass ein Speicher von 32kB nicht ausreichen wird, weshalb das Team auf einen ATmega644P 
 ausgewichen ist. Dessen Speicherressourcen liegen bei 64kB und reichen für Webserver und Webseite aus, weshalb das Team 
-nicht auf die größere Variante, den ATmega1284P ausweichen musste.\\ Anbei ein kleiner Vergleich der wichtigsten Bestandteile der 
-drei Prozessoren.\\ \\ 
-\begin{tabular}{|c|c|c|c|} \hline
-  Prozessoren & ATmega32 & ATmega644P & ATmega1284P \\ \hline 
+nicht auf die größere Variante, den ATmega1284P ausweichen musste.\\ 
+Anbei ein kleiner Vergleich der wichtigsten Bestandteile der 
+drei Prozessoren. Weitere Informationen würden den Rahmen sprengen und können
+bei Bedarf dem entsprechendem Datenblatt entnommen werden.
+
+\begin{table}[H]
+\begin{tabular}{|c|c|c|c|} \hline 
+  Mikrocontroller & ATmega32 & ATmega644P & ATmega1284P \\ \hline 
   Flash & 32kB & 64kB & 128kB \\ \hline
   Pins & 44 & 44 & 44 \\ \hline
   Max. Operation Freq. & 16MHz & 20MHz & 20MHz\\ \hline
   Max. I/O Pins & 32 & 32 & 32 \\ \hline
-  
- \end{tabular}
-
+\end{tabular}
+\caption{Mikrocontroller im Vergeich}
+\label{mikrocontroller}
+\end{table}
 
 \subsection{ENC28J60}
 
@@ -59,6 +64,7 @@ nimmt die externen Anfragen an und reicht diese an den ATMega weiter. Dabei ist
 er an Port B des ATMegas Angeschlossen, dieser kann deswegen nicht für Ein- oder
 Ausgaben verwendet werden.
 
+\newpage
 \section{Fuse Bits}
 \label{chap:Fuse}
 
@@ -126,7 +132,7 @@ Im Atmel Studio können die Fuse Einstellungen ganz einfach im Device Programmin
 vorgenommen werden (Kapitel \ref{Chap:atmelStudio.Programming}). In Abbildung
 \ref{fuses-graf} sind die festgelegten Einstellungen eingetragen.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=8cm]{content/pictures/Fusebits/fusebits_atmelstudio.png}
 \caption{Fuse-Bits im Atmel Studio (ATMega-664P)}
