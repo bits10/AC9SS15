@@ -5,28 +5,39 @@
 \section{AVR Net-IO-Board}
 \begin{figure}[h]
 \centering
-\includegraphics[width=10cm]{content/pictures/avr-net-io.jpg}
+\includegraphics[width=7.5cm]{content/pictures/avr-net-io.jpg}
 \caption{AVR-NET-IO - Pollin GmbH}
 %http://www.pollin.de/shop/dt/MTQ5OTgxOTk-/Bausaetze_Module/Bausaetze/Bausatz_AVR_NET_IO.html
 \label{fig:B3}
 \end{figure}
+Auf dem AVR Net-IO-Board sind der Webserver und die Webseite gespeichert. Die verschiedenen Pins lassen sich darüber 
+ansteuern und manipulieren. Welcher Pin an welchem Anschluss ist, ist auf dem Schaltplan zu sehen. (siehe Anhang)
 
 \subsection{Technische Daten}
 \begin{itemize}
-  \item Betriebsspannung 9V
+  \item Betriebsspannung 9V 
   \item Stromaufnahme ca. 190 mA
   \item 8 Digitale Ausgänge, 4 Digitale Eingänge
   \item 4 Analoge Eingänge
-  \item ATmega32 Mikrocontroller
+  \item ATmega644P Mikrocontroller
   \item integrierte ISP-Schnittstelle
 \end{itemize}
-
+\newpage
 \section{Mikrocontroller}
-\subsection{ATmega32}
+Das Team hatte zu Beginn einen ATmega32 Prozessor als Vorgabe. Dieser hat jedoch nur 32kB Flash Speicher. Nach ersten 
+Feldversuchen wurde schnell klar, dass ein Speicher von 32kB nicht ausreichen wird, weshalb das Team auf einen ATmega644P 
+ausgewichen ist. Dessen Speicherressourcen liegen bei 64kB und reichen für Webserver und Webseite aus, weshalb das Team 
+nicht auf die größere Variante, den ATmega1284P ausweichen musste.\\ Anbei ein kleiner Vergleich der wichtigsten Bestandteile der 
+drei Prozessoren.\\ \\ 
+\begin{tabular}{|c|c|c|c|} \hline
+  Prozessoren & ATmega32 & ATmega644P & ATmega1284P \\ \hline 
+  Flash & 32kB & 64kB & 128kB \\ \hline
+  Pins & 44 & 44 & 44 \\ \hline
+  Max. Operation Freq. & 16MHz & 20MHz & 20MHz\\ \hline
+  Max. I/O Pins & 32 & 32 & 32 \\ \hline
+  
+ \end{tabular}
 
-\subsection{ATmega644P}
-
-\subsection{ATmega1284P}
 
 \subsection{ENC28J60}
 
