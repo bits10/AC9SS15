@@ -37,6 +37,22 @@ Die Fuse-Bits sind die Grundlegenden Einstellungen, mit denen ein
 Mikrocontroller arbeitet. Sie müssen geändert werden, wenn ein anderer Taktgeber
 gewünscht ist oder Schnittstellen de- oder aktiviert werden sollen.
 
+\begin{myframe}
+\textbf{Allgemeiner Hinweis:} Dieser Artikel kann die Recherche im Datenblatt
+nicht ersetzen, besonders bei abweichendem Mikrocontroller sind die Fuse-Bits
+oft anders gewählt. Mit dem Atmel Studio kann es vorkommen, dass man sich vom
+Mikrocontroller aussperrt. Ein zurücksetzen der Fuse-Bits kann mit AVRDUDE
+in diesem Fall versucht werden. Beschrieben wird dieser Vorgang im
+Benutzerhandbuch \ref{Chapt:Einrichten}
+\end{myframe}
+
+In Tabelle ref{fuses-names} werden die einzelnen Fuse-Bits zusammen mit ihrer
+Bedeutung und dem entsprechendem Byte aufgelistet. Der Schlussendliche Fuse Wert
+setzt sich aus zwei Byte zusammen, wobei eine 1 eine deaktivierte Eigenschaft und
+eine 0 aktiviert Eigenschaft bedeutet. Kleinere Mikrocontroller besitzen nur ein
+High (H) und ein Low (L) Register, größere Mikrocontroller besitzen zusetzlich
+noch ein Extended (E) Register.
+
 \begin{table} [H]
 \begin{tabular}{|l|l|l|} \hline
 Fuse Name & Bedeutung & Bytes\\ \hline
@@ -53,5 +69,35 @@ CKOUT & Ausgabe des Takts der Uhr auf Port B1 & L-Fuse 7\\ \hline
 SUT\_CKSEL & Wahl der Takt-Quelle & L-Fuse 0-6\\ \hline
 \end{tabular}
 \caption{Die Bedeutung der einzelnen Fuse-Bits (ATMega-664P)}
-\label{fuses}
+\label{fuses-names}
 \end{table}
+
+Wir benötigen für unseren ATMega-664P SPIEN, EESAVE und BOOTRST aktiviert im
+High Register. Im Low Register muss alles deaktiviert werden, damit die Externe
+Quarz-Kristall verwendet wird. Da das Brown-out Detector trigger level nicht
+verwendet wird, kann in den Extended Register es ebenfalls alles deaktiviert
+werden. Daraus resultiert die Bit Kombination in Tabelle \ref{fuses-result}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|} \hline
+Fues Register & Binär & Hex\\ \hline
+Extended-Fuse & 1111 1111 & FF\\ \hline
+High-Fuse & 1101 0110 & D6\\ \hline
+Low-Fuse & 1111 1111 & FF\\ \hline
+\end{tabular}
+\caption{Fuse Einstellungen (ATMega-664P)}
+\label{fuses-result}
+\end{table}
+
+Im Atmel Studio können die Fuse Einstellungen ganz einfach im Device Programming
+vorgenommen werden (Kapitel \ref{Chap:atmelStudio.Programming}). In Abbildung
+\ref{fuses-graf} können sind die festgelegten Einstellungen eingetragen.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm]{content/pictures/Fusebits/fusebits_atmelstudio.png}
+\caption{Fuse-Bits im Atmel Studio (ATMega-664P)}
+\label{fuses-graf}
+\end{figure}
+
