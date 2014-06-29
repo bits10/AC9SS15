@@ -10,6 +10,17 @@
 %http://www.pollin.de/shop/dt/MTQ5OTgxOTk-/Bausaetze_Module/Bausaetze/Bausatz_AVR_NET_IO.html
 \label{fig:B3}
 \end{figure}
+Die Platine des AVR-Net-IO ist für den einfachen Anschluss der Externen
+Anwendungen gedacht. Der Fokus liegt hier, je nach verwendetem Anschluss Bord
+nicht darauf eine optimale Gestaltung zu haben sondern die einzelnen Sensoren
+eher lose an die Platine anzuschließen. Dies geschieht wie in der Elekronik oft
+üblich über die Verwendung von Breadboards, blanke Steckbretter auf
+denen Schaltungen konzipiert werden können. Deswegen haben die Analog zu Ditital
+Wandler Schraub-Verbindungen und auch die im Handel verfügbare Anschlussplatine
+für den 25 Poligen D-Sub Stecker hat Schraub-Verbindungen. Für die Demonstration
+haben wir uns spezielle Schaltungen überlegt die an die einfach an die Externen
+Anschlüsse das AVR-Net-IO Angeschlossen werden können. \\
+\\
 Auf dem AVR Net-IO-Board sind der Webserver und die Webseite gespeichert. Die verschiedenen Pins lassen sich darüber 
 ansteuern und manipulieren. Welcher Pin an welchem Anschluss ist, ist auf dem Schaltplan zu sehen. (siehe Anhang)
 
@@ -22,7 +33,13 @@ ansteuern und manipulieren. Welcher Pin an welchem Anschluss ist, ist auf dem Sc
   \item ATmega644P Mikrocontroller
   \item integrierte ISP-Schnittstelle
 \end{itemize}
+<<<<<<< HEAD
 \newpage
+=======
+
+
+
+>>>>>>> origin/master
 \section{Mikrocontroller}
 Das Team hatte zu Beginn einen ATmega32 Prozessor als Vorgabe. Dieser hat jedoch nur 32kB Flash Speicher. Nach ersten 
 Feldversuchen wurde schnell klar, dass ein Speicher von 32kB nicht ausreichen wird, weshalb das Team auf einen ATmega644P 
@@ -41,6 +58,11 @@ drei Prozessoren.\\ \\
 
 \subsection{ENC28J60}
 
+Der ENC28J60 ist der IEEE 802.3 kompatibe Netzwerk Contoller des AVR-Net-IO er
+nimmt die externen Anfragen an und reicht diese an den ATMega weiter. Dabei ist
+er an Port B des ATMegas Angeschlossen, dieser kann deswegen nicht für Ein- oder
+Ausgaben verwendet werden.
+
 \section{Fuse Bits}
 \label{chap:Fuse}
 
@@ -57,7 +79,7 @@ in diesem Fall versucht werden. Beschrieben wird dieser Vorgang im
 Benutzerhandbuch \ref{Chapt:Einrichten}
 \end{myframe}
 
-In Tabelle ref{fuses-names} werden die einzelnen Fuse-Bits zusammen mit ihrer
+In Tabelle \ref{fuses-names} werden die einzelnen Fuse-Bits zusammen mit ihrer
 Bedeutung und dem entsprechendem Byte aufgelistet. Der Schlussendliche Fuse Wert
 setzt sich aus zwei Byte zusammen, wobei eine 1 eine deaktivierte Eigenschaft und
 eine 0 aktiviert Eigenschaft bedeutet. Kleinere Mikrocontroller besitzen nur ein
@@ -84,10 +106,13 @@ SUT\_CKSEL & Wahl der Takt-Quelle & L-Fuse 0-6\\ \hline
 \end{table}
 
 Wir benötigen für unseren ATMega-664P SPIEN, EESAVE und BOOTRST aktiviert im
-High Register. Im Low Register muss alles deaktiviert werden, damit die Externe
-Quarz-Kristall verwendet wird. Da das Brown-out Detector trigger level nicht
-verwendet wird, kann in den Extended Register es ebenfalls alles deaktiviert
+High Register. Im Low Register muss alles deaktiviert werden, damit der Externe
+Quarz-Kristall verwendet wird. Da der Brown-out Detector trigger nicht
+verwendet wird, kann in dem Extended Register ebenfalls alles deaktiviert
 werden. Daraus resultiert die Bit Kombination in Tabelle \ref{fuses-result}.
+Wenn \ac{JTAG} verwendet werden soll, muss der entsprechende Bit (H-Fuse 6)
+gesetzt werden. Ist \ac{JTAG} aktiviert fungieren auf Port C die Pins 2-5
+nicht mehr als IO-Pins, diese werden für \ac{JTAG} verwendet.
 
 \begin{table}[H]
 \centering
@@ -103,12 +128,17 @@ Low-Fuse & 1111 1111 & FF\\ \hline
 
 Im Atmel Studio können die Fuse Einstellungen ganz einfach im Device Programming
 vorgenommen werden (Kapitel \ref{Chap:atmelStudio.Programming}). In Abbildung
-\ref{fuses-graf} können sind die festgelegten Einstellungen eingetragen.
+\ref{fuses-graf} sind die festgelegten Einstellungen eingetragen.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=13cm]{content/pictures/Fusebits/fusebits_atmelstudio.png}
+\includegraphics[width=8cm]{content/pictures/Fusebits/fusebits_atmelstudio.png}
 \caption{Fuse-Bits im Atmel Studio (ATMega-664P)}
 \label{fuses-graf}
 \end{figure}
+
+Weitere Hinweise zu den Fuse-Einstellungen gibt es auf mikrocontroller.net
+\url{http://www.mikrocontroller.net/articles/AVR_Fuses}.
+Eine Website die eine einfache grafische Konfiguration der Fuse-Bits ermöglicht
+gibt es bei engbedded.com \url{http://www.engbedded.com/fusecalc/}
 
