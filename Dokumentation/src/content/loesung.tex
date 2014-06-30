@@ -79,9 +79,86 @@ Platine, die auch klickbar ist, zusammengebaut. Löschen eines Divs verursacht
 Darstellungsfehler, sowie ein nicht mehr Anzeigen der grafischen Platine.
 
 \subsection{JavaScript}
+\subsubsection{Generell}
+In \textrm{rest.js} und \textrm{favorite.js} werden die einzelen Pins über eine
+ID unterschiden. Diese ID wird vorallem als Parameter für diverse Funktionen wie
+\textrm{getValu(id)} verwendet. Die ID setzt sich immer aus dem Buchstaben des
+Ports, sowie aus der Nummer des Pins zusammen. Mögliche IDs sind folglich [A0
+bis A7], [C0 bis C7] und [D0 bis D7].
+
 \subsubsection{rest.js}
+Die \textrm{rest.js} beinhaltet den gesamten Code zum Abrufen von Daten beim
+Server.
+
+Hierbei bieten die Funktionen \textrm{loadUrl(\ldots)} und
+\textrm{loadUrlAsync(\ldots)} den Kern der Serverkommunikation. Mit Ihnen können
+beliebige URLs geladen werden, \textrm{loadUrlAsync(\ldots)} bietet zusätzlich
+die Möglichkeit POST-Parameter zu übergeben. Der grundlegende Unterschied
+zwischen diesen beiden Methoden ist, das \textrm{loadUrl(\ldots)} den
+Programmablauf blockiert, bis die Daten vollständig geladen sind, wohingegen
+\textrm{loadUrlAsyn(\ldots)} die Daten parallel im Hintergrund lädt. Sobald alle
+Daten erfolgreich geladen sind, wird die Funktion aufgerufen, die
+\textrm{loadUrlAsync(\ldots)} als Parameter übergeben wurde. Weitere
+informationen, vor allem zur Parametrierung der Funktionen, sind der
+Sourcecode-Dokumentation zu entnehmen.\\
+\\
+In der Funktion \textrm{initRest()} wird zum ersten mal die Funktion
+\textrm{startNewRefreshTask()} aufgerufen. Diese ruft die Funktion
+\textrm{refreshValues()} auf, welche sich selbst rekursiv immer wieder nach
+einer gewissen Pause (der Polling-Frequenz, welche in den Einstellungen
+festgelegt werden kann) aufruft. Die Polling-Frequenz wird in dem Attribut
+\textrm{pollingFreq} gespeichert. Der so erzeugte Refersh-Task, der
+vollautomatisch die Werte aktualisiert, kann über \textrm{cancelRefreshTask()}
+wieder gestoppt werden. Die Werte werden danach natürlich nicht mehr
+aktualisiert, bis mit \textrm{startNewRefreshTask()} ein neuer Task gestartet
+wird. Nach jedem Aktualisieren der Werte wird die Funktion aufgerufen, die in
+dem Attribut \textrm{onValuesChanged} gespeichert wird. In unserer
+Implementierung ist diese Funkion in der \textrm{ui.js} implementiert und
+organisiert die Aktualisierung der Oberfläche damit die aktuellen Werte
+dargestellt werden. Der Wert des Attrbiutes \textrm{onValuesChanged} kann mit
+der Funktion \textrm{setOnValuesChanged(\ldots)} manipuliert werden. Die zuletzt
+Empfangenen Werte werden in \textrm{cachedValues} gespeichert und sind über
+diverse Getter wie \textrm{getValue(id)} verfügbar.
+
+Das stoppen eines bestehenden Tasks wird realisiert, indem das Attribut
+\textrm{taskIdCounter} inkrementiert wird. \textrm{refreshValues()} überprüft am
+Anfang ob der aktuelle Wert von \textrm{taskIdCounter} mit dem Wert
+übereinstimmt, mit der der aktuell ausgeführte Task gestartet wurde. Ist dies
+nicht der Fall, weil der Task beendet oder ein neuer gestartet wurde, beendet
+sich der Task automatisch selbst, indem die Funktion \textrm{refreshValues()}
+nicht erneut rekursiv aufgerufen wird.\\
+\\
+In der Funktion \textrm{initRest()} werden einmalig die REST-URLs
+\textrm{/rest/info} und \textrm{/rest/pininfo} geladen. Diese beinhalten nur
+statische Informationen, welche sich nie ändern. Die empfangenen JSON-Strukturen
+werden in ein javaScript Objekt geparst und in \textrm{cachedInfo} und
+\textrm{cachedPinInfo} gespeichert. Der Inhalt dieser Objekte wird über
+die Getter \textrm{getInfo()} und \textrm{getPinInfo()} zur Verfügung gestellt.
+Für \textrm{cachedPinInfo} sind zudem Getter wie
+\textrm{getDefaultDescription(id))} vorhanden.
+
+
 \subsubsection{favorites.js}
+TODO Sophie!
+
+
 \subsubsection{db.js}
+Die \textrm{db.js} besteht aus 2 Funktionen. 
+
+\textrm{getDb(key, defaultValue)} liefert den gesoeicherten Wert für den
+gegebenen \textrm{key}, welcher immer eine Zahl oder ein String sein sollte. Ist
+kein Wert mit dem gegebenen Key vorhanden, wird der
+übergebene \textrm{defaultValue} zurückgegeben.
+
+\textrm{putDb(key, value)} speichert das gegbenen \textrm{value} unter dem
+gegebenen \textrm{key} ab. Wird jetzt \textrm{getDb(key, defaultValue)} mit dem
+gleichen \textrm{key} aufgerufen, wird der zuvor abgespeicherte Wert
+zurückgegeben.
+
+Alle Mit \textrm{db.js} gespeicherten Wertesind auch nach einem Neualden der
+Seite weiterhin verfügbar, solange nicht die IP-Adresse des Pollin Net-IO Boards
+verändert wird. Die verwendeten Keys müssen natürlich eindeutig sein.
+
 \subsubsection{ui.js}
 Mithilfe dieser ui.js wird die Webseite dynamisch gestaltet. Hier sind die
 grundlegenden Funktionen für den Webseiten Aufbau niedergeschrieben.\newline
