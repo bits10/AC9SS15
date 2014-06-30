@@ -271,12 +271,19 @@ JTAG andere Pins benötigt als für den Anschluss eines ISP Programmers.
 
 %TODO Grafik Pins auf Mikrocontroller zu JTAG
 
-\section{Hexfiles Überspielen}
+%TODO Tabelle Pins
 
-Zum übertragen der Hexfiles gibt es verschiedene Möglichkeiten.
+Damit \ac{JTAG} funktioniert muss der Entsprechende JTAG Fuse-Bit gesetzt sein.
+Dabei ist zu beachten das die Pins 2-5 am Port C des Mikrocontroller nicht für
+Ein- oder Ausgaben verwendet werden können sondern bei aktivierten Fuse-Bit
+gesperrt sind. Als weiterer Hinweis ist zu beachten, dass die Verwendete
+Schnittstelle in den Projekt Einstellungen umgestellt werden muss. Nach
+Korrekter Verbindung, die im Device Manager überprüft werden kann kann das
+Programm auf dem Mikrocontroller debuggt werden.
 
+\subsection{WinAVR Projekt zu Atmel Studio}
 
-\subsection{Atmel Studio}
+%TODO Beispielexport
 
 \section{Die Website}
 

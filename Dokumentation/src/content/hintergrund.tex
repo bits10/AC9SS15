@@ -326,7 +326,12 @@ Verwendung sind der ausführlichen Sourcecode-Dokumentation zu entnehmen.
 \subsection{Das Atmel Studio}
 
 Das Atmel Studio ist als \ac{IDE} das zentrale Werkzeug um einen Mikrocontroller
-zu programmieren.
+zu programmieren Dabei ist das Atmel Studio, welches von Atmel nach einer
+Kostenlosen Registrierung beziehbar ist, stark an die Microsoft Visual \ac{IDE}
+angelehnt. Wenn man bereits Erfahrungen mit Visual Studio gesammelt hat, wird
+man sich schnell im Atmel Studio zurecht finden. Zu den Reinen
+Programmierwerkzeugen gibt es im Atmel Studio noch ein paar weiter Funktionen
+die das Arbeiten mit den Mikrocontroller erleichtert.
 
 
 \subsubsection{Device Programming}
@@ -334,30 +339,36 @@ zu programmieren.
 
 Eine Kernkomponente beim Atmel Studio ist das Device Programming Fenster.
 Erreicht werden kann es über "`Tools $\to$  Device Programming"'.
-Hier kann die Aktuelle Verbindung mit dem Microcotroller bestimmt werden, es
-können die Fuse Bit Einstellung geändert werden oder einzelne Hex
-Dateien auf den Mikrocontroller aufgespielt werden.
+Hier kann die Aktuelle Verbindung mit dem Microcotroller getestet werden. Die
+Einstellungen werden hier aus den Projekt Einstellungen entnommen können aber
+auch frei gewählt werden. Dazu gehören: das Momentan
+angeschlossenen Programmier Werkzeugs, dem Verwendeten Mikrocontroller und der
+Schnittstelle. Durch drücken der Read Buttons kann die Korrektheit der
+Verbindung geprüft werden. Wenn es zu keiner Fehlermeldung kommt und die Ziel
+Spannung bei ungefähr 5V liegt ist der Mikrocontroller korrekt
+angeschlossen.
 
-
-
-Übersicht k Gerät Auswählen
-Contoller Auswählen
-Spannung und Signatur
-Fuse Bits
-Hexfile Flashen
-
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{content/pictures/Anleitung/neuerProzessor/AnleitungNeuerProzessor1.png}
 \caption{DeviceProgramming}
 \label{fig:B3}
 \end{figure}
 
+Weiter können über den Abschnitt Fusebits die entsprechenden Fuse Einstellungen
+getroffen werden, dazu mehr im Kapitel Fusebits \ref{chap:Fuse}
+
+
 \subsubsection{Projekt Einstellungen}
 
-Taktfrequenz
-Programmer
-Empfolene Tool Settings
+Zur als weitere wichtige Einstellung für das Projekt sind die Projekt
+Einstellungen. Hier kann das Werkzeug zum Programmieren, die Schnittstelle und
+die Übertagungstakt gewählt werden.
+Der Übertagungstakt sollte auf ungefähr 1 MHz gesetzt, damit er zum
+einen nicht zu langsam und auch nicht zu schnell ist. Er darf nicht 1/8 des
+Prozessortaktes überschreiten.
+
+%Todo Projekteinstellungen grafik
 
 %-----------------------------------------------------------------------------------------
 \subsection{AVRDUDE}
@@ -367,8 +378,8 @@ ist im Gegensatz zum Atmel Studio lediglich ein Konsolen Werkzeug ohne
 grafische Oberfläche. Mit Avrdude können unter anderem die Fusebits von einem
 Mikrocontroller gelesen und gesetzt werden. Weiter ist es möglich eine Sicherung
 von dem Aktuellen stand des Mikrocontrollers herzustellen oder ein Hex Datei auf
-den Mikrocontroller aufzuspielen. Avrdude unterstützt eine Reihe von ISP Geräten
-unter anderem auch den von uns verwendeten Atmel AVRISPmkII. Der Einsatz von
+den Mikrocontroller aufzuspielen. Avrdude unterstützt eine Reihe von \ac{ISP}
+Geräten unter anderem auch den von uns verwendeten Atmel AVRISPmkII. Der Einsatz von
 Avrdude war notwendig, da die Fusebits von einem Neuen Microcontroller
 Standartmäßig auf den internen Quarz-Kristall gesetzt sind und nicht auf den
 Externen Kristall des AVR-NET-IO Boards.
@@ -433,7 +444,17 @@ entschieden, da es eine einfachere Programmatische Strukturierung erlaubt.
 
 \subsection{AVRISPmkII}
 
+Der AVRISPmkII ist ein einfacher \ac{ISP} Programmierer. Mit ihm ist es nur
+möglich Programme auf den Mikrocontroller zu übertragen. Es ist nicht möglich
+das Programm zu debuggen. Durch den Mangel der Debugfunktion ist der AVRISPmkII
+relativ günstig und kann auch durch andere Baugleiche \ac{ISP} Programmer ersetzt
+werden. Für den einfachen Anschluss mit dem AVR-Net-IO kann ein Adapter
+angefertigt werden, zur Verbindung mit dem Computer nutzt der AVRISPmkII eine
+USB Verbindung.
 
 \subsection{AVRJTAGICEmkII}
 
-
+Der AVRJTAGICEmkII ist ein ein Programmer der neben der \ac{ISP} Schnittstelle
+zum Programmieren auch \ac{JTAG} unterstützt. Über das Atmel Studio ist es
+einfach möglich mit \ac{JTAG} das Programm zu debuggen.
+Der Anschluss von ISP oder JTAG wird im Benutzerhandbuch genauer erklärt.
