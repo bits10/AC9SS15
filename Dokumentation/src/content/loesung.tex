@@ -156,7 +156,7 @@ TODO Sophie!
 \subsubsection{db.js}
 Die \textrm{db.js} besteht aus 2 Funktionen. 
 
-\textrm{getDb(key, defaultValue)} liefert den gesoeicherten Wert für den
+\textrm{getDb(key, defaultValue)} liefert den gespeicherten Wert für den
 gegebenen \textrm{key}, welcher immer eine Zahl oder ein String sein sollte. Ist
 kein Wert mit dem gegebenen Key vorhanden, wird der
 übergebene \textrm{defaultValue} zurückgegeben.
@@ -166,15 +166,57 @@ gegebenen \textrm{key} ab. Wird jetzt \textrm{getDb(key, defaultValue)} mit dem
 gleichen \textrm{key} aufgerufen, wird der zuvor abgespeicherte Wert
 zurückgegeben.
 
-Alle Mit \textrm{db.js} gespeicherten Wertesind auch nach einem Neualden der
+Alle Mit \textrm{db.js} gespeicherten Wertesind auch nach einem Neuladen der
 Seite weiterhin verfügbar, solange nicht die IP-Adresse des Pollin Net-IO Boards
 verändert wird. Die verwendeten Keys müssen natürlich eindeutig sein.
 
 \subsubsection{ui.js}
-Mithilfe dieser ui.js wird die Webseite dynamisch gestaltet. Hier sind die
-grundlegenden Funktionen für den Webseiten Aufbau niedergeschrieben.\newline
-Wichtige Funktionen, wie verkürzen von JavaScript Befehlen
-(document.getElementByID()). Da dann nur noch die Kürzel verwenden werden,
-verkürzt dies den Sourcecode und dies minimiert auch den Speicherbedarf der
-Webseite.\newline
+Die \textrm{ui.js} beinhaltet den gesamten Code für das dynamische gestalten der
+Webseite\newline
+Ein der wichtigsten Funktionen, die generell verwendet wird, ist die
+\textrm{getEl(id)}.
+Diese Funktion verkürzt die Standardfunktion von JavaScript
+\textrm{getElementById(id)}, um den Sourcecode zu kürzer zu halten,
+um den darausselutierenden Speicherbedarf der Webseite zu
+minimieren.\newline
+
+\textrm{initUi()} sollte nur einmal beim Seitenaufruf geladen werden und
+initialisiert die Bneutzerschnittstellen. \\
+\textrm{opcmoId(id)}
+====
+TODO Marcel
+\textrm{opcmo(elem)}
+====
+TODO Marcel
+\textrm{updateUI(pinInfo, values, time)}
+====
+TODO Marcel
+\textrm{setMain(div)} setzt die Hauptkoponenten von dem Frame 'div'. 
+\textrm{addClass(clazz, item)} fügt eine CSS Klasse zu dem gegebenen Item hinzu,
+während die \textrm{removeClass(clazz, item)} die CSS Klasse von dem Item wieder
+löscht.\\
+\textrm{getHighlightElem(id)} makiert die digitalen Pins, oder makiert die
+checkboxen der analogen Pins.
+Folgende Funtkionen generieren die dynamische Sidebar: \textrm{setSidebarId(id)}
+listet alle Informationen über die Pins in der Sidebar auf. Die
+\textrm{updateSidebarValues()} hält die Werte der einzelnen Pins auf den
+aktuellsten Stand.\\
+Die Favoriten Tabelle wird mittels der Funktion \textrm{updateFavoritesTable()}
+erneuert und mit \textrm{updateFavoritesTableValues()} werden die Pin
+Informationen der Favoriten auf den aktuellsten Stand gebracht. Ändern sich die
+Favoriten wird \textrm{onFavoritesChanged()} aufgerufen.\\
+\textrm{text}
+====
+TODO Marcel (fehlen noch weitere Funktionen, Einstellungen)
+\\
+Um die index.html nicht noch mit weiteren vielen div-Elemnten zu
+überfüllen, werden die gleichen div-Elemente mit \textrm{write(count, string,
+ids)} generiert. Diese Funktion wird in folgenden verwendet:
+\textrm{writePinCheck(ids)}, \textrm {writePinCheckMinus(count)},
+\textrm{writePinCheckPlus(count)}, \textrm{writePinCheckNone(count)},
+\textrm{writePinMinusBox(count)}, \textrm{writePinCheckAnalog(ids)} und
+\textrm{writeAnalogBox(ids)}. 
+\\
+
+
 
