@@ -70,17 +70,18 @@ Ausgaben verwendet werden.
 
 Die Fuse-Bits sind die Grundlegenden Einstellungen, mit denen ein
 Mikrocontroller arbeitet. Sie müssen geändert werden, wenn ein anderer Taktgeber
-gewünscht ist oder Schnittstellen de- oder aktiviert werden sollen.
-
-\begin{myframe}
-\textbf{Allgemeiner Hinweis:} Dieser Artikel kann die Recherche im Datenblatt
-nicht ersetzen, besonders bei abweichendem Mikrocontroller sind die Fuse-Bits
-oft anders gewählt. Mit dem Atmel Studio kann es vorkommen, dass man sich vom
-Mikrocontroller aussperrt. Ein zurücksetzen der Fuse-Bits kann mit AVRDUDE
-in diesem Fall versucht werden. Beschrieben wird dieser Vorgang im
-Benutzerhandbuch \ref{Chapt:Einrichten}
-\end{myframe}
-
+gewünscht ist oder Schnittstellen de- oder aktiviert werden sollen.\\
+\\
+\fcolorbox{red}{white}{
+	\parbox{\dimexpr \linewidth-2\fboxsep-2\fboxrule}{
+		\textbf{Allgemeiner Hinweis:} Dieser Artikel kann die Recherche im Datenblatt
+		nicht ersetzen, besonders bei abweichendem Mikrocontroller sind die Fuse-Bits
+		oft anders gewählt. Mit dem Atmel Studio kann es vorkommen, dass man sich vom
+		Mikrocontroller aussperrt. Ein zurücksetzen der Fuse-Bits kann mit AVRDUDE
+		in diesem Fall versucht werden. Beschrieben wird dieser Vorgang im
+		Benutzerhandbuch \ref{Chapt:Einrichten}
+	}}\\
+\\
 In Tabelle \ref{fuses-names} werden die einzelnen Fuse-Bits zusammen mit ihrer
 Bedeutung und dem entsprechendem Byte aufgelistet. Der Schlussendliche Fuse Wert
 setzt sich aus zwei Byte zusammen, wobei eine 1 eine deaktivierte Eigenschaft und
