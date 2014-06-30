@@ -63,13 +63,30 @@ und anschließendem umwandeln mit dem \ac{HHC}.
 
 Der Aufbau der Webseite ist in mehrer Dateien aufgeteilt. So haben wir mehrer
 .js und .css Dateien. In der index.html wird alles nur zusammengetragen.
-\newline
 
 \subsection{HTML und CSS}
+Nur eine html Seite in der alle anderen Dateien aufgerufen werden und zur
+Hauptseite wird: Die index.html\newline
+Die CSS-Elemnte sind in mehrere Dateien aufgesplittet. So kann die input.css
+gegen eine andere input.css ausgetauscht werden. Die input.css ist die Datei für
+das Desgin mit den Farben, Formen, usw.\newline
+Eine Weitere css Datei sollte nicht ausgetauscht werden (board.css).
+
+\subsubsection{board.css}
+Diese Datei behindelt alle Definitionen über die Platine in der Webseiten Status
+Tab. Diese Definitionen werden in der index.html in einem 'div-Salat' zu einer
+Platine, die auch klickbar ist, zusammengebaut. Löschen eines Divs verursacht
+Darstellungsfehler, sowie ein nicht mehr Anzeigen der grafischen Platine.
 
 \subsection{JavaScript}
 \subsubsection{rest.js}
 \subsubsection{favorites.js}
 \subsubsection{db.js}
 \subsubsection{ui.js}
+Mithilfe dieser ui.js wird die Webseite dynamisch gestaltet. Hier sind die
+grundlegenden Funktionen für den Webseiten Aufbau niedergeschrieben.\newline
+Wichtige Funktionen, wie verkürzen von JavaScript Befehlen
+(document.getElementByID()). Da dann nur noch die Kürzel verwenden werden,
+verkürzt dies den Sourcecode und dies minimiert auch den Speicherbedarf der
+Webseite.\newline
 
