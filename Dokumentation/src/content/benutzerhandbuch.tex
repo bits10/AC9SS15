@@ -108,13 +108,8 @@ Geräte-Signatur auszulesen.
 Das Problem liegt darin, das Standartmäßig die Fuses auf den internen
 Quarz-Kristall gesetzt sind und nicht auf den Externen Kristall des
 AVR-NET-IO Boards.
-Beim versuch die Fuse-Bits zu setzen wird man im Atmel Studio mit folgender
-Fehlermeldung begrüßt. 
-\begin{figure}[h]
-\centering
-\includegraphics[width=13cm]{content/pictures/Anleitung/neuerProzessor/AnleitungNeuerProzessor2_fehler.png}
-\caption{DeviceProgramming}
-\end{figure}
+Beim versuch die Fuse-Bits zu setzen wird man im Atmel Studio mit der
+Fehlermeldung aus Abbildung \ref{Einrichten.error} begrüßt.
 
 Abhilfe Schafft hier die Alternative Programmiersoftware AVRDUDE, mit ihr ist
 es Möglich die Fuse-Bits zu ändern. Unter Linux kann dieser einfach über die
@@ -126,10 +121,21 @@ vorhanden sein, das der Programmer mit den gewählten Parametern verwendet werde
 kann. Eine ausführliche Anleitung gibt es hier:
 \url{http://eliaselectronics.com/using-the-avrispmkii-with-avrdude-on-windows/}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{content/pictures/Anleitung/neuerProzessor/AnleitungNeuerProzessor2_fehler.png}
+\caption{DeviceProgramming}
+\label{Einrichten.error}
+\end{figure}
+
 Die in Folgendem Beispiel angezeigten Befehle sind die von uns verwendeten Fuse
 Einstellungen. Für eine genauere Beschreibung wofür die einzelnen Fuse-Bits
 verwendet werden, ist der Abschnitt \ref{chap:Fuse} Fusebits im Kapitel 
 Hardware.
+
+Anschließend kann der Mikrocontroller zusammen mit dem AV-Net-IO und AtmelStudio
+Programmiert werden. Der Verwendete Mikrocontroller wird jetzt richtig erkannt,
+da es auch keine Probleme mit der Gerätesignatur gibt.
 
 \begin{table}[H]
 \begin{tabular}{| p{.24\textwidth} | p{.76\textwidth} |}
@@ -143,15 +149,13 @@ Setzen Windows:& avrdude.exe -p m644p -c avrispmkII -U lfuse:w:0xFF:m -U hfuse:w
 \label{ParameterAvrdude1}
 \end{table}
 
-\begin{figure}[h]
+\begin{figure}
 \centering
 \includegraphics[width=13cm]{content/pictures/Anleitung/neuerProzessor/avrOutput.png}
 \caption{AVRDUDE Ausgabe}
 \end{figure}
 
-Ein Auszug der verwendeten Parameter aus der AVRDUDE Handbuch Seite:
-
-\begin{table}[H]
+\begin{table}
 \begin{tabular}{| p{.35\textwidth} | p{.65\textwidth} |}
 \hline
 -p partno & This is the only option that is mandatory for every invocation of
@@ -175,12 +179,10 @@ The filename field indicates the name of the file to read or write.  The format 
 \textbf{Hier die Bytes die gesetzt werden 0xFF bzw 0xD6} \\ \hline
 -B bitclock & Specify the bit clock period for the JTAG interface or the ISP clock \\ \hline
 \end{tabular}
-\caption{Auslesen und setzen von Fuse-Bits mit dem AVRDUDE}
+\caption{Auszug AVRDUDE Parameter}
 \label{parameterAvrdude2}
 \end{table}
-Anschließend kann der Mikrocontroller zusammen mit dem AV-Net-IO und AtmelStudio
-Programmiert werden. Der Verwendete Mikrocontroller wird jetzt richtig erkannt,
-da es auch keine Probleme mit der Gerätesignatur gibt.
+\newpage
 
 \section{HTML Header Compiler}
 \label{chap:benutzerhandbuch.HHC}
