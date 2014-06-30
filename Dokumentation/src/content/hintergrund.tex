@@ -326,7 +326,12 @@ Verwendung sind der ausführlichen Sourcecode-Dokumentation zu entnehmen.
 \subsection{Das Atmel Studio}
 
 Das Atmel Studio ist als \ac{IDE} das zentrale Werkzeug um einen Mikrocontroller
-zu programmieren.
+zu programmieren Dabei ist das Atmel Studio, welches von Atmel nach einer
+Kostenlosen Registrierung beziehbar ist, stark an die Microsoft Visual \ac{IDE}
+angelehnt. Wenn man bereits Erfahrungen mit Visual Studio gesammelt hat, wird
+man sich schnell im Atmel Studio zurecht finden. Zu den Reinen
+Programmierwerkzeugen gibt es im Atmel Studio noch ein paar weiter Funktionen
+die das Arbeiten mit den Mikrocontroller erleichtert.
 
 
 \subsubsection{Device Programming}
@@ -334,24 +339,24 @@ zu programmieren.
 
 Eine Kernkomponente beim Atmel Studio ist das Device Programming Fenster.
 Erreicht werden kann es über "`Tools $\to$  Device Programming"'.
-Hier kann die Aktuelle Verbindung mit dem Microcotroller bestimmt werden, es
-können die Fuse Bit Einstellung geändert werden oder einzelne Hex
-Dateien auf den Mikrocontroller aufgespielt werden.
+Hier kann die Aktuelle Verbindung mit dem Microcotroller getestet werden. Nach
+Auswahl des Momentan angeschlossenen Programmier Werkzeugs, dem Verwendeten
+Mikrocontroller und der Schnittstelle kann durch die Read Buttons eine Korrekte Verbindung
+geprüft werden. Wenn es keiner Fehlermeldung kommt und die Ziel spannung bei
+ungefähr 5V liegt wurde der Mikrocontroller korrekt angeschlossen.
 
-
-
-Übersicht k Gerät Auswählen
-Contoller Auswählen
-Spannung und Signatur
-Fuse Bits
-Hexfile Flashen
-
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{content/pictures/Anleitung/neuerProzessor/AnleitungNeuerProzessor1.png}
 \caption{DeviceProgramming}
 \label{fig:B3}
 \end{figure}
+
+Weiter können über den Abschnitt Fusebits die entsprechenden Fuse Einstellungen
+getroffen werden, dazu mehr im Kapitel Fusebits \ref{chap:Fuse}
+
+Zur grundlegenden Einstellung für das Projekt gibt es noch Projekt
+Einstellungen, die entsprechend der Gewählten Hardware gesetzt werden muss. Der Übertragugnstackt sollte auf ungefähr 1 MHz gesetzt
 
 \subsubsection{Projekt Einstellungen}
 
@@ -367,8 +372,8 @@ ist im Gegensatz zum Atmel Studio lediglich ein Konsolen Werkzeug ohne
 grafische Oberfläche. Mit Avrdude können unter anderem die Fusebits von einem
 Mikrocontroller gelesen und gesetzt werden. Weiter ist es möglich eine Sicherung
 von dem Aktuellen stand des Mikrocontrollers herzustellen oder ein Hex Datei auf
-den Mikrocontroller aufzuspielen. Avrdude unterstützt eine Reihe von ISP Geräten
-unter anderem auch den von uns verwendeten Atmel AVRISPmkII. Der Einsatz von
+den Mikrocontroller aufzuspielen. Avrdude unterstützt eine Reihe von \ac{ISP}
+Geräten unter anderem auch den von uns verwendeten Atmel AVRISPmkII. Der Einsatz von
 Avrdude war notwendig, da die Fusebits von einem Neuen Microcontroller
 Standartmäßig auf den internen Quarz-Kristall gesetzt sind und nicht auf den
 Externen Kristall des AVR-NET-IO Boards.
