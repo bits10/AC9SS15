@@ -1,3 +1,4 @@
+%Korrekturgelesen : Sophie Dietrich
 \chapter{Recherche}
 
 \section{Andere Lösungsmöglichkeiten}
@@ -16,12 +17,11 @@ Auf der Projekt-Website (\url{http://ethersex.de}) bewirbt sich Ethersex als
 \end{quote}
 
 Sie unterstützt sowohl die von uns verwendeten ATMega Prozessoren, das
-AVR-Net-IO board und auch den verwendeten ENC28J60 Netzwerk Controller.
+AVR-Net-IO Board und auch den verwendeten ENC28J60 Netzwerk Controller.
 Durch einen ausführlichen Quick Start Guide
 (\url{http://ethersex.de/index.php/Quick_Start_Guide/Preparation}) auf der
-Projekt Seite ist es auch sehr einfach möglich selbst für Laien einen
-lauffähiges Projekt hinzugekommen. Fast die gesamte Konfiguration kann
-über einen Menü vorgenommen werden. So muss nicht wie beim Radig Projekt zum
+Projektseite ist es, auch für Anfänger in diesem Themengebiet, sehr einfach möglich, das Projekt lauffähig zu machen. 
+Fast die gesamte Konfiguration kann über ein Menü vorgenommen werden. So muss nicht wie beim Radig Projekt zum
 ändern der Mac Adresse in eine Headerdatei geschrieben werden. 
 
 \begin{figure}[H]
@@ -33,13 +33,13 @@ lauffähiges Projekt hinzugekommen. Fast die gesamte Konfiguration kann
 
 Im Bild (Abb. \ref{Ethersex1}) sieht man den Startbildschirm des
 Menüs, das über den Befehl \textrm{make menuconfig} erreicht werden kann.
-Hier können verschiedenste Einstellungen getroffen werden. Zum Beispiel, den
+Hier können verschiedene Einstellungen getroffen werden. Zum Beispiel, den
 verwendeten Microkontroller, welche Mac Adresse der Netzwerk Controller
 verwendet oder welche IP Adresse gewünscht ist.
 Nachdem die Konfiguration abgeschlossen ist, kann das Hexfile mit dem
-\textrm{make} Befehl erstellt werden. In der Abbildung \ref{Ethersex2} sieht man
-das am ende des \textrm{Make} Prozesses die aktuelle Größe des erstellten Binary Datei
-angezeigt ist.
+\textrm{make} Befehl erstellt werden. In der Abbildung \ref{Ethersex2} sieht man,
+dass am Ende des \textrm{Make} Prozesses die aktuelle Größe des erstellten Binary Datei
+angezeigt wird.
 
 \begin{figure}[H]
 	\centering
@@ -63,7 +63,7 @@ folgendermaßen beschrieben:
 \subsection{Elektronik 2000}
 
 Einen anderen Ansatz verfolgt das Projekt Elektronik 2000.
-Hier wird nicht nur der Webserver geboten sondern eine erweiterte GUI um das
+Hier wird nicht nur der Webserver geboten sondern eine erweiterte GUI, um das
 Board zu programmieren. Dafür wird mit einem grafischem Designer eine Logik
 entworfen und über einen ISP Programmer auf das Board gebracht.
 
@@ -76,10 +76,10 @@ entworfen und über einen ISP Programmer auf das Board gebracht.
 	\cite{elektronik2000}
 \end{quote}
 
-Durch die Netzwerkanbindung des AVR-Net-IO kann dann die Programmierte Logik von
+Durch die Netzwerkanbindung des AVR-Net-IO kann dann die programmierte Logik von
 außen überwacht und gesteuert werden. Dafür gibt es von den Entwicklern eine
 bereitgestellte Android Applikation. Zusätzlich zu einem Projekt das mit dem
-AVR-Net-IO arbeitet gibt es mittlerweile eine weitere Version die auch mit dem
+AVR-Net-IO arbeitet gibt es mittlerweile eine weitere Version, welche auch mit dem
 Raspberry Pi zusammenarbeitet und die GPIO Pins des Pis nach außen steuerbar
 macht.
 
