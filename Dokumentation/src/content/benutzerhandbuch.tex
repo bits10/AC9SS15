@@ -238,7 +238,7 @@ werden.
 \label{output}
 \end{figure}
 
-\subsection{Konfiguration des Webservers}
+\section{Konfiguration des Webservers}
 
 Die Einstellung des Webservers erfolgt über die \textrm{config.h} Datei. In der
 \textrm{config.h} Datei, können Zum einen die verschiedenen Pins der Ports als Ein oder
@@ -271,10 +271,37 @@ Der JTAGICEmkII Debugger von Atmel, den wir für unser Projekt gestellt bekommen
 haben, unterstützt neben ISP auch JTAG. Allerdings werden für den Anschluss von
 JTAG andere Pins benötigt als für den Anschluss eines ISP Programmers.
 
-%TODO Grafik Pins auf Mikrocontroller zu JTAG
+\begin{table}
+\begin{longtable}{|l|l|l|p{8.8cm}|}\hline 
+Pin & Signal & I/O & Description \\ \hline 
+1 & TCK & Output & Test Clock, clock signal from JTAGICE mkII to target JTAG port \\ \hline 
+2 & GND & - & Ground \\ \hline 
+3 & TDO & Input & Test Data Output, data signal from target JTAG port to JTAGICE mkII \\ \hline 
+4 & Vtref & Input & Target reference voltage. Also used to power level converter inputs. \\ \hline 
+5 & TMS & Output & Test Mode Select, mode select signal from JTAGICE mkII to target JTAG port \\ \hline 
+6 & nSRST & Out/-In-put & Open collector output from adapter to the target system reset. This pin is also an input to the adapter so that the reset initiated on the target application board may be reported to the JTAGICE mkII \\ \hline 
+7 & - & - & Not connected \\ \hline 
+8 & nTRST & NC(Output) & Not connected, reserved for compatibility with other equipment (JTAG port reset) \\ \hline 
+9 & TDI & Output & Test Data Input, data signal from JTAGICE mkII to target JTAG port \\ \hline 
+10 & GND & - & Ground \\ \hline 
+\end{longtable}
+\caption{JTAG Connections \cite{JTAGICEmkII.Quick}}
+\label{jtag.Connections}
+\end{table}
 
-%TODO Tabelle Pins
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=6cm]{content/pictures/jatgPins.png}
+  \caption{JTAG Pins}
+  \label{jtag.pins}
+\end{center}
+\end{figure}
 
+Die in \ref{jtag.Connections} gezeigten Pins entsprechen der Belegung der 10
+Anschlüssen des JTAGICEmkII. Diese müssen mit den Pins 2-5 des C Ports, dem
+Reset Pin, Ground und VCC verbunden werden (Abbildung \ref{jtag.pins}). Die Pins 7 \& 8
+des JTAGICEmkII werden nicht mit dem Mikrocontroller verbunden.\\
+\\
 Damit \ac{JTAG} funktioniert muss der Entsprechende JTAG Fuse-Bit gesetzt sein.
 Dabei ist zu beachten das die Pins 2-5 am Port C des Mikrocontroller nicht für
 Ein- oder Ausgaben verwendet werden können sondern bei aktivierten Fuse-Bit
@@ -283,7 +310,7 @@ Schnittstelle in den Projekt Einstellungen umgestellt werden muss. Nach
 Korrekter Verbindung, die im Device Manager überprüft werden kann kann das
 Programm auf dem Mikrocontroller debuggt werden.
 
-\subsection{WinAVR Projekt zu Atmel Studio}
+\section{WinAVR Projekt zu Atmel Studio}
 
 %TODO Beispielexport
 
