@@ -1,18 +1,19 @@
+%Korrekturgelesen: Ann-Sophie Dietrich
 \chapter{Benutzerhandbuch} 
 \label{chap:Benutzerhandbuch}
 
 \section{Einen Mikrocontroller austauschen}
 Für unser Projekt sollen alle notwendigen Programmbestandteile sowie die gesamte
-Website auf dem Microcotnroller gespeichert werden. Der beim AVR-Net-IO
+Website auf dem Mikrocontroller gespeichert werden. Der beim AVR-Net-IO
 mitgelieferte ATmega32 bietet hierfür jedoch nicht ausreichend Speicher.
 Wir haben uns deswegen für den aus der gleichen Baureihe stammenden ATmega644P
-entschieden der mit seinen 64KB Programmspeicher den doppelten Speicherplatz
+entschieden, der mit seinen 64KB Programmspeicher den doppelten Speicherplatz
 bietet als der kleinere ATmeag32.
 
 Für den Wechsel ist es notwendig, den alten Controller vom Sockel zu entfernen
 und den neuen Controller einbauen zu können. Hierfür gibt es spezielle
-Werkzeuge doch wenn man beim Vorgang Vorsicht walten lässt, kann man den
-Controller auch mit einem kleinen möglichst breiten Schlitzschraubendreher
+Werkzeuge, doch wenn man beim Vorgang Vorsicht walten lässt, kann man den
+Controller auch mit einem kleinen, möglichst breiten, Schlitzschraubendreher
 entfernen. Dazu zuerst den Mikrocontroller vorsichtig mit dem Schraubendreher
 als Hebel wie in Abbildung \ref{ausbau1} lösen.
 
@@ -23,7 +24,7 @@ als Hebel wie in Abbildung \ref{ausbau1} lösen.
 \label{ausbau1}
 \end{figure}
 
-Zum einfachen lösen kann der Hebel auch von der anderen Seite angesetzt
+Zum einfachen Lösen kann der Hebel auch von der anderen Seite angesetzt
 werden. Anschließend den gelösten Prozessor abziehen.
 
 \begin{figure}[H]
@@ -33,7 +34,7 @@ werden. Anschließend den gelösten Prozessor abziehen.
 \label{ausbau2}
 \end{figure}
 
-Nachdem der Mikrocontroller entfernt wurde hat man einen guten Blick auf den
+Nachdem der Mikrocontroller entfernt wurde, hat man einen guten Blick auf den
 Sockel (Abb. \ref{ausbau3}).
 
 \begin{figure}[H]
@@ -43,8 +44,8 @@ Sockel (Abb. \ref{ausbau3}).
 \label{ausbau3}
 \end{figure}
 
-Beim Einbau ist unbedingt darauf zu achten den neuen Mikrocontroller entsprechend
-der D-Förmige Einkerbung in den Sockel zu setzen. (Siehe Abbildung \ref{ausbau4})
+Beim Einbau ist unbedingt darauf zu achten, den neuen Mikrocontroller entsprechend
+der D-förmigen Einkerbung in den Sockel zu setzen. (Siehe Abbildung \ref{ausbau4})
 
 \begin{figure}[H]
 \centering
@@ -57,7 +58,7 @@ der D-Förmige Einkerbung in den Sockel zu setzen. (Siehe Abbildung \ref{ausbau4
 
 Der Anschluss des AVRISPmkII Programmers erfolgt über einen 6 Poligen Stecker,
 allerdings hat das AVR-Net-IO einen 10 Poligen Stecker. Deswegen wurde hierfür
-eigens ein Adapter angefertigt der das ISP Signal von den 6 Polen des Programmers
+eigens ein Adapter angefertigt, der das ISP Signal von den 6 Polen des Programmers
 auf das AVR-Net-IO bring.
 
 \begin{figure}[htp]
@@ -102,22 +103,22 @@ verwendet werden.
 \label{Chapt:Einrichten}
 
 Für einen neuen Chip ist es anfangs notwendig die Fuse-Bits richtig zu setzen,
-damit der Chip Ordnungsgemäß Arbeitet.
-Dies ist jedoch im AtmelStudio nicht Möglich, da es nicht möglich ist die exakte
+damit der Chip ordnungsgemäß arbeitet.
+Dies ist jedoch im AtmelStudio nicht möglich, da es nicht möglich ist die exakte
 Geräte-Signatur auszulesen.
-Das Problem liegt darin, das Standartmäßig die Fuses auf den internen
-Quarz-Kristall gesetzt sind und nicht auf den Externen Kristall des
+Das Problem liegt darin, dass standardmäßig die Fuses auf den internen
+Quarz-Kristall gesetzt sind, und nicht auf den externen Kristall des
 AVR-NET-IO Boards.
-Beim versuch die Fuse-Bits zu setzen wird man im Atmel Studio mit der
-Fehlermeldung aus Abbildung \ref{Einrichten.error} begrüßt.
+Beim Versuch die Fuse-Bits zu setzen, erscheint im Atmel Studio die
+Fehlermeldung aus Abbildung \ref{Einrichten.error}.
 
-Abhilfe Schafft hier die Alternative Programmiersoftware AVRDUDE, mit ihr ist
-es Möglich die Fuse-Bits zu ändern. Unter Linux kann dieser einfach über die
+Abhilfe schafft hier die alternative Programmiersoftware AVRDUDE, mit ihr ist
+es möglich die Fuse-Bits zu ändern. Unter Linux kann dieser einfach über die
 Paketquellen installiert werden, für ein Windows Betriebssystem kann eine
 ausführbare Kommandozeilen-Anwendung auf der Projekt-Website heruntergeladen
 werden \url{http://savannah.nongnu.org/projects/avrdude}. Zusätzlich muss für
 Windows noch libusb-win32 (\url{http://sourceforge.net/projects/libusb-win32/})
-vorhanden sein, das der Programmer mit den gewählten Parametern verwendet werden
+vorhanden sein, dass der Programmer mit den gewählten Parametern verwendet werden
 kann. Eine ausführliche Anleitung gibt es hier:
 \url{http://eliaselectronics.com/using-the-avrispmkii-with-avrdude-on-windows/}
 
@@ -128,13 +129,13 @@ kann. Eine ausführliche Anleitung gibt es hier:
 \label{Einrichten.error}
 \end{figure}
 
-Die in Folgendem Beispiel angezeigten Befehle sind die von uns verwendeten Fuse
-Einstellungen. Für eine genauere Beschreibung wofür die einzelnen Fuse-Bits
+Die in folgendem Beispiel angezeigten Befehle sind die von uns verwendeten Fuse
+Einstellungen. Für eine genauere Beschreibung, wofür die einzelnen Fuse-Bits
 verwendet werden, ist der Abschnitt \ref{chap:Fuse} Fusebits im Kapitel 
-Hardware.
+"`Hardware"'.
 
 Anschließend kann der Mikrocontroller zusammen mit dem AV-Net-IO und AtmelStudio
-Programmiert werden. Der Verwendete Mikrocontroller wird jetzt richtig erkannt,
+programmiert werden. Der verwendete Mikrocontroller wird jetzt richtig erkannt,
 da es auch keine Probleme mit der Gerätesignatur gibt.
 
 \begin{table}[H]
@@ -187,7 +188,7 @@ The filename field indicates the name of the file to read or write.  The format 
 \section{HTML Header Compiler}
 \label{chap:benutzerhandbuch.HHC}
 
-Da der HTML Header Compiler in Java entwickelt wurde muss für die Verwendung die
+Da der HTML Header Compiler in Java entwickelt wurde, muss für die Verwendung die
 Java Laufzeitumgebung ab Version 6 installiert sein. Zum Ausführen des Compiler
 muss zuerst mit einer Konsole in den Entsprechenden Ordner navigiert werden.
 Anschließend kann mit folgendem Befehl die Datei ausgegeben werden. 
@@ -207,7 +208,7 @@ die gesetzt werden können. Hier alle Parameter im Überblick:
 \hline
 -in, -input & Der Eigabepfad mit allen für die Website benötigten Dateien. z.B. \textrm{-in "Webseite"} \\ \hline 
 -out, -output & Die Ausgabe Headerdatei z.B. \textrm{-out "Webserver/webpage.h"} \\ \hline
--v, -verbose &  Gibt die ausgegebenen Dateien auf der Console aus. \\  
+-v, -verbose &  Gibt die ausgegebenen Dateien auf der Konsole aus. \\  
  \hline 
  -n, -newline & Behält die Formatierung für den Zeilenvorschub, Tabulator
  oder Wagenrücklauf in den HTML und JS Dateien (\textbackslash n and
@@ -220,10 +221,10 @@ die gesetzt werden können. Hier alle Parameter im Überblick:
 \end{table}
 
 Um die Entwicklung zu vereinfachen ist es hilfreich, wenn für den Parameteraufruf
-des HTML Header Compilers ein einfaches Schell- oder Batch-Script erstellt, das
+des HTML Header Compilers ein einfaches Shell- oder Batch-Script erstellt, das
 die Dateien aus dem Ordner für die Website als Headerdatei in den Ordner für den
-Webserver schreibt. Falls eine Änderung an der Website vorgenommen wurde muss
-vor dem Programmieren des Mikrocontrollers lediglich der \ac{HHC} Ausgeführt
+Webserver schreibt. Falls eine Änderung an der Website vorgenommen wurde, muss
+vor dem Programmieren des Mikrocontrollers lediglich der \ac{HHC} ausgeführt
 werden.
 
 \begin{figure}[H]
@@ -241,35 +242,35 @@ werden.
 \section{Konfiguration des Webservers}
 
 Die Einstellung des Webservers erfolgt über die \textrm{config.h} Datei. In der
-\textrm{config.h} Datei, können Zum einen die verschiedenen Pins der Ports als Ein oder
+\textrm{config.h} Datei, können die verschiedenen Pins der Ports als Ein- oder
 Ausgang definiert werden. Dabei gibt es ein paar Eigenheiten zu beachten:
 \begin{itemize}
-  \item OUTA steht für den A Port, hier ist du beachten, das dieser Port die
+  \item OUTA steht für den A Port, hier ist zu beachten, dass dieser Port die
   Analog zu Digital Wandler beherbergt. Mit aktiviertem Wandler ist es nicht
-  möglich die Pins des Ports funktionierend als Ausgänge zu schalten, da die
+  möglich, die Pins des Ports funktionierend als Ausgänge zu schalten, da die
   Spannung nicht gehalten wird.
-  \item OUTB ist nur mit Vorsicht zu genießen. Hier handelt es sich um den Port
+  \item OUTB ist nur mit Vorsicht zu genießen. Hier handelt es sich um den Port,
   der auf dem AVR-Net-IO für die Neztwerkkomunikation genutzt wird. Deswegen
-  wird Port B auch nicht Standardmäßig definiert.
-  \item OUTC dieser Port wird von Polin standardmäßig für die Ausgänge verwendet
-  und ist von uns bereits so Modifiziert. Der gesamte Port wird auf dem
+  wird Port B auch nicht standardmäßig definiert.
+  \item OUTC dieser Port wird von Pollin standardmäßig für die Ausgänge verwendet
+  und ist von uns bereits entsprechend modifiziert. Der gesamte Port wird auf dem
   AVR-NET-IO über den 25Pin D-Sub Stecker geleitet. Wenn der Fuse-Bit für JTag
-  geschaltet ist werden 4 Pins des C Ports für das JTag Interface verwendet.
+  geschaltet ist, werden 4 Pins des C Ports für das JTag Interface verwendet.
   \item OUTC Der C Port liegt auf dem AVR-Net-IO auf dem EXT Anschluss und ist
   für erweiterte Peripherie geplant, so kann hier ein Cardreader oder ein
   Erweiterungsboard angeschlossen werden.
 \end{itemize}
 Weiter kann die gewünschte IP-Adresse eingestellt werden, unter der das Gerät
-erreicht werden kann. Wichtig ist hier, das kein anderes Gerät die selbe Adresse
+erreicht werden kann. Wichtig ist hier, dass kein anderes Gerät dieselbe Adresse
 im Netzwerk verwendet. Auch kann die Router IP-Adresse und Netzmaske angegeben
-werden. Eine weitere Wichtige Einstellung ist die verwendete Mac Adresse
-des Netzwerk Controllers. Diese wird über die Variablen MYMAC1-6 Definiert.
+werden. Eine weitere wichtige Einstellung ist die verwendete Mac Adresse
+des Netzwerkcontrollers. Diese wird über die Variablen MYMAC1-6 definiert.
 
 \section{Debuggen über JTAG}
 
 Der JTAGICEmkII Debugger von Atmel, den wir für unser Projekt gestellt bekommen
 haben, unterstützt neben ISP auch JTAG. Allerdings werden für den Anschluss von
-JTAG andere Pins benötigt als für den Anschluss eines ISP Programmers.
+JTAG andere Pins benötigt als für den Anschluss eines ISP-Programmers.
 
 \begin{table}
 \begin{longtable}{|l|l|l|p{8.8cm}|}\hline 
@@ -302,12 +303,12 @@ der 10 Anschlüssen des JTAGICEmkII. Diese müssen mit den Pins 2-5 des C Ports,
 Reset Pin, Ground und VCC verbunden werden (Abbildung \ref{jtag.pins}). Die Pins 7 \& 8
 des JTAGICEmkII werden nicht mit dem Mikrocontroller verbunden.\\
 \\
-Damit \ac{JTAG} funktioniert muss der Entsprechende JTAG Fuse-Bit gesetzt sein.
-Dabei ist zu beachten das die Pins 2-5 am Port C des Mikrocontroller nicht für
-Ein- oder Ausgaben verwendet werden können sondern bei aktivierten Fuse-Bit
-gesperrt sind. Als weiterer Hinweis ist zu beachten, dass die Verwendete
-Schnittstelle in den Projekt Einstellungen umgestellt werden muss. Nach
-Korrekter Verbindung, die im Device Manager überprüft werden kann kann das
+Damit \ac{JTAG} funktioniert muss der entsprechende JTAG Fuse-Bit gesetzt sein.
+Dabei ist zu beachten, dass die Pins 2-5 am Port C des Mikrocontroller nicht für
+Ein- oder Ausgaben verwendet werden können, sondern bei aktivierten Fuse-Bit
+gesperrt sind. Als weiterer Hinweis ist zu beachten, dass die verwendete
+Schnittstelle in den "`Projekt-Einstellungen"' umgestellt werden muss. Nach
+korrekter Verbindung, die im Device Manager überprüft werden kann, kann das
 Programm auf dem Mikrocontroller debuggt werden.
 
 \section{WinAVR Projekt zu Atmel Studio}
@@ -319,31 +320,33 @@ Programm auf dem Mikrocontroller debuggt werden.
 Die Webseite ist in 3 Tabs eingeteilt. 
 
 \subsection{Der Status Tab}
-In dem Status Tab ist die Übersicht der
-einzelnen Pins und Ports des Boarders. Beim darüberhinwegfahren mit der
-Maus erscheint auf der rechten Seite des Browser eine Sidebar mit den
-detailierten Inforamtionen zu diesem Pins. Nicht alle Pins oder Ports sind
-klickbar, da diese vom System deaktiviert sind. Hier können die Pins oder Ports
+Im Status Tab ist die Übersicht der
+einzelnen Pins und Ports des Boards. Fährt der Nutzer mit der Maus über die Pins des
+Boards, so erscheint auf der rechten Seite des Browser eine Sidebar mit den
+detaillierten Informationen zu diesem Pin. Hier können die Pins oder Ports
 als Favoriten gespeichert werden. Genauso können Werte und Skripte der einzelnen
-Pins oder Ports geändert werden.
-
+Pins oder Ports geändert werden.\\
+Ebenfalls kann der Pin mit einem Mausklick gesetzt werden, oder auf der Sidebar in einer 
+Checkbox gesetzt werden. Dies kann jedoch nicht mit jedem Pin oder Port gemacht werden, da 
+diese Funktion bei manchen nicht möglich sein darf. Diese Pins sind vom System deaktiviert und 
+nicht klickbar.
 \subsection{Der Favoriten Tab}
 Hier werden tabellarisch die ausgewählten Pins oder Ports angezeigt, auch hier
 können wieder pinspezifische Modifikationen vorgenommen werden. Löschen der
 Favoriten setzt den Pin auf die Standardeinstellungen zurück und ist nicht mehr
-in Favoritenliste vorhanden. Pins können wieder über den Status Tab hinzugefügrt
+in Favoritenliste vorhanden. Pins können wieder über den Status Tab hinzugefügt
 werden.
 
 \subsection{Der Einstellungs Tab}
-Im Einstellungs Tab werden die Einstellungen vorgenommen. Hier sind auch die
+Im Einstellungs-Tab werden die Einstellungen vorgenommen. Hier sind auch die
 Informationen über das Board, Version der Webseite und Autoren abrufbar. Die
-Import/Export Funktion ermöglicht die Datenbank, in der die benutzereinstelungen
-und Favoriten untergebracht sind zu expotieren und auf einem anderen System zu
+Import/Export Funktion ermöglicht die Datenbank, in der die Benutzereinstellungen
+und Favoriten untergebracht sind, zu exportieren und auf einem anderen System zu
 importieren. Die Aktualisierungsrate bestimmt wie schnell sich die Seite
-aktualisert, das ist die einzige Einstellungen die vorgenommen werden kann.
+aktualisiert, das ist die einzige Einstellungen die vorgenommen werden kann.
 
 \subsection{Bespiele: Skripte}
-Einige Beispielskripte, die nur noch für die passenden Pins und Ports angepasst
+Nun folgen einige Beispielskripte, die nur noch für die passenden Pins und Ports angepasst
 werden müssen. Diese Skripte können kopiert und das dafür vorgesehene Fenster
 im Webbrowser eingefügt werden.
 
