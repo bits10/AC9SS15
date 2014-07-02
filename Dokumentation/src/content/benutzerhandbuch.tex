@@ -348,10 +348,32 @@ Benutzereinstellungen und Favoriten untergebracht sind, zu exportieren und auf e
 importieren. Die Aktualisierungsrate bestimmt wie schnell sich die Seite
 aktualisiert, das ist die einzige Einstellungen die vorgenommen werden kann.
 
-\subsection{Bespiele: Skripte}
-Folgend einige Beispielskripte, die nur noch für die passenden Pins und Ports
-angepasst werden müssen. Diese Skripte können kopiert und das dafür vorgesehene Fenster
-im Webbrowser für die jeweiligen Pins eingefügt werden.
+\subsection{Nutzerspezifische Skripte}
+Nutzerspezifische Skripte können bei den Pins hinterlegt werden, diese werden
+auch ausgeführt. Diese können genauso ein Verbund aus Pins steuern und
+manipulieren. Um diese Skripte anpassen zu können werden
+
+\subsubsection{Erstellen von Skripte}
+Bei den Pins können auch Skripte hinterlegt werden. Diese Skripte werden in
+JavasScript geschrieben nur werden die Tags nicht hinzugefügt. Vorrausgesetzt
+werden kleinere JavaScript Kenntnisse, was aber anhand den Beispielen und den
+nachfolgenden Skriptkommandos machbar ist.\\
+
+\textbf{einige wichtige Skriptkommandos}\\\newline
+\begin{tabular}{|l|l|}\hline
+\textbf{Name} & \textbf{Beschreibung}\\\hline\hline
+getvalues(string id) & Damit wird der Wert des Pins mit der ID abgerufen\\\hline
+setvalues(string id, int value) & Damit wird folgender Wert für den Pin mit der
+ID gesetzt\\\hline
+getDB(string name, string value) & Damit wird aus der Browserdatenbank
+ein Wert(Standardwert) für ein bestimmtes Item (name) gesetzt\\\hline 
+putDB(string name, int value) & Hiermit wird in die Datenbank das Item (name)
+mit dem value eingespeichert.\\\hline
+\end{tabular}
+
+\subsubsection{Beispielskripte}
+Die folgenden Beispielskripte können verwendet werden, müssen eventuell noch auf
+die passenden Pins und Ports angepasst werden. 
 
 \subsubsection{Mehrer Lichter blinken}
 
