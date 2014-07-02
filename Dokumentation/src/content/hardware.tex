@@ -1,35 +1,33 @@
+% Korrekturgelesen von : Sophie Dietrich
+
 \chapter{Hardware}
-%http://samurai1967.dyndns.org/avr-net-io.html
-%http://www.fhemwiki.de/wiki/AVR-NET-IO
-%http://www.mikrocontroller.net/articles/AVR_Net-IO_Bausatz_von_Pollin
 \section{AVR Net-IO-Board}
 \begin{figure}[h]
 \centering
 \includegraphics[width=7.5cm]{content/pictures/avr-net-io.jpg}
 \caption{AVR-NET-IO - Pollin GmbH}
-%http://www.pollin.de/shop/dt/MTQ5OTgxOTk-/Bausaetze_Module/Bausaetze/Bausatz_AVR_NET_IO.html
 \label{fig:B3}
 \end{figure}
 
 Auf dem AVR Net-IO-Board sind der Webserver und die Webseite gespeichert. Die
-verschiedenen Pins lassen sich darüber ansteuern und manipulieren.
-Die Platine des AVR-Net-IO ist für den einfachen Anschluss der Externen
-Anwendungen gedacht. Der Fokus liegt hier, je nach verwendetem Anschluss Bord
-nicht darauf eine optimale Gestaltung zu haben sondern die einzelnen Sensoren
-eher lose an die Platine anzuschließen. Dies geschieht wie in der Elekronik oft
-üblich über die Verwendung von Breadboards, blanke Steckbretter auf
-denen Schaltungen konzipiert werden können. Deswegen haben die Analog zu Ditital
-Wandler Schraub-Verbindungen und auch die im Handel verfügbare Anschlussplatine
+verschiedenen Pins lassen sich über die Webseite ansteuern und manipulieren.
+Die Platine des AVR-Net-IO ist für den einfachen Anschluss der externen
+Anwendungen gedacht. Der Fokus liegt hier, je nach verwendetem Anschluss-Baord,
+nicht darauf eine optimale Gestaltung zu haben, sondern die einzelnen Sensoren
+eher lose an die Platine anzuschließen. Dies geschieht, wie in der Elekronik oft
+üblich, über die Verwendung von Breadboards, blanke Steckbretter auf
+welchen Schaltungen konzipiert werden können. Deswegen haben die Analog zu Digital
+Wandler Schraubverbindungen und auch die im Handel verfügbare Anschlussplatine
 für den 25 Poligen D-Sub Stecker hat Schraub-Verbindungen. Für die Demonstration
-haben wir uns spezielle Schaltungen überlegt die an die einfach an die Externen
-Anschlüsse das AVR-Net-IO Angeschlossen werden können. Die verteilung, Welcher
-Pin an welchem Anschluss ist, kann dem dem Schaltplan entommen werden. (siehe
-Anhang, Abbildung \ref{anh:schaltplan})
+haben wir uns spezielle Schaltungen überlegt, welche simpel an die externen
+Anschlüsse des AVR-Net-IO Angeschlossen werden können. Die Verteilung, welcher
+Pin an welchem Anschluss ist, kann dem Schaltplan entommen werden (siehe
+Anhang, Abbildung \ref{anh:schaltplan}).
 
 \subsection{Technische Daten}
 \begin{itemize}
-  \item Betriebsspannung 9V 
-  \item Stromaufnahme ca. 190 mA
+  \item Betriebsspannung: 9V 
+  \item Stromaufnahme: ca. 190 mA
   \item 14 Digitale Ein/Ausgänge, 4 Digitale Eingänge
   \item 4 Analoge Eingänge
   \item ATmega644P Mikrocontroller
@@ -59,16 +57,16 @@ bei Bedarf dem entsprechendem Datenblatt entnommen werden.
 
 \subsection{ENC28J60}
 
-Der ENC28J60 ist der IEEE 802.3 kompatibe Netzwerk Contoller des AVR-Net-IO er
-nimmt die externen Anfragen an und reicht diese an den ATMega weiter. Dabei ist
-er an Port B des ATMegas Angeschlossen, dieser kann deswegen nicht für Ein- oder
+Der ENC28J60 ist der IEEE 802.3 kompatibe Netzwerk Contoller des AVR-Net-IO. Er
+nimmt die externen Anfragen an und reicht diese an den ATmega weiter. Dabei ist
+er an Port B des ATmegas angeschlossen, Port B kann deswegen nicht für Ein- oder
 Ausgaben verwendet werden.
 
 \newpage
 \section{Fuse Bits}
 \label{chap:Fuse}
 
-Die Fuse-Bits sind die Grundlegenden Einstellungen, mit denen ein
+Die Fuse-Bits sind die grundlegenden Einstellungen, mit denen ein
 Mikrocontroller arbeitet. Sie müssen geändert werden, wenn ein anderer Taktgeber
 gewünscht ist oder Schnittstellen de- oder aktiviert werden sollen.\\
 \\
@@ -83,17 +81,17 @@ gewünscht ist oder Schnittstellen de- oder aktiviert werden sollen.\\
 	}}\\
 \\
 In Tabelle \ref{fuses-names} werden die einzelnen Fuse-Bits zusammen mit ihrer
-Bedeutung und dem entsprechendem Byte aufgelistet. Der Schlussendliche Fuse Wert
+Bedeutung und dem entsprechendem Byte aufgelistet. Der schlussendliche Fuse Wert
 setzt sich aus zwei Byte zusammen, wobei eine 1 eine deaktivierte Eigenschaft und
-eine 0 aktiviert Eigenschaft bedeutet. Kleinere Mikrocontroller besitzen nur ein
-High (H) und ein Low (L) Register, größere Mikrocontroller besitzen zusetzlich
+eine 0 eine aktiviert Eigenschaft bedeutet. Kleinere Mikrocontroller besitzen nur ein
+High (H) und ein Low (L) Register, größere Mikrocontroller besitzen zusätzlich
 noch ein Extended (E) Register.
 
 \begin{table} [H]
 \begin{tabular}{|l|l|l|} \hline
 Fuse Name & Bedeutung & Bytes\\ \hline
 BODLEVEL & Brown-out Detector trigger level & E-Fuse 0\&1\\ \hline
-OCDEN & Aktiviert On-Chip Debuging & H-Fuse 7\\ \hline
+OCDEN & Aktiviert On-Chip Debugging & H-Fuse 7\\ \hline
 JTAGEN & Aktiviert das \ac{JTAG} Interface & H-Fuse 6\\ \hline
 SPIEN & Aktiviert das \ac{ISP} Interface & H-Fuse 5\\ \hline
 WDTON & \ac{WDT} immer an & H-Fuse 4\\ \hline
@@ -104,11 +102,11 @@ CKDIV8 & Teilt den Takt der Uhr intern durch 8 & L-Fuse 8\\ \hline
 CKOUT & Ausgabe des Takts der Uhr auf Port B1 & L-Fuse 7\\ \hline
 SUT\_CKSEL & Wahl der Takt-Quelle & L-Fuse 0-6\\ \hline
 \end{tabular}
-\caption{Die Bedeutung der einzelnen Fuse-Bits (ATMega-664P)}
+\caption{Die Bedeutung der einzelnen Fuse-Bits (ATmega-664P)}
 \label{fuses-names}
 \end{table}
 
-Wir benötigen für unseren ATMega-664P SPIEN, EESAVE und BOOTRST aktiviert im
+Wir benötigen für unseren ATmega-664P SPIEN, EESAVE und BOOTRST aktiviert im
 High Register. Im Low Register muss alles deaktiviert werden, damit der Externe
 Quarz-Kristall verwendet wird. Da der Brown-out Detector trigger nicht
 verwendet wird, kann in dem Extended Register ebenfalls alles deaktiviert
@@ -125,7 +123,7 @@ Extended-Fuse & 1111 1111 & FF\\ \hline
 High-Fuse & 1101 0110 & D6\\ \hline
 Low-Fuse & 1111 1111 & FF\\ \hline
 \end{tabular}
-\caption{Fuse Einstellungen (ATMega-664P)}
+\caption{Fuse Einstellungen (ATmega-664P)}
 \label{fuses-result}
 \end{table}
 
@@ -135,8 +133,8 @@ vorgenommen werden (Kapitel \ref{Chap:atmelStudio.Programming}). In Abbildung
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=8cm]{content/pictures/Fusebits/fusebits_atmelstudio.png}
-\caption{Fuse-Bits im Atmel Studio (ATMega-664P)}
+\includegraphics[width=10cm]{content/pictures/Fusebits/fusebits_atmelstudio.png}
+\caption{Fuse-Bits im Atmel Studio (ATmega-664P)}
 \label{fuses-graf}
 \end{figure}
 

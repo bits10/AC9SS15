@@ -1,48 +1,46 @@
+%Korrekturgelesen: Ann-Sophie Dietrich
 \chapter{Ausgewählte Lösung}
-%TODO überarbeiten issue #18
 
-Neben den Beiden anderen Projekten haben wir uns für das Projekt von Ullrich
-Radig Entschieden. Die Vorteile des Projektes gegenüber Ethersex oder Elektronik
+Neben den beiden anderen Projekten haben wir uns für das Projekt von Ulrich
+Radig entschieden. Die Vorteile des Projektes gegenüber Ethersex oder Elektronik
 2000 liegen darin, das die beiden Projekte zu speziell und umfangreich für unsere
 Anforderungen sind. Da es zu unserem Aufgabengebiet gehörte eine für den
-Benutzer möglichst umfangreiche Website zu erstelle kam uns die gut anpassbare
-lösung entgegen.
+Benutzer möglichst umfangreiche Website zu erstellen kam uns die gut anpassbare
+Lösung entgegen.
 
 \section{Der Webserver}
-%TODO überarbeiten issue #18
 
 Als Basis für unser Projekt haben wir die Firmware von Ulrich Radig verwendet.
-Zusätzlich von der Uhrsprungsversion von Ulrich Radig gibt es noch eine Etwas
+Zusätzlich von der Ursprungsversion von Ulrich Radig gibt es noch eine etwas
 vereinfachte Version von Günther Menke. Wir haben wir uns für die vereinfachte
 Variante entschieden. Die Unterschiede zwischen beiden
-Versionen belaufen sich auf das entfernte Kamera-Feature und um
+Versionen belaufen sich auf das entfernte Kamera-Feature und auf
 zusätzlichen Quellcode für einen alternativen Netzwerkcontroller.
 
 \subsection{Änderungen}
 
-Obwohl wir die bereits die im Funktionsumfang vereinfachte Version
-von Günther Menke verwendeten, gab es trotzdem einiges an Funktionalität die wir
+Obwohl wir die bereits im Funktionsumfang vereinfachte Version
+von Günther Menke verwenden, gab es trotzdem einiges an Funktionalität, welche wir
 aus der ursprünglichen Version entfernt haben.
-Das Problem lag darin, das wir zum einen für die Dateien der Website möglichst
+Das Problem lag darin, dass wir zum einen für die Dateien der Website möglichst
 viel freien Speicherplatz benötigen, der von den entsprechenden Funktionen
-belegt wurde. Zum anderen, das die entfernten Funktionen nicht für unser
-Projekt benötigt wurden. Schlussendlich wurde Folgende Funktionalität aus der Version
+belegt wurde. Zum anderen, dass die entfernten Funktionen nicht für unser
+Projekt benötigt wurden. Schlussendlich wurden folgende Funktionalitäten aus der Version
 von Günther Menke entfernt:
 
 \begin{itemize}
   \item \textbf{(WOL) Wake on Lan} Funktionalität um andere Geräte im Netzwerk
-  durch bestimmte Datenpackete aufzuwecken.
-  \item \textbf{Sendmail} Senden von E-Mails.
-  \item \textbf{Weather} Ermitteln von Wetterdaten.
+  durch bestimmte Datenpakete aufzuwecken.
+  \item \textbf{Sendmail} Senden von E-Mails
+  \item \textbf{Weather} Ermitteln von Wetterdaten
   \item \textbf{(NTP) Network Time Protocol} Empfangen von Internetzeit
   \item \textbf{(DNS) Domain Name System} Beantwortung von Anfragen zur
-  Namensauflösung.
+  Namensauflösung
   \item \textbf{(USART) Universal Synchronous and Asynchronous Serial Receiver and
-  Transmitter} eine Schnittstelle im Mikrocontroller zum Daten
-  Austausch mit PC über die COM-Schnittstelle.
-  \item \textbf{(Telnet) Telecommunication Network} zeichenorientierten
+  Transmitter} eine Schnittstelle im Mikrocontroller zum Datenaustausch mit PC über die COM-Schnittstelle
+  \item \textbf{(Telnet) Telecommunication Network} zeichenorientierter
   Datenaustausch über eine TCP-Verbindung.
-  \item \textbf{(CMD) Command Control} Verwaltung der Telnet Konsolen Befehle.
+  \item \textbf{(CMD) Command Control} Verwaltung der Telnet-Konsolenbefehle.
 \end{itemize}
 
 \subsection{Einbindung der Website}
@@ -50,39 +48,42 @@ von Günther Menke entfernt:
 Die Website, welche hauptsächlich aus verschiedenen .html und .js Dateien
 besteht, ist mangels Dateisystem für unsere Firmware nicht verwendbar. Die
 gesamten Dateien müssen in einer C-Headerdatei gebunden werden.
-Das erstellen der Headerdatei erfolgt über das beim Projekt beigelegte
-\ac{HHC} Werkzeug. Eine Beispiel zum erstellen der \textrm{webpage.h} 
+Das Erstellen der Headerdatei erfolgt über das beim Projekt beigelegte
+\ac{HHC} Werkzeug. Eine Beispiel zum Erstellen der \textrm{webpage.h} 
 Datei und eine Erklärung des \ac{HHC} gibt es im Kapitel Werkzeuge
 \ref{chap:hintergrund.HHC}. Eine Anleitung zur Ausführung des \ac{HHC} gibt es im
 Benutzerhandbuch \ref{chap:benutzerhandbuch.HHC}.
-Abschließend ist noch zu erwähnen, das die \textrm{webpage.h} nicht für manuelle
+Abschließend ist noch zu erwähnen, dass die \textrm{webpage.h} nicht für manuelle
 Bearbeitung gedacht ist. Dies geschieht ausschließlich über die Quell-Dateien
 und anschließendem umwandeln mit dem \ac{HHC}.
 
 \section{Die Website}
 
-Der Aufbau der Webseite ist in mehrer Dateien aufgeteilt. So haben wir mehrer
+Der Aufbau der Webseite ist in mehrere Dateien aufgeteilt. So haben wir mehrere
 .js und .css Dateien. In der index.html wird alles nur zusammengetragen.
 
 \subsection{HTML und CSS}
-Nur eine html Seite in der alle anderen Dateien aufgerufen werden und zur
+Es gibt nur eine html Seite in der alle anderen Dateien aufgerufen werden und zur
 Hauptseite wird: Die index.html\newline
 Die CSS-Elemnte sind in mehrere Dateien aufgesplittet. So kann die input.css
 gegen eine andere input.css ausgetauscht werden. Die input.css ist die Datei für
 das Desgin mit den Farben, Formen, usw.\newline
-Eine Weitere css Datei sollte nicht ausgetauscht werden (board.css).
+Eine weitere .css Datei sollte nicht ausgetauscht werden (board.css).
 
 \subsubsection{board.css}
-Diese Datei behindelt alle Definitionen über die Platine in der Webseiten Status
-Tab. Diese Definitionen werden in der index.html in einem 'div-Salat' zu einer
-Platine, die auch klickbar ist, zusammengebaut. Löschen eines Divs verursacht
-Darstellungsfehler, sowie ein nicht mehr Anzeigen der grafischen Platine.
+Diese Datei behandelt alle Definitionen über die Platine in dem 'Status
+Tab' der Webseite. Alle Defenitionen über die Platine sind direkt in der
+index.html in einer komplexen div-Verschaltung eingebunden. So können einzelne
+div-Elemnte als klickbar und verlinkbar zu anderen Elemnten sein. Eine
+veränderung der Verschachtelung oder im CSS-Code kann zu Anzeigefehler oder ein
+NichtAnzeigen der Webseite führen.\newline
+Alle Div-Elemnte sind abgemessen und auf die passende Größe ausgerichtet. 
 
 \subsection{JavaScript}
 \subsubsection{Generell}
-In \textrm{rest.js} und \textrm{favorite.js} werden die einzelen Pins über eine
-ID unterschiden. Diese ID wird vorallem als Parameter für diverse Funktionen wie
-\textrm{getValu(id)} verwendet. Die ID setzt sich immer aus dem Buchstaben des
+In \textrm{rest.js} und \textrm{favorite.js} werden die einzelnen Pins über eine
+ID unterschieden. Diese ID wird vor allem als Parameter für diverse Funktionen
+wie \textrm{getValu(id)} verwendet. Die ID setzt sich immer aus dem Buchstaben des
 Ports, sowie aus der Nummer des Pins zusammen. Mögliche IDs sind folglich [A0
 bis A7], [C0 bis C7] und [D0 bis D7].
 
@@ -91,18 +92,18 @@ Die \textrm{rest.js} beinhaltet den gesamten Code zum Abrufen von Daten beim
 Server.
 
 Hierbei bieten die Funktionen \textrm{loadUrl(\ldots)} und
-\textrm{loadUrlAsync(\ldots)} den Kern der Serverkommunikation. Mit Ihnen können
+\textrm{loadUrlAsync(\ldots)} den Kern der Serverkommunikation. Mit ihnen können
 beliebige URLs geladen werden, \textrm{loadUrlAsync(\ldots)} bietet zusätzlich
 die Möglichkeit POST-Parameter zu übergeben. Der grundlegende Unterschied
-zwischen diesen beiden Methoden ist, das \textrm{loadUrl(\ldots)} den
+zwischen diesen beiden Methoden ist, dass \textrm{loadUrl(\ldots)} den
 Programmablauf blockiert, bis die Daten vollständig geladen sind, wohingegen
 \textrm{loadUrlAsyn(\ldots)} die Daten parallel im Hintergrund lädt. Sobald alle
 Daten erfolgreich geladen sind, wird die Funktion aufgerufen, die
 \textrm{loadUrlAsync(\ldots)} als Parameter übergeben wurde. Weitere
-informationen, vor allem zur Parametrierung der Funktionen, sind der
+Informationen, vor allem zur Parametisierung der Funktionen, sind der
 Sourcecode-Dokumentation zu entnehmen.\\
 \\
-In der Funktion \textrm{initRest()} wird zum ersten mal die Funktion
+In der Funktion \textrm{initRest()} wird zum ersten Mal die Funktion
 \textrm{startNewRefreshTask()} aufgerufen. Diese ruft die Funktion
 \textrm{refreshValues()} auf, welche sich selbst rekursiv immer wieder nach
 einer gewissen Pause (der Polling-Frequenz, welche in den Einstellungen
@@ -114,13 +115,13 @@ aktualisiert, bis mit \textrm{startNewRefreshTask()} ein neuer Task gestartet
 wird. Nach jedem Aktualisieren der Werte wird die Funktion aufgerufen, die in
 dem Attribut \textrm{onValuesChanged} gespeichert wird. In unserer
 Implementierung ist diese Funkion in der \textrm{ui.js} implementiert und
-organisiert die Aktualisierung der Oberfläche damit die neu geladenen Werte
-dargestellt werden. Der Wert des Attrbiutes \textrm{onValuesChanged} kann mit
+organisiert die Aktualisierung der Oberfläche, damit die aktuellen Werte
+dargestellt werden. Der Wert des Attributes \textrm{onValuesChanged} kann mit
 der Funktion \textrm{setOnValuesChanged(\ldots)} manipuliert werden. Die zuletzt
-Empfangenen Werte werden in \textrm{cachedValues} gespeichert und sind über
+empfangenen Werte werden in \textrm{cachedValues} gespeichert und sind über
 diverse Getter wie \textrm{getValue(id)} verfügbar.
 
-Das stoppen eines bestehenden Tasks wird realisiert, indem das Attribut
+Das Stoppen eines bestehenden Tasks wird realisiert, indem das Attribut
 \textrm{taskIdCounter} inkrementiert wird. \textrm{refreshValues()} überprüft am
 Anfang, ob der aktuelle Wert von \textrm{taskIdCounter} mit dem Wert
 übereinstimmt, mit der der aktuell ausgeführte Task gestartet wurde. Ist dies
@@ -139,31 +140,74 @@ Für \textrm{cachedPinInfo} sind zudem Getter wie
 
 
 \subsubsection{favorites.js}
-TODO Sophie!
 
+In der favorites.js wird eine Liste alles Pins angelegt. Hier kann der Nutzer für jeden Pin eine
+Beschreibung, sowie eine Funktion und ob dieser Pin als Favorit markiert werden soll, 
+hinterlegen. Diese Liste wird dann in eine lokale Datenbank abgespeichert und bei Neustart aus dieser ausgelesen. 
+Zusätlich kann diese durch Import und Export Funktionen als reiner Fließtext ausgegeben und auf anderen Rechnern 
+eingefügt werden, damit die Daten dort ebenfalls exisiteren.\\
+Ursprünglich sollte favorites.js nur eine Liste der als Favorit markierte Pins speichern, 
+was jedoch nach einigen Überlegungen zu einer Liste aller Pins umgeändert wurde. Der Name 
+"`favorite.js"' wurde jedoch beibehalten.
 
 \subsubsection{db.js}
-Die \textrm{db.js} besteht aus 2 Funktionen. 
+Die \textrm{db.js} besteht aus 2 Funktionen: 
 
-\textrm{getDb(key, defaultValue)} liefert den gesoeicherten Wert für den
+\textrm{getDb(key, defaultValue)} liefert den gespeicherten Wert für den
 gegebenen \textrm{key}, welcher immer eine Zahl oder ein String sein sollte. Ist
 kein Wert mit dem gegebenen Key vorhanden, wird das
 übergebene \textrm{defaultValue} zurückgegeben.
 
-\textrm{putDb(key, value)} speichert das gegbenen \textrm{value} unter dem
+\textrm{putDb(key, value)} speichert das gegebenen \textrm{value} unter dem
 gegebenen \textrm{key} ab. Wird jetzt \textrm{getDb(key, defaultValue)} mit dem
 gleichen \textrm{key} aufgerufen, wird der zuvor abgespeicherte Wert
 zurückgegeben.
 
-Alle Mit \textrm{db.js} gespeicherten Wertesind auch nach einem Neualden der
+Alle Mit \textrm{db.js} gespeicherten Werte sind auch nach einem Neuladen der
 Seite weiterhin verfügbar, solange nicht die IP-Adresse des Pollin Net-IO Boards
 verändert wird. Die verwendeten Keys müssen natürlich eindeutig sein.
 
 \subsubsection{ui.js}
-Mithilfe dieser ui.js wird die Webseite dynamisch gestaltet. Hier sind die
-grundlegenden Funktionen für den Webseiten Aufbau niedergeschrieben.\newline
-Wichtige Funktionen, wie verkürzen von JavaScript Befehlen
-(document.getElementByID()). Da dann nur noch die Kürzel verwenden werden,
-verkürzt dies den Sourcecode und dies minimiert auch den Speicherbedarf der
-Webseite.\newline
+Die \textrm{ui.js} beinhaltet den gesamten Code für das dynamische Gestalten der
+Webseite\newline
+Ein der wichtigsten Funktionen, die generell verwendet wird, ist die
+\textrm{getEl(id)}.
+Diese Funktion verkürzt die Standardfunktion von JavaScript
+\textrm{getElementById(id)}, um den Sourcecode zu kürzer zu halten,
+um den daraus resultierenden Speicherbedarf der Webseite zu
+minimieren.\newline
+
+\textrm{initUi()} sollte nur einmal beim Seitenaufruf geladen werden und
+initialisiert die Bneutzerschnittstellen. \textrm{setMain(div)} setzt die
+Hauptkoponenten von dem Frame 'div'.\\
+\textrm{addClass(clazz, item)} fügt eine CSS Klasse zu dem gegebenen Item hinzu,
+während die \textrm{removeClass(clazz, item)} die CSS Klasse von dem Item wieder
+löscht.\\
+\textrm{getHighlightElem(id)} makiert die digitalen Pins, oder makiert die
+Checkboxen der analogen Pins.
+Folgende Funtkionen generieren die dynamische Sidebar: \textrm{setSidebarId(id)}
+listet alle Informationen über die Pins in der Sidebar auf. Die
+\textrm{updateSidebarValues()} hält die Werte der einzelnen Pins auf den
+aktuellsten Stand.\\
+Die Favoriten Tabelle wird mittels der Funktion \textrm{updateFavoritesTable()}
+erneuert und mit \textrm{updateFavoritesTableValues()} werden die Pininformationen 
+der Favoriten auf den aktuellsten Stand gebracht. Ändern sich die
+Favoriten wird \textrm{onFavoritesChanged()} aufgerufen.\\
+\textrm{text}\\
+Das seperat aufpoppende Fenster um die Pins / Ports besser zu konfigurieren wird
+mit \textrm{startConfigurePin(id)}. Beim Aufruf wird die ID des Pins benötigt.
+In der Funktion werden die restlichen Informationen zu dem Pin abegrufen und
+eingetragen. In dem Fenster sind die Buttons 'OK' und 'zurücksetzen', die dann
+beim bestätigen \textrm{endConfigurePin(reset)} aufruft. reset ist der Flag
+zum zurücksetzen des Pins. Ist er auf true, wird der Pin zurückgesetzt, sollte
+er auf false sein, werden die neuen Konfigurationen zum Pin abgespeichert.\\
+Um die index.html nicht noch mit weiteren vielen div-Elemnten zu
+überfüllen, werden die gleichen div-Elemente mit \textrm{write(count, string,
+ids)} generiert. Diese Funktion wird in folgenden verwendet:
+\textrm{writePinCheck(ids)}, \textrm {writePinCheckMinus(count)},
+\textrm{writePinCheckPlus(count)}, \textrm{writePinCheckNone(count)},
+\textrm{writePinMinusBox(count)}, \textrm{writePinCheckAnalog(ids)} und
+\textrm{writeAnalogBox(ids)}.
+
+
 
