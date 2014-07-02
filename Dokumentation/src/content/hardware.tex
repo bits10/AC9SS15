@@ -68,7 +68,7 @@ Ausgaben verwendet werden.
 
 Die Fuse-Bits sind die grundlegenden Einstellungen, mit denen ein
 Mikrocontroller arbeitet. Sie müssen geändert werden, wenn ein anderer Taktgeber
-gewünscht ist oder Schnittstellen de- oder aktiviert werden sollen.\\
+gewünscht ist oder Schnittstellen deaktiviert oder aktiviert werden sollen.\\
 \\
 \fcolorbox{red}{white}{
 	\parbox{\dimexpr \linewidth-2\fboxsep-2\fboxrule}{
@@ -108,7 +108,7 @@ SUT\_CKSEL & Wahl der Takt-Quelle & L-Fuse 0-6\\ \hline
 
 Wir benötigen für unseren ATmega-664P SPIEN, EESAVE und BOOTRST aktiviert im
 High Register. Im Low Register muss alles deaktiviert werden, damit der Externe
-Quarz-Kristall verwendet wird. Da der Brown-out Detector trigger nicht
+Quarz-Kristall verwendet wird. Da der Brown-out Detector Trigger nicht
 verwendet wird, kann in dem Extended Register ebenfalls alles deaktiviert
 werden. Daraus resultiert die Bit Kombination in Tabelle \ref{fuses-result}.
 Wenn \ac{JTAG} verwendet werden soll, muss der entsprechende Bit (H-Fuse 6)
