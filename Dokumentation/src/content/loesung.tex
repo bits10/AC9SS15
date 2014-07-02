@@ -141,14 +141,24 @@ Für \textrm{cachedPinInfo} sind zudem Getter wie
 
 \subsubsection{favorites.js}
 
-In der favorites.js wird eine Liste alles Pins angelegt. Hier kann der Nutzer für jeden Pin eine
+In der \textrm{favorites.js} wird eine Liste alles Pins angelegt. \\
+Beim Hinzufügen eines Pins wird über \textrm{addPin(id)} überprüft, ob der Pin bereits in der Liste existiert. Ist dies nicht der 
+Fall, so wird ein neuer Pin mit Standardwerten in die \textrm{favoritelist} geschrieben. 
+Hier kann der Nutzer für jeden Pin eine
 Beschreibung, sowie eine Funktion und ob dieser Pin als Favorit markiert werden soll, 
-hinterlegen. Diese Liste wird dann in eine lokale Datenbank abgespeichert und bei Neustart aus dieser ausgelesen. 
+hinterlegen. Dies geschieht mit den Funktionen \textrm{setDescription(id, des)}, 
+\textrm{setFunction(id, func)} und \textrm{toggleFavorite(id)}.\\
+Bei jeglichen Gettern wird ebenfalls überprüft, ob der Pin bereits in der Liste existiert. Existiert er, werden die 
+geforderten Werte zurückgegeben. Existiert er nicht, wird er mit Standardwerten in die \textrm{favoriteList} geschrieben.\\
+ Diese Liste wird über die JavaScript-Datei 
+\textrm{db.js}, abgespeichert und bei Neustart aus dieser ausgelesen. Diese \textrm{save()} Funktion übergibt die 
+\textrm{favoritelist} mithilfe von \textrm{JSON.stringify()}.\\
 Zusätlich kann diese durch Import und Export Funktionen als reiner Fließtext ausgegeben und auf anderen Rechnern 
 eingefügt werden, damit die Daten dort ebenfalls exisiteren.\\
-Ursprünglich sollte favorites.js nur eine Liste der als Favorit markierte Pins speichern, 
+Ursprünglich sollte \textrm{favorites.js} nur eine Liste der als Favorit markierte Pins speichern, 
 was jedoch nach einigen Überlegungen zu einer Liste aller Pins umgeändert wurde. Der Name 
-"`favorite.js"' wurde jedoch beibehalten.
+\textrm{favorite.js} wurde jedoch beibehalten, sowie die Funktion, Pins als Favorite zu setzen. 
+Dies geschieht über ein Flag, welches \textrm{true} oder \textrm{false} sein kann.\\
 
 \subsubsection{db.js}
 Die \textrm{db.js} besteht aus 2 Funktionen: 
