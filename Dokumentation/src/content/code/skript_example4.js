@@ -1,4 +1,5 @@
 var count = getDb("count", "0");
+var timer = getDb("timer", "0");
 
 var set7Digit = function(number){
 	var pins = [[0,0,1,0,0,0,0],
@@ -21,47 +22,23 @@ var set7Digit = function(number){
 	setValue('C6',pins[number][6]);
 };
 
-switch (count) {
-case "0":
-	set7Digit(count);
-	count = 1;
-	break;
-case "1":
-	set7Digit(count);
-	count = 2;
-	break;
-case "2":
-	set7Digit(count);
-	count = 3;
-	break;
-case "3":
-	set7Digit(count);
-	count = 4;
-	break;
-case "4":
-	set7Digit(count);
-	count = 5;
-	break;
-case "5":
-	set7Digit(count);
-	count = 6;
-	break;
-case "6":
-	set7Digit(count);
-	count = 7;
-	break;
-case "7":
-	set7Digit(count);
-	count = 8;
-	break;
-case "8":
-	set7Digit(count);
-	count = 9;
-	break;
-case "9":
-	set7Digit(count);
-	count = 0;
-	break;
+if (getValue('A0') == "1") {
+	if (timer == "1") {
+		setValue('C7', 1);
+		set7Digit(count);
+		if (count > 8) {
+			count = 0;
+		} else{
+			count++;
+		}
+		putDb("count", count);
+	} 
+	timer++;
+	putDb("timer", timer);
+	
 } 
 
-putDb("count", count);
+if (getValue('A0') == "0") {
+	setValue('C7', 0);
+	putDb("timer", "0");
+}

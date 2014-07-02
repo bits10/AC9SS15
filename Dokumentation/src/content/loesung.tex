@@ -175,17 +175,8 @@ um den daraus resultierenden Speicherbedarf der Webseite zu
 minimieren.\newline
 
 \textrm{initUi()} sollte nur einmal beim Seitenaufruf geladen werden und
-initialisiert die Bneutzerschnittstellen.\\
-\textrm{opcmoId(id)}
-====
-TODO Marcel
-\textrm{opcmo(elem)}
-====
-TODO Marcel
-\textrm{updateUI(pinInfo, values, time)}
-====
-TODO Marcel
-\textrm{setMain(div)} setzt die Hauptkoponenten von dem Frame 'div'. 
+initialisiert die Bneutzerschnittstellen. \textrm{setMain(div)} setzt die
+Hauptkoponenten von dem Frame 'div'.\\
 \textrm{addClass(clazz, item)} fügt eine CSS Klasse zu dem gegebenen Item hinzu,
 während die \textrm{removeClass(clazz, item)} die CSS Klasse von dem Item wieder
 löscht.\\
@@ -200,6 +191,13 @@ erneuert und mit \textrm{updateFavoritesTableValues()} werden die Pininformation
 der Favoriten auf den aktuellsten Stand gebracht. Ändern sich die
 Favoriten wird \textrm{onFavoritesChanged()} aufgerufen.\\
 \textrm{text}\\
+Das seperat aufpoppende Fenster um die Pins / Ports besser zu konfigurieren wird
+mit \textrm{startConfigurePin(id)}. Beim Aufruf wird die ID des Pins benötigt.
+In der Funktion werden die restlichen Informationen zu dem Pin abegrufen und
+eingetragen. In dem Fenster sind die Buttons 'OK' und 'zurücksetzen', die dann
+beim bestätigen \textrm{endConfigurePin(reset)} aufruft. reset ist der Flag
+zum zurücksetzen des Pins. Ist er auf true, wird der Pin zurückgesetzt, sollte
+er auf false sein, werden die neuen Konfigurationen zum Pin abgespeichert.\\
 Um die index.html nicht noch mit weiteren vielen div-Elemnten zu
 überfüllen, werden die gleichen div-Elemente mit \textrm{write(count, string,
 ids)} generiert. Diese Funktion wird in folgenden verwendet:

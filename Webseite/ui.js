@@ -411,7 +411,7 @@ function resetReloadFunc() {
 }
 
 /*
- * Shows a configure dialogfor the reload frequency
+ * Shows a configure dialog for the reload frequency
  */
 function startConfigureFreq() {
     getEl('changeFreqInput').value=getPollingFreq();

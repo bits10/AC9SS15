@@ -346,41 +346,64 @@ importieren. Die Aktualisierungsrate bestimmt wie schnell sich die Seite
 aktualisiert, das ist die einzige Einstellungen die vorgenommen werden kann.
 
 \subsection{Bespiele: Skripte}
-Nun folgen einige Beispielskripte, die nur noch für die passenden Pins und Ports angepasst
-werden müssen. Diese Skripte können kopiert und das dafür vorgesehene Fenster
-im Webbrowser eingefügt werden.
+Folgend einige Beispielskripte, die nur noch für die passenden Pins und Ports
+angepasst werden müssen. Diese Skripte können kopiert und das dafür vorgesehene Fenster
+im Webbrowser für die jeweiligen Pins eingefügt werden.
 
 \subsubscetion*{mehrer Lichter blinken}
-dieses Skript lässt die Lichter an Pin D2-D7 blinken:\newline
+Hier werden mehrer LED an die Pins D2-D7 angeschlossen\
 \begin{figure}[H]
 \lstinputlisting[language=js]{content/code/skript_example1.js}
 \caption{Beispielskript: Mehrer Lichter blinken lassen}
 \label{output}
 \end{figure}
+Durch den Aufruf dieses Skriptes wird zuerst überprüft ob D2 auf 1
+gesetzt ist, ist dies nicht der Fall wird D2 auf 1 gesetzt. Von D3-D7
+werden Die Werte abwechselnd 0 und 1 gesetzt. Da dieses Skript dauernd
+erneut aufgerufen wird ist somit beim nächsten Aufruf D2 bei 1 und der
+Wert wird folglich auf 0 gesetzt. Alle anderen Werte werden auch
+geändert. Somit entsteht ein wechseln der Lichter.\newline
 
 \subsubscetion*{Umwandeln in digitale Werte}
-dieses Skript wandelt den Input des Sensors A5 in digitale Werte um:\newline
+Hier werden auch wieder 7 LED verwendet, und ein Sensor angeschlossen
+an einen analogen Ports.
 \begin{figure}[H]
 \lstinputlisting[language=js]{content/code/skript_example2.js}
 \caption{Beispielskript: Werte werden in digitale Werte umgewandelt}
 \label{output}
 \end{figure}
+Je nachdem wie sich der Wert von dem Sensor ändert, änderen sich auch die
+digitalen Ausgänge zu den LED, ist der gelierferte Wert oberhalb von
+869, so wird Anschluss D2 auf 1 gesetzt. Leuchte an D2 leuchtet somit. Da dann
+aber alle Abfragen wahr sind werden alle Lichter angeschaltet. sollte dann der
+Wert sich unterhalb von 869 befinden dann wird D2 ausgeschalten. Somit ändern
+sich immer die Leuchten sobald die neuen Werte überprüft werden.
 
 \subsubscetion*{Lichterlauf}
-dieses Skript bildet ein Lauf von Lichter die nach einander an und wieder
-ausgeschaltet werden:\newline
+Bnötigt werden auch hier wieder 7 LED. Angeschlossen an D2 - D7.\\
+Mittels diesem Skript werden forlaufend die Lichter nacheinander an und wieder
+abgeschalten. Somit entsteht ein Lauf des Aufleuchtens.\newline
 
 \begin{figure}[H]
 \lstinputlisting[language=js]{content/code/skript_example3.js}
 \caption{Beispielskript: Lichterlauf}
 \label{output}
 \end{figure}
+Zur Erklärung des Skriptes. In einem Case der Switch-Anweisung wird das
+vorherige LED ausgeschalten, die nächste LED angeschalten und den Counter
+erhöht. Beim nächsten Durchlauf wiederholt sich das immer wieder.
 
-\subsubscetion*{Automatischer Countdown}
-Diese Skript lässt die 7 Segment Anzeige nacheinander durchiterieren.
-Daraus entsteht ein Countdown:\newline
+
+\subsubscetion*{Countdown mit Button}
+Für diese Skript wird die 7 Segment Anzeige und ein Button benötigt.\\
+Diese Skript lässt die 7 Segment Anzeige nacheinander durchiterieren, sobald
+ein button eine bestimmte Zeit gedrückt wird.\newline
 \begin{figure}[H]
 \lstinputlisting[language=js]{content/code/skript_example4.js}
 \caption{Beispielskript: Automatischer Countdown}
 \label{output}
 \end{figure}
+Sobald der Button angeschlossen an A0 gedrückt wird, wird ein Timer ausgelöst.
+ist dieser Timer bei 8 und der Button noch gedrückt, wird bei den Anschlüssen
+für die Anzeige durchiteriert. Somit ändert sich nur die Anzeige sollte der
+Button gedrückt werden. 
