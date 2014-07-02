@@ -3,9 +3,7 @@
 
 \chapter{Technischer Hintergrund}
 
-\section{Vorgeschlagene Lösung}
-
-\subsection{Kommunikation im Projekt Radig}
+\section{Server/Webseite Kommunikation}
 Im Projekt Radig ist keine echte Kommunikation zwischen dem Client und dem Server
 vorhanden.
 
@@ -37,19 +35,19 @@ zurück. Der Server kann beim Aufruf einer URL auch eine Aktion ausführen.
 
 Vorteile der REST-Schnittstelle ist die simple Implementierung, sowohl auf dem Client mit
 JavaScript als auch auf dem Server. Die Inhalte werden mit JSON formatiert, welches einen
-technisches Standard darstellt und sich in JavaScript direkt in ein Objekt umwandeln
+technischen Standard darstellt und sich in JavaScript direkt in ein Objekt umwandeln
 lässt. Auf dem Server ist es einfach mit einem Stringformat immer gleiche JSON Strukturen
 zu erstellen und nur aktuelle Werte einzufügen. Die REST-Schnittstelle lässt sich leicht
 um weitere, neue Funktionalitäten erweitern, indem neue virtuelle URLs erstellt werden, die
 vom Client ansprechbar sind.
 
-Die Anforderungen an eine Lösung in diesem Projekt waren vor allem eine möglichst kompakte
-Schnittstelle zu schaffen, die wenig Bandbreite verbraucht, um eine hohe
+Die Anforderungen an eine Lösung in diesem Projekt waren vor allem eine
+möglichst kompakte Schnittstelle zu schaffen, die wenig Bandbreite verbraucht, um eine hohe
 Übertragungsgeschwindigkeit zu ermöglichen, trotz des schwachen Servers. Ein besonderes
 Augenmerk war auf die Übertragung der Messwerte zu legen, da diese nicht wie andere
-statische Informationen nur einmalig übertragen werden, sondern kontinuierlich erneuert
+statische Informationen nur einmalig übertragen, sondern kontinuierlich erneuert
 werden müssen. Die Schnittstelle sollte gut skalierbar sein. Würde später ein Port für
-eine andere Aufgabe zu verwendet werden muss dieser Port ohne Aufwand aus der
+eine andere Aufgabe verwendet werden, muss dieser Port ohne Aufwand aus der
 REST-Schnittstelle ausgeschlossen werden können, damit er von außen nicht manipulierbar
 ist und so interne Abläufe auf der Platine nicht gestört werden.
 
@@ -57,8 +55,8 @@ Nach den Anforderungen muss die Schnittstelle folgende Aufgaben ermöglichen:
 \begin{itemize}
   \item Abfragen der aktuellen Werte aller verwendbaren Pins
   \item Abfragen der Konfiguration eines Pins (Eingang oder Ausgang)
-  \item Abfragen von Allgemeinen Informationen des Boards (IP, Standard-IP, Mac-Adresse,
-  Serverversion)
+  \item Abfragen von allgemeinen Informationen des Boards (IP, Standard-IP,
+  Mac-Adresse, Serverversion)
   \item Manipulieren aller als Ausgänge geschaltene Pins
   \item Manipulieren der Konfiguration eines Pins (als Eingang oder Ausgang setzen)
   \item Manipulieren von Servereinstellungen (z.B. IP-Adresse);
@@ -87,26 +85,27 @@ Nach den Anforderungen muss die Schnittstelle folgende Aufgaben ermöglichen:
 \subsection{Polling oder Pushing}
 Die aktuellen Werte der Pins müssen bei jeder Änderung vom Server zum Client übertragen
 werden, damit diese auf der Webseite immer korrekt dargestellt werden. Hierfür stehen zwei
-verschiedene Konzepte zur Verfügung wie die Übertragung der Daten initialisiert werden.
+verschiedene Konzepte für die Initialisierung zur Verfügung.
 
 \subsubsection{Polling}
-Beim Polling werden vom Client kontinuierlich die Werte erneut angefordert, indem dieser
-die entsprechende virtuell URL des Servers aufruft. Dies führt dazu, dass viele unnötige
-Daten übertragen werden, da sich eventuell nicht bei jedem erneuten anfordern der Werte
-diese auch tatsächlich verändert haben und so die gleichen Datensätze oft mehrmals
-angefordert werden.
+Beim Polling werden die Werte vom Client kontinuierlich angefordert, indem
+dieser die entsprechende virtuelle \ac{URL} des Servers aufruft. Dies führt
+dazu, dass viele unnötige Daten übertragen werden, da sich eventuell nicht bei
+jedem erneuten Anfordern der Werte diese auch tatsächlich verändert haben und
+so die gleichen Datensätze oft mehrmals angefordert werden.
 
-Im Vergleich zu der Radig-Lösung bietet Polling den Vorteil das die Werte kontinuierlich
-nach geladen und so immer korrekt dargestellt werden während die Webseite dargestellt
-wird. Auch das gesendete Datenvolumen wird dahingehend minimiert, das nur die Nutzdaten
-übertragen werden und nicht der gesamte HTML-Code der Webseite. Polling ist technisch sehr
-einfach zu realisieren, da die Abfrage der Daten einfach zyklisch wiederholt werden.
+Im Vergleich zur Radig-Lösung bietet Polling den Vorteil, dass die Werte
+kontinuierlich nachgeladen und so immer korrekt dargestellt werden während die Webseite dargestellt
+wird. Auch das gesendete Datenvolumen wird dahingehend minimiert, dass nur die
+Nutzdaten übertragen werden und nicht der gesamte HTML-Code der Webseite. Polling ist technisch sehr
+einfach zu realisieren, da die Abfrage der Daten einfach zyklisch wiederholt
+wird.
 
 \subsubsection{Pushing}
-Bei Pushing wird im Gegensatz zu Polling der Daten nicht vom Client initialisiert, sondern
-vom Server. Der Server weiß wann sich die Werte geändert haben und kann dem Client bei
+Bei Pushing wird im Gegensatz zu Polling die Übertragung der Daten nicht vom
+Client initialisiert, sondern vom Server. Der Server weiß wann sich die Werte geändert haben und kann dem Client bei
 jeder Änderung gezielt die neuen Daten übermitteln. Das Übertragen der Daten
-könnte z.B. durch einen Interrupt ausgelöst werden.
+könnte auf dem Server z.B. durch einen Interrupt ausgelöst werden.
 
 Im direkten Vergleich zu Polling bietet Pushing verschiedene Vorteile. So wird nicht nur
 das Volumen der übertragenen Daten reduziert indem keine unnötigen Abfragen stattfinden,
@@ -115,10 +114,10 @@ stattgefunden hat, was dazu führt das die Webseite schneller auf Änderungen re
 
 Die technische Umsetzung von Pushing ist mit diversen Problemen verbunden. Die typische
 Verbindungsaufbaurichtung ist bei Webanwendungen und Webseiten immer vom Client zum
-Server. Anders als bei Polling müssen bei Pushing Daten vom Server zum Client gelangen.
-Hierfür muss eine Verbindung vom Server zum Client aufgebaut werden. Dies ist technisch
-aber nicht möglich, da der Browser bzw. JavaScript keine Möglichkeit haben einen Port des
-Clientsystems zu öffnen und auf eingehende Verbindungen des Servers zu antworten.
+Server. Anders als bei Polling muss bei Pushing die Verbindung vom Server zum
+Client aufgebaut werden. Dies ist technisch aber nicht möglich, da der Browser
+bzw. JavaScript keine Möglichkeit haben einen Port des Clientsystems zu öffnen
+und auf eingehende Verbindungen des Servers zu antworten.
 
 Das Problem lässt sich durch die Benutzung von HTML5 Server-Sent Events umgehen. Hierbei
 fragt der Client eine virtuelle URL des Servers ab, ähnlich einer REST-Schnittstelle. Der
@@ -127,25 +126,25 @@ die Änderung eines Pins) in den geöffneten Stream und pusht so die Daten zum C
 Dieser überwacht den Stream mit Hilfe von JavaScript und empfängt so die neuen Werte und
 kann sie auf der Webseite anzeigen.
 
-Dieses System ist auf dem Pollin Net-IO Board aber nur schwer umzusetzen da mehrere
-Verbindungen verwaltet werden müssen. So ist immer mindestens eine Server-Sent Event
+Dieses System ist auf dem Pollin Net-IO Board aber nur schwer umzusetzen, da
+mehrere Verbindungen verwaltet werden müssen. So ist immer mindestens eine Server-Sent Event
 Verbindung offen, parallel könnte aber ein Client andere Daten vom Server anfordern. Für
 das Verwalten mehrerer Verbindungen sind aber viele Ressourcen nötig, da für jede
 Verbindung auch Daten im RAM hinterlegt werden müssen. Außerdem ist in vielen Situationen
 ein simples Multitasking nötig, das so auf einem ATmega CPU nicht vorhanden ist. Das Radig
-Projekt setzt aus diesen Gründen auf HTTP 1.0 bei dem für jede Anfrage eine Verbindung
-geöffnet und nach erfolgreichem Übertragen der Daten wieder geschlossen wird. So ist auch
+Projekt setzt aus diesen Gründen auf HTTP 1.0, bei dem für jede Anfrage eine
+Verbindung geöffnet und nach erfolgreichem Übertragen der Daten wieder geschlossen wird. So ist auch
 die Kommunikation mit mehreren Clients problemlos möglich.
 
 \subsubsection{Entscheidung}
 Pushing ist leider nur schwer umsetzbar auf dem Mikrocontroller. Dies ist
 bedingt durch die knappen Ressourcen wie Arbeitsspeicher, als auch durch das nur
 schwer umsetzbare Multitasking, das für einen reibungslosen Ablauf nötig ist. Ohne Multitasking
-ist nicht gewährleistet das alle Dateien übertragen werden können, da der
+ist nicht gewährleistet, dass alle Dateien übertragen werden können, da der
 Server, sobald eine Server-Sent Event Verbindung aufgebaut wird, nicht mehr
 verfügbar ist, bis diese wieder geschlossen wird. Eine Benutzung durch mehrere
 Clients ist so nicht denkbar und auch die Nutzung von nur einem Client kann zu
-Problemen führen wenn dieser Daten anfordert nachdem die Server-Sent Event
+Problemen führen wenn dieser Daten anfordert, nachdem die Server-Sent Event
 Verbindung aufgebaut worden ist.
 
 Die Implementierung von Multitasking ist zwar prinzipiell möglich, erfordert
@@ -180,7 +179,7 @@ dynamisch abzufragen, um sie gesondert von der Webseite laden zu können.
 
 \subsubsection{Mögliche Techniken für Datenabfrage}
 
-Für die dynamische Datenabfrage gibt es veschiedene Standards. Hierzu gehöhren
+Für die dynamische Datenabfrage gibt es veschiedene Standards. Hierzu gehören
 verschiedene \ac{XML}-Basierte Protokolle wie RSS, als auch das so genannte
 \ac{REST}.
 

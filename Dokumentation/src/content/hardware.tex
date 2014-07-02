@@ -58,8 +58,8 @@ bei Bedarf dem entsprechendem Datenblatt entnommen werden.
 \subsection{ENC28J60}
 
 Der ENC28J60 ist der IEEE 802.3 kompatibe Netzwerk Contoller des AVR-Net-IO. Er
-nimmt die externen Anfragen an und reicht diese an den ATMega weiter. Dabei ist
-er an Port B des ATMegas Angeschlossen, dieser kann deswegen nicht für Ein- oder
+nimmt die externen Anfragen an und reicht diese an den ATmega weiter. Dabei ist
+er an Port B des ATmegas Angeschlossen, dieser kann deswegen nicht für Ein- oder
 Ausgaben verwendet werden.
 
 \newpage
@@ -102,11 +102,11 @@ CKDIV8 & Teilt den Takt der Uhr intern durch 8 & L-Fuse 8\\ \hline
 CKOUT & Ausgabe des Takts der Uhr auf Port B1 & L-Fuse 7\\ \hline
 SUT\_CKSEL & Wahl der Takt-Quelle & L-Fuse 0-6\\ \hline
 \end{tabular}
-\caption{Die Bedeutung der einzelnen Fuse-Bits (ATMega-664P)}
+\caption{Die Bedeutung der einzelnen Fuse-Bits (ATmega-664P)}
 \label{fuses-names}
 \end{table}
 
-Wir benötigen für unseren ATMega-664P SPIEN, EESAVE und BOOTRST aktiviert im
+Wir benötigen für unseren ATmega-664P SPIEN, EESAVE und BOOTRST aktiviert im
 High Register. Im Low Register muss alles deaktiviert werden, damit der Externe
 Quarz-Kristall verwendet wird. Da der Brown-out Detector trigger nicht
 verwendet wird, kann in dem Extended Register ebenfalls alles deaktiviert
@@ -123,7 +123,7 @@ Extended-Fuse & 1111 1111 & FF\\ \hline
 High-Fuse & 1101 0110 & D6\\ \hline
 Low-Fuse & 1111 1111 & FF\\ \hline
 \end{tabular}
-\caption{Fuse Einstellungen (ATMega-664P)}
+\caption{Fuse Einstellungen (ATmega-664P)}
 \label{fuses-result}
 \end{table}
 
@@ -134,7 +134,7 @@ vorgenommen werden (Kapitel \ref{Chap:atmelStudio.Programming}). In Abbildung
 \begin{figure}[H]
 \centering
 \includegraphics[width=10cm]{content/pictures/Fusebits/fusebits_atmelstudio.png}
-\caption{Fuse-Bits im Atmel Studio (ATMega-664P)}
+\caption{Fuse-Bits im Atmel Studio (ATmega-664P)}
 \label{fuses-graf}
 \end{figure}
 
