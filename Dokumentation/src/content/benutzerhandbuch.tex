@@ -58,8 +58,8 @@ der D-förmigen Einkerbung in den Sockel zu setzen. (Siehe Abbildung \ref{ausbau
 
 Der Anschluss des AVRISPmkII Programmers erfolgt über einen 6 Poligen Stecker,
 allerdings hat das AVR-Net-IO einen 10 Poligen Stecker. Deswegen wurde hierfür
-eigens ein Adapter angefertigt, der das ISP Signal von den 6 Polen des Programmers
-auf das AVR-Net-IO bring.
+eigens ein Adapter angefertigt, welcher das ISP Signal von den 6 Polen des
+Programmers auf das AVR-Net-IO bring.
 
 \begin{figure}[htp]
 \begin{center}
@@ -95,9 +95,9 @@ auf das AVR-Net-IO bring.
 \end{figure}
 
 Mit dem angefertigtem Adapter kann der Debugger anschließend ganz einfach mit
-dem Board verbunden werden. Wenn der Mikrocontroller richtig, wie im nächsten Schritt
-beschrieben, konfiguriert ist, kann der Programmer auch in Atmel Studio
-verwendet werden.
+dem Board verbunden werden. Wenn der Mikrocontroller richtig, wie im Abschnitt
+\ref{Chapt:Einrichten} beschrieben, konfiguriert ist, kann der Programmer auch in Atmel
+Studio verwendet werden.
 
 \section{Einrichten eines neuen Mikrocontrollers}
 \label{Chapt:Einrichten}
@@ -178,7 +178,7 @@ The \textrm{op} field specifies what operation to perform:\newline
 \textbf{w} read data from the specified file and write to the device memory \newline
 The filename field indicates the name of the file to read or write.  The format field is optional and contains the format of the file to read or write. \newline
 \textbf{Hier die Bytes die gesetzt werden 0xFF bzw 0xD6} \\ \hline
--B bitclock & Specify the bit clock period for the JTAG interface or the ISP clock \\ \hline
+-B bitclock & Specify the bit clock period for the \ac{JTAG} interface or the ISP clock \\ \hline
 \end{tabular}
 \caption{Auszug AVRDUDE Parameter}
 \label{parameterAvrdude2}
@@ -208,7 +208,8 @@ die gesetzt werden können. Hier alle Parameter im Überblick:
 \hline
 -in, -input & Der Eigabepfad mit allen für die Website benötigten Dateien. z.B. \textrm{-in "Webseite"} \\ \hline 
 -out, -output & Die Ausgabe Headerdatei z.B. \textrm{-out "Webserver/webpage.h"} \\ \hline
--v, -verbose &  Gibt die ausgegebenen Dateien auf der Konsole aus. \\  
+-v, -verbose &  Gibt die Dateiausgabe auf der Konsole aus.
+\\
  \hline 
  -n, -newline & Behält die Formatierung für den Zeilenvorschub, Tabulator
  oder Wagenrücklauf in den HTML und JS Dateien (\textbackslash n and
@@ -221,8 +222,8 @@ die gesetzt werden können. Hier alle Parameter im Überblick:
 \end{table}
 
 Um die Entwicklung zu vereinfachen ist es hilfreich, wenn für den Parameteraufruf
-des HTML Header Compilers ein einfaches Shell- oder Batch-Script erstellt, das
-die Dateien aus dem Ordner für die Website als Headerdatei in den Ordner für den
+des HTML Header Compilers ein einfaches Shell- oder Batch-Script erstellt wird,
+das die Dateien aus dem Ordner für die Website als Headerdatei in den Ordner für den
 Webserver schreibt. Falls eine Änderung an der Website vorgenommen wurde, muss
 vor dem Programmieren des Mikrocontrollers lediglich der \ac{HHC} ausgeführt
 werden.
@@ -254,14 +255,15 @@ Ausgang definiert werden. Dabei gibt es ein paar Eigenheiten zu beachten:
   wird Port B auch nicht standardmäßig definiert.
   \item OUTC dieser Port wird von Pollin standardmäßig für die Ausgänge verwendet
   und ist von uns bereits entsprechend modifiziert. Der gesamte Port wird auf dem
-  AVR-NET-IO über den 25Pin D-Sub Stecker geleitet. Wenn der Fuse-Bit für JTag
-  geschaltet ist, werden 4 Pins des C Ports für das JTag Interface verwendet.
-  \item OUTC Der C Port liegt auf dem AVR-Net-IO auf dem EXT Anschluss und ist
+  AVR-NET-IO über den 25Pin D-Sub Stecker geleitet. Wenn der Fuse-Bit für
+  \ac{JTAG} geschaltet ist, werden 4 Pins des C Ports für das \ac{JTAG} Interface
+  verwendet.
+  \item OUTD Liegt auf dem AVR-Net-IO auf dem EXT Anschluss und ist
   für erweiterte Peripherie geplant, so kann hier ein Cardreader oder ein
   Erweiterungsboard angeschlossen werden.
 \end{itemize}
-Weiter kann die gewünschte IP-Adresse eingestellt werden, unter der das Gerät
-erreicht werden kann. Wichtig ist hier, dass kein anderes Gerät dieselbe Adresse
+Weiter kann die gewünschte IP-Adresse eingestellt werden, unter welcher das
+Gerät erreicht werden kann. Wichtig ist hier, dass kein anderes Gerät dieselbe Adresse
 im Netzwerk verwendet. Auch kann die Router IP-Adresse und Netzmaske angegeben
 werden. Eine weitere wichtige Einstellung ist die verwendete Mac Adresse
 des Netzwerkcontrollers. Diese wird über die Variablen MYMAC1-6 definiert.
@@ -269,8 +271,8 @@ des Netzwerkcontrollers. Diese wird über die Variablen MYMAC1-6 definiert.
 \section{Debuggen über JTAG}
 
 Der JTAGICEmkII Debugger von Atmel, den wir für unser Projekt gestellt bekommen
-haben, unterstützt neben ISP auch JTAG. Allerdings werden für den Anschluss von
-JTAG andere Pins benötigt als für den Anschluss eines ISP-Programmers.
+haben, unterstützt neben ISP auch \ac{JTAG}. Allerdings werden für den Anschluss von
+\ac{JTAG} andere Pins benötigt als für den Anschluss eines ISP-Programmers.
 
 \begin{table}
 \begin{longtable}{|l|l|l|p{8.8cm}|}\hline 
@@ -303,7 +305,7 @@ der 10 Anschlüssen des JTAGICEmkII. Diese müssen mit den Pins 2-5 des C Ports,
 Reset Pin, Ground und VCC verbunden werden (Abbildung \ref{jtag.pins}). Die Pins 7 \& 8
 des JTAGICEmkII werden nicht mit dem Mikrocontroller verbunden.\\
 \\
-Damit \ac{JTAG} funktioniert muss der entsprechende JTAG Fuse-Bit gesetzt sein.
+Damit \ac{JTAG} funktioniert muss der entsprechende \ac{JTAG} Fuse-Bit gesetzt sein.
 Dabei ist zu beachten, dass die Pins 2-5 am Port C des Mikrocontroller nicht für
 Ein- oder Ausgaben verwendet werden können, sondern bei aktivierten Fuse-Bit
 gesperrt sind. Als weiterer Hinweis ist zu beachten, dass die verwendete
@@ -331,8 +333,8 @@ Checkbox gesetzt werden. Dies kann jedoch nicht mit jedem Pin oder Port gemacht 
 diese Funktion bei manchen nicht möglich sein darf. Diese Pins sind vom System deaktiviert und 
 nicht klickbar.
 \subsection{Der Favoriten Tab}
-Hier werden tabellarisch die ausgewählten Pins oder Ports angezeigt, auch hier
-können wieder pinspezifische Modifikationen vorgenommen werden. Löschen der
+Hier werden tabellarisch die ausgewählten Pins oder Ports angezeigt. Auch hier
+können wieder Pin spezifische Modifikationen vorgenommen werden. Löschen der
 Favoriten setzt den Pin auf die Standardeinstellungen zurück und ist nicht mehr
 in Favoritenliste vorhanden. Pins können wieder über den Status Tab hinzugefügt
 werden.

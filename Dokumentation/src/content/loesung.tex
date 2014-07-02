@@ -10,7 +10,6 @@ Lösung entgegen.
 
 \section{Der Webserver}
 
-Als Basis für unser Projekt haben wir die Firmware von Ulrich Radig verwendet.
 Zusätzlich von der Ursprungsversion von Ulrich Radig gibt es noch eine etwas
 vereinfachte Version von Günther Menke. Wir haben wir uns für die vereinfachte
 Variante entschieden. Die Unterschiede zwischen beiden
@@ -58,21 +57,14 @@ und anschließendem umwandeln mit dem \ac{HHC}.
 Der Aufbau der Webseite ist in mehrere Dateien aufgeteilt. So haben wir mehrere
 .js und .css Dateien. In der index.html wird alles nur zusammengetragen.
 
-\subsection{HTML und CSS}
-Es gibt nur eine html Seite in der alle anderen Dateien aufgerufen werden und zur
-Hauptseite wird: Die index.html\newline
-Die CSS-Elemnte sind in mehrere Dateien aufgesplittet. So kann die input.css
-gegen eine andere input.css ausgetauscht werden. Die input.css ist die Datei für
-das Desgin mit den Farben, Formen, usw.\newline
-Eine weitere .css Datei sollte nicht ausgetauscht werden (board.css).
-
 \subsubsection{board.css}
 Diese Datei behandelt alle Definitionen über die Platine in dem 'Status
 Tab' der Webseite. Alle Defenitionen über die Platine sind direkt in der
 index.html in einer komplexen div-Verschaltung eingebunden. So können einzelne
 div-Elemnte als klickbar und verlinkbar zu anderen Elemnten sein. Eine
 veränderung der Verschachtelung oder im CSS-Code kann zu Anzeigefehler oder ein
-NichtAnzeigen der Webseite führen.\newline
+NichtAnzeigen der Webseite führen.
+
 Alle Div-Elemnte sind abgemessen und auf die passende Größe ausgerichtet. 
 
 \subsection{JavaScript}
