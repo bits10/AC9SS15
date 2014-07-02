@@ -339,9 +339,10 @@ werden.
 
 \subsection{Der Einstellungs Tab}
 Im Einstellungs-Tab werden die Einstellungen vorgenommen. Hier sind auch die
-Informationen über das Board, Version der Webseite und Autoren abrufbar. Die
-Import/Export Funktion ermöglicht die Datenbank, in der die Benutzereinstellungen
-und Favoriten untergebracht sind, zu exportieren und auf einem anderen System zu
+Informationen über das Board, Version der Webseite und Autoren abrufbar.
+
+Die Import/Export Funktion ermöglicht die Datenbank, in der die
+Benutzereinstellungen und Favoriten untergebracht sind, zu exportieren und auf einem anderen System zu
 importieren. Die Aktualisierungsrate bestimmt wie schnell sich die Seite
 aktualisiert, das ist die einzige Einstellungen die vorgenommen werden kann.
 
@@ -350,13 +351,15 @@ Folgend einige Beispielskripte, die nur noch für die passenden Pins und Ports
 angepasst werden müssen. Diese Skripte können kopiert und das dafür vorgesehene Fenster
 im Webbrowser für die jeweiligen Pins eingefügt werden.
 
-\subsubscetion*{mehrer Lichter blinken}
-Hier werden mehrer LED an die Pins D2-D7 angeschlossen\
+\subsubsection{Mehrer Lichter blinken}
+
+Hier werden mehrere LED an die Pins D2-D7 angeschlossen\
 \begin{figure}[H]
-\lstinputlisting[language=js]{content/code/skript_example1.js}
+\lstinputlisting[language=javascript]{content/code/skript_example1.js}
 \caption{Beispielskript: Mehrer Lichter blinken lassen}
 \label{output}
 \end{figure}
+
 Durch den Aufruf dieses Skriptes wird zuerst überprüft ob D2 auf 1
 gesetzt ist, ist dies nicht der Fall wird D2 auf 1 gesetzt. Von D3-D7
 werden Die Werte abwechselnd 0 und 1 gesetzt. Da dieses Skript dauernd
@@ -364,11 +367,11 @@ erneut aufgerufen wird ist somit beim nächsten Aufruf D2 bei 1 und der
 Wert wird folglich auf 0 gesetzt. Alle anderen Werte werden auch
 geändert. Somit entsteht ein wechseln der Lichter.\newline
 
-\subsubscetion*{Umwandeln in digitale Werte}
+\subsubsection{Umwandeln in digitale Werte}
 Hier werden auch wieder 7 LED verwendet, und ein Sensor angeschlossen
 an einen analogen Ports.
 \begin{figure}[H]
-\lstinputlisting[language=js]{content/code/skript_example2.js}
+\lstinputlisting[language=javascript]{content/code/skript_example2.js}
 \caption{Beispielskript: Werte werden in digitale Werte umgewandelt}
 \label{output}
 \end{figure}
@@ -379,13 +382,13 @@ aber alle Abfragen wahr sind werden alle Lichter angeschaltet. sollte dann der
 Wert sich unterhalb von 869 befinden dann wird D2 ausgeschalten. Somit ändern
 sich immer die Leuchten sobald die neuen Werte überprüft werden.
 
-\subsubscetion*{Lichterlauf}
+\subsubsection{Lichterlauf}
 Bnötigt werden auch hier wieder 7 LED. Angeschlossen an D2 - D7.\\
 Mittels diesem Skript werden forlaufend die Lichter nacheinander an und wieder
 abgeschalten. Somit entsteht ein Lauf des Aufleuchtens.\newline
 
 \begin{figure}[H]
-\lstinputlisting[language=js]{content/code/skript_example3.js}
+\lstinputlisting[language=javascript]{content/code/skript_example3.js}
 \caption{Beispielskript: Lichterlauf}
 \label{output}
 \end{figure}
@@ -393,16 +396,13 @@ Zur Erklärung des Skriptes. In einem Case der Switch-Anweisung wird das
 vorherige LED ausgeschalten, die nächste LED angeschalten und den Counter
 erhöht. Beim nächsten Durchlauf wiederholt sich das immer wieder.
 
-
-\subsubscetion*{Countdown mit Button}
+\subsubsection{Countdown mit Button}
 Für diese Skript wird die 7 Segment Anzeige und ein Button benötigt.\\
 Diese Skript lässt die 7 Segment Anzeige nacheinander durchiterieren, sobald
-ein button eine bestimmte Zeit gedrückt wird.\newline
-\begin{figure}[H]
-\lstinputlisting[language=js]{content/code/skript_example4.js}
-\caption{Beispielskript: Automatischer Countdown}
-\label{output}
-\end{figure}
+ein button eine bestimmte Zeit gedrückt wird.
+
+\lstinputlisting[language=javascript]{content/code/skript_example4.js}
+
 Sobald der Button angeschlossen an A0 gedrückt wird, wird ein Timer ausgelöst.
 ist dieser Timer bei 8 und der Button noch gedrückt, wird bei den Anschlüssen
 für die Anzeige durchiteriert. Somit ändert sich nur die Anzeige sollte der
