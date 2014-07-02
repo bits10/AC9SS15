@@ -141,15 +141,16 @@ Für \textrm{cachedPinInfo} sind zudem Getter wie
 
 \subsubsection{favorites.js}
 
-In der \textrm{favorites.js} wird eine Liste alles Pins angelegt. \\
+In der \textrm{favorites.js} wird eine Liste aller Pins angelegt. \\
 Beim Hinzufügen eines Pins wird über \textrm{addPin(id)} überprüft, ob der Pin bereits in der Liste existiert. Ist dies nicht der 
 Fall, so wird ein neuer Pin mit Standardwerten in die \textrm{favoritelist} geschrieben. 
-Hier kann der Nutzer für jeden Pin eine
+Der Nutzer kann für jeden Pin eine
 Beschreibung, sowie eine Funktion und ob dieser Pin als Favorit markiert werden soll, 
 hinterlegen. Dies geschieht mit den Funktionen \textrm{setDescription(id, des)}, 
 \textrm{setFunction(id, func)} und \textrm{toggleFavorite(id)}.\\
-Bei jeglichen Gettern wird ebenfalls überprüft, ob der Pin bereits in der Liste existiert. Existiert er, werden die 
-geforderten Werte zurückgegeben. Existiert er nicht, wird er mit Standardwerten in die \textrm{favoriteList} geschrieben.\\
+Bei jeglichen Gettern(z.B. \textrm{getFunction()}, \textrm{getDescription()})von Pin wird ebenfalls überprüft, 
+ob der Pin bereits in der Liste existiert. Existiert er, werden die 
+geforderten Werte zurückgegeben. Existiert er nicht, wird er mit Standardwerten in die \textrm{favoritelist} geschrieben.\\
  Diese Liste wird über die JavaScript-Datei 
 \textrm{db.js}, abgespeichert und bei Neustart aus dieser ausgelesen. Diese \textrm{save()} Funktion übergibt die 
 \textrm{favoritelist} mithilfe von \textrm{JSON.stringify()}.\\
