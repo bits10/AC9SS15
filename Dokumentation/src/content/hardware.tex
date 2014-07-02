@@ -10,19 +10,19 @@
 \end{figure}
 
 Auf dem AVR Net-IO-Board sind der Webserver und die Webseite gespeichert. Die
-verschiedenen Pins lassen sich darüber ansteuern und manipulieren.
+verschiedenen Pins lassen sich über die Webseite ansteuern und manipulieren.
 Die Platine des AVR-Net-IO ist für den einfachen Anschluss der externen
-Anwendungen gedacht. Der Fokus liegt hier, je nach verwendetem Anschluss-Baord
+Anwendungen gedacht. Der Fokus liegt hier, je nach verwendetem Anschluss-Baord,
 nicht darauf eine optimale Gestaltung zu haben, sondern die einzelnen Sensoren
 eher lose an die Platine anzuschließen. Dies geschieht, wie in der Elekronik oft
 üblich, über die Verwendung von Breadboards, blanke Steckbretter auf
-welchen Schaltungen konzipiert werden können. Deswegen haben die Analog zu Ditital
-Wandler Schraub-Verbindungen und auch die im Handel verfügbare Anschlussplatine
+welchen Schaltungen konzipiert werden können. Deswegen haben die Analog zu Digital
+Wandler Schraubverbindungen und auch die im Handel verfügbare Anschlussplatine
 für den 25 Poligen D-Sub Stecker hat Schraub-Verbindungen. Für die Demonstration
-haben wir uns spezielle Schaltungen überlegt, welche simpel an die Externen
-Anschlüsse das AVR-Net-IO Angeschlossen werden können. Die Verteilung, welcher
-Pin an welchem Anschluss ist, kann dem Schaltplan entommen werden. (siehe
-Anhang, Abbildung \ref{anh:schaltplan})
+haben wir uns spezielle Schaltungen überlegt, welche simpel an die externen
+Anschlüsse des AVR-Net-IO Angeschlossen werden können. Die Verteilung, welcher
+Pin an welchem Anschluss ist, kann dem Schaltplan entommen werden (siehe
+Anhang, Abbildung \ref{anh:schaltplan}).
 
 \subsection{Technische Daten}
 \begin{itemize}
@@ -59,7 +59,7 @@ bei Bedarf dem entsprechendem Datenblatt entnommen werden.
 
 Der ENC28J60 ist der IEEE 802.3 kompatibe Netzwerk Contoller des AVR-Net-IO. Er
 nimmt die externen Anfragen an und reicht diese an den ATmega weiter. Dabei ist
-er an Port B des ATmegas Angeschlossen, dieser kann deswegen nicht für Ein- oder
+er an Port B des ATmegas angeschlossen, Port B kann deswegen nicht für Ein- oder
 Ausgaben verwendet werden.
 
 \newpage
