@@ -180,21 +180,21 @@ dynamisch abzufragen, um sie gesondert von der Webseite laden zu können.
 \subsubsection{Mögliche Techniken für Datenabfrage}
 
 Für die dynamische Datenabfrage gibt es veschiedene Standards. Hierzu gehören
-verschiedene \ac{XML}-Basierte Protokolle wie RSS, als auch das so genannte
+verschiedene \acs{XML}-basierte Protokolle wie RSS, als auch das so genannte
 \ac{REST}.
 
-\ac{XML}-Basierte Protokolle wie \ac{RSS} oder \ac{SOAP} weisen typischerweise
+\acs{XML}-Basierte Protokolle wie \ac{RSS} oder \ac{SOAP} weisen typischerweise
 einen großen Protokoll-Overhead auf und sind deswegen nur bedingt für den Einsatz auf einem
 Mikrocontroller geeignet, da das System zu viel unnötige Daten übertragen
-müsste. Außerdem muss das dynamische \ac{HTTP}-Abfragen der Daten per JavaScript
-erfolgen, welches die in \ac{XML} präsentierten Daten erst wieder parsen müsste, was
-zusätzlichen Code auf dem Client bedeuten würden.
+müsste. Außerdem muss das dynamische \acs{HTTP}-Abfragen der Daten per
+JavaScript erfolgen, welches die in \acs{XML} präsentierten Daten erst wieder parsen
+müsste, was zusätzlichen Code auf dem Client bedeuten würden.
 
 \ac{REST} hingegen präsentieren die Daten in \ac{JSON}, welches von
 JavaScript direkt als Objekt interpretiert werden kann. Dies erspart das
 aufwendige Parsen der Daten. Außerdem ist der Protokoll-Overhead bei \ac{JSON}
-tendenziell kleiner als bei \ac{XML}-Basierten Lösungen, da weniger lange Tagnamen
-vorhanden sind, was eine effektivere Übertragung ermöglicht.
+tendenziell kleiner als bei \acs{XML}-Basierten Lösungen, da weniger lange
+Tagnamen vorhanden sind, was eine effektivere Übertragung ermöglicht.
 
 Aus diesen Gründen haben wir uns für eine \ac{REST} Lösung entschieden.
 
@@ -206,12 +206,12 @@ alle URLs im Unterverzeichnis \textrm{/rest}. Insgesamt gibt es 3 URLs:
   Server, wie z.B. die Server-Version
   \item  \textrm{/rest/pininfo} liefert generelle, statische Informationen über
   die einzelnen Pins, wie z.B. den Namen des Pins
-  \item  \textrm{/rest/valus} liefert nur die aktuellen Werte und
+  \item  \textrm{/rest/values} liefert nur die aktuellen Werte und
   \ac{DDR}-Einträge.
 \end{itemize}
 
 Um die dargestellten Werte auf der Webseite zu aktualisieren, muss folglich nur
-\textrm{/rest/valus} erneut geladen werden. Aus diesem Grund sollte diese
+\textrm{/rest/values} erneut geladen werden. Aus diesem Grund sollte diese
 Datei so klein wie möglich gehalten werden um eine optimale
 Aktualisierungsgeschwindigkeit zu ermöglichen. \textrm{/rest/info} und  
 \textrm{/rest/pininfo} müssen nur einmalig geladen werden, da die enthaltenen
@@ -232,9 +232,9 @@ werden vor dem Senden der Datei durch zugehörige Werte ersetzt.\\
 \\
 Das Schema für so einen Platzhalter ist \textrm{\%PINXY} und setzt sich zusammen aus dem
 Aufruf \textrm{\%PIN}, dem anzusprechendem Port X = [A,C oder D] und dem Pin Y = [0-7] (z.B.
-\textrm{\%PINC1 } ). Mit diesem Platzhalter kann der direkte Pin Ausgelesen
-(Hier Port C und Pin 1) und an eine beliebige Stelle im Quellcode platziert werden. Neu
-hinzugekommen ist das Ausgeben der Information ob der konkrete Pin über das
+\textrm{\%PINC1 } ). Mit diesem Platzhalter kann der direkte Pin ausgelesen
+(hier Port C und Pin 1) und an eine beliebige Stelle im Quellcode platziert werden. Neu
+hinzugekommen ist das Ausgeben der Information, ob der konkrete Pin über das
 DDRegister als Ein- oder Ausgang definiert ist. Das Schema ist für diesen
 Platzhalter ist \textrm{\%DDRXY} und setzt sich zusammen aus dem Aufruf \textrm{\%DDR}, dem
 anzusprechendem Port X = [A,C oder D] und dem Pin Y = [0-7] (z.B.
@@ -243,7 +243,7 @@ anzusprechendem Port X = [A,C oder D] und dem Pin Y = [0-7] (z.B.
 %-----------------------------------------------------------------------------------------
 \subsection{Erweiterung der POST-Parameter}
 Um Manipulationen an dem Board vorzunehemen haben wir uns entschlossen das
-vorhandenen System zu erweitern. Hierbei werden bei jeder \ac{HTTP}-Anfrage die
+vorhandenen System zu erweitern. Hierbei werden bei jeder \acs{HTTP}-Anfrage die
 POST-Parameter ausgewertet und das Board entsprechend manipuliert.\\
 \\
 Das Setzen der Ausgänge wird über einen HTTP-Post Aufruf getätigt. So können die
@@ -265,19 +265,19 @@ sieht folgendermaßen aus:
 
 \subsection{Implementierung der REST-Schnitstelle auf dem Client}
 Auf der Webseite müssen die vom Server bereitgestellten \ac{REST}-URLs im
-Hintergrund aufgerufen werden können. Hierzu verwendeden wir die bereits in JavaScript
-enthaltene \ac{AJAX} Bibliothek. \ac{AJAX} erlaubt JavaScript URLs im
+Hintergrund aufgerufen werden können. Hierzu verwendeten wir die bereits in
+JavaScript enthaltene \ac{AJAX} Bibliothek. \ac{AJAX} erlaubt JavaScript URLs im
 Hintergrund zu laden, ohne das der Nutzer dies bemerkt oder die Seite neu geladen wird. 
 
 \begin{figure}[H]
 \lstinputlisting[language=JavaScript]{content/code/ajaxexample.js}
-\caption{JavaScript um \textrm{/rest/valus} abzufragen und in ein Objekt zu
+\caption{JavaScript um \textrm{/rest/values} abzufragen und in ein Objekt zu
 parsen}
-\label{Ein typischer AJAX-Request}
+\label{AJAX-Request}
 \end{figure}
 
-Der hier beispielhaft gezeigte Quelltext ermöglicht das Laden der \ac{URL}
-\textrm{/rest/valus}.
+Der in Abbildung \ref{AJAX-Request} beispielhaft gezeigte Quelltext ermöglicht
+das Laden der \ac{URL} \textrm{/rest/values}.
 Hierfür wird ein XMLHttpRequest-Objekt verwendet und der geladene Text
 (\textrm{x.responseText}) wird mit \textrm{JSON.parse(\ldots)} in ein
 JavaScript-Objekt verwandelt.
@@ -331,10 +331,11 @@ Das Atmel Studio ist als \ac{IDE} das zentrale Werkzeug, um einen Mikrocontrolle
 zu programmieren. Dabei ist das Atmel Studio, welches von Atmel nach einer
 kostenlosen Registrierung beziehbar ist, stark an die Microsoft Visual \ac{IDE}
 angelehnt. Wenn man bereits Erfahrungen mit Visual Studio gesammelt hat, wird
-man sich schnell im Atmel Studio zurecht finden. Zu den reinen
+man sich schnell im Atmel Studio zurechtfinden. Zu den reinen
 Programmierwerkzeugen gibt es im Atmel Studio noch ein paar weitere Funktionen,
 die das Arbeiten mit den Mikrocontroller erleichtern.
-
+Das Atmel Studio kann unter folgender Adresse heruntergeladen werden:
+\url{http://www.atmel.com/tools/ATMELSTUDIO.aspx}
 
 \subsubsection{Device Programming}
 \label{Chap:atmelStudio.Programming}
@@ -366,8 +367,8 @@ getroffen werden, dazu mehr im Kapitel Fusebits \ref{chap:Fuse}.
 Hier kann das Werkzeug zum Programmieren, die Schnittstelle und
 die Übertagungstakt gewählt werden.
 Der Übertagungstakt sollte auf ungefähr 1 MHz gesetzt werden, damit er zum
-einen nicht zu langsam, zum anderen auch nicht zu schnell ist. Er darf nicht 1/8 des
-Prozessortaktes überschreiten.
+einen nicht zu langsam, zum anderen auch nicht zu schnell ist. Der Takt darf
+nicht 1/8 des Prozessortaktes überschreiten.
 
 %Todo Projekteinstellungen grafik
 
@@ -394,7 +395,7 @@ Benutzerhandbuch.
 \label{chap:hintergrund.HHC}
 
 Zum automatischen Umwandeln der Quell-Dateien (html, js, png etc\ldots) haben
-wir einen speziellen HTML Header Compiler entwickelt der die Website in eine
+wir einen speziellen HTML Header Compiler entwickelt, der die Website in eine
 für den Webserver verständliche Headerdatei umwandelt. Der Compiler durchsucht
 den Eingabe-Ordner und sammelt die darin enthaltenen Dateien. Daraus entsteht
 dann die für das Projekt benötigte Header Datei, bestehend einem Array von
@@ -411,7 +412,7 @@ Eine Beispielumwandlung:
 \label{HHC.input}
 \end{figure}
 
-Das eingegebene Verzeichnis, welches die \textrm{index.html} Datei enthält wird
+Das eingegebene Verzeichnis, welches die \textrm{index.html} Datei enthält, wird
 eingelesen und in die folgende Headerdatei umgewandelt.
 Abbildung \ref{HHC.input} zeigt eine simple "`Hallo Welt"' Website, die keine
 weitere Funktion besitzt. Nachdem die Website mit dem HTML-Header-Compiler
@@ -431,8 +432,8 @@ index.html.
 \label{HHC.output}
 \end{figure}
 
-Anzumerken ist das standardmäßig der HTML Header Compiler die eingegebenen HTML
-und JS Dateien optimiert in die Headerdatei speichert. Dazu wird die
+Anzumerken ist, dass standardmäßig der HTML Header Compiler die eingegebenen
+HTML und JS Dateien optimiert in die Headerdatei speichert. Dazu wird die
 Formatierung für den Zeilenvorschub, Tabulator oder Wagenrücklauf entfernt.
 Falls dies für die Entwicklung nicht gewünscht ist, kann man diese Funktion
 durch den Parameter \textrm{-n oder -newline} deaktivieren.
@@ -441,7 +442,7 @@ Bearbeitung erfolgt ausschließlich im Quelltext (z.B. der index.html). Analog
 kann man dazu einen beliebigen Compiler einer herkömmlichen Programmiersprache sehen. Dieser
 erzeugt aus dem Quelltext eine Binärdatei, diese ist nicht unbedingt
 für Menschen lesbar. Bei Änderungen wird der Quelltext angepasst und neu
-Compiliert. Da die Headerdatei folglich nicht bearbeitet werden muss haben wir
+compiliert. Da die Headerdatei folglich nicht bearbeitet werden muss, haben wir
 uns für eine Ausgabe als Array aus Buchstaben in hexadezimaler Schreibweise
 entschieden, da es eine einfachere programmatische Strukturierung erlaubt.
 
@@ -457,7 +458,7 @@ USB Verbindung.
 
 \subsection{AVRJTAGICEmkII}
 
-Der AVRJTAGICEmkII ist ein ein Programmer der neben der \ac{ISP} Schnittstelle
+Der AVRJTAGICEmkII ist ein Programmer der neben der \ac{ISP} Schnittstelle
 zum Programmieren auch \ac{JTAG} unterstützt. Über das Atmel Studio ist es
 einfach möglich mit \ac{JTAG} das Programm zu debuggen.
 Der Anschluss von ISP oder JTAG wird im Benutzerhandbuch genauer erklärt.
