@@ -4,7 +4,7 @@
 
 \section{Einen Mikrocontroller austauschen}
 Für unser Projekt sollen alle notwendigen Programmbestandteile sowie die gesamte
-Website auf dem Mikrocontroller gespeichert werden. Der beim AVR-Net-IO
+Webseite auf dem Mikrocontroller gespeichert werden. Der beim AVR-Net-IO
 mitgelieferte ATmega32 bietet hierfür jedoch nicht ausreichend Speicher.
 Wir haben uns deswegen für den aus der gleichen Baureihe stammenden ATmega644P
 entschieden, der mit seinen 64KB Programmspeicher den doppelten Speicherplatz
@@ -350,181 +350,37 @@ Nun folgen einige Beispielskripte, die nur noch für die passenden Pins und Port
 werden müssen. Diese Skripte können kopiert und das dafür vorgesehene Fenster
 im Webbrowser eingefügt werden.
 
-\subsubscetion*{ein Licht blinken}
-Lässt den Pin C0 blinken:\newline
-\begin{lstlisting}
-if (getValue('C0') == "0") {
-	setValue('C0',1);
-} else {
-	setValue('C0',0);
-}
-\end{lstlisting}
-
 \subsubscetion*{mehrer Lichter blinken}
 dieses Skript lässt die Lichter an Pin D2-D7 blinken:\newline
-\begin{lstlisting}
-if (getValue('D2') == "1") {
-	setValue('D2',0);
-	setValue('D3',1);
-	setValue('D4',0);
-	setValue('D5',1);
-	setValue('D6',0);
-	setValue('D7',1);
-} else {
-	setValue('D2',1);
-	setValue('D3',0);
-	setValue('D4',1);
-	setValue('D5',0);
-	setValue('D6',1);
-	setValue('D7',0);
-}
-\end{lstlisting}
+\begin{figure}[H]
+\lstinputlisting[language=js]{content/code/skript_example1.js}
+\caption{Beispielskript: Mehrer Lichter blinken lassen}
+\label{output}
+\end{figure}
 
 \subsubscetion*{Umwandeln in digitale Werte}
 dieses Skript wandelt den Input des Sensors A5 in digitale Werte um:\newline
-\begin{lstlisting}
-setValue('D2',0);
-setValue('D3',0);
-setValue('D4',0);
-setValue('D5',0);
-setValue('D6',0);
-setValue('D7',0);
+\begin{figure}[H]
+\lstinputlisting[language=js]{content/code/skript_example2.js}
+\caption{Beispielskript: Werte werden in digitale Werte umgewandelt}
+\label{output}
+\end{figure}
 
-
-var value = getValue('A5');
-
-if (value > 869) {
-	setValue('D2', 1);
-}
-if (value > 719) {
-	setValue('D3', 1);
-}
-if (value > 569) {
-	setValue('D4', 1);
-}
-if (value > 419) {
-	setValue('D5', 1);
-}
-if (value > 269) {
-	setValue('D6', 1);
-}
-if (value > 119) {
-	setValue('D7', 1);
-}
-\end{lstlisting}
-
-\subsubscetion*{Lauflicht}
+\subsubscetion*{Lichterlauf}
 dieses Skript bildet ein Lauf von Lichter die nach einander an und wieder
 ausgeschaltet werden:\newline
-\begin{lstlisting}
-var count = getDb("count", "0");
 
-switch (count) {
-case "0":
-	setValue('D7',0);
-	setValue('D2',1);
-	console.log(count);
-	count = 1;
-	break;
-case "1":
-	setValue('D2',0);
-	setValue('D3',1);
-	count = 2;
-	break;
-case "2":
-	setValue('D3',0);
-	setValue('D4',1);
-	count = 3;
-	break;
-case "3":
-	setValue('D4',0);
-	setValue('D5',1);
-	count = 4;
-	break;
-case "4":
-	setValue('D5',0);
-	setValue('D6',1);
-	count = 5;
-	break;
-case "5":
-	setValue('D6',0);
-	setValue('D7',1);
-	count = 0;
-	break;
-} 
-
-putDb("count", count);
-\end{lstlisting}
+\begin{figure}[H]
+\lstinputlisting[language=js]{content/code/skript_example3.js}
+\caption{Beispielskript: Lichterlauf}
+\label{output}
+\end{figure}
 
 \subsubscetion*{Automatischer Countdown}
 Diese Skript lässt die 7 Segment Anzeige nacheinander durchiterieren.
 Daraus entsteht ein Countdown:\newline
-\begin{lstlisting}
-var count = getDb("count", "0");
-
-var set7Digit = function(number){
-	var pins = [[0,0,1,0,0,0,0],
-				[0,1,1,1,1,1,0],
-				[0,0,0,1,0,0,1],
-				[0,0,0,1,1,0,0],
-				[0,1,0,0,1,1,0],
-				[1,0,0,0,1,0,0],
-				[1,0,0,0,0,0,0],
-				[0,0,1,1,1,1,0],
-				[0,0,0,0,0,0,0],
-				[0,0,0,0,1,0,0]]
-
-	setValue('C0',pins[number][0]);
-	setValue('C1',pins[number][1]);
-	setValue('C2',pins[number][2]);
-	setValue('C3',pins[number][3]);
-	setValue('C4',pins[number][4]);
-	setValue('C5',pins[number][5]);
-	setValue('C6',pins[number][6]);
-};
-
-switch (count) {
-case "0":
-	set7Digit(count);
-	count = 1;
-	break;
-case "1":
-	set7Digit(count);
-	count = 2;
-	break;
-case "2":
-	set7Digit(count);
-	count = 3;
-	break;
-case "3":
-	set7Digit(count);
-	count = 4;
-	break;
-case "4":
-	set7Digit(count);
-	count = 5;
-	break;
-case "5":
-	set7Digit(count);
-	count = 6;
-	break;
-case "6":
-	set7Digit(count);
-	count = 7;
-	break;
-case "7":
-	set7Digit(count);
-	count = 8;
-	break;
-case "8":
-	set7Digit(count);
-	count = 9;
-	break;
-case "9":
-	set7Digit(count);
-	count = 0;
-	break;
-} 
-
-putDb("count", count);
-\end{lstlisting}
+\begin{figure}[H]
+\lstinputlisting[language=js]{content/code/skript_example4.js}
+\caption{Beispielskript: Automatischer Countdown}
+\label{output}
+\end{figure}

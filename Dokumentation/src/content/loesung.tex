@@ -175,7 +175,7 @@ um den daraus resultierenden Speicherbedarf der Webseite zu
 minimieren.\newline
 
 \textrm{initUi()} sollte nur einmal beim Seitenaufruf geladen werden und
-initialisiert die Bneutzerschnittstellen. \\
+initialisiert die Bneutzerschnittstellen.\\
 \textrm{opcmoId(id)}
 ====
 TODO Marcel
@@ -199,18 +199,14 @@ Die Favoriten Tabelle wird mittels der Funktion \textrm{updateFavoritesTable()}
 erneuert und mit \textrm{updateFavoritesTableValues()} werden die Pininformationen 
 der Favoriten auf den aktuellsten Stand gebracht. Ändern sich die
 Favoriten wird \textrm{onFavoritesChanged()} aufgerufen.\\
-\textrm{text}
-====
-TODO Marcel (fehlen noch weitere Funktionen, Einstellungen)
-\\
+\textrm{text}\\
 Um die index.html nicht noch mit weiteren vielen div-Elemnten zu
 überfüllen, werden die gleichen div-Elemente mit \textrm{write(count, string,
 ids)} generiert. Diese Funktion wird in folgenden verwendet:
 \textrm{writePinCheck(ids)}, \textrm {writePinCheckMinus(count)},
 \textrm{writePinCheckPlus(count)}, \textrm{writePinCheckNone(count)},
 \textrm{writePinMinusBox(count)}, \textrm{writePinCheckAnalog(ids)} und
-\textrm{writeAnalogBox(ids)}. 
-\\
+\textrm{writeAnalogBox(ids)}.
 
 
 
