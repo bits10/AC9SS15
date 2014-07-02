@@ -2,6 +2,65 @@
 \chapter{Benutzerhandbuch} 
 \label{chap:Benutzerhandbuch}
 
+\section{WinAVR Projekt zu Atmel Studio}
+
+Um ein bestehendes Projekt in Atmel Studio zu importieren, muss zuerst ein
+neues, leeres Projekt angelegt werden.
+Dafür wählt man im "`New Project"' Dialog ein neues GCC C Executable Project
+aus. Außerdem kann man hier auch den Namen und Speicher-Ort angeben (Abbildung
+\ref{import.new}). Nach der Auswahl des Projektes Erscheint eine Tabelle mit den
+verschiedenen Mikrocontroller, die unterstützt werden. Hier wählt man den Ziel
+Controller aus (Abbildung \ref{new.choose})
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=8.5cm]{content/pictures/Import/1neuesProjekt.png}
+  \caption{Atmel Studio, Neues Projekt}
+  \label{import.new}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[width=8.5cm]{content/pictures/Import/2porzessorAuswahl.png}
+  \caption{Atmel Studio, Device Selection}
+  \label{new.choose}
+\end{center}
+\end{figure}
+
+Nachdem das Projekt erstellt wurde, gibt es im Solution Explorer
+bereits eine main C Dateien. Diese kann gelöscht werden, da ein
+neues bestehendes Projekt importiert wird (Abbildung \ref{new.explorer}).
+Im nächsten schritt müssen die Neuen Projektdateien ausgewählt und Importiert
+werden. Dies geschieht über einen Rechtsklick in den Solution Explorer
+(Abbildung \ref{new.addExisting1}) $\to$ add $\to$ Existing Item. Im geöffnetem
+dateiauswahldialog kann das bestehende Projekt ausgewählt werden (Abbildung
+\ref{new.addExisting2}).
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=5cm]{content/pictures/Import/3solutionExplorer.png}
+  \caption{Atmel Studio, Solution Explorer}
+  \label{new.explorer}
+\end{center}
+\end{figure}
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=7cm]{content/pictures/Import/4addExisting1.png}
+  \caption{Atmel Studio, Add Existing Item 1}
+  \label{new.addExisting1}
+\end{center}
+\end{figure}
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=7cm]{content/pictures/Import/5addExisting2.png}
+  \caption{Atmel Studio, Add Existing Item 1}
+  \label{new.addExisting2}
+\end{center}
+\end{figure}
+
 \section{Einen Mikrocontroller austauschen}
 Für unser Projekt sollen alle notwendigen Programmbestandteile sowie die gesamte
 Webseite auf dem Mikrocontroller gespeichert werden. Der beim AVR-Net-IO
@@ -312,10 +371,6 @@ gesperrt sind. Als weiterer Hinweis ist zu beachten, dass die verwendete
 Schnittstelle in den "`Projekt-Einstellungen"' umgestellt werden muss. Nach
 korrekter Verbindung, die im Device Manager überprüft werden kann, kann das
 Programm auf dem Mikrocontroller debuggt werden.
-
-\section{WinAVR Projekt zu Atmel Studio}
-
-%TODO Beispielexport
 
 \section{Die Website}
 
