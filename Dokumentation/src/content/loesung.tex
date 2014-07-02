@@ -123,7 +123,7 @@ diverse Getter wie \textrm{getValue(id)} verfügbar.
 
 Das Stoppen eines bestehenden Tasks wird realisiert, indem das Attribut
 \textrm{taskIdCounter} inkrementiert wird. \textrm{refreshValues()} überprüft am
-Anfang ob der aktuelle Wert von \textrm{taskIdCounter} mit dem Wert
+Anfang, ob der aktuelle Wert von \textrm{taskIdCounter} mit dem Wert
 übereinstimmt, mit der der aktuell ausgeführte Task gestartet wurde. Ist dies
 nicht der Fall, weil der Task beendet oder ein neuer gestartet wurde, beendet
 sich der Task automatisch selbst, indem die Funktion \textrm{refreshValues()}
@@ -132,7 +132,7 @@ nicht erneut rekursiv aufgerufen wird.\\
 In der Funktion \textrm{initRest()} werden einmalig die REST-URLs
 \textrm{/rest/info} und \textrm{/rest/pininfo} geladen. Diese beinhalten nur
 statische Informationen, welche sich nie ändern. Die empfangenen JSON-Strukturen
-werden in ein javaScript Objekt geparst und in \textrm{cachedInfo} und
+werden in ein JavaScript Objekt geparst und in \textrm{cachedInfo} und
 \textrm{cachedPinInfo} gespeichert. Der Inhalt dieser Objekte wird über
 die Getter \textrm{getInfo()} und \textrm{getPinInfo()} zur Verfügung gestellt.
 Für \textrm{cachedPinInfo} sind zudem Getter wie
@@ -165,7 +165,7 @@ Die \textrm{db.js} besteht aus 2 Funktionen:
 
 \textrm{getDb(key, defaultValue)} liefert den gespeicherten Wert für den
 gegebenen \textrm{key}, welcher immer eine Zahl oder ein String sein sollte. Ist
-kein Wert mit dem gegebenen Key vorhanden, wird der
+kein Wert mit dem gegebenen Key vorhanden, wird das
 übergebene \textrm{defaultValue} zurückgegeben.
 
 \textrm{putDb(key, value)} speichert das gegebenen \textrm{value} unter dem
