@@ -56,7 +56,7 @@ dateiauswahldialog kann das bestehende Projekt ausgewählt werden (Abbildung
 \begin{figure}[htp]
 \begin{center}
   \includegraphics[width=7cm]{content/pictures/Import/5addExisting2.png}
-  \caption{Atmel Studio, Add Existing Item 1}
+  \caption{Atmel Studio, Add Existing Item 2}
   \label{new.addExisting2}
 \end{center}
 \end{figure}
@@ -412,10 +412,10 @@ manipulieren. Um diese Skripte anpassen zu können werden
 Bei den Pins können auch Skripte hinterlegt werden. Diese Skripte werden in
 JavasScript geschrieben nur werden die Tags nicht hinzugefügt. Vorrausgesetzt
 werden kleinere JavaScript Kenntnisse, was aber anhand den Beispielen und den
-nachfolgenden Skriptkommandos machbar ist.\\
+nachfolgenden Skriptkommandos machbar ist.
 
-\textbf{einige wichtige Skriptkommandos}\\\newline
-\begin{tabular}{|l|l|}\hline
+\begin{table}[H]
+\begin{longtable}{|l|p{7cm}|}\hline 
 \textbf{Name} & \textbf{Beschreibung}\\\hline\hline
 getvalues(string id) & Damit wird der Wert des Pins mit der ID abgerufen\\\hline
 setvalues(string id, int value) & Damit wird folgender Wert für den Pin mit der
@@ -424,8 +424,11 @@ getDB(string name, string value) & Damit wird aus der Browserdatenbank
 ein Wert(Standardwert) für ein bestimmtes Item (name) gesetzt\\\hline 
 putDB(string name, int value) & Hiermit wird in die Datenbank das Item (name)
 mit dem value eingespeichert.\\\hline
-\end{tabular}
+\end{longtable}
+\caption{Einige wichtige Skriptkommandos}
+\end{table}
 
+\newpage
 \subsubsection{Beispielskripte}
 Die folgenden Beispielskripte können verwendet werden, müssen eventuell noch auf
 die passenden Pins und Ports angepasst werden. 
