@@ -1,0 +1,491 @@
+%Korrekturgelesen: Ann-Sophie Dietrich
+\chapter{Benutzerhandbuch} 
+\label{chap:Benutzerhandbuch}
+
+\section{WinAVR Projekt zu Atmel Studio}
+
+Um ein bestehendes Projekt in Atmel Studio zu importieren, muss zuerst ein
+neues, leeres Projekt angelegt werden.
+Dafür wählt man im "`New Project"' Dialog ein neues GCC C Executable Project
+aus. Außerdem kann man hier auch den Namen und Speicher-Ort angeben (Abbildung
+\ref{import.new}). Nach der Auswahl des Projektes Erscheint eine Tabelle mit den
+verschiedenen Mikrocontroller, die unterstützt werden. Hier wählt man den Ziel
+Controller aus (Abbildung \ref{new.choose})
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=8.5cm]{content/pictures/Import/1neuesProjekt.png}
+  \caption{Atmel Studio, Neues Projekt}
+  \label{import.new}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[width=8.5cm]{content/pictures/Import/2porzessorAuswahl.png}
+  \caption{Atmel Studio, Device Selection}
+  \label{new.choose}
+\end{center}
+\end{figure}
+
+Nachdem das Projekt erstellt wurde, gibt es im Solution Explorer
+bereits eine main C Dateien. Diese kann gelöscht werden, da ein
+neues bestehendes Projekt importiert wird (Abbildung \ref{new.explorer}).
+Im nächsten schritt müssen die Neuen Projektdateien ausgewählt und Importiert
+werden. Dies geschieht über einen Rechtsklick in den Solution Explorer
+(Abbildung \ref{new.addExisting1}) $\to$ add $\to$ Existing Item. Im geöffnetem
+dateiauswahldialog kann das bestehende Projekt ausgewählt werden (Abbildung
+\ref{new.addExisting2}).
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=5cm]{content/pictures/Import/3solutionExplorer.png}
+  \caption{Atmel Studio, Solution Explorer}
+  \label{new.explorer}
+\end{center}
+\end{figure}
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=7cm]{content/pictures/Import/4addExisting1.png}
+  \caption{Atmel Studio, Add Existing Item 1}
+  \label{new.addExisting1}
+\end{center}
+\end{figure}
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=7cm]{content/pictures/Import/5addExisting2.png}
+  \caption{Atmel Studio, Add Existing Item 2}
+  \label{new.addExisting2}
+\end{center}
+\end{figure}
+
+\section{Einen Mikrocontroller austauschen}
+Für unser Projekt sollen alle notwendigen Programmbestandteile sowie die gesamte
+Webseite auf dem Mikrocontroller gespeichert werden. Der beim AVR-Net-IO
+mitgelieferte ATmega32 bietet hierfür jedoch nicht ausreichend Speicher.
+Wir haben uns deswegen für den aus der gleichen Baureihe stammenden ATmega644P
+entschieden, der mit seinen 64KB Programmspeicher den doppelten Speicherplatz
+bietet als der kleinere ATmeag32.
+
+Für den Wechsel ist es notwendig, den alten Controller vom Sockel zu entfernen
+und den neuen Controller einbauen zu können. Hierfür gibt es spezielle
+Werkzeuge, doch wenn man beim Vorgang Vorsicht walten lässt, kann man den
+Controller auch mit einem kleinen, möglichst breiten, Schlitzschraubendreher
+entfernen. Dazu zuerst den Mikrocontroller vorsichtig mit dem Schraubendreher
+als Hebel wie in Abbildung \ref{ausbau1} lösen.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{content/pictures/Anleitung/tauscheProzessor/1_Hebel.jpg}
+\caption{Schraubendreher am Controller}
+\label{ausbau1}
+\end{figure}
+
+Zum einfachen Lösen kann der Hebel auch von der anderen Seite angesetzt
+werden. Anschließend den gelösten Prozessor abziehen.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{content/pictures/Anleitung/tauscheProzessor/2_Geloest.jpg}
+\caption{Der gelöste Mikrocontroller}
+\label{ausbau2}
+\end{figure}
+
+Nachdem der Mikrocontroller entfernt wurde, hat man einen guten Blick auf den
+Sockel (Abb. \ref{ausbau3}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{content/pictures/Anleitung/tauscheProzessor/3_Sockel.jpg}
+\caption{Der Sockel auf dem AVR-Net-IO}
+\label{ausbau3}
+\end{figure}
+
+Beim Einbau ist unbedingt darauf zu achten, den neuen Mikrocontroller entsprechend
+der D-förmigen Einkerbung in den Sockel zu setzen. (Siehe Abbildung \ref{ausbau4})
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{content/pictures/Anleitung/tauscheProzessor/4_Markierung.jpg}
+\caption{Markierung zum Einbau}
+\label{ausbau4}
+\end{figure}
+
+\section{ISP-Programmer anschließen}
+
+Der Anschluss des AVRISPmkII Programmers erfolgt über einen 6 Poligen Stecker,
+allerdings hat das AVR-Net-IO einen 10 Poligen Stecker. Deswegen wurde hierfür
+eigens ein Adapter angefertigt, welcher das ISP Signal von den 6 Polen des
+Programmers auf das AVR-Net-IO bring.
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=6cm]{content/pictures/Anleitung/ISP-Stecker.png}
+  \caption[Schematische Darstellung des ISP Anschlusses]{Schematische Darstellung des ISP Anschlusses (Pin 1 \& 2
+  ist auf der Platine markiert)}
+  \label{ispanschluss}
+\end{center}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|} \hline
+	 \textbf{10-poliger Anschluss} & \textbf{6-poliger Anschluss} \\ \hline
+	 1 MOSI & 1 MISO \\ \hline
+	 2 VCC & 2 VCC \\ \hline
+	 3 - (*) & 3 SCK \\ \hline
+	 4,6,8,10 GND & 4 MOSI \\ \hline
+	 5 RESET & 5 RESET \\ \hline
+	 7 SCK & 6 GND \\ \hline
+	 9 MISO &   \\ \hline
+\end{tabular}
+\caption{Die Pinbelegung für den 6 und 10 poligen Anschluss \cite{mikrocontroller.isp}}
+\label{pinbelegung}
+\end{table}
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=10cm]{content/pictures/Anleitung/adapter.jpg}
+  \caption{Der Adapter}
+  \label{adapter}
+\end{center}
+\end{figure}
+
+Mit dem angefertigtem Adapter kann der Debugger anschließend ganz einfach mit
+dem Board verbunden werden. Wenn der Mikrocontroller richtig, wie im Abschnitt
+\ref{Chapt:Einrichten} beschrieben, konfiguriert ist, kann der Programmer auch in Atmel
+Studio verwendet werden.
+
+\section{Einrichten eines neuen Mikrocontrollers}
+\label{Chapt:Einrichten}
+
+Für einen neuen Chip ist es anfangs notwendig die Fuse-Bits richtig zu setzen,
+damit der Chip ordnungsgemäß arbeitet.
+Dies ist jedoch im AtmelStudio nicht möglich, da es nicht möglich ist die exakte
+Geräte-Signatur auszulesen.
+Das Problem liegt darin, dass standardmäßig die Fuses auf den internen
+Quarz-Kristall gesetzt sind, und nicht auf den externen Kristall des
+AVR-NET-IO Boards.
+Beim Versuch die Fuse-Bits zu setzen, erscheint im Atmel Studio die
+Fehlermeldung aus Abbildung \ref{Einrichten.error}.
+
+Abhilfe schafft hier die alternative Programmiersoftware AVRDUDE, mit ihr ist
+es möglich die Fuse-Bits zu ändern. Unter Linux kann dieser einfach über die
+Paketquellen installiert werden, für ein Windows Betriebssystem kann eine
+ausführbare Kommandozeilen-Anwendung auf der Projekt-Website heruntergeladen
+werden \url{http://savannah.nongnu.org/projects/avrdude}. Zusätzlich muss für
+Windows noch libusb-win32 (\url{http://sourceforge.net/projects/libusb-win32/})
+vorhanden sein, dass der Programmer mit den gewählten Parametern verwendet werden
+kann. Eine ausführliche Anleitung gibt es hier:
+\url{http://eliaselectronics.com/using-the-avrispmkii-with-avrdude-on-windows/}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{content/pictures/Anleitung/neuerProzessor/AnleitungNeuerProzessor2_fehler.png}
+\caption{DeviceProgramming}
+\label{Einrichten.error}
+\end{figure}
+
+Die in folgendem Beispiel angezeigten Befehle sind die von uns verwendeten Fuse
+Einstellungen. Für eine genauere Beschreibung, wofür die einzelnen Fuse-Bits
+verwendet werden, ist der Abschnitt \ref{chap:Fuse} Fusebits im Kapitel 
+"`Hardware"'.
+
+Anschließend kann der Mikrocontroller zusammen mit dem AV-Net-IO und AtmelStudio
+programmiert werden. Der verwendete Mikrocontroller wird jetzt richtig erkannt,
+da es auch keine Probleme mit der Gerätesignatur gibt.
+
+\begin{table}[H]
+\begin{tabular}{| p{.24\textwidth} | p{.76\textwidth} |}
+\hline
+Auslesen Linux:& sudo avrdude -P usb -p m644p -c avrispmkII  -U lfuse:r:-:h -U hfuse:r:-:h -B 22 \\ \hline
+Setzen Linux:& sudo avrdude -P usb -p m644p -c avrispmkII -U lfuse:w:0xFF:m -U hfuse:w:0xD6:m -B 22 \\ \hline
+Auslesen Windows:& avrdude.exe -p m644p -c avrispmkII -U lfuse:r:-:h -U hfuse:r:-:h -B 22 \\ \hline 
+Setzen Windows:& avrdude.exe -p m644p -c avrispmkII -U lfuse:w:0xFF:m -U hfuse:w:0xD6:m -B 22 \\ \hline
+\end{tabular}
+\caption{Auslesen und setzen von Fuse-Bits des ATmega644P mit AVRDUDE}
+\label{ParameterAvrdude1}
+\end{table}
+
+\begin{figure}
+\centering
+\includegraphics[width=13cm]{content/pictures/Anleitung/neuerProzessor/avrOutput.png}
+\caption{AVRDUDE Ausgabe}
+\end{figure}
+
+\begin{table}
+\begin{tabular}{| p{.35\textwidth} | p{.65\textwidth} |}
+\hline
+-p partno & This is the only option that is mandatory for every invocation of
+avrdude.  It specifies the type of the MCU connected to the programmer. These
+are read from the config file.  If avrdude does not know about a part that you
+have, simply add it to the config file (be sure and submit a patch back to the
+author so that it can be incorporated for the next version). \newline
+\textbf{m32 $\Rightarrow$ ATmega32} \newline 
+\textbf{m644p $\Rightarrow$ ATmega644P} \newline
+\textbf{m1284p $\Rightarrow$ ATmega1284P} \\ \hline
+-P port & Use port to identify the device to which the programmer is attached. \textbf{usb für den AVRISP MKII}  \\ \hline 
+-c programmer-id & \textbf{avrispmkII für den AVRISP MKII} \\ \hline
+-U \hbox{memtype:op:filename:filefmt} &  
+The \textrm{memtype} field specifies the memory type to operate on.\newline
+\textbf{hfuse} The high fuse byte.\newline
+\textbf{lfuse} The low fuse byte.\newline
+The \textrm{op} field specifies what operation to perform:\newline
+\textbf{r} read device memory and write to the specified file\newline
+\textbf{w} read data from the specified file and write to the device memory \newline
+The filename field indicates the name of the file to read or write.  The format field is optional and contains the format of the file to read or write. \newline
+\textbf{Hier die Bytes die gesetzt werden 0xFF bzw 0xD6} \\ \hline
+-B bitclock & Specify the bit clock period for the \ac{JTAG} interface or the ISP clock \\ \hline
+\end{tabular}
+\caption{Auszug AVRDUDE Parameter}
+\label{parameterAvrdude2}
+\end{table}
+\newpage
+
+\section{HTML Header Compiler}
+\label{chap:benutzerhandbuch.HHC}
+
+Da der HTML Header Compiler in Java entwickelt wurde, muss für die Verwendung die
+Java Laufzeitumgebung ab Version 6 installiert sein. Zum Ausführen des Compiler
+muss zuerst mit einer Konsole in den Entsprechenden Ordner navigiert werden.
+Anschließend kann mit folgendem Befehl die Datei ausgegeben werden. 
+\\
+
+\framebox[1.1\width]{java -jar hhc.jar -in <INPUT FOLDER> -out <OUTPUT FILE>} 
+\\
+
+Die Angaben in den spitzen Klammern müssen durch den entsprechenden Pfad und
+die entsprechende Datei ausgetauscht werden. Standardmäßig optimiert der
+HTML Header Compiler die eingegebenen Dateien, falls dies nicht gewünscht ist
+gibt es zusätzlich zu den vorgegebenen Optionen weitere Flags
+die gesetzt werden können. Hier alle Parameter im Überblick:
+
+\begin{table}[H]
+\begin{tabular}{| p{.24\textwidth} | p{.76\textwidth} |}
+\hline
+-in, -input & Der Eigabepfad mit allen für die Website benötigten Dateien. z.B. \textrm{-in "Webseite"} \\ \hline 
+-out, -output & Die Ausgabe Headerdatei z.B. \textrm{-out "Webserver/webpage.h"} \\ \hline
+-v, -verbose &  Gibt die Dateiausgabe auf der Konsole aus.
+\\
+ \hline 
+ -n, -newline & Behält die Formatierung für den Zeilenvorschub, Tabulator
+ oder Wagenrücklauf in den HTML und JS Dateien (\textbackslash n and
+ \textbackslash r \textbackslash t).
+ Benötigt dadurch abhängig von der Website mehr Speicher, ermöglicht aber ein
+ einfacheres Debuggen von eingebundenem JavaScript Code.  \\ \hline
+\end{tabular}
+\caption{Parameter des HTML Header Compiler}
+\label{parameterHHC}
+\end{table}
+
+Um die Entwicklung zu vereinfachen ist es hilfreich, wenn für den Parameteraufruf
+des HTML Header Compilers ein einfaches Shell- oder Batch-Script erstellt wird,
+das die Dateien aus dem Ordner für die Website als Headerdatei in den Ordner für den
+Webserver schreibt. Falls eine Änderung an der Website vorgenommen wurde, muss
+vor dem Programmieren des Mikrocontrollers lediglich der \ac{HHC} ausgeführt
+werden.
+
+\begin{figure}[H]
+\lstinputlisting[language=sh]{content/code/buildwebpage.sh}
+\caption{BuildWebpage.sh für Linux}
+\label{output}
+\end{figure}
+
+\begin{figure}[H]
+\lstinputlisting[language=sh]{content/code/buildwebpage.bat}
+\caption{BuildWebpage.bat für Windows}
+\label{output}
+\end{figure}
+
+\section{Konfiguration des Webservers}
+
+Die Einstellung des Webservers erfolgt über die \textrm{config.h} Datei. In der
+\textrm{config.h} Datei, können die verschiedenen Pins der Ports als Ein- oder
+Ausgang definiert werden. Dabei gibt es ein paar Eigenheiten zu beachten:
+\begin{itemize}
+  \item OUTA steht für den A Port, hier ist zu beachten, dass dieser Port die
+  Analog zu Digital Wandler beherbergt. Mit aktiviertem Wandler ist es nicht
+  möglich, die Pins des Ports funktionierend als Ausgänge zu schalten, da die
+  Spannung nicht gehalten wird.
+  \item OUTB ist nur mit Vorsicht zu genießen. Hier handelt es sich um den Port,
+  der auf dem AVR-Net-IO für die Neztwerkkomunikation genutzt wird. Deswegen
+  wird Port B auch nicht standardmäßig definiert.
+  \item OUTC dieser Port wird von Pollin standardmäßig für die Ausgänge verwendet
+  und ist von uns bereits entsprechend modifiziert. Der gesamte Port wird auf dem
+  AVR-NET-IO über den 25Pin D-Sub Stecker geleitet. Wenn der Fuse-Bit für
+  \ac{JTAG} geschaltet ist, werden 4 Pins des C Ports für das \ac{JTAG} Interface
+  verwendet.
+  \item OUTD Liegt auf dem AVR-Net-IO auf dem EXT Anschluss und ist
+  für erweiterte Peripherie geplant, so kann hier ein Cardreader oder ein
+  Erweiterungsboard angeschlossen werden.
+\end{itemize}
+Weiter kann die gewünschte IP-Adresse eingestellt werden, unter welcher das
+Gerät erreicht werden kann. Wichtig ist hier, dass kein anderes Gerät dieselbe Adresse
+im Netzwerk verwendet. Auch kann die Router IP-Adresse und Netzmaske angegeben
+werden. Eine weitere wichtige Einstellung ist die verwendete Mac Adresse
+des Netzwerkcontrollers. Diese wird über die Variablen MYMAC1-6 definiert.
+
+\section{Debuggen über JTAG}
+
+Der JTAGICEmkII Debugger von Atmel, den wir für unser Projekt gestellt bekommen
+haben, unterstützt neben ISP auch \ac{JTAG}. Allerdings werden für den Anschluss von
+\ac{JTAG} andere Pins benötigt als für den Anschluss eines ISP-Programmers.
+
+\begin{table}
+\begin{longtable}{|l|l|l|p{8.8cm}|}\hline 
+Pin & Signal & I/O & Description \\ \hline 
+1 & TCK & Output & Test Clock, clock signal from JTAGICE mkII to target JTAG port \\ \hline 
+2 & GND & - & Ground \\ \hline 
+3 & TDO & Input & Test Data Output, data signal from target JTAG port to JTAGICE mkII \\ \hline 
+4 & Vtref & Input & Target reference voltage. Also used to power level converter inputs. \\ \hline 
+5 & TMS & Output & Test Mode Select, mode select signal from JTAGICE mkII to target JTAG port \\ \hline 
+6 & nSRST & Out/-In-put & Open collector output from adapter to the target system reset. This pin is also an input to the adapter so that the reset initiated on the target application board may be reported to the JTAGICE mkII \\ \hline 
+7 & - & - & Not connected \\ \hline 
+8 & nTRST & NC(Output) & Not connected, reserved for compatibility with other equipment (JTAG port reset) \\ \hline 
+9 & TDI & Output & Test Data Input, data signal from JTAGICE mkII to target JTAG port \\ \hline 
+10 & GND & - & Ground \\ \hline 
+\end{longtable}
+\caption{JTAG Connections \cite{JTAGICEmkII.Quick}}
+\label{jtag.Connections}
+\end{table}
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=6cm]{content/pictures/jatgPins.png}
+  \caption{JTAG Pins}
+  \label{jtag.pins}
+\end{center}
+\end{figure}
+
+Die in Tabelle \ref{jtag.Connections} gezeigten Pins entsprechen der Belegung
+der 10 Anschlüssen des JTAGICEmkII. Diese müssen mit den Pins 2-5 des C Ports, dem
+Reset Pin, Ground und VCC verbunden werden (Abbildung \ref{jtag.pins}). Die Pins 7 \& 8
+des JTAGICEmkII werden nicht mit dem Mikrocontroller verbunden.\\
+\\
+Damit \ac{JTAG} funktioniert muss der entsprechende \ac{JTAG} Fuse-Bit gesetzt sein.
+Dabei ist zu beachten, dass die Pins 2-5 am Port C des Mikrocontroller nicht für
+Ein- oder Ausgaben verwendet werden können, sondern bei aktivierten Fuse-Bit
+gesperrt sind. Als weiterer Hinweis ist zu beachten, dass die verwendete
+Schnittstelle in den "`Projekt-Einstellungen"' umgestellt werden muss. Nach
+korrekter Verbindung, die im Device Manager überprüft werden kann, kann das
+Programm auf dem Mikrocontroller debuggt werden.
+
+\section{Die Website}
+
+Die Webseite ist in 3 Tabs eingeteilt. 
+
+\subsection{Der Status Tab}
+Im Status Tab ist die Übersicht der
+einzelnen Pins und Ports des Boards. Fährt der Nutzer mit der Maus über die Pins des
+Boards, so erscheint auf der rechten Seite des Browser eine Sidebar mit den
+detaillierten Informationen zu diesem Pin. Hier können die Pins oder Ports
+als Favoriten gespeichert werden. Genauso können Werte und Skripte der einzelnen
+Pins oder Ports geändert werden.\\
+Ebenfalls kann der Pin mit einem Mausklick gesetzt werden, oder auf der Sidebar in einer 
+Checkbox gesetzt werden. Dies kann jedoch nicht mit jedem Pin oder Port gemacht werden, da 
+diese Funktion bei manchen nicht möglich sein darf. Diese Pins sind vom System deaktiviert und 
+nicht klickbar.
+\subsection{Der Favoriten Tab}
+Hier werden tabellarisch die ausgewählten Pins oder Ports angezeigt. Auch hier
+können wieder Pin spezifische Modifikationen vorgenommen werden. Löschen der
+Favoriten setzt den Pin auf die Standardeinstellungen zurück und ist nicht mehr
+in Favoritenliste vorhanden. Pins können wieder über den Status Tab hinzugefügt
+werden.
+
+\subsection{Der Einstellungs Tab}
+Im Einstellungs-Tab werden die Einstellungen vorgenommen. Hier sind auch die
+Informationen über das Board, Version der Webseite und Autoren abrufbar.
+
+Die Import/Export Funktion ermöglicht die Datenbank, in der die
+Benutzereinstellungen und Favoriten untergebracht sind, zu exportieren und auf einem anderen System zu
+importieren. Die Aktualisierungsrate bestimmt wie schnell sich die Seite
+aktualisiert, das ist die einzige Einstellungen die vorgenommen werden kann.
+
+\subsection{Nutzerspezifische Skripte}
+Nutzerspezifische Skripte können bei den Pins hinterlegt werden, diese werden
+auch ausgeführt. Diese können genauso ein Verbund aus Pins steuern und
+manipulieren. Um diese Skripte anpassen zu können werden
+
+\subsubsection{Erstellen von Skripte}
+Bei den Pins können auch Skripte hinterlegt werden. Diese Skripte werden in
+JavasScript geschrieben nur werden die Tags nicht hinzugefügt. Vorrausgesetzt
+werden kleinere JavaScript Kenntnisse, was aber anhand den Beispielen und den
+nachfolgenden Skriptkommandos machbar ist.
+
+\begin{table}[H]
+\begin{longtable}{|l|p{7cm}|}\hline 
+\textbf{Name} & \textbf{Beschreibung}\\\hline\hline
+getvalues(string id) & Damit wird der Wert des Pins mit der ID abgerufen\\\hline
+setvalues(string id, int value) & Damit wird folgender Wert für den Pin mit der
+ID gesetzt\\\hline
+getDB(string name, string value) & Damit wird aus der Browserdatenbank
+ein Wert(Standardwert) für ein bestimmtes Item (name) gesetzt\\\hline 
+putDB(string name, int value) & Hiermit wird in die Datenbank das Item (name)
+mit dem value eingespeichert.\\\hline
+\end{longtable}
+\caption{Einige wichtige Skriptkommandos}
+\end{table}
+
+\newpage
+\subsubsection{Beispielskripte}
+Die folgenden Beispielskripte können verwendet werden, müssen eventuell noch auf
+die passenden Pins und Ports angepasst werden. 
+
+\subsubsection{Mehrer Lichter blinken}
+
+Hier werden mehrere LED an die Pins D2-D7 angeschlossen\
+\begin{figure}[H]
+\lstinputlisting[language=javascript]{content/code/skript_example1.js}
+\caption{Beispielskript: Mehrer Lichter blinken lassen}
+\label{output}
+\end{figure}
+
+Durch den Aufruf dieses Skriptes wird zuerst überprüft ob D2 auf 1
+gesetzt ist, ist dies nicht der Fall wird D2 auf 1 gesetzt. Von D3-D7
+werden Die Werte abwechselnd 0 und 1 gesetzt. Da dieses Skript dauernd
+erneut aufgerufen wird ist somit beim nächsten Aufruf D2 bei 1 und der
+Wert wird folglich auf 0 gesetzt. Alle anderen Werte werden auch
+geändert. Somit entsteht ein wechseln der Lichter.\newline
+
+\subsubsection{Umwandeln in digitale Werte}
+Hier werden auch wieder 7 LED verwendet, und ein Sensor angeschlossen
+an einen analogen Ports.
+\begin{figure}[H]
+\lstinputlisting[language=javascript]{content/code/skript_example2.js}
+\caption{Beispielskript: Werte werden in digitale Werte umgewandelt}
+\label{output}
+\end{figure}
+Je nachdem wie sich der Wert von dem Sensor ändert, änderen sich auch die
+digitalen Ausgänge zu den LED, ist der gelierferte Wert oberhalb von
+869, so wird Anschluss D2 auf 1 gesetzt. Leuchte an D2 leuchtet somit. Da dann
+aber alle Abfragen wahr sind werden alle Lichter angeschaltet. sollte dann der
+Wert sich unterhalb von 869 befinden dann wird D2 ausgeschalten. Somit ändern
+sich immer die Leuchten sobald die neuen Werte überprüft werden.
+
+\subsubsection{Lichterlauf}
+Bnötigt werden auch hier wieder 7 LED. Angeschlossen an D2 - D7.\\
+Mittels diesem Skript werden forlaufend die Lichter nacheinander an und wieder
+abgeschalten. Somit entsteht ein Lauf des Aufleuchtens.\newline
+
+\begin{figure}[H]
+\lstinputlisting[language=javascript]{content/code/skript_example3.js}
+\caption{Beispielskript: Lichterlauf}
+\label{output}
+\end{figure}
+Zur Erklärung des Skriptes. In einem Case der Switch-Anweisung wird das
+vorherige LED ausgeschalten, die nächste LED angeschalten und den Counter
+erhöht. Beim nächsten Durchlauf wiederholt sich das immer wieder.
+
+\subsubsection{Countdown mit Button}
+Für diese Skript wird die 7 Segment Anzeige und ein Button benötigt.\\
+Diese Skript lässt die 7 Segment Anzeige nacheinander durchiterieren, sobald
+ein button eine bestimmte Zeit gedrückt wird.
+
+\lstinputlisting[language=javascript]{content/code/skript_example4.js}
+
+Sobald der Button angeschlossen an A0 gedrückt wird, wird ein Timer ausgelöst.
+ist dieser Timer bei 8 und der Button noch gedrückt, wird bei den Anschlüssen
+für die Anzeige durchiteriert. Somit ändert sich nur die Anzeige sollte der
+Button gedrückt werden. 

@@ -1,0 +1,30 @@
+%Korrekturgelesen von : Ann-Sophie Dietrich
+\chapter{Programmieren und Debuggen}
+
+Um einen Mikrocontroller zu programmieren oder zu debuggen, gibt es zwei
+Interfaces, diese werden hier einmal genauer beleuchtet.
+
+\section{ISP}
+
+Ein \acf{ISP} fähiger Mikrocontroller kann direkt in der Schaltung programmiert
+werden, ohne entfernt zu werden. Programmieren kann man entweder mit dem
+Programmer AVRISPmkII über die \acs{SPI} Schnittstelle oder mit dem  
+AVRJTAGICEmkII. Der AVRJTAGICEmkII unterstützt zum Programmieren sowohl die
+die \acs{SPI} als auch die \acs{JTAG} Schnittstelle.
+
+\section{SPI}
+
+\acf{SPI} ist die Schnittstelle, um den Mikrocontroller zu programmieren, über
+diese Schnittstelle kann nicht debuggt werden. Neben einem Programmer, wie dem
+AVRISPmkII, hängt an diesem Bus auch der ENC28J60 Netzwerk Controller.
+
+\section{JTAG}
+
+\acf{JTAG} ist eine Schnittstelle die neben der Programmierung von
+Mikrocontrollern auch das Debuggen ermöglicht.
+Dafür wird allerdings der relativ teure AVRJTAGICEmkII von Atmel benötigt.
+In Verbindung mit dem Atmel Studio kann dann komfortabel getestet
+werden. Wie beim Entwickeln von Programmen mit einer anderen Programmiersprache
+können Breakpoints definiert werden und variabel ausgelesen werden. Für eine
+umfangreiche Entwicklung wie unseren Webserver, bei dem viele dynamische
+Ereignisse auftreten können, ist ein solches Programmierwerkzeug sehr hilfreich.

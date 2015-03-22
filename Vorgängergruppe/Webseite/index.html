@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AVR Webcontrol</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+<link rel="stylesheet" href="board.css" type="text/css">
+<link rel="stylesheet" href="input.css" type="text/css">
+<script src="favorite.js" type="text/javascript"> </script>
+<script src="rest.js" type="text/javascript"> </script>
+<script src="ui.js" type="text/javascript"> </script>
+<script src="db.js" type="text/javascript"> </script>
+</head>
+<body onload="initRest();initFavorites();initUi();setMain('status');">
+	
+	<!--The main div. Only the header and one of the other children should be visible a time-->
+	<div class="background" id="main">
+		
+		<!--The header including the navigation-->
+		<div class="header_bgcolor" id="header">
+		  	<a id="status_bt" class="buttonlink" href="javascript:setMain('status')">STATUS</a>
+			<a id="favorite_bt" class="buttonlink" href="javascript:setMain('favorite')">FAVORITEN</a>
+			<a id="settings_bt" class="buttonlink" href="javascript:setMain('settings')">EINSTELLUNGEN</a>
+			<div class="loading_loop"> </div>
+		</div>
+		<!--End #header-->
+		
+		<!--The div containing the status tab-->
+		<div class="mainDiv" id="status">
+
+			<!--The board drawing-->
+			<div id="board">
+				<form action="index.html" method="post" id="form">
+					<div class="green" id="mainboard">
+						<!-- Platinenloch links oben mit Farbe: background-->
+						<div class="circle lo background"> </div>
+						<!-- Platinenloch links unten mit Farbe: background-->
+						<div class="circle lu background"> </div>
+						<!-- Platinenloch rechts oben mit Farbe: background-->
+						<div class="circle ro background"> </div>
+						<!-- Platinenloch rechts unten mit Farbe: background-->
+						<div class="circle ru background"> </div>
+						<!-- BoardElement: CPU Farbe: black-->
+						<div class="boardE CPU black">
+							<script>write(20, '<div class="feet"></div>');</script>
+						</div>
+						<div class="boardE CPU black"> </div>
+						<!-- BoardElement: Netzwerkanschluss Farbe: silver-->
+						<div class="boardE Net silver"> </div>
+						<!-- BoardElement: Kontroller Farbe: black-->
+						<div class="boardE Control black">
+							<script>write(14, '<div class="feet short"></div>');</script>
+						</div>
+						<div class="boardE Control black"> </div>
+						<!-- BoardElement: ISP Farbe: grew-->
+						<div class="boardE ISP grew">
+                            <div class="labeling">ISP</div>
+				            <script>write(10, '<div class="pin gold"></div>');</script>
+						</div>
+						<!-- BoardElement: EXT Farbe: grew -->
+						<div class="boardE EXT grew">
+                            <div class="labeling">EXT</div>
+							<script>write(10, '<div class="pin gold"></div>');</script>
+							<div class="pinCheck_div ext">
+								<div class="pinCheck_div">
+									<script>
+										writePinCheck(['D2', 'D4', 'D6']);
+										writePinCheckNone(1);
+										writePinCheckMinus(1);
+									</script>
+								</div>
+								<div class="pinCheck_div a">
+									<script>
+										writePinCheck(['D3', 'D5', 'D7']);
+										writePinCheckNone(1);
+										writePinCheckPlus(1);
+									</script>
+								</div>
+							</div>
+							<div id="cb_ext_pins_bar"><div id="cb_ext_pins_bar_h"></div></div>
+						</div>
+						<!-- BoardElement: Serieller Anschluss 1 Farbe: black-->
+						<div class="boardE se" id="boardSA1"> 
+							<div class="boardE se mon up silver"> </div>
+							<div class="boardE se mon do silver"> </div>
+							<div class="boardE se bar black"> </div>
+							<div class="boardE se back black"> </div>
+							<div class="boardE se metal silver"> </div>
+							<div class="pinCheck_div sa">
+								<div class="pinCheck_div">
+									<script>
+										writePinCheckNone(1);
+										writePinCheck(['C0', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'A0', 'A1', 'A2', 'A3']);
+									</script>			
+								</div>
+								<div class="pinCheck_div b">
+									<script>
+										writePinCheckNone(1);
+										writePinCheckPlus(1);
+										writePinCheckNone(2);
+										writePinCheckMinus(8);
+									</script>
+								</div>
+							</div>
+							<div id="cb_se_pins_bar"><div id="cb_se_pins_bar_v"></div></div>
+						</div>
+						<div class="boardE se" id="boardSA2"> 
+							<div class="boardE se mon up silver"> </div>
+							<div class="boardE se mon do silver"> </div>
+							<div class="boardE se bar black"> </div>
+							<div class="boardE se back black"> </div>
+							<div class="boardE se metal silver"> </div>
+						</div>
+						<div class="boardE Ana">
+							<script>
+								writePlusMinusBox(1);
+								writeAnalogBox(['A7']);
+								writeAnalogBox(['A6']);
+								writePlusMinusBox(1);
+								writeAnalogBox(['A5']);
+								writeAnalogBox(['A4']);
+								writePlusMinusBox(1);
+							</script>
+						</div>
+						<div class="boardE AC">
+                            <div class="labeling ac">AC/DC</div>
+							<script>write(2, '<div class="a_box blue"><div class="circle screw silver"><div class="screw head"></div></div></div>');</script>
+						</div>
+						<div class="circle boardE LED red"> </div>
+					</div>
+				</form>
+			</div>
+			<!--End of the board drawing-->
+			
+			<!--The sidebar-->
+			<div class="sidebar">
+				<h1 id="detail_title">--</h1>
+				<p>AKTUELLER WERT</p>
+				<div id="detail_val"><p class="detail">--</p></div>
+				<p>FAVORIT</p>
+				<p class="checkbox">
+					<input type="checkbox" id="detail_fav" onclick="toggleFavorite(sidebarId)" value="None" />
+					<label for="detail_fav"> </label>
+				</p>
+				<p>&nbsp;</p>	
+				<p>TYP</p>
+				<p class="detail" id="detail_type">--</p>
+				<p>POSITION AN CPU</p>
+				<p class="detail" id="detail_pin">--</p>
+				<p>KONFIGURATION</p>
+				<p class="select detail" id="detail_conf">--</p>
+				<p>BESCHREIBUNG</p>
+				<p class="select detail" id="detail_desc">--</p>
+				<p>SCRIPT-FUNKTION</p>
+				<p class="select detail code" id="detail_func">--</p>	
+				<p>&nbsp;</p>	
+				<input type="image" src="ic_edit.svg" height="16px" alt="Anpassen" title="Pin anpassen" onclick="startConfigurePin(sidebarId)"/>
+			</div>
+			<!--End of the sidebar-->
+
+			<!--clear floating-->
+			<div style="clear:both"> </div>
+
+		</div>
+		<!--End #status-->
+		
+		<!--The div containing the favorite tab-->
+		<div class="mainDiv" id="favorite">
+			<table cellspacing="0">
+				<thead>
+					<th>Pin</th>
+					<th>Beschreibung</th>
+					<th>Position an CPU</th>
+					<th>Konfiguration</th>
+					<th>Typ</th>
+					<th>Wert</th>
+					<th>Wert (angepasst)</th>
+					<th> </th>
+				</thead>
+				<tbody id="favoritesTbody">
+				</tbody>
+			</table>
+
+		</div>
+		<!--End #favorite-->
+		
+		<!--The div containing the settings tab-->
+		<div class="mainDiv" id="settings">
+			<table cellspacing="0">
+				<tbody >
+					<tr>
+						<td class="title">Polling Frequenz</td>
+						<td>
+							<p id="setting_freq">--</p>
+							<input type="button" value="Ändern" onclick="startConfigureFreq();"/>
+						</td>
+					</tr>
+                    <tr>
+						<td class="title">Reload Funktion</td>
+						<td>
+                            <p>Eine Skriptfunktion die nach jedem neuladen der Messwerte aufgerufen wird.</p>
+							<input type="button" value="Sktiprfunktion anpassen" onclick="startConfigureReloadFunc();"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="title">Server-Version</td>
+						<td>
+							<p id="setting_version">--</p>
+						</td>
+					</tr>
+                    <tr>
+						<td class="title">Einstellungen Exportieren / Importieren</td>
+						<td>
+							<input type="button" value="Exportieren" onclick="showExportOverlay();"/>
+                            <input type="button" value="Importieren" onclick="showImportOverlay();"/>
+						</td>
+					</tr>
+                    <tr>
+						<td class="title">Über</td>
+						<td>
+							<input type="button" value="Credits zeigen" onclick="showOverlay('showCredits')"/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!--End #settings-->
+	</div>
+	<!--End #main-->
+	
+	<!--Overlay to change Polling frequency-->
+	<div class="overlay" id="configureFreq">
+		<div class="overlayMain">
+			<h1>Polling Frequenz &auml;ndern</h1>
+			<input type="text" id="changeFreqInput" maxlength="5" />
+			<p class="inline">ms</p>
+			<div class="bottom">
+				<input class="cancel" type="button" value="Abbrechen" onclick="hideOverlay();"/>
+				<input class="ok" type="button" value="OK" onclick="endConfigureFreq();"/>
+			</div>
+		</div>
+	</div>
+	<!--End #changeFreq-->
+	
+	<!--Overlay to display Credits-->
+	<div class="overlay" id="showCredits">
+		<div class="overlayMain">
+			<h1>Credits</h1>
+			<p>&copy;2014 Ann-Sophie Dietrich, Marcel Schlipf, Jan-Hendrik Preuß & Christian Würthner</p>
+			<p>&nbsp;</p>
+			<p>Ein Projekt im Rahmen einer Semesterarbeit im Studiengang &bdquo;Allgemeine 
+				Informatik&ldquo; der <a href="http://hs-furtwangen.de/">Hochschule Furtwangen Univesity</a>.</p>
+			<p>&nbsp;</p>
+			<p>Diese Software ist unter der 
+				<a href="https://www.gnu.org/copyleft/gpl.html">GNU Public License Version 3</a> lizensiert.</p>
+			<p>&nbsp;</p>
+			<p>Weitere Informationen und Sources sind auf <a href="https://github.com/doofmars/Embedded-Webserver">GitHub</a> zu finden.</p>
+			<div class="bottom">
+				<input class="ok" type="button" value="Schließen" onclick="hideOverlay();"/>
+			</div>
+		</div>
+	</div>
+	<!--End #showCredits-->
+	
+	<!--Overlay to configure Pins-->
+	<div class="overlay" id="configurePin">
+		<div class="overlayMain">
+			<h1 id="conf_title">Pin anpassen</h1>
+			<table cellspacing="0">
+				<tr>
+					<td>Typ</td>
+					<td id="conf_type"></td>
+				</tr>
+				<tr>
+					<td>Position an CPU</td>
+					<td id="conf_pin"></td>
+				</tr>
+				<tr>
+					<td>Favorit</td>
+					<td>
+						<div class="checkbox">
+							<input type="checkbox" id="conf_fav" value="None" />
+							<label for="conf_fav"> </label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>Konfiguration</td>
+					<td>
+						<div class="select">
+							<select id="conf_conf"> </select>
+							<label for="conf_conf"> </label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>Beschreibung</td>
+					<td>
+						<input type="text" id="conf_desc"style="wdth:100%"/>
+					</td>
+				</tr>
+				<tr>
+					<td>Funktion</td>
+					<td>
+						<p class="code">function(x) {</p>
+						<textarea class="edit_code" spellcheck="false" id="conf_func">return x;</textarea>
+						<p class="code">}</p>
+					</td>
+				</tr>
+			</table>
+		    <p id="conf_func_error" class="error">Die Funktion enthält einen Syntaxfehler</p>
+
+			<div class="bottom">
+				<input class="cancel" type="button" value="Abbrechen" onclick="hideOverlay();"/>
+                <input class="cancel2" type="button" value="Zurücksetzen" onclick="endConfigurePin(true);"/>		
+                <input class="ok" type="button" value="Übernehmen" onclick="endConfigurePin();"/>
+			</div>
+		</div>
+	</div>
+	<!--End #configurePin-->
+	
+    <!--Overlay to edit the reload function -->
+	<div class="overlay" id="configureReloadFunc">
+		<div class="overlayMain">
+			<h1>Reload Funktion anpassen</h1>
+            <p class="code">function(x) {</p>
+            <textarea class="edit_code" spellcheck="false" id="conf_reload_func"></textarea>
+            <p class="code">}</p>
+            <p id="conf_reload_func_error" class="error">Die Funktion enthält einen Syntaxfehler</p>
+
+			<div class="bottom">
+				    <input class="cancel" type="button" value="Abbrechen" onclick="hideOverlay();"/>
+                    <input class="ok" type="button" value="Übernehmen" onclick="endConfigureReloadFunc();"/>
+			</div>
+		</div>
+	</div>
+	<!--End #configureReloadFunc-->
+    
+	<!--Overlay to an error message-->
+	<div class="overlay" id="showError">
+		<div class="overlayMain">
+			<h1>Fehler</h1>
+			<p id="errorText"> </p>
+			<div class="bottom">
+				<input class="cancel" type="button" value="Seite neuladen" onclick="window.location.reload()"/>
+				<input class="ok" type="button" value="Schließen" onclick="hideOverlay();"/>
+			</div>
+		</div>
+	</div>
+	<!--End #showError-->
+	
+    <!--Overlay to export settings -->
+	<div class="overlay" id="exportSettings">
+		<div class="overlayMain">
+			<h1>Einstellungen Exportieren</h1>
+            <p>Kopieren Sie den folgenden Text und speichern Sie ihn ab:</p>
+            <textarea class="edit_code" readonly spellcheck="false" id="exportSettingsText"></textarea>
+            <div class="bottom">
+                <input class="ok" type="button" value="OK" onclick="hideOverlay();"/>
+			</div>
+		</div>
+	</div>
+	<!--End #exportSettings-->
+    
+    <!--Overlay to import settings -->
+	<div class="overlay" id="importSettings">
+		<div class="overlayMain">
+			<h1>Einstellungen Importieren</h1>
+            <p>Fügen Sie hier den zuvor exportierten Text ein:</p>
+            <textarea class="edit_code" spellcheck="false" id="importSettingsText"></textarea>
+            <div class="bottom">
+                <input class="ok" type="button" value="Importieren" onclick="importSettings();"/>
+            	<input class="cancel" type="button" value="Abbrechen" onclick="hideOverlay();"/>
+			</div>
+		</div>
+	</div>
+	<!--End #importSettings-->
+    
+</body>
+</html>
