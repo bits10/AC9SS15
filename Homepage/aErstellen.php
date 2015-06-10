@@ -11,12 +11,48 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok"){
 		<meta name="description" content="">
 		<meta name="author" content="Timo Bayer">
 		<title>AVR</title>
-		<link href="css/a4cloud.css" rel="stylesheet">
+		<link href="css/bootstrap.css" rel="stylesheet">
 		<link href="css/prettify.css" rel="stylesheet">
 		<script src="../../assets/js/ie-emulation-modes-warning.js"></script>
 
-	</head>
+		<script>
+			 function pruefeName(){
+		    	<?php
+		    		$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+					Benutzername oder Passwort sind falsch");
+					mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+					$sql = "select count(id) as anzahl from AVR.Anwendungen";
+					$ergebnis = mysql_query($sql);
+					$row = mysql_fetch_object($ergebnis);
+					$anwendungen = $row->anzahl;
+					echo "var anzahl=$anwendungen;";
+					$sql = "select name from AVR.Anwendungen";
+					$ergebnis = mysql_query($sql);
+					for ($i=0; $i < $anwendungen; $i++) {
+						echo "var aName$i;"; 
+						$row = mysql_fetch_object($ergebnis);
+						echo "aName$i = \"$row->name\";";
+					}
+		    	?>
+		    	e = document.getElementById('name').value;
+		    	for (i = 0; i < anzahl; i++) {
+ 				   	var aName = eval("aName" + i);
+ 				  
+ 				   if(e==aName){
+ 				   		d = document.getElementById('vergeben');
+ 				   		d.style.display = "";
+ 				   		return;
+ 				   }else{
+ 				   		d = document.getElementById('vergeben');
+ 				   		d.style.display = "none";
+ 				   }
+				}
+		   }
+		</script>
 
+
+	</head>
+<label style="width: 10%"></label>
 	<body>
 		<div id="wrapper">
 			<nav class="navbar navbar-default navbar-fixed-top">
@@ -65,17 +101,30 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok"){
 						<form name="form" method="post" action="erstellen.php" enctype="multipart/form-data">
 						<div class="col-md-6">
 						<label style="width: 30%">Name der Anwendung:</label>
-						<input type="text"  name="name"/><br /><br />
+						<input type="text" onkeyup="pruefeName()" id="name" name="name"/><label id="vergeben" style="display:none ;margin-left:4px; color: red"> Name bereits vergeben</label><br /><br />
 						<label style="width: 30%">Beschreibung:</label><br />
 						<textarea name="beschreibung" cols="40" rows="2"></textarea><br /><br />
 						<label style="width: 30%">Grafik:</label>
 						<input type="file" name="grafik"/><br />
 						<label style="width: 30%">Gewünschtes Board:</label>
 						<select name="board">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
+							<?php
+								$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+								Benutzername oder Passwort sind falsch");
+								mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+								$sql = "select beschreibung from AVR.Boards";
+								$ergebnis = mysql_query($sql);
+								while ($row=mysql_fetch_object($ergebnis)){
+									 echo "<option>$row->beschreibung</option>";      
+           					    } 
+							 ?>	
 						</select>
+						<br /><br />
+						<label style="width: 30%">Benutzer:</label>
+						<?php
+							$user = $_SESSION["username"];
+							echo "<input type=\"text\" name=\"user\" value=\"$user\" readonly/>";
+						 ?>	
 						<br /><br />
 						<label style="width: 30%">Betroffene Pins:</label>
 						<table class="table">
@@ -88,80 +137,82 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok"){
 								<tr>
 									<td>1</td>
 									<td align="center">
-									<input name="out1" type="checkbox" />
+									<input name="out1" type="checkbox" checked="true"/>
 									</td>
 									<td align="center">
-									<input name="in1" type="checkbox" />
+									<input name="in1" type="checkbox" checked="true"/>
 									</td>
 									<td align="center">
-									<input name="ADC1" type="checkbox" />
+									<input name="ADC1" type="checkbox" checked="true"/>
 									</td>
 								</tr>
 								<tr>
 									<td>2</td>
 									<td align="center">
-									<input name="out2" type="checkbox" />
+									<input name="out2" type="checkbox" checked="true"/>
 									</td>
 									<td align="center">
-									<input name="in2" type="checkbox" />
+									<input name="in2" type="checkbox" checked="true"/>
 									</td>
 									<td align="center">
-									<input name="ADC2" type="checkbox" />
+									<input name="ADC2" type="checkbox" checked="true"/>
 									</td>
 								</tr>
 								<tr>
 									<td>3</td>
 									<td align="center">
-									<input name="out3" type="checkbox" />
+									<input name="out3" type="checkbox" checked="true"/>
 									</td>
 									<td align="center">
-									<input name="in3" type="checkbox" />
+									<input name="in3" type="checkbox" checked="true"/>
 									</td>
 									<td align="center">
-									<input name="ADC3" type="checkbox" />
+									<input name="ADC3" type="checkbox" checked="true"/>
 									</td>
 								</tr>
 								<tr>
 									<td>4</td>
 									<td align="center">
-									<input name="out4" type="checkbox" />
+									<input name="out4" type="checkbox" checked="true"/>
 									</td>
 									<td align="center">
-									<input name="in4" type="checkbox" />
+									<input name="in4" type="checkbox" checked="true"/>
 									</td>
 									<td align="center">
-									<input name="ADC4" type="checkbox" />
+									<input name="ADC4" type="checkbox" checked="true"/>
 									</td>
 								</tr>
 								<tr>
 									<td>5</td>
 									<td align="center">
-									<input name="out5" type="checkbox" />
+									<input name="out5" type="checkbox" checked="true"/>
 									</td>
 								</tr>
 								<tr>
 									<td>6</td>
 									<td align="center">
-									<input name="out6" type="checkbox" />
+									<input name="out6" type="checkbox" checked="true"/>
 									</td>
 								</tr>
 								<tr>
 									<td>7</td>
 									<td align="center">
-									<input name="out7" type="checkbox" />
+									<input name="out7" type="checkbox" checked="true"/>
 									</td>
 								</tr>
 								<tr>
 									<td>8</td>
 									<td align="center">
-									<input name="out8" type="checkbox" />
+									<input name="out8" type="checkbox" checked="true"/>
 									</td>
 								</tr>
 						</table>
 						</div>
 						<div class="col-md-6">
 						<label style="width: 20%">Skript:</label><br />
-						<textarea id="text" name="skript" cols="70" rows="20"></textarea>
+						<textarea id="text" name="skript" cols="60" rows="20">int main(int argc, char **argv) {&#10	char* board = argv[1];&#10 &#10 &#10 &#10	return 0;&#10}
+							
+						</textarea>
 						</div>
 						<div class="col-lg-12">
 							<p align="right">

@@ -6,20 +6,38 @@ public class Board {
 	private String beschreibung;
 	
 	public Board(int id, String beschreibung, String ip){
-		this.id = id;
-		this.beschreibung = beschreibung;
-		this.ip = ip;
+		this.setId(id);
+		this.setBeschreibung(beschreibung);
+		this.setIp(ip);
 	}
 	
-	public int getId() {
-		return id;
+	public Board(){
+		
 	}
-	
-	public String getIp() {
-		return ip;
-	}
-	
+
 	public String getBeschreibung() {
 		return beschreibung;
 	}
+
+	public void setBeschreibung(String beschreibung) {
+		this.beschreibung = beschreibung;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+
 }

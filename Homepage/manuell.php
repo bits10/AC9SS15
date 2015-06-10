@@ -11,10 +11,544 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok" && $_SESSION["be"]==1){
 		<meta name="description" content="">
 		<meta name="author" content="Timo Bayer">
 		<title>AVR</title>
-		<link href="css/a4cloud.css" rel="stylesheet">
+		<link href="css/bootstrap.css" rel="stylesheet">
 		<link href="css/prettify.css" rel="stylesheet">
 		<script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-		<script src="js/avr.js"></script>
+		<script>
+			var aktiv = window.setInterval("refresh()", 1000);
+			function getStat(board) {
+				getOutStat(board);
+				getInStat(board);
+				getAnIn(board);
+			}
+		
+			function changeBoard(board) {
+				if (board == 1) {
+					document.getElementById("board2").checked = false;
+					//document.getElementById("board3").checked = false;
+					<?php
+						$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+						Benutzername oder Passwort sind falsch");
+						mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+						$sql = "select ip from AVR.Boards";
+						$ergebnis = mysql_query($sql);
+						$row = mysql_fetch_object($ergebnis);
+						echo "board = \"$row->ip\";";
+					 ?>
+				}
+				if (board == 2) {
+					document.getElementById("board1").checked = false;
+					//document.getElementById("board3").checked = false;
+					<?php
+						$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+						Benutzername oder Passwort sind falsch");
+						mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+						$sql = "select ip from AVR.Boards";
+						$ergebnis = mysql_query($sql);
+						$row = mysql_fetch_object($ergebnis);
+						$row = mysql_fetch_object($ergebnis);
+						echo "board = \"$row->ip\";";
+					 ?>
+				}
+				/*if (board == 3) {
+					document.getElementById("board1").checked = false;
+					document.getElementById("board2").checked = false;
+					<?php
+						$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+						Benutzername oder Passwort sind falsch");
+						mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+						$sql = "select ip from AVR.Boards";
+						$ergebnis = mysql_query($sql);
+						$row = mysql_fetch_object($ergebnis);
+						$row = mysql_fetch_object($ergebnis);
+						$row = mysql_fetch_object($ergebnis);
+						echo "board = \"$row->ip\";";
+					 ?>
+				}*/
+				for (var i = 1; i <= 8; i++) {
+					document.getElementById("out" + i + "HIGH").checked = false;
+					document.getElementById("out" + i + "LOW").checked = false;
+				}
+				for (var i = 1; i <= 4; i++) {
+					document.getElementById("in" + i + "HIGH").checked = false;
+					document.getElementById("in" + i + "LOW").checked = false;
+				}
+				for (var i = 1; i <= 8; i++) {
+					document.getElementById("out" + i).checked = false;
+				}
+				for (var i = 1; i <= 4; i++) {
+					document.getElementById("ADCvalue" + i).innerHTML = "";
+				}
+				getStat(board);
+			}
+			
+			function getAnIn(board) {
+				$.ajax({
+					type : "GET",
+					dataType : "json",
+					url : "/rest/getAnalogInPort?boardIP=" + board,
+					success : function(data) {
+						var data1 = data.values;
+						document.getElementById("ADCvalue1").innerHTML = data1[0];
+						document.getElementById("ADCvalue2").innerHTML = data1[1];
+						document.getElementById("ADCvalue3").innerHTML = data1[2];
+						document.getElementById("ADCvalue4").innerHTML = data1[3];
+					},
+					error : function() {
+			
+					}
+				});
+			}
+
+			
+			function getInStat(board) {
+				$.ajax({
+					type : "GET",
+					dataType : "json",
+					url : "/rest/getInPort?boardIP=" + board,
+					success : function(data) {
+						var data1 = data.status;
+						if (data1[0] == true) {
+							document.getElementById("in1HIGH").checked = true;
+							document.getElementById("in1LOW").checked = false;
+						} else {
+							document.getElementById("in1HIGH").checked = false;
+							document.getElementById("in1LOW").checked = true;
+						}
+						if (data1[1] == true) {
+							document.getElementById("in2HIGH").checked = true;
+							document.getElementById("in2LOW").checked = false;
+						} else {
+							document.getElementById("in2HIGH").checked = false;
+							document.getElementById("in2LOW").checked = true;
+						}
+						if (data1[2] == true) {
+							document.getElementById("in3HIGH").checked = true;
+							document.getElementById("in3LOW").checked = false;
+						} else {
+							document.getElementById("in3HIGH").checked = false;
+							document.getElementById("in3LOW").checked = true;
+						}
+						if (data1[3] == true) {
+							document.getElementById("in4HIGH").checked = true;
+							document.getElementById("in4LOW").checked = false;
+						} else {
+							document.getElementById("in4HIGH").checked = false;
+							document.getElementById("in4LOW").checked = true;
+						}
+					},
+				});
+			}
+
+		
+			function refresh() {
+				var board;
+				if (document.getElementById("board1").checked == true) {
+					<?php
+						$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+						Benutzername oder Passwort sind falsch");
+						mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+						$sql = "select ip from AVR.Boards";
+						$ergebnis = mysql_query($sql);
+						$row = mysql_fetch_object($ergebnis);
+						echo "board = \"$row->ip\";";
+					 ?>
+				} else if (document.getElementById("board2").checked == true) {
+					<?php
+						$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+						Benutzername oder Passwort sind falsch");
+						mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+						$sql = "select ip from AVR.Boards";
+						$ergebnis = mysql_query($sql);
+						$row = mysql_fetch_object($ergebnis);
+						$row = mysql_fetch_object($ergebnis);
+						echo "board = \"$row->ip\";";
+					 ?>
+				}/* else if (document.getElementById("board3").checked == true) {
+					<?php
+						$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+						Benutzername oder Passwort sind falsch");
+						mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+						$sql = "select ip from AVR.Boards";
+						$ergebnis = mysql_query($sql);
+						$row = mysql_fetch_object($ergebnis);
+						$row = mysql_fetch_object($ergebnis);
+						$row = mysql_fetch_object($ergebnis);
+						echo "board = \"$row->ip\";";
+					 ?>
+				}*/else {
+					return false;
+				}
+				getStat(board);
+			}
+		
+			function getOutStat(board) {
+				$.ajax({
+					type : "GET",
+					dataType : "json",
+					url : "/rest/getStatus?boardIP=" + board,
+					success : function(data) {
+						var data1 = data.status;
+						if (data1[0] == true) {
+							document.getElementById("out1HIGH").checked = true;
+							document.getElementById("out1LOW").checked = false;
+						} else {
+							document.getElementById("out1HIGH").checked = false;
+							document.getElementById("out1LOW").checked = true;
+						}
+						if (data1[1] == true) {
+							document.getElementById("out2HIGH").checked = true;
+							document.getElementById("out2LOW").checked = false;
+						} else {
+							document.getElementById("out2HIGH").checked = false;
+							document.getElementById("out2LOW").checked = true;
+						}
+						if (data1[2] == true) {
+							document.getElementById("out3HIGH").checked = true;
+							document.getElementById("out3LOW").checked = false;
+						} else {
+							document.getElementById("out3HIGH").checked = false;
+							document.getElementById("out3LOW").checked = true;
+						}
+						if (data1[3] == true) {
+							document.getElementById("out4HIGH").checked = true;
+							document.getElementById("out4LOW").checked = false;
+						} else {
+							document.getElementById("out4HIGH").checked = false;
+							document.getElementById("out4LOW").checked = true;
+						}
+						if (data1[4] == true) {
+							document.getElementById("out5HIGH").checked = true;
+							document.getElementById("out5LOW").checked = false;
+						} else {
+							document.getElementById("out5HIGH").checked = false;
+							document.getElementById("out5LOW").checked = true;
+						}
+						if (data1[5] == true) {
+							document.getElementById("out6HIGH").checked = true;
+							document.getElementById("out6LOW").checked = false;
+						} else {
+							document.getElementById("out6HIGH").checked = false;
+							document.getElementById("out6LOW").checked = true;
+						}
+						if (data1[6] == true) {
+							document.getElementById("out7HIGH").checked = true;
+							document.getElementById("out7LOW").checked = false;
+						} else {
+							document.getElementById("out7HIGH").checked = false;
+							document.getElementById("out7LOW").checked = true;
+						}
+						if (data1[7] == true) {
+							document.getElementById("out8HIGH").checked = true;
+							document.getElementById("out8LOW").checked = false;
+						} else {
+							document.getElementById("out8HIGH").checked = false;
+							document.getElementById("out8LOW").checked = true;
+						}
+					},
+				});
+			}
+
+		
+			function initLCD() {
+				if (document.getElementById("board1").checked == true) {
+					<?php
+						$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+						Benutzername oder Passwort sind falsch");
+						mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+						$sql = "select ip from AVR.Boards";
+						$ergebnis = mysql_query($sql);
+						$row = mysql_fetch_object($ergebnis);
+						echo "board = \"$row->ip\";";
+					 ?>
+				} else if (document.getElementById("board2").checked == true) {
+					<?php
+						$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+						Benutzername oder Passwort sind falsch");
+						mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+						$sql = "select ip from AVR.Boards";
+						$ergebnis = mysql_query($sql);
+						$row = mysql_fetch_object($ergebnis);
+						$row = mysql_fetch_object($ergebnis);
+						echo "board = \"$row->ip\";";
+					 ?>
+				}/* else if (document.getElementById("board3").checked == true) {
+					<?php
+						$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+						Benutzername oder Passwort sind falsch");
+						mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+						$sql = "select ip from AVR.Boards";
+						$ergebnis = mysql_query($sql);
+						$row = mysql_fetch_object($ergebnis);
+						$row = mysql_fetch_object($ergebnis);
+						$row = mysql_fetch_object($ergebnis);
+						echo "board = \"$row->ip\";";
+					 ?>
+				}*/ else {
+					alert("please select board");
+					return;
+				}
+				$.ajax({
+					type : "GET",
+					dataType : "json",
+					url : "/rest/initLCD?boardIP=" + board,
+					success : function(data) {
+
+					},
+					error : function() {
+
+					}
+				});
+			}
+
+			function clearLCD() {
+				if (document.getElementById("board1").checked == true) {
+					<?php
+						$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+						Benutzername oder Passwort sind falsch");
+						mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+						$sql = "select ip from AVR.Boards";
+						$ergebnis = mysql_query($sql);
+						$row = mysql_fetch_object($ergebnis);
+						echo "board = \"$row->ip\";";
+					 ?>	
+				} else if (document.getElementById("board2").checked == true) {
+					<?php
+						$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+						Benutzername oder Passwort sind falsch");
+						mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+						$sql = "select ip from AVR.Boards";
+						$ergebnis = mysql_query($sql);
+						$row = mysql_fetch_object($ergebnis);
+						$row = mysql_fetch_object($ergebnis);
+						echo "board = \"$row->ip\";";
+					 ?>	
+				}/* else if (document.getElementById("board3").checked == true) {
+					<?php
+						$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+						Benutzername oder Passwort sind falsch");
+						mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+						$sql = "select ip from AVR.Boards";
+						$ergebnis = mysql_query($sql);
+						$row = mysql_fetch_object($ergebnis);
+						$row = mysql_fetch_object($ergebnis);
+						$row = mysql_fetch_object($ergebnis);
+						echo "board = \"$row->ip\";";
+					 ?>	
+				}*/ else {
+					alert("please select board");
+					return;
+				}
+				$.ajax({
+					type : "GET",
+					dataType : "json",
+					url : "/rest/clearLCD?boardIP=" + board,
+					success : function(data) {
+			
+					},
+					error : function() {
+
+					}
+				});
+			}
+
+			function writeLCD() {
+				if (document.getElementById("board1").checked == true) {
+					<?php
+						$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+						Benutzername oder Passwort sind falsch");
+						mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+						$sql = "select ip from AVR.Boards";
+						$ergebnis = mysql_query($sql);
+						$row = mysql_fetch_object($ergebnis);
+						echo "board = \"$row->ip\";";
+					 ?>	
+				} else if (document.getElementById("board2").checked == true) {
+				 	<?php
+						$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+						Benutzername oder Passwort sind falsch");
+						mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+						$sql = "select ip from AVR.Boards";
+						$ergebnis = mysql_query($sql);
+						$row = mysql_fetch_object($ergebnis);
+						$row = mysql_fetch_object($ergebnis);
+						echo "board = \"$row->ip\";";
+					 ?>	
+				}/* else if (document.getElementById("board3").checked == true) {
+					<?php
+						$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+						Benutzername oder Passwort sind falsch");
+						mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+						$sql = "select ip from AVR.Boards";
+						$ergebnis = mysql_query($sql);
+						$row = mysql_fetch_object($ergebnis);
+						$row = mysql_fetch_object($ergebnis);
+						$row = mysql_fetch_object($ergebnis);
+						echo "board = \"$row->ip\";";
+					 ?>	
+				}*/ else {
+					alert("please select board");
+					return;
+				}
+				var text1 = document.getElementById('text1').value;
+				var text2 = document.getElementById('text2').value;
+				$.ajax({
+					type : "GET",
+					dataType : "json",
+					url : "/rest/writeLCD?boardIP=" + board+"&line=1&text="+text1,
+					success : function(data) {
+			
+					},
+					error : function() {
+
+					}
+				});
+				$.ajax({
+					type : "GET",
+					dataType : "json",
+					url : "/rest/writeLCD?boardIP=" + board+"&line=2&text="+text2,
+					success : function(data) {
+				
+					},
+					error : function() {
+
+					}
+				});
+			}
+		
+			function setPorts() {
+				var board;
+				if (document.getElementById("board1").checked == true) {
+				 	<?php
+						$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+						Benutzername oder Passwort sind falsch");
+						mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+						$sql = "select ip from AVR.Boards";
+						$ergebnis = mysql_query($sql);
+						$row = mysql_fetch_object($ergebnis);
+						echo "board = \"$row->ip\";";
+					 ?>	
+				} else if (document.getElementById("board2").checked == true) {
+				 	<?php
+						$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+						Benutzername oder Passwort sind falsch");
+						mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+						$sql = "select ip from AVR.Boards";
+						$ergebnis = mysql_query($sql);
+						$row = mysql_fetch_object($ergebnis);
+						$row = mysql_fetch_object($ergebnis);
+						echo "board = \"$row->ip\";";
+					 ?>
+				} /*else if (document.getElementById("board3").checked == true) {
+					<?php
+						$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+						Benutzername oder Passwort sind falsch");
+						mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+						$sql = "select ip from AVR.Boards";
+						$ergebnis = mysql_query($sql);
+						$row = mysql_fetch_object($ergebnis);
+						$row = mysql_fetch_object($ergebnis);
+						$row = mysql_fetch_object($ergebnis);
+						echo "board = \"$row->ip\";";
+					 ?>
+				}*/ else {
+					alert("please select board");
+					return;
+				}
+					var ports = "S";
+	if (document.getElementById("out1").checked == true) {
+		ports = ports + "1";
+	} else {
+		ports = ports + "0";
+	}
+	if (document.getElementById("out2").checked == true) {
+		ports = ports + "1";
+	} else {
+		ports = ports + "0";
+	}
+	if (document.getElementById("out3").checked == true) {
+		ports = ports + "1";
+	} else {
+		ports = ports + "0";
+	}
+	if (document.getElementById("out4").checked == true) {
+		ports = ports + "1";
+	} else {
+		ports = ports + "0";
+	}
+	if (document.getElementById("out5").checked == true) {
+		ports = ports + "1";
+	} else {
+		ports = ports + "0";
+	}
+	if (document.getElementById("out6").checked == true) {
+		ports = ports + "1";
+	} else {
+		ports = ports + "0";
+	}
+	if (document.getElementById("out7").checked == true) {
+		ports = ports + "1";
+	} else {
+		ports = ports + "0";
+	}
+	if (document.getElementById("out8").checked == true) {
+		ports = ports + "1";
+	} else {
+		ports = ports + "0";
+	}
+	$.ajax({
+		type : "GET",
+		dataType : "json",
+		url : "/rest/setPorts?boardIP=" + board + "&values=" + ports,
+		success : function(data) {
+			var data1 = data.status;
+			if (data1[0] == true) {
+				document.getElementById("out1").checked = true;
+			} else {
+				document.getElementById("out1").checked = false;
+			}
+			if (data1[1] == true) {
+				document.getElementById("out2").checked = true;
+			} else {
+				document.getElementById("out2").checked = false;
+			}
+			if (data1[2] == true) {
+				document.getElementById("out3").checked = true;
+			} else {
+				document.getElementById("out3").checked = false;
+			}
+			if (data1[3] == true) {
+				document.getElementById("out4").checked = true;
+			} else {
+				document.getElementById("out4").checked = false;
+			}
+			if (data1[4] == true) {
+				document.getElementById("out5").checked = true;
+			} else {
+				document.getElementById("out5").checked = false;
+			}
+			if (data1[5] == true) {
+				document.getElementById("out6").checked = true;
+			} else {
+				document.getElementById("out6").checked = false;
+			}
+			if (data1[6] == true) {
+				document.getElementById("out7").checked = true;
+			} else {
+				document.getElementById("out7").checked = false;
+			}
+			if (data1[7] == true) {
+				document.getElementById("out8").checked = true;
+			} else {
+				document.getElementById("out8").checked = false;
+			}
+		},
+		error : function() {
+
+		}
+	});
+			}
+		</script>
 	</head>
 
 	<body>
@@ -28,14 +562,14 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok" && $_SESSION["be"]==1){
 						<ul class="nav navbar-nav navbar-right">
 							<li>
 								<a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html"> Anwendungen <b class="caret"></b> </a>
-							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-								<li draggable="true">
-									<a href="anwendungen.php">Übersicht</a>
-								</li>
-								<li draggable="true">
-									<a href="aErstellen.php">Erstellen</a>
-								</li>
-							</ul>
+								<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+									<li draggable="true">
+										<a href="anwendungen.php">Übersicht</a>
+									</li>
+									<li draggable="true">
+										<a href="aErstellen.php">Erstellen</a>
+									</li>
+								</ul>
 							</li>
 							<li draggable="true">
 								<a href="manuell.php">Manuelle Steuerung</a>
@@ -49,17 +583,17 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok" && $_SESSION["be"]==1){
 						</ul>
 					</div>
 				</div>
-		
+
 			</nav>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
 						<h1>Manuelle Steuerung</h1>
 						<hr />
-			
+
 					</div>
 					<div class="col-md-12">
-					
+
 						<div style="display: none">
 							<h1 style="color: red">Backend unavailable</h1>
 						</div>
@@ -68,12 +602,20 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok" && $_SESSION["be"]==1){
 								<b>Gewünschtes Board:</b>:
 							</p>
 							<p>
-								<input id="board1" type="radio" name="board1" value="board1" onclick="changeBoard(1)">
-								Board 1
-								<input id="board2" style="margin-left: 20px" type="radio" name="board2" value="board2" onclick="changeBoard(2)">
-								Board 2
-								<input id="board3" style="margin-left: 20px" type="radio" name="board3" value="board3" onclick="changeBoard(3)">
-								Board 3
+								<?php
+								$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+Benutzername oder Passwort sind falsch");
+								mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+								$sql = "select beschreibung from AVR.Boards";
+								$ergebnis = mysql_query($sql);
+								$i = 1;
+								while ($row = mysql_fetch_object($ergebnis)) {
+									echo "
+<input id=\"board$i\" type=\"radio\" name=\"board$i\" value=\"board$i\" onclick=\"changeBoard($i)\">$row->beschreibung";
+									echo "<span style=\"margin-left: 20px\"></span>";
+									$i++;
+								}
+								?>
 							</p>
 							<br />
 						</div>
@@ -114,11 +656,24 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok" && $_SESSION["be"]==1){
 							<p>
 								<b>LCD:</b>
 							</p>
-							<button onclick="initLCD()">Initialisieren</button>
-							<button onclick="clearLCD()">Löschen</button><br /><br />
-							Zeile 1: <input id="text1" type="text" maxlength="16" /><br />
-							Zeile 2: <input id="text2" type="text" maxlength="16" /><br /><br />
-							<button onclick="writeLCD()">Senden</button>
+							<button onclick="initLCD()">
+								Initialisieren
+							</button>
+							<button onclick="clearLCD()">
+								Löschen
+							</button>
+							<br />
+							<br />
+							Zeile 1:
+							<input id="text1" type="text" maxlength="16" />
+							<br />
+							Zeile 2:
+							<input id="text2" type="text" maxlength="16" />
+							<br />
+							<br />
+							<button onclick="writeLCD()">
+								Senden
+							</button>
 						</div>
 						<div style="float:left; margin-left: 150px">
 							<p>
@@ -279,9 +834,9 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok" && $_SESSION["be"]==1){
 </html>
 <?php
 }else{
-	$host = htmlspecialchars($_SERVER["HTTP_HOST"]);
-	$uri = rtrim(dirname(htmlspecialchars($_SERVER["PHP_SELF"])), "/\\");
-	$extra = "index.php";
-	header("Location: http://$host$uri/$extra");
+$host = htmlspecialchars($_SERVER["HTTP_HOST"]);
+$uri = rtrim(dirname(htmlspecialchars($_SERVER["PHP_SELF"])), "/\\");
+$extra = "index.php";
+header("Location: http://$host$uri/$extra");
 }
 ?>

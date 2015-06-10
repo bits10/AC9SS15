@@ -11,13 +11,39 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok" && $_SESSION["be"]==1){
 		<meta name="description" content="">
 		<meta name="author" content="Timo Bayer">
 		<title>AVR</title>
-		<link href="css/a4cloud.css" rel="stylesheet">
+		<link href="css/bootstrap.css" rel="stylesheet">
 		<link href="css/prettify.css" rel="stylesheet">
 		<script src="../../assets/js/ie-emulation-modes-warning.js"></script>
 		
+		<script>
+			function deleteUser(){
+			var e = document.getElementById("user");
+			var strUser = e.options[e.selectedIndex].text;
+			$.ajax({url: "deleteUser.php?ad="+strUser, async: false})
+				window.location.reload();  
+		    }
+			
+			
+			function deleteBoard(){
+			var e = document.getElementById("boards");
+			var strBoard = e.options[e.selectedIndex].text;
+			$.ajax({url: "deleteBoard.php?ad="+strBoard, async: false})
+				window.location.reload();  
+		    }
+		    
+		    function shUser(){
+			var e = document.getElementById("user");
+			var strUser = e.options[e.selectedIndex].text;
+			var e = document.getElementById("boards");
+			var strBoard = e.options[e.selectedIndex].text;
+			$.ajax({url: "einstellungen.php?ad="+strUser+"&bo="+strBoard, async: false})
+				window.location = "einstellungen.php?ad="+strUser+"&bo="+strBoard;  
+		    }
+		</script>
+		
 	</head>
 
-	<body>
+	<body">
 		<div id="wrapper">
 			<nav class="navbar navbar-default navbar-fixed-top">
 				<div class="container">
@@ -58,39 +84,150 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok" && $_SESSION["be"]==1){
 						<div class="col-md-6">
 							<h3>Benutzer:</h2>
 							<br />
-							<label>Benutzer löschen:</label><br />
-							<select>
-								<option>Benutzer 1</option>
-								<option>Benutzer 2</option>
-							</select>
-							<button>Löschen</button><br /><br /><br />
-							<label>Benutzer anlegen:</label><br /><br />
+							<h4>Benutzer auswählen:</h4><br />
+							<select id="user">
+							<?php
+								$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+								Benutzername oder Passwort sind falsch");
+								mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+								$sql = "select name from AVR.Benutzer";
+								$ergebnis = mysql_query($sql);
+								while ($row=mysql_fetch_object($ergebnis)){
+									 if($row->name == $_GET['ad']){	
+										 echo "<option selected=\"selected\">$row->name</option>"; 
+									 }else{
+									 	echo "<option>$row->name</option>";
+									 }     
+           					    } 
+							 ?>	
+							</select>	
+							<button onclick="shUser()">Anzeigen</button>
+							<button onclick="deleteUser()">Löschen</button><br /><br />
 							<label style="width: 20%">Name:</label>
-							<input type="text" /><br />
-							<label style="width: 20%">Passwort:</label>
-							<input type="text" /><br />
-							<label style="width: 20%">Berechtigung:</label>
-							<select>
-								<option>Benutzer</option>
-								<option>Admin</option>
-							</select><br /><br />
-							<button>Anlegen</button>
+								<?php
+								$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+								Benutzername oder Passwort sind falsch");
+								mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+								if (isset($_GET['ad'])) {
+									$id =  $_GET['ad'];
+									$sql = "select name from AVR.Benutzer where name ='$id'";
+								} else {
+									$sql = "select name from AVR.Benutzer";
+								}
+								$ergebnis = mysql_query($sql);
+								$row=mysql_fetch_object($ergebnis);
+								echo "$row->name<br />";     
+							 ?>	
+								<label style="width: 20%">Passwort:</label>
+								<?php
+								$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+								Benutzername oder Passwort sind falsch");
+								mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+								if (isset($_GET['ad'])) {
+									$id =  $_GET['ad'];
+									$sql = "select passwort from AVR.Benutzer where name ='$id'";
+								} else {
+									$sql = "select passwort from AVR.Benutzer";
+								}
+								$ergebnis = mysql_query($sql);
+								$row=mysql_fetch_object($ergebnis);
+								echo "$row->passwort<br />";     
+							 ?>	
+								<label style="width: 20%">Berechtigung:</label>
+								<?php
+								$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+								Benutzername oder Passwort sind falsch");
+								mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+								if (isset($_GET['ad'])) {
+									$id =  $_GET['ad'];
+									$sql = "select berechtigung from AVR.Benutzer where name ='$id'";
+								} else {
+									$sql = "select berechtigung from AVR.Benutzer";
+								}
+								$ergebnis = mysql_query($sql);
+								$row=mysql_fetch_object($ergebnis);
+								if($row->berechtigung == 1){
+									$ber = "Admin";
+								}else if($row->berechtigung == 0){
+									$ber = "Benutzer";
+								}
+								echo "$ber<br />";     
+							 ?>	
+								<br /><br /><br /><br />
+							<form name="form" method="post" action="createUser.php" enctype="multipart/form-data">
+								<h4>Benutzer anlegen:</h4><br /><br />
+								<label style="width: 20%">Name:</label>
+								<input name="name" type="text" /><br />
+								<label style="width: 20%">Passwort:</label>
+								<input name="passwort" type="text" /><br />
+								<label style="width: 20%">Berechtigung:</label>
+								<select name="berechtigung">
+									<option>Benutzer</option>
+									<option>Admin</option>
+								</select><br /><br />
+								<button>Anlegen</button>
+							</form>
 						</div>
 						<div class="col-md-6">
 							<h3>Boards:</h2>
 							<br />
-							<label>Board löschen:</label><br />
-							<select>
-								<option>Board 1</option>
-								<option>Board 2</option>
+							<h4>Board auswählen:</h4><br />
+							<select id="boards">
+							<?php
+								$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+								Benutzername oder Passwort sind falsch");
+								mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+								$sql = "select beschreibung from AVR.Boards";
+								$ergebnis = mysql_query($sql);
+								while ($row=mysql_fetch_object($ergebnis)){
+									 if($row->beschreibung == $_GET['bo']){	
+										 echo "<option selected=\"selected\">$row->beschreibung</option>"; 
+									 }else{
+									 	echo "<option>$row->beschreibung</option>";
+									 }	
+           					    } 
+							 ?>	
 							</select>
-							<button>Löschen</button><br /><br /><br />
-							<label>Board hinzufügen:</label><br /><br />
-							<label style="width: 20%">IP Adresse:</label>
-							<input type="text" /><br />
-							<label style="width: 20%">Beschreibung:</label><br />
-							<textarea name="beschreibung" cols="40" rows="2"></textarea><br /><br />
-							<button>Hinzufügen</button>
+							<button onclick="shUser()">Anzeigen</button>
+							<button onclick="deleteBoard()">Löschen</button><br /><br />
+								<label style="width: 20%">Beschreibung:</label>
+								<?php
+								$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+								Benutzername oder Passwort sind falsch");
+								mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+								if (isset($_GET['bo'])) {
+									$id =  $_GET['bo'];
+									$sql = "select beschreibung from AVR.Boards where beschreibung ='$id'";
+								} else {
+									$sql = "select beschreibung from AVR.Boards";
+								}
+								$ergebnis = mysql_query($sql);
+								$row=mysql_fetch_object($ergebnis);
+								echo "$row->beschreibung<br />";     
+							 ?>
+							 <label style="width: 20%">IP-Adresse:</label>
+								<?php
+								$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+								Benutzername oder Passwort sind falsch");
+								mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+								if (isset($_GET['bo'])) {
+									$id =  $_GET['bo'];
+									$sql = "select ip from AVR.Boards where beschreibung ='$id'";
+								} else {
+									$sql = "select ip from AVR.Boards";
+								}
+								$ergebnis = mysql_query($sql);
+								$row=mysql_fetch_object($ergebnis);
+								echo "$row->ip<br />";     
+							 ?>	</br></br></br></br></br>
+							<form name="form" method="post" action="createBoard.php" enctype="multipart/form-data">
+								<h4>Board hinzufügen:</h4><br /><br />
+								<label style="width: 20%">IP Adresse:</label>
+								<input name="ip" type="text" /><br />
+								<label style="width: 20%">Beschreibung:</label>
+								<input name="besch" type="text" /><br /><br />
+								<button>Hinzufügen</button>
+							</form>
 						</div>
 					</div>
 				</div>

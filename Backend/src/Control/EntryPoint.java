@@ -20,60 +20,73 @@ import Data.Values;
 
 @Path("rest")
 public class EntryPoint {
-	AVR avr = new AVR();
 	@GET
 	@Path("getStatus")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Stat getStatus(@QueryParam("boardID") int boardID) {
-		return avr.getOutStatus(boardID);
+	public Stat getStatus(@QueryParam("boardIP") String boardIP) {
+		return App.getAvr().getOutStatus(boardIP);
 	}
 	
 	@GET
 	@Path("setPorts")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Ack setPort(@QueryParam("boardID") int boardID, @QueryParam("values") String values) {
-		return avr.setPorts(boardID, values);
+	public Ack setPort(@QueryParam("boardIP") String boardIP, @QueryParam("values") String values) {
+		return App.getAvr().setPorts(boardIP, values);
 	}
 	
 	@GET
 	@Path("getInPort")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Stat getInPort(@QueryParam("boardID") int boardID) {
-		return avr.getInPort(boardID);
+	public Stat getInPort(@QueryParam("boardIP") String boardIP) {
+		return App.getAvr().getInPort(boardIP);
 	}
 	
 	@GET
 	@Path("getAnalogInPort")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Values getAnalogInPort(@QueryParam("boardID") int boardID) {
-		return avr.getAnalogInPort(boardID);
+	public Values getAnalogInPort(@QueryParam("boardIP") String boardIP) {
+		return App.getAvr().getAnalogInPort(boardIP);
 	}
 	
 	@GET
 	@Path("getIP")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getIP(@QueryParam("boardID") int boardID) {
-		return avr.getIP(boardID);
+	public String getIP(@QueryParam("boardIP") String boardIP) {
+		return App.getAvr().getIP(boardIP);
 	}
 	
 	@GET
 	@Path("initLCD")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String initLCD(@QueryParam("boardID") int boardID) {
-		return avr.initLCD(boardID);
+	public String initLCD(@QueryParam("boardIP") String boardIP) {
+		return App.getAvr().initLCD(boardIP);
 	}
 	
 	@GET
 	@Path("clearLCD")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String clearLCD(@QueryParam("boardID") int boardID) {
-		return avr.initLCD(boardID);
+	public String clearLCD(@QueryParam("boardIP") String boardIP) {
+		return App.getAvr().initLCD(boardIP);
 	}
 	
 	@GET
 	@Path("writeLCD")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String writeLCD(@QueryParam("boardID") int boardID, @QueryParam("line") int line, @QueryParam("text") String text) {
-		return avr.writeLCD(boardID, line, text);
+	public String writeLCD(@QueryParam("boardIP") String boardIP, @QueryParam("line") int line, @QueryParam("text") String text) {
+		return App.getAvr().writeLCD(boardIP, line, text);
+	}
+
+	@GET
+	@Path("start")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String start(@QueryParam("id") int id) {
+		return App.getAvr().start(id);
+	}
+	
+	@GET
+	@Path("stop")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String stop(@QueryParam("id") int id) {
+		return App.getAvr().stop(id);
 	}
 }

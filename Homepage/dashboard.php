@@ -11,7 +11,7 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok"){
 		<meta name="description" content="">
 		<meta name="author" content="Timo Bayer">
 		<title>AVR</title>
-		<link href="css/a4cloud.css" rel="stylesheet">
+		<link href="css/bootstrap.css" rel="stylesheet">
 		<link href="css/prettify.css" rel="stylesheet">
 		<link href="css/dashboard.css" rel="stylesheet" />
 		<script src="../../assets/js/ie-emulation-modes-warning.js"></script>
@@ -106,7 +106,20 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok"){
 										$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
 										Benutzername oder Passwort sind falsch");
 										mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
-										$sql = "select count(id) AS number from AVR.Anwendungen where status ='1'";
+										$user = $_SESSION["username"];
+										$sql = "select id from AVR.Benutzer where name = '$user'";
+										$ergebnis = mysql_query($sql);
+										$row = mysql_fetch_object($ergebnis);
+										$user = $row->id;
+										$sql = "select berechtigung from AVR.Benutzer where id = '$user'";	
+										$ergebnis = mysql_query($sql);
+										$row = mysql_fetch_object($ergebnis);
+										$ber = $row->berechtigung;
+										if($ber == 0){
+											$sql = "select count(id) AS number from AVR.Anwendungen where status ='1' and benutzerID = '$user'";		
+										}else{
+											$sql = "select count(id) AS number from AVR.Anwendungen where status ='1'";
+										}
 										$ergebnis = mysql_query($sql);
 										$row = mysql_fetch_object($ergebnis);
 										echo "$row->number";

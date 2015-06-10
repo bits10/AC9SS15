@@ -16,6 +16,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 
 public class App {
+	private static AVR avr = new AVR();
     public static void main(String[] args) throws Exception {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
@@ -30,7 +31,7 @@ public class App {
         jerseyServlet.setInitParameter(
            "jersey.config.server.provider.classnames",
            EntryPoint.class.getCanonicalName());
- 
+        
 
         try {
             jettyServer.start();
@@ -39,4 +40,10 @@ public class App {
             jettyServer.destroy();
         }
     }
+	public static AVR getAvr() {
+		return avr;
+	}
+	public static void setAvr(AVR avr) {
+		App.avr = avr;
+	}
 }

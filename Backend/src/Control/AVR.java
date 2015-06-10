@@ -1,24 +1,27 @@
 package Control;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import DB.DBConnector;
 import Data.Ack;
+import Data.Anwendung;
 import Data.Board;
 import Data.Stat;
 import Data.Values;
 
 /**
-
+ * 
  * @author Timo Bayer
-
+ * 
  * @version 1.0
-
  */
 
 public class AVR {
@@ -32,19 +35,18 @@ public class AVR {
 	PrintWriter out = null;
 	BufferedReader in = null;
 	Socket socket;
+	DBConnector db;
+	HashMap map = new HashMap();
+	Process q;
 
 	public AVR() {
 		try {
 			configParser.parseConfig("/home/pi/project/Config.cfg");
-			DBConnector db = new DBConnector(configParser.getConnection(), configParser.getUsername(), configParser.getPw());
-			boards = db.getBoards();
-			board1 = boards.get(0).getIp();
-			board2 = boards.get(1).getIp();
-			board3 = boards.get(2).getIp();
-			System.out.println(board1);
+			db = new DBConnector(configParser.getConnection(),
+					configParser.getUsername(), configParser.getPw());
 		} catch (IOException e) {
 			e.printStackTrace();
-		}catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 
 		}
 	}
@@ -54,15 +56,42 @@ public class AVR {
 		return "ok";
 	}
 
-	public boolean initialBoard(int boardID) {
+	public String start(int id) {
+		Runtime r = Runtime.getRuntime();
+		Anwendung anw = db.getAnwendung(id);
+		Board board = db.getBoard(anw.getBoardID());
+		PrintWriter writer = null;
 		try {
-			if (boardID == 1) {
-				socket = new Socket(board1, port);
-			} else if (boardID == 2) {
-				socket = new Socket(board2, port);
-			} else if (boardID == 3) {
-				socket = new Socket(board3, port);
-			}
+			String fileName = "/home/pi/" + anw.getName() + ".c";
+			writer = new PrintWriter(new BufferedWriter(
+					new FileWriter(fileName)));
+			writer.print(anw.getSkript());
+			writer.close();
+			Process p = r.exec("gcc " + fileName
+					+ " /home/pi/avrSL.so -o /home/pi/" + anw.getName());
+			Thread.sleep(2000);
+			q = r.exec("/home/pi/" + anw.getName() + " " + board.getIp());
+			map.put(id, q);
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
+		return anw.getSkript();
+
+	}
+
+	public String stop(int id) {
+		Process p = (Process) map.get(id);
+		p.destroy();
+		Anwendung anw = db.getAnwendung(id);
+		Board board = db.getBoard(anw.getBoardID());
+		setPorts(board.getIp(), "S00000000");
+		clearLCD(board.getIp());
+		return "ok";
+	}
+
+	public boolean initialBoard(String boardIP) {
+		try {
+			socket = new Socket(boardIP, port);
 			in = new BufferedReader(new InputStreamReader(
 					socket.getInputStream()));
 			out = new PrintWriter(socket.getOutputStream());
@@ -76,14 +105,13 @@ public class AVR {
 		try {
 			socket.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public Ack setPort(int boardID, int port, int status) {
+	public Ack setPort(String boardIP, int port, int status) {
 		Ack ack;
-		if (initialBoard(boardID)) {
+		if (initialBoard(boardIP)) {
 			out.println("SETPORT " + port + "." + status);
 			out.flush();
 			try {
@@ -96,13 +124,13 @@ public class AVR {
 				closeSocket();
 				return ack;
 			} catch (IOException e) {
-				e.printStackTrace();
+				
 			}
 		}
 		return null;
 	}
 
-	public Ack setPorts(int boardID, String values) {
+	public Ack setPorts(String boardIP, String values) {
 		Ack ack;
 		int stat1;
 		int stat2;
@@ -153,7 +181,7 @@ public class AVR {
 			stat8 = 0;
 		}
 
-		if (initialBoard(boardID)) {
+		if (initialBoard(boardIP)) {
 			out.println("SETPORT 1." + stat1);
 			out.flush();
 			out.println("SETPORT 2." + stat2);
@@ -161,7 +189,6 @@ public class AVR {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			out.println("SETPORT 3." + stat3);
@@ -169,7 +196,6 @@ public class AVR {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			out.println("SETPORT 4." + stat4);
@@ -177,7 +203,6 @@ public class AVR {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			out.println("SETPORT 5." + stat5);
@@ -185,7 +210,6 @@ public class AVR {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			out.println("SETPORT 6." + stat6);
@@ -193,7 +217,6 @@ public class AVR {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			out.println("SETPORT 7." + stat7);
@@ -201,7 +224,6 @@ public class AVR {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			out.println("SETPORT 8." + stat8);
@@ -216,17 +238,17 @@ public class AVR {
 				closeSocket();
 				return ack;
 			} catch (IOException e) {
-				e.printStackTrace();
+			
 			}
 		}
 		return null;
 	}
 
-	public Stat getInPort(int boardID) {
+	public Stat getInPort(String boardIP) {
 		Stat stat;
 		ArrayList<Boolean> status = new ArrayList<Boolean>();
 		for (int i = 1; i <= 4; i++) {
-			if (initialBoard(boardID)) {
+			if (initialBoard(boardIP)) {
 				out.println("GETPORT " + i);
 				out.flush();
 				try {
@@ -240,7 +262,7 @@ public class AVR {
 						status.add(stat1);
 					}
 				} catch (IOException e) {
-					e.printStackTrace();
+					
 				}
 			} else {
 				return null;
@@ -250,85 +272,87 @@ public class AVR {
 		return stat;
 	}
 
-	public Stat getOutStatus(int boardID) {
+	public Stat getOutStatus(String boardIP) {
 		Stat stat;
-		if (initialBoard(boardID)) {
+		if (initialBoard(boardIP)) {
 			out.println("GETSTATUS");
 			out.flush();
 			try {
 				String erg = in.readLine();
 				ArrayList<Boolean> status = new ArrayList<Boolean>();
-				if ((erg.charAt(8)) == '1') {
-					boolean stat1 = true;
-					status.add(stat1);
-				} else {
-					boolean stat1 = false;
-					status.add(stat1);
-				}
-				if ((erg.charAt(7)) == '1') {
-					boolean stat2 = true;
-					status.add(stat2);
-				} else {
-					boolean stat2 = false;
-					status.add(stat2);
-				}
-				if ((erg.charAt(6)) == '1') {
-					boolean stat3 = true;
-					status.add(stat3);
-				} else {
-					boolean stat3 = false;
-					status.add(stat3);
-				}
-				if ((erg.charAt(5)) == '1') {
-					boolean stat4 = true;
-					status.add(stat4);
-				} else {
-					boolean stat4 = false;
-					status.add(stat4);
-				}
-				if ((erg.charAt(4)) == '1') {
-					boolean stat5 = true;
-					status.add(stat5);
-				} else {
-					boolean stat5 = false;
-					status.add(stat5);
-				}
-				if ((erg.charAt(3)) == '1') {
-					boolean stat6 = true;
-					status.add(stat6);
-				} else {
-					boolean stat6 = false;
-					status.add(stat6);
-				}
-				if ((erg.charAt(2)) == '1') {
-					boolean stat7 = true;
-					status.add(stat7);
-				} else {
-					boolean stat7 = false;
-					status.add(stat7);
-				}
-				if ((erg.charAt(1)) == '1') {
-					boolean stat8 = true;
-					status.add(stat8);
-				} else {
-					boolean stat8 = false;
-					status.add(stat8);
+				if (erg.length() > 7) {
+					if ((erg.charAt(8)) == '1') {
+						boolean stat1 = true;
+						status.add(stat1);
+					} else {
+						boolean stat1 = false;
+						status.add(stat1);
+					}
+					if ((erg.charAt(7)) == '1') {
+						boolean stat2 = true;
+						status.add(stat2);
+					} else {
+						boolean stat2 = false;
+						status.add(stat2);
+					}
+					if ((erg.charAt(6)) == '1') {
+						boolean stat3 = true;
+						status.add(stat3);
+					} else {
+						boolean stat3 = false;
+						status.add(stat3);
+					}
+					if ((erg.charAt(5)) == '1') {
+						boolean stat4 = true;
+						status.add(stat4);
+					} else {
+						boolean stat4 = false;
+						status.add(stat4);
+					}
+					if ((erg.charAt(4)) == '1') {
+						boolean stat5 = true;
+						status.add(stat5);
+					} else {
+						boolean stat5 = false;
+						status.add(stat5);
+					}
+					if ((erg.charAt(3)) == '1') {
+						boolean stat6 = true;
+						status.add(stat6);
+					} else {
+						boolean stat6 = false;
+						status.add(stat6);
+					}
+					if ((erg.charAt(2)) == '1') {
+						boolean stat7 = true;
+						status.add(stat7);
+					} else {
+						boolean stat7 = false;
+						status.add(stat7);
+					}
+					if ((erg.charAt(1)) == '1') {
+						boolean stat8 = true;
+						status.add(stat8);
+					} else {
+						boolean stat8 = false;
+						status.add(stat8);
+					}
 				}
 				stat = new Stat(status);
 				closeSocket();
 				return stat;
 			} catch (IOException e) {
-				e.printStackTrace();
+				
 			}
 		}
 		return null;
 	}
 
-	public Values getAnalogInPort(int boardID) {
+	public Values getAnalogInPort(String boardIP) {
 		Values value;
 		ArrayList<String> valuesAL = new ArrayList<String>();
 		for (int i = 1; i <= 4; i++) {
-			if (initialBoard(boardID)) {
+			if (initialBoard(boardIP)) {
 				out.println("GETADC " + i);
 				out.flush();
 				try {
@@ -336,7 +360,7 @@ public class AVR {
 					closeSocket();
 					valuesAL.add(erg);
 				} catch (IOException e) {
-					e.printStackTrace();
+				
 				}
 			} else {
 				return null;
@@ -346,8 +370,8 @@ public class AVR {
 		return value;
 	}
 
-	public String getIP(int boardID) {
-		if (initialBoard(boardID)) {
+	public String getIP(String boardIP) {
+		if (initialBoard(boardIP)) {
 			out.println("GETIP");
 			out.flush();
 			try {
@@ -361,8 +385,8 @@ public class AVR {
 		return null;
 	}
 
-	public String setIP(int boardID, String ip) {
-		if (initialBoard(boardID)) {
+	public String setIP(String boardIP, String ip) {
+		if (initialBoard(boardIP)) {
 			out.println("SETIP " + ip);
 			out.flush();
 			try {
@@ -376,8 +400,8 @@ public class AVR {
 		return null;
 	}
 
-	public String getMask(int boardID) {
-		if (initialBoard(boardID)) {
+	public String getMask(String boardIP) {
+		if (initialBoard(boardIP)) {
 			out.println("GETMASK");
 			out.flush();
 			try {
@@ -391,8 +415,8 @@ public class AVR {
 		return null;
 	}
 
-	public String setMask(int boardID, String mask) {
-		if (initialBoard(boardID)) {
+	public String setMask(String boardIP, String mask) {
+		if (initialBoard(boardIP)) {
 			out.println("SETMASK " + mask);
 			out.flush();
 			try {
@@ -406,8 +430,8 @@ public class AVR {
 		return null;
 	}
 
-	public String getGateway(int boardID) {
-		if (initialBoard(boardID)) {
+	public String getGateway(String boardIP) {
+		if (initialBoard(boardIP)) {
 			out.println("GETGW");
 			out.flush();
 			try {
@@ -421,8 +445,8 @@ public class AVR {
 		return null;
 	}
 
-	public String setGateway(int boardID, String gateway) {
-		if (initialBoard(boardID)) {
+	public String setGateway(String boardIP, String gateway) {
+		if (initialBoard(boardIP)) {
 			out.println("SETGW " + gateway);
 			out.flush();
 			try {
@@ -436,8 +460,8 @@ public class AVR {
 		return null;
 	}
 
-	public String initLCD(int boardID) {
-		if (initialBoard(boardID)) {
+	public String initLCD(String boardIP) {
+		if (initialBoard(boardIP)) {
 			out.println("INITLCD");
 			out.flush();
 			try {
@@ -451,8 +475,8 @@ public class AVR {
 		return null;
 	}
 
-	public String writeLCD(int boardID, int line, String text) {
-		if (initialBoard(boardID)) {
+	public String writeLCD(String boardIP, int line, String text) {
+		if (initialBoard(boardIP)) {
 			out.println("WRITELCD " + line + "." + text);
 			out.flush();
 			try {
@@ -466,8 +490,8 @@ public class AVR {
 		return null;
 	}
 
-	public String clearLCD(int boardID) {
-		if (initialBoard(boardID)) {
+	public String clearLCD(String boardIP) {
+		if (initialBoard(boardIP)) {
 			out.println("CLEARLCD");
 			out.flush();
 			try {
@@ -481,8 +505,8 @@ public class AVR {
 		return null;
 	}
 
-	public String getVersion(int boardID) {
-		if (initialBoard(boardID)) {
+	public String getVersion(String boardIP) {
+		if (initialBoard(boardIP)) {
 			out.println("VERSION");
 			out.flush();
 			try {
