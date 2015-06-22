@@ -1,19 +1,14 @@
 package Control;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import DB.DBConnector;
 import Data.Ack;
-import Data.Anwendung;
-import Data.Board;
 import Data.Stat;
 import Data.Values;
 
@@ -26,7 +21,6 @@ import Data.Values;
 
 public class AVR {
 	private ConfigParser configParser = new ConfigParser();
-	private ArrayList<Board> boards;
 	String ip = "192.168.0.90";
 	String board1;
 	String board2;
@@ -36,9 +30,7 @@ public class AVR {
 	BufferedReader in = null;
 	Socket socket;
 	DBConnector db;
-	HashMap map = new HashMap();
-	Process q;
-
+	
 	public AVR() {
 		try {
 			configParser.parseConfig("/home/pi/project/Config.cfg");
@@ -53,39 +45,6 @@ public class AVR {
 
 	public String setBoard(String ip) {
 		this.ip = ip;
-		return "ok";
-	}
-
-	public String start(int id) {
-		Runtime r = Runtime.getRuntime();
-		Anwendung anw = db.getAnwendung(id);
-		Board board = db.getBoard(anw.getBoardID());
-		PrintWriter writer = null;
-		try {
-			String fileName = "/home/pi/" + anw.getName() + ".c";
-			writer = new PrintWriter(new BufferedWriter(
-					new FileWriter(fileName)));
-			writer.print(anw.getSkript());
-			writer.close();
-			Process p = r.exec("gcc " + fileName
-					+ " /home/pi/avrSL.so -o /home/pi/" + anw.getName());
-			Thread.sleep(2000);
-			q = r.exec("/home/pi/" + anw.getName() + " " + board.getIp());
-			map.put(id, q);
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
-		return anw.getSkript();
-
-	}
-
-	public String stop(int id) {
-		Process p = (Process) map.get(id);
-		p.destroy();
-		Anwendung anw = db.getAnwendung(id);
-		Board board = db.getBoard(anw.getBoardID());
-		setPorts(board.getIp(), "S00000000");
-		clearLCD(board.getIp());
 		return "ok";
 	}
 

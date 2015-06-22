@@ -80,13 +80,13 @@ public class EntryPoint {
 	@Path("start")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String start(@QueryParam("id") int id) {
-		return App.getAvr().start(id);
+		return App.getAnw().start(id);
 	}
 	
 	@GET
 	@Path("stop")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String stop(@QueryParam("id") int id) {
-		return App.getAvr().stop(id);
+		return App.getAnw().stop(id);
 	}
 }

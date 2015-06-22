@@ -13,7 +13,7 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok"){
 		<title>AVR</title>
 		<link href="css/bootstrap.css" rel="stylesheet">
 		<link href="css/prettify.css" rel="stylesheet">
-		<link href="css/test.css" rel="stylesheet" />
+		<link href="css/details.css" rel="stylesheet" />
 		<script>
 			function showHideLayer(id) {
 				e = document.getElementById(id);
@@ -55,8 +55,10 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok"){
 			}
 			
 			function deleteAnwendung(id){
-				$.ajax({url: "delete.php?ad="+id, async: false})
-					window.location.reload();  
+				if (confirm("Wollen Sie die Anwendung wirklich löschen?") == true) {
+     			  $.ajax({url: "delete.php?ad="+id, async: false})
+					window.location.reload(); 
+    			}   
 		    }
 		    
 		    function startAnwendung(id, board){
@@ -77,12 +79,33 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok"){
 						echo "board$i = $row->boardID;";
 					}
 		    	?>
-		    	for (i = 0; i < anzahl; i++) {
- 				   	var boardID = eval("board" + i);
- 				  
+		    	 for (i = 0; i < anzahl; i++) {
+ 				   var boardID = eval("board" + i);
  				   if(board==boardID){
- 				   		alert("Auf diesem Board läuft bereits eine Anwendung");
- 				   		return;
+							$.ajax({
+   								 type: "GET",
+    					   		 url: "checkStart.php?ad="+id,
+    					   		 dataType: "text",
+  								 success: function(data) {
+  									if(data == "false"){
+  										alert("Auf diesem Board läuft bereits eine Anwendung");
+  									}else{
+  										$.ajax({
+										type : "GET",
+										dataType : "json",
+										url : "/rest/start?id=" + id,
+										success : function(data) {
+										},
+										error : function() {
+										}
+									});
+									window.location.reload();
+  									}
+  									
+  						
+   								 }
+							});
+							return;
  				   }
 				}
 		    	$.ajax({
@@ -248,7 +271,7 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok"){
 													$ergebnis = mysql_query($sql);
 													$row = mysql_fetch_object($ergebnis);
 													if(($row->status)==1){
-														echo "class=\"fa fa-check-circle fa\"";
+														echo "class=\"fa fa-check-circle fa\" style=\"color:green\"";
 													}else{
 														echo "class=\"fa fa-times-circle fa\"";
 													}
@@ -1093,7 +1116,7 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok"){
 												$ergebnis = mysql_query($sql);
 												$row = mysql_fetch_object($ergebnis);
 												if(($row->status)==1){
-													echo "class=\"fa fa-check-circle fa\"";
+													echo "class=\"fa fa-check-circle fa\" style=\"color:green\"";
 												}else{
 													echo "class=\"fa fa-times-circle fa\"";
 												}
@@ -1963,7 +1986,7 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok"){
 												$ergebnis = mysql_query($sql);
 												$row = mysql_fetch_object($ergebnis);
 												if(($row->status)==1){
-													echo "class=\"fa fa-check-circle fa\"";
+													echo "class=\"fa fa-check-circle fa\" style=\"color:green\"";
 												}else{
 													echo "class=\"fa fa-times-circle fa\"";
 												}
@@ -2857,7 +2880,7 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok"){
 												$ergebnis = mysql_query($sql);
 												$row = mysql_fetch_object($ergebnis);
 												if(($row->status)==1){
-													echo "class=\"fa fa-check-circle fa\"";
+													echo "class=\"fa fa-check-circle fa\" style=\"color:green\"";
 												}else{
 													echo "class=\"fa fa-times-circle fa\"";
 												}
@@ -3748,7 +3771,7 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok"){
 													$ergebnis = mysql_query($sql);
 													$row = mysql_fetch_object($ergebnis);
 													if(($row->status)==1){
-														echo "class=\"fa fa-check-circle fa\"";
+														echo "class=\"fa fa-check-circle fa\" style=\"color:green\"";
 													}else{
 														echo "class=\"fa fa-times-circle fa\"";
 													}
@@ -4640,7 +4663,7 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok"){
 													$ergebnis = mysql_query($sql);
 													$row = mysql_fetch_object($ergebnis);
 													if(($row->status)==1){
-														echo "class=\"fa fa-check-circle fa\"";
+														echo "class=\"fa fa-check-circle fa\" style=\"color:green\"";
 													}else{
 														echo "class=\"fa fa-times-circle fa\"";
 													}
@@ -5532,7 +5555,7 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok"){
 													$ergebnis = mysql_query($sql);
 													$row = mysql_fetch_object($ergebnis);
 													if(($row->status)==1){
-														echo "class=\"fa fa-check-circle fa\"";
+														echo "class=\"fa fa-check-circle fa\" style=\"color:green\"";
 													}else{
 														echo "class=\"fa fa-times-circle fa\"";
 													}
@@ -6425,7 +6448,7 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok"){
 													$ergebnis = mysql_query($sql);
 													$row = mysql_fetch_object($ergebnis);
 													if(($row->status)==1){
-														echo "class=\"fa fa-check-circle fa\"";
+														echo "class=\"fa fa-check-circle fa\" style=\"color:green\"";
 													}else{
 														echo "class=\"fa fa-times-circle fa\"";
 													}
@@ -7318,7 +7341,7 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok"){
 													$ergebnis = mysql_query($sql);
 													$row = mysql_fetch_object($ergebnis);
 													if(($row->status)==1){
-														echo "class=\"fa fa-check-circle fa\"";
+														echo "class=\"fa fa-check-circle fa\" style=\"color:green\"";
 													}else{
 														echo "class=\"fa fa-times-circle fa\"";
 													}
@@ -8211,7 +8234,7 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok"){
 													$ergebnis = mysql_query($sql);
 													$row = mysql_fetch_object($ergebnis);
 													if(($row->status)==1){
-														echo "class=\"fa fa-check-circle fa\"";
+														echo "class=\"fa fa-check-circle fa\" style=\"color:green\"";
 													}else{
 														echo "class=\"fa fa-times-circle fa\"";
 													}

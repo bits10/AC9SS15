@@ -4,7 +4,6 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok" && $_SESSION["be"]==1){
 ?>
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -140,7 +139,6 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok" && $_SESSION["be"]==1){
 				});
 			}
 
-		
 			function refresh() {
 				var board;
 				if (document.getElementById("board1").checked == true) {
@@ -248,7 +246,6 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok" && $_SESSION["be"]==1){
 					},
 				});
 			}
-
 		
 			function initLCD() {
 				if (document.getElementById("board1").checked == true) {
@@ -604,14 +601,14 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok" && $_SESSION["be"]==1){
 							<p>
 								<?php
 								$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
-Benutzername oder Passwort sind falsch");
+								Benutzername oder Passwort sind falsch");
 								mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
 								$sql = "select beschreibung from AVR.Boards";
 								$ergebnis = mysql_query($sql);
 								$i = 1;
 								while ($row = mysql_fetch_object($ergebnis)) {
 									echo "
-<input id=\"board$i\" type=\"radio\" name=\"board$i\" value=\"board$i\" onclick=\"changeBoard($i)\">$row->beschreibung";
+									<input id=\"board$i\" type=\"radio\" name=\"board$i\" value=\"board$i\" onclick=\"changeBoard($i)\">$row->beschreibung";
 									echo "<span style=\"margin-left: 20px\"></span>";
 									$i++;
 								}

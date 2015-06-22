@@ -10,6 +10,14 @@ import java.util.ArrayList;
 import Data.Anwendung;
 import Data.Board;
 
+/**
+
+ * @author Timo Bayer
+
+ * @version 1.0
+
+ */ 
+
 public class DBConnector {
 	private PreparedStatement prepared;
 	private Connection con;

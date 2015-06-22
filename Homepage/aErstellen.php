@@ -101,7 +101,7 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok"){
 						<form name="form" method="post" action="erstellen.php" enctype="multipart/form-data">
 						<div class="col-md-6">
 						<label style="width: 30%">Name der Anwendung:</label>
-						<input type="text" onkeyup="pruefeName()" id="name" name="name"/><label id="vergeben" style="display:none ;margin-left:4px; color: red"> Name bereits vergeben</label><br /><br />
+						<input required="required" pattern="[A-Za-z0-9]*" type="text" onkeyup="pruefeName()" id="name" name="name"/><label id="vergeben" style="display:none ;margin-left:4px; color: red"> Name bereits vergeben</label><br /><br />
 						<label style="width: 30%">Beschreibung:</label><br />
 						<textarea name="beschreibung" cols="40" rows="2"></textarea><br /><br />
 						<label style="width: 30%">Grafik:</label>

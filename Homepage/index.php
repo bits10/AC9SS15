@@ -8,7 +8,6 @@
 	<link href="css/login.css" rel="stylesheet" />
 </head>
 <body>
-
 	<section class="container">
 		<div class="login">
 			<h1>Anmeldung</h1>

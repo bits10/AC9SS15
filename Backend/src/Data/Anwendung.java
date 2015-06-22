@@ -1,4 +1,11 @@
 package Data;
+/**
+
+ * @author Timo Bayer
+
+ * @version 1.0
+
+ */ 
 
 public class Anwendung {
 	private int id;

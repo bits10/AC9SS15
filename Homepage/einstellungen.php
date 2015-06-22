@@ -4,7 +4,6 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok" && $_SESSION["be"]==1){
 ?>
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,8 +21,7 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok" && $_SESSION["be"]==1){
 			$.ajax({url: "deleteUser.php?ad="+strUser, async: false})
 				window.location.reload();  
 		    }
-			
-			
+				
 			function deleteBoard(){
 			var e = document.getElementById("boards");
 			var strBoard = e.options[e.selectedIndex].text;
@@ -39,6 +37,51 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok" && $_SESSION["be"]==1){
 			$.ajax({url: "einstellungen.php?ad="+strUser+"&bo="+strBoard, async: false})
 				window.location = "einstellungen.php?ad="+strUser+"&bo="+strBoard;  
 		    }
+		    
+		    function reset(){
+		    	shUser();
+		    	var ip;
+		    	<?php
+		    		$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.
+					Benutzername oder Passwort sind falsch");
+					mysql_select_db("AVR") or die("Die Datenbank existiert nicht.");
+					if (isset($_GET['bo'])) {
+						$id =  $_GET['bo'];
+						$sql = "select ip from AVR.Boards where beschreibung ='$id'";
+						$ergebnis = mysql_query($sql);
+						$row=mysql_fetch_object($ergebnis);
+						echo "ip = \"$row->ip\";";
+					}    
+		    	?>
+		    	clearLCD(ip);
+		    	setPorts(ip);
+		    }
+		    
+		    function clearLCD(board) {
+				$.ajax({
+					type : "GET",
+					dataType : "json",
+					url : "/rest/clearLCD?boardIP=" + board,
+					success : function(data) {
+			
+					},
+					error : function() {
+
+					}
+				});
+			}
+			
+			function setPorts(board) {
+				$.ajax({
+					type : "GET",
+					dataType : "json",
+					url : "/rest/setPorts?boardIP=" + board + "&values=S00000000",
+					success : function(data) {
+					},
+					error : function() {
+					}
+				});
+			}
 		</script>
 		
 	</head>
@@ -189,7 +232,8 @@ if(isset($_SESSION["login"]) && $_SESSION["login"]=="ok" && $_SESSION["be"]==1){
 							 ?>	
 							</select>
 							<button onclick="shUser()">Anzeigen</button>
-							<button onclick="deleteBoard()">Löschen</button><br /><br />
+							<button onclick="deleteBoard()">Löschen</button>
+							<button onclick="reset()">Reset</button><br /><br />
 								<label style="width: 20%">Beschreibung:</label>
 								<?php
 								$verbindung = mysql_connect("localhost", "root", "ProjektSS15") or die("keine Verbindung möglich.

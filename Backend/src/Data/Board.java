@@ -1,5 +1,13 @@
 package Data;
 
+/**
+
+ * @author Timo Bayer
+
+ * @version 1.0
+
+ */ 
+
 public class Board {
 	private int id;
 	private String ip;
